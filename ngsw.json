@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1594965079421,
+  "timestamp": 1594965826600,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -57,7 +57,7 @@
   "dataGroups": [],
   "hashTable": {
     "/5-es2015.e7d921e54e9f670a02f9.js": "76e2482dbabc6ebc38f697de5c24cd21c43dfc9e",
-    "/5-es5.e7d921e54e9f670a02f9.js": "ad68b18c4188762f3b939b4069bc3f3730b0d482",
+    "/5-es5.e7d921e54e9f670a02f9.js": "df3bd8fcff8194d2c9eb77e85f7cef911fcc4509",
     "/MaterialIcons-Regular.4674f8ded773cb03e824.eot": "26fb8cecb5512223277b4d290a24492a0f09ede1",
     "/MaterialIcons-Regular.5e7382c63da0098d634a.ttf": "fc05de31234e0090f7ddc28ce1b23af4026cb1da",
     "/MaterialIcons-Regular.83bebaf37c09c7e1c3ee.woff": "c6c953c2ccb2ca9abb21db8dbf473b5a435f0082",
@@ -71,18 +71,18 @@
     "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/benchmarkSudokuWorker-es2015.3f824d3cc9ad19605ddc.worker.js": "b607c0f1d2e04aaea7e3da03403b7a16fa20b2cc",
-    "/benchmarkSudokuWorker-es5.3f824d3cc9ad19605ddc.worker.js": "6883caafb7475b0d3e84a1dcb5ed7a416a923a2b",
+    "/benchmarkSudokuWorker-es5.3f824d3cc9ad19605ddc.worker.js": "361b5dc0ed0b84561a6eea620c988fd46648b376",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
     "/index.html": "ce9e317df295e18b9cccd137b477260d27648de1",
     "/main-es2015.21ef015558d7064c8500.js": "d6d5c5a60e40446d55a4313b9626638e764a32b4",
-    "/main-es5.21ef015558d7064c8500.js": "043ebb2d7d890c3b6981c55d53e8c7f9feeea179",
+    "/main-es5.21ef015558d7064c8500.js": "71fcaf965603b4f94af5710b52338f2339e79c17",
     "/manifest.webmanifest": "2128ef9d1c78e1ea8eae43be4f2fc98cfd5e8949",
     "/polyfills-es2015.a80c430bb0e398ee45c9.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
-    "/polyfills-es5.618489dc8fa1c7d98341.js": "0aee34bd067d5a6a0a61ef2245421f87998eda1b",
+    "/polyfills-es5.618489dc8fa1c7d98341.js": "51967dcad233cf44d3870b48349329e10400d7b8",
     "/runtime-es2015.e5cd0e27a3d477a86246.js": "9dfc9b390ca8915d1495560f6f258b13f5e3ce8f",
     "/runtime-es5.e5cd0e27a3d477a86246.js": "714c7d6b426d0d3e091e1e65edff31ddb740dcb1",
     "/solveSudokuWorker-es2015.14622b8d10b74fcf388f.worker.js": "45c5a1a3da9c971f7df38872f33fb9b211aeb0da",
-    "/solveSudokuWorker-es5.14622b8d10b74fcf388f.worker.js": "d805449832f69549196f583a3a47e14b24399aef",
+    "/solveSudokuWorker-es5.14622b8d10b74fcf388f.worker.js": "87ef900421064ca009a59c78bd68b136fdd70f89",
     "/styles.1ab58a267f0214f67098.css": "4b39c7bbb55cd06e3c3d73df05821fd33e1e307a"
   },
   "navigationUrls": [
