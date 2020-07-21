@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1595310294098,
+  "timestamp": 1595310872888,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -17,8 +17,8 @@
         "/benchmarkSudokuWorker-es5.3f824d3cc9ad19605ddc.worker.js",
         "/favicon.ico",
         "/index.html",
-        "/main-es2015.5231bcfcf48e5bf7e7cf.js",
-        "/main-es5.5231bcfcf48e5bf7e7cf.js",
+        "/main-es2015.a8d79f6ceb1bfec59bea.js",
+        "/main-es5.a8d79f6ceb1bfec59bea.js",
         "/manifest.webmanifest",
         "/polyfills-es2015.a80c430bb0e398ee45c9.js",
         "/polyfills-es5.618489dc8fa1c7d98341.js",
@@ -26,7 +26,7 @@
         "/runtime-es5.c11077fe32c7bf7106b3.js",
         "/solveSudokuWorker-es2015.14622b8d10b74fcf388f.worker.js",
         "/solveSudokuWorker-es5.14622b8d10b74fcf388f.worker.js",
-        "/styles.1ab58a267f0214f67098.css"
+        "/styles.a4db57d29bdc0868af35.css"
       ],
       "patterns": []
     },
@@ -73,9 +73,9 @@
     "/benchmarkSudokuWorker-es2015.3f824d3cc9ad19605ddc.worker.js": "b607c0f1d2e04aaea7e3da03403b7a16fa20b2cc",
     "/benchmarkSudokuWorker-es5.3f824d3cc9ad19605ddc.worker.js": "361b5dc0ed0b84561a6eea620c988fd46648b376",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/index.html": "6b372adec3c889e64858b3f567a6072f569fb55a",
-    "/main-es2015.5231bcfcf48e5bf7e7cf.js": "872fe56ad6c360a0ffa2fc4d868a5bc78af41934",
-    "/main-es5.5231bcfcf48e5bf7e7cf.js": "62dfeb9b837a48d38889d162da72099a824145f4",
+    "/index.html": "d5bec8948d8680d04a01a550bd730908368b3610",
+    "/main-es2015.a8d79f6ceb1bfec59bea.js": "e5f4d4959a61fb058f782d242c725f9c71105a42",
+    "/main-es5.a8d79f6ceb1bfec59bea.js": "d647f8c3ea428ccf4e0a6208466ffbb779cd7891",
     "/manifest.webmanifest": "2128ef9d1c78e1ea8eae43be4f2fc98cfd5e8949",
     "/polyfills-es2015.a80c430bb0e398ee45c9.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
     "/polyfills-es5.618489dc8fa1c7d98341.js": "51967dcad233cf44d3870b48349329e10400d7b8",
@@ -83,7 +83,7 @@
     "/runtime-es5.c11077fe32c7bf7106b3.js": "08edefcfd7afa3e34ac2def5ed917fc4ab5f196f",
     "/solveSudokuWorker-es2015.14622b8d10b74fcf388f.worker.js": "45c5a1a3da9c971f7df38872f33fb9b211aeb0da",
     "/solveSudokuWorker-es5.14622b8d10b74fcf388f.worker.js": "87ef900421064ca009a59c78bd68b136fdd70f89",
-    "/styles.1ab58a267f0214f67098.css": "4b39c7bbb55cd06e3c3d73df05821fd33e1e307a"
+    "/styles.a4db57d29bdc0868af35.css": "8bbd3a9670a304cccb5abfa95174294023d5b4da"
   },
   "navigationUrls": [
     {
