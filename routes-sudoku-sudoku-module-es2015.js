@@ -5817,8 +5817,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -11414,6 +11414,7 @@ const formDirectiveProvider$1 = {
  * @see [Reactive Forms Guide](guide/reactive-forms)
  * @see `AbstractControl`
  *
+ * @usageNotes
  * ### Register Form Group
  *
  * The following example registers a `FormGroup` with first name and last name controls,
@@ -12789,7 +12790,7 @@ FormBuilder.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.2');
 
 /**
  * @license
@@ -50443,8 +50444,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -50771,7 +50772,10 @@ class HttpUrlEncodingCodec {
 function paramParser(rawParams, codec) {
     const map = new Map();
     if (rawParams.length > 0) {
-        const params = rawParams.split('&');
+        // The `window.location.search` can be used while creating an instance of the `HttpParams` class
+        // (e.g. `new HttpParams({ fromString: window.location.search })`). The `window.location.search`
+        // may start with the `?` char, so we strip it if it's present.
+        const params = rawParams.replace(/^\?/, '').split('&');
         params.forEach((param) => {
             const eqIdx = param.indexOf('=');
             const [key, val] = eqIdx == -1 ?
@@ -52237,6 +52241,7 @@ class HttpXhrBackend {
             xhr.addEventListener('load', onLoad);
             xhr.addEventListener('error', onError);
             xhr.addEventListener('timeout', onError);
+            xhr.addEventListener('abort', onError);
             // Progress events are only enabled if requested.
             if (req.reportProgress) {
                 // Download progress is always enabled if requested.
@@ -52254,6 +52259,7 @@ class HttpXhrBackend {
             return () => {
                 // On a cancellation, remove all registered event listeners.
                 xhr.removeEventListener('error', onError);
+                xhr.removeEventListener('abort', onError);
                 xhr.removeEventListener('load', onLoad);
                 xhr.removeEventListener('timeout', onError);
                 if (req.reportProgress) {

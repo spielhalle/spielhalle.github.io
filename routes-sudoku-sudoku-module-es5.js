@@ -9589,8 +9589,8 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.1
-       * (c) 2010-2020 Google LLC. https://angular.io/
+       * @license Angular v11.2.2
+       * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
 
@@ -17353,6 +17353,7 @@
        * @see [Reactive Forms Guide](guide/reactive-forms)
        * @see `AbstractControl`
        *
+       * @usageNotes
        * ### Register Form Group
        *
        * The following example registers a `FormGroup` with first name and last name controls,
@@ -19556,7 +19557,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.1');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -68380,8 +68381,8 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.1
-       * (c) 2010-2020 Google LLC. https://angular.io/
+       * @license Angular v11.2.2
+       * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
 
@@ -68813,7 +68814,10 @@
         var map = new Map();
 
         if (rawParams.length > 0) {
-          var params = rawParams.split('&');
+          // The `window.location.search` can be used while creating an instance of the `HttpParams` class
+          // (e.g. `new HttpParams({ fromString: window.location.search })`). The `window.location.search`
+          // may start with the `?` char, so we strip it if it's present.
+          var params = rawParams.replace(/^\?/, '').split('&');
           params.forEach(function (param) {
             var eqIdx = param.indexOf('=');
 
@@ -70751,7 +70755,8 @@
 
               xhr.addEventListener('load', onLoad);
               xhr.addEventListener('error', onError);
-              xhr.addEventListener('timeout', onError); // Progress events are only enabled if requested.
+              xhr.addEventListener('timeout', onError);
+              xhr.addEventListener('abort', onError); // Progress events are only enabled if requested.
 
               if (req.reportProgress) {
                 // Download progress is always enabled if requested.
@@ -70772,6 +70777,7 @@
               return function () {
                 // On a cancellation, remove all registered event listeners.
                 xhr.removeEventListener('error', onError);
+                xhr.removeEventListener('abort', onError);
                 xhr.removeEventListener('load', onLoad);
                 xhr.removeEventListener('timeout', onError);
 

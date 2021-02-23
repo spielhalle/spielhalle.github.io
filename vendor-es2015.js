@@ -6563,8 +6563,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -8516,8 +8516,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationGroupPlayer", function() { return AnimationGroupPlayer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPRE_STYLE", function() { return ɵPRE_STYLE; });
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -9750,8 +9750,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ "t9l1");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -13807,8 +13807,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -13935,6 +13935,110 @@ function resolveForwardRef(type) {
 function isForwardRef(fn) {
     return typeof fn === 'function' && fn.hasOwnProperty(__forward_ref__) &&
         fn.__forward_ref__ === forwardRef;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Base URL for the error details page.
+// Keep this value in sync with a similar const in
+// `packages/compiler-cli/src/ngtsc/diagnostics/src/error_code.ts`.
+const ERROR_DETAILS_PAGE_BASE_URL = 'https://angular.io/errors';
+class RuntimeError extends Error {
+    constructor(code, message) {
+        super(formatRuntimeError(code, message));
+        this.code = code;
+    }
+}
+// Contains a set of error messages that have details guides at angular.io.
+// Full list of available error guides can be found at https://angular.io/errors
+/* tslint:disable:no-toplevel-property-access */
+const RUNTIME_ERRORS_WITH_GUIDES = new Set([
+    "100" /* EXPRESSION_CHANGED_AFTER_CHECKED */,
+    "200" /* CYCLIC_DI_DEPENDENCY */,
+    "201" /* PROVIDER_NOT_FOUND */,
+    "300" /* MULTIPLE_COMPONENTS_MATCH */,
+    "301" /* EXPORT_NOT_FOUND */,
+    "302" /* PIPE_NOT_FOUND */,
+]);
+/* tslint:enable:no-toplevel-property-access */
+/** Called to format a runtime error */
+function formatRuntimeError(code, message) {
+    const fullCode = code ? `NG0${code}: ` : '';
+    let errorMessage = `${fullCode}${message}`;
+    // Some runtime errors are still thrown without `ngDevMode` (for example
+    // `throwProviderNotFoundError`), so we add `ngDevMode` check here to avoid pulling
+    // `RUNTIME_ERRORS_WITH_GUIDES` symbol into prod bundles.
+    // TODO: revisit all instances where `RuntimeError` is thrown and see if `ngDevMode` can be added
+    // there instead to tree-shake more devmode-only code (and eventually remove `ngDevMode` check
+    // from this code).
+    if (ngDevMode && RUNTIME_ERRORS_WITH_GUIDES.has(code)) {
+        errorMessage = `${errorMessage}. Find more at ${ERROR_DETAILS_PAGE_BASE_URL}/NG0${code}`;
+    }
+    return errorMessage;
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Used for stringify render output in Ivy.
+ * Important! This function is very performance-sensitive and we should
+ * be extra careful not to introduce megamorphic reads in it.
+ * Check `core/test/render3/perf/render_stringify` for benchmarks and alternate implementations.
+ */
+function renderStringify(value) {
+    if (typeof value === 'string')
+        return value;
+    if (value == null)
+        return '';
+    // Use `String` so that it invokes the `toString` method of the value. Note that this
+    // appears to be faster than calling `value.toString` (see `render_stringify` benchmark).
+    return String(value);
+}
+/**
+ * Used to stringify a value so that it can be displayed in an error message.
+ * Important! This function contains a megamorphic read and should only be
+ * used for error messages.
+ */
+function stringifyForError(value) {
+    if (typeof value === 'function')
+        return value.name || value.toString();
+    if (typeof value === 'object' && value != null && typeof value.type === 'function') {
+        return value.type.name || value.type.toString();
+    }
+    return renderStringify(value);
+}
+
+/** Called when directives inject each other (creating a circular dependency) */
+function throwCyclicDependencyError(token, path) {
+    const depPath = path ? `. Dependency path: ${path.join(' > ')} > ${token}` : '';
+    throw new RuntimeError("200" /* CYCLIC_DI_DEPENDENCY */, `Circular dependency in DI detected for ${token}${depPath}`);
+}
+function throwMixedMultiProviderError() {
+    throw new Error(`Cannot mix multi providers and regular providers`);
+}
+function throwInvalidProviderError(ngModuleType, providers, provider) {
+    let ngModuleDetail = '';
+    if (ngModuleType && providers) {
+        const providerDetail = providers.map(v => v == provider ? '?' + provider + '?' : '...');
+        ngModuleDetail =
+            ` - only instances of Provider and Type are allowed, got: [${providerDetail.join(', ')}]`;
+    }
+    throw new Error(`Invalid provider for the NgModule '${stringify(ngModuleType)}'` + ngModuleDetail);
+}
+/** Throws an error when a token is not found in DI. */
+function throwProviderNotFoundError(token, injectorName) {
+    const injectorDetails = injectorName ? ` in ${injectorName}` : '';
+    throw new RuntimeError("201" /* PROVIDER_NOT_FOUND */, `No provider for ${stringifyForError(token)} found${injectorDetails}`);
 }
 
 /**
@@ -14248,7 +14352,7 @@ function injectRootLimpMode(token, notFoundValue, flags) {
         return null;
     if (notFoundValue !== undefined)
         return notFoundValue;
-    throw new Error(`Injector: NOT_FOUND [${stringify(token)}]`);
+    throwProviderNotFoundError(stringify(token), 'Injector');
 }
 /**
  * Assert that `_injectImplementation` is not `fn`.
@@ -15106,110 +15210,6 @@ function getFactoryDef(type, throwNotFound) {
         throw new Error(`Type ${stringify(type)} does not have 'ɵfac' property.`);
     }
     return hasFactoryDef ? type[NG_FACTORY_DEF] : null;
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// Base URL for the error details page.
-// Keep this value in sync with a similar const in
-// `packages/compiler-cli/src/ngtsc/diagnostics/src/error_code.ts`.
-const ERROR_DETAILS_PAGE_BASE_URL = 'https://angular.io/errors';
-class RuntimeError extends Error {
-    constructor(code, message) {
-        super(formatRuntimeError(code, message));
-        this.code = code;
-    }
-}
-// Contains a set of error messages that have details guides at angular.io.
-// Full list of available error guides can be found at https://angular.io/errors
-/* tslint:disable:no-toplevel-property-access */
-const RUNTIME_ERRORS_WITH_GUIDES = new Set([
-    "100" /* EXPRESSION_CHANGED_AFTER_CHECKED */,
-    "200" /* CYCLIC_DI_DEPENDENCY */,
-    "201" /* PROVIDER_NOT_FOUND */,
-    "300" /* MULTIPLE_COMPONENTS_MATCH */,
-    "301" /* EXPORT_NOT_FOUND */,
-    "302" /* PIPE_NOT_FOUND */,
-]);
-/* tslint:enable:no-toplevel-property-access */
-/** Called to format a runtime error */
-function formatRuntimeError(code, message) {
-    const fullCode = code ? `NG0${code}: ` : '';
-    let errorMessage = `${fullCode}${message}`;
-    // Some runtime errors are still thrown without `ngDevMode` (for example
-    // `throwProviderNotFoundError`), so we add `ngDevMode` check here to avoid pulling
-    // `RUNTIME_ERRORS_WITH_GUIDES` symbol into prod bundles.
-    // TODO: revisit all instances where `RuntimeError` is thrown and see if `ngDevMode` can be added
-    // there instead to tree-shake more devmode-only code (and eventually remove `ngDevMode` check
-    // from this code).
-    if (ngDevMode && RUNTIME_ERRORS_WITH_GUIDES.has(code)) {
-        errorMessage = `${errorMessage}. Find more at ${ERROR_DETAILS_PAGE_BASE_URL}/NG0${code}`;
-    }
-    return errorMessage;
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Used for stringify render output in Ivy.
- * Important! This function is very performance-sensitive and we should
- * be extra careful not to introduce megamorphic reads in it.
- * Check `core/test/render3/perf/render_stringify` for benchmarks and alternate implementations.
- */
-function renderStringify(value) {
-    if (typeof value === 'string')
-        return value;
-    if (value == null)
-        return '';
-    // Use `String` so that it invokes the `toString` method of the value. Note that this
-    // appears to be faster than calling `value.toString` (see `render_stringify` benchmark).
-    return String(value);
-}
-/**
- * Used to stringify a value so that it can be displayed in an error message.
- * Important! This function contains a megamorphic read and should only be
- * used for error messages.
- */
-function stringifyForError(value) {
-    if (typeof value === 'function')
-        return value.name || value.toString();
-    if (typeof value === 'object' && value != null && typeof value.type === 'function') {
-        return value.type.name || value.type.toString();
-    }
-    return renderStringify(value);
-}
-
-/** Called when directives inject each other (creating a circular dependency) */
-function throwCyclicDependencyError(token, path) {
-    const depPath = path ? `. Dependency path: ${path.join(' > ')} > ${token}` : '';
-    throw new RuntimeError("200" /* CYCLIC_DI_DEPENDENCY */, `Circular dependency in DI detected for ${token}${depPath}`);
-}
-function throwMixedMultiProviderError() {
-    throw new Error(`Cannot mix multi providers and regular providers`);
-}
-function throwInvalidProviderError(ngModuleType, providers, provider) {
-    let ngModuleDetail = '';
-    if (ngModuleType && providers) {
-        const providerDetail = providers.map(v => v == provider ? '?' + provider + '?' : '...');
-        ngModuleDetail =
-            ` - only instances of Provider and Type are allowed, got: [${providerDetail.join(', ')}]`;
-    }
-    throw new Error(`Invalid provider for the NgModule '${stringify(ngModuleType)}'` + ngModuleDetail);
-}
-/** Throws an error when a token is not found in DI. */
-function throwProviderNotFoundError(token, injectorName) {
-    const injectorDetails = injectorName ? ` in ${injectorName}` : '';
-    throw new RuntimeError("201" /* PROVIDER_NOT_FOUND */, `No provider for ${stringifyForError(token)} found${injectorDetails}`);
 }
 
 /**
@@ -35204,7 +35204,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.2.1');
+const VERSION = new Version('11.2.2');
 
 /**
  * @license
@@ -43179,9 +43179,8 @@ function optionsReducer(dst, objs) {
  */
 class ApplicationRef {
     /** @internal */
-    constructor(_zone, _console, _injector, _exceptionHandler, _componentFactoryResolver, _initStatus) {
+    constructor(_zone, _injector, _exceptionHandler, _componentFactoryResolver, _initStatus) {
         this._zone = _zone;
-        this._console = _console;
         this._injector = _injector;
         this._exceptionHandler = _exceptionHandler;
         this._componentFactoryResolver = _componentFactoryResolver;
@@ -43297,8 +43296,11 @@ class ApplicationRef {
             }
         });
         this._loadComponent(compRef);
-        if (isDevMode()) {
-            this._console.log(`Angular is running in development mode. Call enableProdMode() to enable production mode.`);
+        // Note that we have still left the `isDevMode()` condition in order to avoid
+        // creating a breaking change for projects that still use the View Engine.
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && isDevMode()) {
+            const _console = this._injector.get(Console);
+            _console.log(`Angular is running in development mode. Call enableProdMode() to enable production mode.`);
         }
         return compRef;
     }
@@ -43375,11 +43377,10 @@ class ApplicationRef {
         return this._views.length;
     }
 }
-ApplicationRef.ɵfac = function ApplicationRef_Factory(t) { return new (t || ApplicationRef)(ɵɵinject(NgZone), ɵɵinject(Console), ɵɵinject(Injector), ɵɵinject(ErrorHandler), ɵɵinject(ComponentFactoryResolver), ɵɵinject(ApplicationInitStatus)); };
+ApplicationRef.ɵfac = function ApplicationRef_Factory(t) { return new (t || ApplicationRef)(ɵɵinject(NgZone), ɵɵinject(Injector), ɵɵinject(ErrorHandler), ɵɵinject(ComponentFactoryResolver), ɵɵinject(ApplicationInitStatus)); };
 ApplicationRef.ɵprov = ɵɵdefineInjectable({ token: ApplicationRef, factory: ApplicationRef.ɵfac });
 ApplicationRef.ctorParameters = () => [
     { type: NgZone },
-    { type: Console },
     { type: Injector },
     { type: ErrorHandler },
     { type: ComponentFactoryResolver },
@@ -43387,7 +43388,7 @@ ApplicationRef.ctorParameters = () => [
 ];
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ApplicationRef, [{
         type: Injectable
-    }], function () { return [{ type: NgZone }, { type: Console }, { type: Injector }, { type: ErrorHandler }, { type: ComponentFactoryResolver }, { type: ApplicationInitStatus }]; }, null); })();
+    }], function () { return [{ type: NgZone }, { type: Injector }, { type: ErrorHandler }, { type: ComponentFactoryResolver }, { type: ApplicationInitStatus }]; }, null); })();
 function remove(list, el) {
     const index = list.indexOf(el);
     if (index > -1) {
@@ -44329,7 +44330,7 @@ const APPLICATION_MODULE_PROVIDERS = [
     {
         provide: ApplicationRef,
         useClass: ApplicationRef,
-        deps: [NgZone, Console, Injector, ErrorHandler, ComponentFactoryResolver, ApplicationInitStatus]
+        deps: [NgZone, Injector, ErrorHandler, ComponentFactoryResolver, ApplicationInitStatus]
     },
     { provide: SCHEDULER, deps: [NgZone], useFactory: zoneSchedulerFactory },
     {
@@ -47266,8 +47267,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ɵgetDOM", function() { return _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"]; });
 
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -48258,14 +48259,17 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         this._config = _config;
         this.console = console;
         this.loader = loader;
+        this._loaderPromise = null;
     }
     supports(eventName) {
         if (!EVENT_NAMES.hasOwnProperty(eventName.toLowerCase()) && !this.isCustomEvent(eventName)) {
             return false;
         }
         if (!window.Hammer && !this.loader) {
-            this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
-                `loaded and no custom loader has been specified.`);
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                this.console.warn(`The "${eventName}" event cannot be bound because Hammer.JS is not ` +
+                    `loaded and no custom loader has been specified.`);
+            }
             return false;
         }
         return true;
@@ -48276,6 +48280,7 @@ class HammerGesturesPlugin extends EventManagerPlugin {
         // If Hammer is not present but a loader is specified, we defer adding the event listener
         // until Hammer is loaded.
         if (!window.Hammer && this.loader) {
+            this._loaderPromise = this._loaderPromise || this.loader();
             // This `addEventListener` method returns a function to remove the added listener.
             // Until Hammer is loaded, the returned function needs to *cancel* the registration rather
             // than remove anything.
@@ -48283,11 +48288,13 @@ class HammerGesturesPlugin extends EventManagerPlugin {
             let deregister = () => {
                 cancelRegistration = true;
             };
-            this.loader()
+            this._loaderPromise
                 .then(() => {
                 // If Hammer isn't actually loaded when the custom loader resolves, give up.
                 if (!window.Hammer) {
-                    this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+                    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                        this.console.warn(`The custom HAMMER_LOADER completed, but Hammer.JS is not present.`);
+                    }
                     deregister = () => { };
                     return;
                 }
@@ -48298,8 +48305,10 @@ class HammerGesturesPlugin extends EventManagerPlugin {
                 }
             })
                 .catch(() => {
-                this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
-                    `Hammer.JS loader failed.`);
+                if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                    this.console.warn(`The "${eventName}" event cannot be bound because the custom ` +
+                        `Hammer.JS loader failed.`);
+                }
                 deregister = () => { };
             });
             // Return a function that *executes* `deregister` (and not `deregister` itself) so that we
@@ -49408,7 +49417,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.2');
 
 /**
  * @license
@@ -51041,8 +51050,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵsetRootDomAdapter", function() { return setRootDomAdapter; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -56299,7 +56308,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.2');
 
 /**
  * @license
@@ -57654,8 +57663,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ "R0Ic");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -62210,6 +62219,9 @@ class WebAnimationsPlayer {
         }
     }
     setPosition(p) {
+        if (this.domPlayer === undefined) {
+            this.init();
+        }
         this.domPlayer.currentTime = p * this.time;
     }
     getPosition() {
@@ -62548,8 +62560,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.1
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v11.2.2
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -68479,7 +68491,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.2');
 
 /**
  * @license
