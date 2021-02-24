@@ -12266,7 +12266,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15614,7 +15614,7 @@
         return ɵPRE_STYLE;
       });
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -17220,7 +17220,7 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -26335,7 +26335,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -51901,7 +51901,7 @@
        */
 
 
-      var VERSION = new Version('11.2.2');
+      var VERSION = new Version('11.2.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -68394,7 +68394,7 @@
         return _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"];
       });
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -71699,7 +71699,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.2');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -75345,7 +75345,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -82527,7 +82527,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.2');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -85131,7 +85131,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -92275,7 +92275,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.2
+       * @license Angular v11.2.3
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -100500,7 +100500,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.2');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
