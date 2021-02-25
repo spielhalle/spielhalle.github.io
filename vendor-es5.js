@@ -18812,6 +18812,10 @@
                 subject.complete();
               }
             });
+
+            if (isComplete) {
+              subscription = undefined;
+            }
           } else {
             innerSub = subject.subscribe(this);
           }
@@ -18819,6 +18823,7 @@
           this.add(function () {
             refCount--;
             innerSub.unsubscribe();
+            innerSub = undefined;
 
             if (subscription && !isComplete && useRefCount && refCount === 0) {
               subscription.unsubscribe();
