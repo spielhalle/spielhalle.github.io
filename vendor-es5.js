@@ -45,7 +45,7 @@
 
   function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+  function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
   function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -20234,15 +20234,15 @@
           key: "_complete",
           value: function _complete() {
             if (!this.hasValue) {
-              var _err;
+              var err;
 
               try {
-                _err = this.errorFactory();
+                err = this.errorFactory();
               } catch (e) {
-                _err = e;
+                err = e;
               }
 
-              this.destination.error(_err);
+              this.destination.error(err);
             } else {
               return this.destination.complete();
             }
@@ -74685,7 +74685,7 @@
 
       var subscribeToArray = function subscribeToArray(array) {
         return function (subscriber) {
-          for (var i = 0, _len47 = array.length; i < _len47 && !subscriber.closed; i++) {
+          for (var i = 0, len = array.length; i < len && !subscriber.closed; i++) {
             subscriber.next(array[i]);
           }
 
@@ -83487,7 +83487,7 @@
       "VRyK");
 
       function merge() {
-        for (var _len48 = arguments.length, observables = new Array(_len48), _key47 = 0; _key47 < _len48; _key47++) {
+        for (var _len47 = arguments.length, observables = new Array(_len47), _key47 = 0; _key47 < _len47; _key47++) {
           observables[_key47] = arguments[_key47];
         }
 
@@ -84387,9 +84387,9 @@
             if (Object(_util_isArray__WEBPACK_IMPORTED_MODULE_0__["isArray"])(_subscriptions)) {
               var _index4 = -1;
 
-              var _len49 = _subscriptions.length;
+              var len = _subscriptions.length;
 
-              while (++_index4 < _len49) {
+              while (++_index4 < len) {
                 var sub = _subscriptions[_index4];
 
                 if (Object(_util_isObject__WEBPACK_IMPORTED_MODULE_1__["isObject"])(sub)) {
@@ -84699,9 +84699,9 @@
             var contexts = this.contexts;
 
             if (contexts) {
-              var _len50 = contexts.length;
+              var len = contexts.length;
 
-              for (var i = 0; i < _len50; i++) {
+              for (var i = 0; i < len; i++) {
                 contexts[i].window.next(value);
               }
             }
@@ -84713,10 +84713,10 @@
             this.contexts = null;
 
             if (contexts) {
-              var _len51 = contexts.length;
+              var len = contexts.length;
               var index = -1;
 
-              while (++index < _len51) {
+              while (++index < len) {
                 var context = contexts[index];
                 context.window.error(err);
                 context.subscription.unsubscribe();
@@ -84732,10 +84732,10 @@
             this.contexts = null;
 
             if (contexts) {
-              var _len52 = contexts.length;
+              var len = contexts.length;
               var index = -1;
 
-              while (++index < _len52) {
+              while (++index < len) {
                 var context = contexts[index];
                 context.window.complete();
                 context.subscription.unsubscribe();
@@ -84751,10 +84751,10 @@
             this.contexts = null;
 
             if (contexts) {
-              var _len53 = contexts.length;
+              var len = contexts.length;
               var index = -1;
 
-              while (++index < _len53) {
+              while (++index < len) {
                 var context = contexts[index];
                 context.window.unsubscribe();
                 context.subscription.unsubscribe();
@@ -85786,7 +85786,7 @@
 
       function dashCaseToCamelCase(input) {
         return input.replace(DASH_CASE_REGEXP, function () {
-          for (var _len54 = arguments.length, m = new Array(_len54), _key49 = 0; _key49 < _len54; _key49++) {
+          for (var _len48 = arguments.length, m = new Array(_len48), _key49 = 0; _key49 < _len48; _key49++) {
             m[_key49] = arguments[_key49];
           }
 
@@ -103117,7 +103117,7 @@
             var politeness;
             var duration;
 
-            for (var _len55 = arguments.length, args = new Array(_len55 > 1 ? _len55 - 1 : 0), _key50 = 1; _key50 < _len55; _key50++) {
+            for (var _len49 = arguments.length, args = new Array(_len49 > 1 ? _len49 - 1 : 0), _key50 = 1; _key50 < _len49; _key50++) {
               args[_key50 - 1] = arguments[_key50];
             }
 
@@ -104385,7 +104385,7 @@
       "zx2A");
 
       function onErrorResumeNext() {
-        for (var _len56 = arguments.length, nextSources = new Array(_len56), _key51 = 0; _key51 < _len56; _key51++) {
+        for (var _len50 = arguments.length, nextSources = new Array(_len50), _key51 = 0; _key51 < _len50; _key51++) {
           nextSources[_key51] = arguments[_key51];
         }
 
@@ -104399,7 +104399,7 @@
       }
 
       function onErrorResumeNextStatic() {
-        for (var _len57 = arguments.length, nextSources = new Array(_len57), _key52 = 0; _key52 < _len57; _key52++) {
+        for (var _len51 = arguments.length, nextSources = new Array(_len51), _key52 = 0; _key52 < _len51; _key52++) {
           nextSources[_key52] = arguments[_key52];
         }
 
@@ -104909,7 +104909,7 @@
       "lJxs");
 
       function pluck() {
-        for (var _len58 = arguments.length, properties = new Array(_len58), _key53 = 0; _key53 < _len58; _key53++) {
+        for (var _len52 = arguments.length, properties = new Array(_len52), _key53 = 0; _key53 < _len52; _key53++) {
           properties[_key53] = arguments[_key53];
         }
 
@@ -105251,7 +105251,7 @@
             return _source2.removeListener(eventName, handler);
           };
         } else if (sourceObj && sourceObj.length) {
-          for (var i = 0, _len59 = sourceObj.length; i < _len59; i++) {
+          for (var i = 0, len = sourceObj.length; i < len; i++) {
             setupSubscription(sourceObj[i], eventName, handler, subscriber, options);
           }
         } else {
@@ -105853,7 +105853,7 @@
       "ZUHj");
 
       function withLatestFrom() {
-        for (var _len60 = arguments.length, args = new Array(_len60), _key54 = 0; _key54 < _len60; _key54++) {
+        for (var _len53 = arguments.length, args = new Array(_len53), _key54 = 0; _key54 < _len53; _key54++) {
           args[_key54] = arguments[_key54];
         }
 
