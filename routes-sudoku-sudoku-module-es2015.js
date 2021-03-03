@@ -5564,7 +5564,7 @@ class SudokuBenchmarkComponent {
         }
     }
     onSizeSelected(evt) {
-        this.sudokuBoardSize = Math.pow(evt.value, 2);
+        this.sudokuBoardSize = Math.pow((evt.value || 0), 2);
     }
 }
 SudokuBenchmarkComponent.ɵfac = function SudokuBenchmarkComponent_Factory(t) { return new (t || SudokuBenchmarkComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"])); };

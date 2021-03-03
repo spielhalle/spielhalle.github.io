@@ -8746,7 +8746,7 @@
           }, {
             key: "onSizeSelected",
             value: function onSizeSelected(evt) {
-              this.sudokuBoardSize = Math.pow(evt.value, 2);
+              this.sudokuBoardSize = Math.pow(evt.value || 0, 2);
             }
           }]);
 
