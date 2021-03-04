@@ -6054,7 +6054,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.2');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -6094,7 +6094,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.2');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.3');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -7824,7 +7824,7 @@
         }, {
           key: "_onTouchStart",
           value: function _onTouchStart(event) {
-            if (!this._target.rippleDisabled) {
+            if (!this._target.rippleDisabled && !Object(_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_1__["isFakeTouchstartFromScreenReader"])(event)) {
               // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
               // events will launch a second ripple if we don't ignore mouse events for a specific
               // time after a touchstart event.
@@ -100588,7 +100588,7 @@
       !*** ./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/a11y.js ***!
       \*****************************************************************/
 
-    /*! exports provided: A11yModule, ActiveDescendantKeyManager, AriaDescriber, CDK_DESCRIBEDBY_HOST_ATTRIBUTE, CDK_DESCRIBEDBY_ID_PREFIX, CdkAriaLive, CdkMonitorFocus, CdkTrapFocus, ConfigurableFocusTrap, ConfigurableFocusTrapFactory, EventListenerFocusTrapInertStrategy, FOCUS_MONITOR_DEFAULT_OPTIONS, FOCUS_TRAP_INERT_STRATEGY, FocusKeyManager, FocusMonitor, FocusTrap, FocusTrapFactory, HighContrastModeDetector, InteractivityChecker, IsFocusableConfig, LIVE_ANNOUNCER_DEFAULT_OPTIONS, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY, ListKeyManager, LiveAnnouncer, MESSAGES_CONTAINER_ID, TOUCH_BUFFER_MS, isFakeMousedownFromScreenReader, ɵangular_material_src_cdk_a11y_a11y_a, ɵangular_material_src_cdk_a11y_a11y_b */
+    /*! exports provided: A11yModule, ActiveDescendantKeyManager, AriaDescriber, CDK_DESCRIBEDBY_HOST_ATTRIBUTE, CDK_DESCRIBEDBY_ID_PREFIX, CdkAriaLive, CdkMonitorFocus, CdkTrapFocus, ConfigurableFocusTrap, ConfigurableFocusTrapFactory, EventListenerFocusTrapInertStrategy, FOCUS_MONITOR_DEFAULT_OPTIONS, FOCUS_TRAP_INERT_STRATEGY, FocusKeyManager, FocusMonitor, FocusTrap, FocusTrapFactory, HighContrastModeDetector, InteractivityChecker, IsFocusableConfig, LIVE_ANNOUNCER_DEFAULT_OPTIONS, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY, ListKeyManager, LiveAnnouncer, MESSAGES_CONTAINER_ID, TOUCH_BUFFER_MS, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader, ɵangular_material_src_cdk_a11y_a11y_a, ɵangular_material_src_cdk_a11y_a11y_b */
 
     /***/
     function u47x(module, __webpack_exports__, __webpack_require__) {
@@ -100762,6 +100762,12 @@
 
       __webpack_require__.d(__webpack_exports__, "isFakeMousedownFromScreenReader", function () {
         return isFakeMousedownFromScreenReader;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "isFakeTouchstartFromScreenReader", function () {
+        return isFakeTouchstartFromScreenReader;
       });
       /* harmony export (binding) */
 
@@ -103451,17 +103457,26 @@
        * found in the LICENSE file at https://angular.io/license
        */
 
-      /**
-       * Screenreaders will often fire fake mousedown events when a focusable element
-       * is activated using the keyboard. We can typically distinguish between these faked
-       * mousedown events and real mousedown events using the "buttons" property. While
-       * real mousedowns will indicate the mouse button that was pressed (e.g. "1" for
-       * the left mouse button), faked mousedowns will usually set the property value to 0.
-       */
+      /** Gets whether an event could be a faked `mousedown` event dispatched by a screen reader. */
 
 
       function isFakeMousedownFromScreenReader(event) {
+        // We can typically distinguish between these faked mousedown events and real mousedown events
+        // using the "buttons" property. While real mousedowns will indicate the mouse button that was
+        // pressed (e.g. "1" for the left mouse button), faked mousedowns will usually set the property
+        // value to 0.
         return event.buttons === 0;
+      }
+      /** Gets whether an event could be a faked `touchstart` event dispatched by a screen reader. */
+
+
+      function isFakeTouchstartFromScreenReader(event) {
+        var touch = event.touches && event.touches[0] || event.changedTouches && event.changedTouches[0]; // A fake `touchstart` can be distinguished from a real one by looking at the `identifier`
+        // which is typically >= 0 on a real device versus -1 from a screen reader. Just to be safe,
+        // we can also look at `radiusX` and `radiusY`. This behavior was observed against a Windows 10
+        // device with a touch screen running NVDA v2020.4 and Firefox 85 or Chrome 88.
+
+        return !!touch && touch.identifier === -1 && (touch.radiusX == null || touch.radiusX === 1) && (touch.radiusY == null || touch.radiusY === 1);
       }
       /**
        * @license
@@ -103554,17 +103569,23 @@
 
 
           this._documentTouchstartListener = function (event) {
-            // When the touchstart event fires the focus event is not yet in the event queue. This means
-            // we can't rely on the trick used above (setting timeout of 1ms). Instead we wait 650ms to
-            // see if a focus happens.
-            if (_this289._touchTimeoutId != null) {
-              clearTimeout(_this289._touchTimeoutId);
-            }
+            // Some screen readers will fire a fake `touchstart` event if an element is activated using
+            // the keyboard while on a device with a touchsreen. Consider such events as keyboard focus.
+            if (!isFakeTouchstartFromScreenReader(event)) {
+              // When the touchstart event fires the focus event is not yet in the event queue. This means
+              // we can't rely on the trick used above (setting timeout of 1ms). Instead we wait 650ms to
+              // see if a focus happens.
+              if (_this289._touchTimeoutId != null) {
+                clearTimeout(_this289._touchTimeoutId);
+              }
 
-            _this289._lastTouchTarget = getTarget(event);
-            _this289._touchTimeoutId = setTimeout(function () {
-              return _this289._lastTouchTarget = null;
-            }, TOUCH_BUFFER_MS);
+              _this289._lastTouchTarget = getTarget(event);
+              _this289._touchTimeoutId = setTimeout(function () {
+                return _this289._lastTouchTarget = null;
+              }, TOUCH_BUFFER_MS);
+            } else if (!_this289._lastTouchTarget) {
+              _this289._setOriginForCurrentEventQueue('keyboard');
+            }
           };
           /**
            * Event listener for `focus` events on the window.
@@ -105348,7 +105369,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.2');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
