@@ -58438,7 +58438,7 @@
             });
 
             for (var _i12 = 0; _i12 < 9 * 9; _i12++) {
-              var text = new pixi_js__WEBPACK_IMPORTED_MODULE_0__["Text"]('' + _i12, txtStyle);
+              var text = new pixi_js__WEBPACK_IMPORTED_MODULE_0__["Text"]("".concat(_i12), txtStyle);
               text.x = 25 + _i12 % 9 * 50 - text.width / 2;
               text.y = 25 + Math.floor(_i12 / 9) * 50 - text.height / 2;
               this.textLayer.addChild(text);
@@ -58460,7 +58460,7 @@
 
             for (var x = 0; x < board.length; x++) {
               for (var y = 0; y < board.length; y++) {
-                this.updateText(this.textLayer.children[totalIdx], x, y, '' + board[x][y]);
+                this.updateText(this.textLayer.children[totalIdx], x, y, "".concat(board[x][y]));
                 totalIdx++;
               }
             }

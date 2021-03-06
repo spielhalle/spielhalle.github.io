@@ -43365,7 +43365,7 @@ class SudokuBoardGame {
             fontSize: 24,
         });
         for (let i = 0; i < 9 * 9; i++) {
-            const text = new pixi_js__WEBPACK_IMPORTED_MODULE_0__["Text"]('' + i, txtStyle);
+            const text = new pixi_js__WEBPACK_IMPORTED_MODULE_0__["Text"](`${i}`, txtStyle);
             text.x = 25 + ((i % 9) * 50) - (text.width / 2);
             text.y = 25 + (Math.floor(i / 9) * 50) - (text.height / 2);
             this.textLayer.addChild(text);
@@ -43381,7 +43381,7 @@ class SudokuBoardGame {
         let totalIdx = 0;
         for (let x = 0; x < board.length; x++) {
             for (let y = 0; y < board.length; y++) {
-                this.updateText(this.textLayer.children[totalIdx], x, y, '' + board[x][y]);
+                this.updateText(this.textLayer.children[totalIdx], x, y, `${board[x][y]}`);
                 totalIdx++;
             }
         }
