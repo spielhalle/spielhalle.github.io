@@ -1262,13 +1262,14 @@
         _classCallCheck2(this, MatTableModule);
       };
 
+      MatTableModule.ɵfac = function MatTableModule_Factory(t) {
+        return new (t || MatTableModule)();
+      };
+
       MatTableModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: MatTableModule
       });
       MatTableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function MatTableModule_Factory(t) {
-          return new (t || MatTableModule)();
-        },
         imports: [[_angular_cdk_table__WEBPACK_IMPORTED_MODULE_1__["CdkTableModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_3__["MatCommonModule"]], _angular_material_core__WEBPACK_IMPORTED_MODULE_3__["MatCommonModule"]]
       });
 
@@ -2812,14 +2813,14 @@
         _classCallCheck2(this, PortalModule);
       };
 
+      PortalModule.ɵfac = function PortalModule_Factory(t) {
+        return new (t || PortalModule)();
+      };
+
       PortalModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: PortalModule
       });
-      PortalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function PortalModule_Factory(t) {
-          return new (t || PortalModule)();
-        }
-      });
+      PortalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({});
 
       (function () {
         (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](PortalModule, {
@@ -8077,13 +8078,14 @@
         _classCallCheck2(this, MatDialogModule);
       };
 
+      MatDialogModule.ɵfac = function MatDialogModule_Factory(t) {
+        return new (t || MatDialogModule)();
+      };
+
       MatDialogModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({
         type: MatDialogModule
       });
       MatDialogModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({
-        factory: function MatDialogModule_Factory(t) {
-          return new (t || MatDialogModule)();
-        },
         providers: [MatDialog, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER],
         imports: [[_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_0__["OverlayModule"], _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__["PortalModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_3__["MatCommonModule"]], _angular_material_core__WEBPACK_IMPORTED_MODULE_3__["MatCommonModule"]]
       });
@@ -8201,13 +8203,14 @@
         _classCallCheck2(this, SudokuRoutingModule);
       };
 
+      SudokuRoutingModule.ɵfac = function SudokuRoutingModule_Factory(t) {
+        return new (t || SudokuRoutingModule)();
+      };
+
       SudokuRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({
         type: SudokuRoutingModule
       });
       SudokuRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({
-        factory: function SudokuRoutingModule_Factory(t) {
-          return new (t || SudokuRoutingModule)();
-        },
         imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forChild(playRoutes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]]
       });
 
@@ -9589,7 +9592,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.4
+       * @license Angular v11.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -19367,14 +19370,14 @@
         _classCallCheck2(this, ɵInternalFormsSharedModule);
       };
 
+      ɵInternalFormsSharedModule.ɵfac = function ɵInternalFormsSharedModule_Factory(t) {
+        return new (t || ɵInternalFormsSharedModule)();
+      };
+
       ɵInternalFormsSharedModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: ɵInternalFormsSharedModule
       });
-      ɵInternalFormsSharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function ɵInternalFormsSharedModule_Factory(t) {
-          return new (t || ɵInternalFormsSharedModule)();
-        }
-      });
+      ɵInternalFormsSharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({});
 
       (function () {
         (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](ɵInternalFormsSharedModule, {
@@ -19568,7 +19571,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.4');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -19591,13 +19594,14 @@
         _classCallCheck2(this, FormsModule);
       };
 
+      FormsModule.ɵfac = function FormsModule_Factory(t) {
+        return new (t || FormsModule)();
+      };
+
       FormsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: FormsModule
       });
       FormsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function FormsModule_Factory(t) {
-          return new (t || FormsModule)();
-        },
         providers: [RadioControlRegistry],
         imports: [ɵInternalFormsSharedModule]
       });
@@ -19660,13 +19664,14 @@
         return ReactiveFormsModule;
       }();
 
+      ReactiveFormsModule.ɵfac = function ReactiveFormsModule_Factory(t) {
+        return new (t || ReactiveFormsModule)();
+      };
+
       ReactiveFormsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: ReactiveFormsModule
       });
       ReactiveFormsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function ReactiveFormsModule_Factory(t) {
-          return new (t || ReactiveFormsModule)();
-        },
         providers: [FormBuilder, RadioControlRegistry],
         imports: [ɵInternalFormsSharedModule]
       });
@@ -23162,13 +23167,14 @@
         _classCallCheck2(this, MatSliderModule);
       };
 
+      MatSliderModule.ɵfac = function MatSliderModule_Factory(t) {
+        return new (t || MatSliderModule)();
+      };
+
       MatSliderModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({
         type: MatSliderModule
       });
       MatSliderModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({
-        factory: function MatSliderModule_Factory(t) {
-          return new (t || MatSliderModule)();
-        },
         imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"]], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"]]
       });
 
@@ -31322,13 +31328,14 @@
         _classCallCheck2(this, SudokuModule);
       };
 
+      SudokuModule.ɵfac = function SudokuModule_Factory(t) {
+        return new (t || SudokuModule)();
+      };
+
       SudokuModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineNgModule"]({
         type: SudokuModule
       });
       SudokuModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵdefineInjector"]({
-        factory: function SudokuModule_Factory(t) {
-          return new (t || SudokuModule)();
-        },
         providers: [_services__WEBPACK_IMPORTED_MODULE_7__["SudokuSolverService"], _sudoku_can_activate__WEBPACK_IMPORTED_MODULE_8__["SudokuCanActivateGuard"]],
         imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_1__["MatButtonModule"], _modules__WEBPACK_IMPORTED_MODULE_5__["SudokuFieldModule"], _modules_sudoku_benchmark__WEBPACK_IMPORTED_MODULE_6__["SudokuBenchmarkModule"], _sudoku_routing_module__WEBPACK_IMPORTED_MODULE_9__["SudokuRoutingModule"], _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_3__["MatToolbarModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_2__["MatIconModule"]]]
       });
@@ -35733,13 +35740,14 @@
         _classCallCheck2(this, MatIconModule);
       };
 
+      MatIconModule.ɵfac = function MatIconModule_Factory(t) {
+        return new (t || MatIconModule)();
+      };
+
       MatIconModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: MatIconModule
       });
       MatIconModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function MatIconModule_Factory(t) {
-          return new (t || MatIconModule)();
-        },
         imports: [[_angular_material_core__WEBPACK_IMPORTED_MODULE_1__["MatCommonModule"]], _angular_material_core__WEBPACK_IMPORTED_MODULE_1__["MatCommonModule"]]
       });
 
@@ -48810,13 +48818,14 @@
         _classCallCheck2(this, MatProgressBarModule);
       };
 
+      MatProgressBarModule.ɵfac = function MatProgressBarModule_Factory(t) {
+        return new (t || MatProgressBarModule)();
+      };
+
       MatProgressBarModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: MatProgressBarModule
       });
       MatProgressBarModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function MatProgressBarModule_Factory(t) {
-          return new (t || MatProgressBarModule)();
-        },
         imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"]], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"]]
       });
 
@@ -49102,13 +49111,14 @@
         _classCallCheck2(this, MatDividerModule);
       };
 
+      MatDividerModule.ɵfac = function MatDividerModule_Factory(t) {
+        return new (t || MatDividerModule)();
+      };
+
       MatDividerModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: MatDividerModule
       });
       MatDividerModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function MatDividerModule_Factory(t) {
-          return new (t || MatDividerModule)();
-        },
         imports: [[_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"]], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"]]
       });
 
@@ -53563,13 +53573,14 @@
         _classCallCheck2(this, CdkTableModule);
       };
 
+      CdkTableModule.ɵfac = function CdkTableModule_Factory(t) {
+        return new (t || CdkTableModule)();
+      };
+
       CdkTableModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineNgModule"]({
         type: CdkTableModule
       });
       CdkTableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({
-        factory: function CdkTableModule_Factory(t) {
-          return new (t || CdkTableModule)();
-        },
         imports: [[_angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_5__["ScrollingModule"]]]
       });
 
@@ -55353,13 +55364,14 @@
         _classCallCheck2(this, SudokuFieldModule);
       };
 
+      SudokuFieldModule.ɵfac = function SudokuFieldModule_Factory(t) {
+        return new (t || SudokuFieldModule)();
+      };
+
       SudokuFieldModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineNgModule"]({
         type: SudokuFieldModule
       });
       SudokuFieldModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineInjector"]({
-        factory: function SudokuFieldModule_Factory(t) {
-          return new (t || SudokuFieldModule)();
-        },
         imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_1__["MatButtonModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogModule"]]]
       });
 
@@ -66904,13 +66916,14 @@
         _classCallCheck2(this, OverlayModule);
       };
 
+      OverlayModule.ɵfac = function OverlayModule_Factory(t) {
+        return new (t || OverlayModule)();
+      };
+
       OverlayModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({
         type: OverlayModule
       });
       OverlayModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({
-        factory: function OverlayModule_Factory(t) {
-          return new (t || OverlayModule)();
-        },
         providers: [Overlay, CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER],
         imports: [[_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_3__["BidiModule"], _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_6__["PortalModule"], _angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_0__["ScrollingModule"]], _angular_cdk_scrolling__WEBPACK_IMPORTED_MODULE_0__["ScrollingModule"]]
       });
@@ -68392,7 +68405,7 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.4
+       * @license Angular v11.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -69696,6 +69709,14 @@
        *    return this.httpClient.request('GET', this.heroesUrl, {responseType:'json', params});
        * }
        * ```
+       *
+       * Alternatively, the parameter string can be used without invoking HttpParams
+       * by directly joining to the URL.
+       * ```
+       * this.httpClient.request('GET', this.heroesUrl + '?' + 'name=term', {responseType:'json'});
+       * ```
+       *
+       *
        * ### JSONP Example
        * ```
        * requestJsonp(url, callback = 'callback') {
@@ -69714,6 +69735,7 @@
        * ```
        *
        * @see [HTTP Guide](guide/http)
+       * @see [HTTP Request](api/common/http/HttpRequest)
        *
        * @publicApi
        */
@@ -71205,13 +71227,14 @@
         return HttpClientXsrfModule;
       }();
 
+      HttpClientXsrfModule.ɵfac = function HttpClientXsrfModule_Factory(t) {
+        return new (t || HttpClientXsrfModule)();
+      };
+
       HttpClientXsrfModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: HttpClientXsrfModule
       });
       HttpClientXsrfModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function HttpClientXsrfModule_Factory(t) {
-          return new (t || HttpClientXsrfModule)();
-        },
         providers: [HttpXsrfInterceptor, {
           provide: HTTP_INTERCEPTORS,
           useExisting: HttpXsrfInterceptor,
@@ -71264,13 +71287,14 @@
         _classCallCheck2(this, HttpClientModule);
       };
 
+      HttpClientModule.ɵfac = function HttpClientModule_Factory(t) {
+        return new (t || HttpClientModule)();
+      };
+
       HttpClientModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: HttpClientModule
       });
       HttpClientModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function HttpClientModule_Factory(t) {
-          return new (t || HttpClientModule)();
-        },
         providers: [HttpClient, {
           provide: HttpHandler,
           useClass: HttpInterceptingHandler
@@ -71339,13 +71363,14 @@
         _classCallCheck2(this, HttpClientJsonpModule);
       };
 
+      HttpClientJsonpModule.ɵfac = function HttpClientJsonpModule_Factory(t) {
+        return new (t || HttpClientJsonpModule)();
+      };
+
       HttpClientJsonpModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: HttpClientJsonpModule
       });
       HttpClientJsonpModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        factory: function HttpClientJsonpModule_Factory(t) {
-          return new (t || HttpClientJsonpModule)();
-        },
         providers: [JsonpClientBackend, {
           provide: JsonpCallbackContext,
           useFactory: jsonpCallbackContext
@@ -74182,14 +74207,14 @@
         _classCallCheck2(this, CdkScrollableModule);
       };
 
+      CdkScrollableModule.ɵfac = function CdkScrollableModule_Factory(t) {
+        return new (t || CdkScrollableModule)();
+      };
+
       CdkScrollableModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({
         type: CdkScrollableModule
       });
-      CdkScrollableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({
-        factory: function CdkScrollableModule_Factory(t) {
-          return new (t || CdkScrollableModule)();
-        }
-      });
+      CdkScrollableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({});
 
       (function () {
         (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](CdkScrollableModule, {
@@ -74216,13 +74241,14 @@
         _classCallCheck2(this, ScrollingModule);
       };
 
+      ScrollingModule.ɵfac = function ScrollingModule_Factory(t) {
+        return new (t || ScrollingModule)();
+      };
+
       ScrollingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({
         type: ScrollingModule
       });
       ScrollingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({
-        factory: function ScrollingModule_Factory(t) {
-          return new (t || ScrollingModule)();
-        },
         imports: [[_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_6__["BidiModule"], _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_4__["PlatformModule"], CdkScrollableModule], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_6__["BidiModule"], CdkScrollableModule]
       });
 
@@ -89131,13 +89157,14 @@
         _classCallCheck2(this, SudokuBenchmarkModule);
       };
 
+      SudokuBenchmarkModule.ɵfac = function SudokuBenchmarkModule_Factory(t) {
+        return new (t || SudokuBenchmarkModule)();
+      };
+
       SudokuBenchmarkModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineNgModule"]({
         type: SudokuBenchmarkModule
       });
       SudokuBenchmarkModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineInjector"]({
-        factory: function SudokuBenchmarkModule_Factory(t) {
-          return new (t || SudokuBenchmarkModule)();
-        },
         imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_1__["MatButtonModule"], _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_3__["MatProgressBarModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_4__["MatSliderModule"], _angular_material_divider__WEBPACK_IMPORTED_MODULE_2__["MatDividerModule"], _angular_material_table__WEBPACK_IMPORTED_MODULE_5__["MatTableModule"], _sudoku_board_sudoku_field_module__WEBPACK_IMPORTED_MODULE_6__["SudokuFieldModule"]]]
       });
 

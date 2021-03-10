@@ -315,14 +315,15 @@
         _classCallCheck(this, AppModule);
       };
 
+      AppModule.ɵfac = function AppModule_Factory(t) {
+        return new (t || AppModule)();
+      };
+
       AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineNgModule"]({
         type: AppModule,
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
       });
       AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_9__["ɵɵdefineInjector"]({
-        factory: function AppModule_Factory(t) {
-          return new (t || AppModule)();
-        },
         providers: [],
         imports: [[_modules_home__WEBPACK_IMPORTED_MODULE_7__["HomeModule"], _modules_not_found__WEBPACK_IMPORTED_MODULE_8__["NotFoundModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"].withServerTransition({
           appId: 'serverApp'
@@ -405,13 +406,14 @@
         _classCallCheck(this, HomeModule);
       };
 
+      HomeModule.ɵfac = function HomeModule_Factory(t) {
+        return new (t || HomeModule)();
+      };
+
       HomeModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({
         type: HomeModule
       });
       HomeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({
-        factory: function HomeModule_Factory(t) {
-          return new (t || HomeModule)();
-        },
         imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_1__["MatButtonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_2__["MatCardModule"]]]
       });
 
@@ -604,13 +606,14 @@
         _classCallCheck(this, NotFoundModule);
       };
 
+      NotFoundModule.ɵfac = function NotFoundModule_Factory(t) {
+        return new (t || NotFoundModule)();
+      };
+
       NotFoundModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineNgModule"]({
         type: NotFoundModule
       });
       NotFoundModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjector"]({
-        factory: function NotFoundModule_Factory(t) {
-          return new (t || NotFoundModule)();
-        },
         imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_1__["MatButtonModule"]]]
       });
 
@@ -790,13 +793,14 @@
         _classCallCheck(this, AppRoutingModule);
       };
 
+      AppRoutingModule.ɵfac = function AppRoutingModule_Factory(t) {
+        return new (t || AppRoutingModule)();
+      };
+
       AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineNgModule"]({
         type: AppRoutingModule
       });
       AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({
-        factory: function AppRoutingModule_Factory(t) {
-          return new (t || AppRoutingModule)();
-        },
         imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(appRoutes, {
           initialNavigation: 'enabled',
           relativeLinkResolution: 'legacy'
