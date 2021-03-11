@@ -660,13 +660,27 @@ class _MatTableDataSource extends _angular_cdk_table__WEBPACK_IMPORTED_MODULE_1_
     }
     /** Array of data that should be rendered by the table, where each object represents one row. */
     get data() { return this._data.value; }
-    set data(data) { this._data.next(data); }
+    set data(data) {
+        this._data.next(data);
+        // Normally the `filteredData` is updated by the re-render
+        // subscription, but that won't happen if it's inactive.
+        if (!this._renderChangesSubscription) {
+            this._filterData(data);
+        }
+    }
     /**
      * Filter term that should be used to filter out objects from the data array. To override how
      * data objects match to this filter string, provide a custom function for filterPredicate.
      */
     get filter() { return this._filter.value; }
-    set filter(filter) { this._filter.next(filter); }
+    set filter(filter) {
+        this._filter.next(filter);
+        // Normally the `filteredData` is updated by the re-render
+        // subscription, but that won't happen if it's inactive.
+        if (!this._renderChangesSubscription) {
+            this._filterData(this.data);
+        }
+    }
     /**
      * Instance of the MatSort directive used by the table to control its sorting. Sort changes
      * emitted by the MatSort will trigger an update to the table's rendered data.
@@ -4225,7 +4239,7 @@ class _MatDialogContainerBase extends _angular_cdk_portal__WEBPACK_IMPORTED_MODU
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (this._config.restoreFocus && previousElement &&
             typeof previousElement.focus === 'function') {
-            const activeElement = this._document.activeElement;
+            const activeElement = this._getActiveElement();
             const element = this._elementRef.nativeElement;
             // Make sure that focus is still inside the dialog or is on the body (usually because a
             // non-focusable element like the backdrop was clicked) before moving it. It's possible that
@@ -4253,7 +4267,7 @@ class _MatDialogContainerBase extends _angular_cdk_portal__WEBPACK_IMPORTED_MODU
     /** Captures the element that was focused before the dialog was opened. */
     _capturePreviouslyFocusedElement() {
         if (this._document) {
-            this._elementFocusedBeforeDialogWasOpened = this._document.activeElement;
+            this._elementFocusedBeforeDialogWasOpened = this._getActiveElement();
         }
     }
     /** Focuses the dialog container. */
@@ -4266,8 +4280,16 @@ class _MatDialogContainerBase extends _angular_cdk_portal__WEBPACK_IMPORTED_MODU
     /** Returns whether focus is inside the dialog. */
     _containsFocus() {
         const element = this._elementRef.nativeElement;
-        const activeElement = this._document.activeElement;
+        const activeElement = this._getActiveElement();
         return element === activeElement || element.contains(activeElement);
+    }
+    /** Gets the currently-focused element on the page. */
+    _getActiveElement() {
+        var _a;
+        // If the `activeElement` is inside a shadow root, `document.activeElement` will
+        // point to the shadow root so we have to descend into it ourselves.
+        const activeElement = this._document.activeElement;
+        return ((_a = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _a === void 0 ? void 0 : _a.activeElement) || activeElement;
     }
 }
 _MatDialogContainerBase.ɵfac = function _MatDialogContainerBase_Factory(t) { return new (t || _MatDialogContainerBase)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_8__["FocusTrapFactory"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__["ChangeDetectorRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_5__["DOCUMENT"], 8), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](MatDialogConfig), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_8__["FocusMonitor"])); };
