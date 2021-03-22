@@ -95,10 +95,10 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "backtrackSolve", function() { return solve; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "backtrackSolve", function() { return solve$1; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEmptySudokuBoard", function() { return createEmptySudokuBoard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSudokuBoard", function() { return createSudokuBoard; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "knuthSolve", function() { return solve$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "knuthSolve", function() { return solve; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "knuthSolveNum", function() { return solveNum; });
 /**!
  * Source https://github.com/donmahallem/js-libs Package: sudoku
@@ -180,13 +180,13 @@ const isValid = (board, row, column, boardSize, boxSize) => {
 /**!
  * Source https://github.com/donmahallem/js-libs Package: sudoku
  */
-const solve = (board, boardSize, boxSize) => {
+const solve$1 = (board, boardSize, boxSize) => {
     for (let row = BOARD_START_IDX; row < boardSize; row++) {
         for (let column = BOARD_START_IDX; column < boardSize; column++) {
             if (board[row][column] === EMPTY_CELL) {
                 for (let k = CELL_VALUE_MIN; k <= boardSize; k++) {
                     board[row][column] = k;
-                    if (isValid(board, row, column, boardSize, boxSize) && solve(board, boardSize, boxSize)) {
+                    if (isValid(board, row, column, boardSize, boxSize) && solve$1(board, boardSize, boxSize)) {
                         return true;
                     }
                     board[row][column] = EMPTY_CELL;
@@ -499,14 +499,14 @@ const initializeExactCoverBoard = (board, boardSize, boxSize) => {
 /**!
  * Source https://github.com/donmahallem/js-libs Package: sudoku
  */
-const solve$1 = (board, boardSize, boxSize, cb) => {
+const solve = (board, boardSize, boxSize, cb) => {
     const cover = initializeExactCoverBoard(board, boardSize, boxSize);
     const dlx = new DLX(cover, boardSize);
     dlx.runSolver(cb);
 };
 const solveNum = (board, boardSize, boxSize, num) => {
     const results = [];
-    solve$1(board, boardSize, boxSize, (result) => {
+    solve(board, boardSize, boxSize, (result) => {
         results.push(result);
         return results.length >= num;
     });
@@ -543,7 +543,7 @@ const createSudokuBoard = (boardSize, retainPercentage) => {
 };
 
 
-// BUILD: Tue Feb 23 2021 09:46:03 GMT+0000 (Coordinated Universal Time)
+// BUILD: Mon Mar 22 2021 19:41:21 GMT+0000 (Coordinated Universal Time)
 
 //# sourceMappingURL=index.js.map
 

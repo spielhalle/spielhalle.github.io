@@ -296,7 +296,7 @@
 
 
       __webpack_require__.d(__webpack_exports__, "backtrackSolve", function () {
-        return solve;
+        return solve$1;
       });
       /* harmony export (binding) */
 
@@ -314,7 +314,7 @@
 
 
       __webpack_require__.d(__webpack_exports__, "knuthSolve", function () {
-        return solve$1;
+        return solve;
       });
       /* harmony export (binding) */
 
@@ -412,14 +412,14 @@
        */
 
 
-      var solve = function solve(board, boardSize, boxSize) {
+      var solve$1 = function solve$1(board, boardSize, boxSize) {
         for (var row = BOARD_START_IDX; row < boardSize; row++) {
           for (var column = BOARD_START_IDX; column < boardSize; column++) {
             if (board[row][column] === EMPTY_CELL) {
               for (var k = CELL_VALUE_MIN; k <= boardSize; k++) {
                 board[row][column] = k;
 
-                if (isValid(board, row, column, boardSize, boxSize) && solve(board, boardSize, boxSize)) {
+                if (isValid(board, row, column, boardSize, boxSize) && solve$1(board, boardSize, boxSize)) {
                   return true;
                 }
 
@@ -851,7 +851,7 @@
        */
 
 
-      var solve$1 = function solve$1(board, boardSize, boxSize, cb) {
+      var solve = function solve(board, boardSize, boxSize, cb) {
         var cover = initializeExactCoverBoard(board, boardSize, boxSize);
         var dlx = new DLX(cover, boardSize);
         dlx.runSolver(cb);
@@ -859,7 +859,7 @@
 
       var solveNum = function solveNum(board, boardSize, boxSize, num) {
         var results = [];
-        solve$1(board, boardSize, boxSize, function (result) {
+        solve(board, boardSize, boxSize, function (result) {
           results.push(result);
           return results.length >= num;
         });
@@ -907,7 +907,7 @@
         }
 
         return selectBoard;
-      }; // BUILD: Tue Feb 23 2021 09:46:03 GMT+0000 (Coordinated Universal Time)
+      }; // BUILD: Mon Mar 22 2021 19:41:21 GMT+0000 (Coordinated Universal Time)
       //# sourceMappingURL=index.js.map
 
       /***/
