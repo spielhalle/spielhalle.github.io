@@ -3235,7 +3235,7 @@ function MatOption_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("(", ctx_r1.group.label, ")");
 } }
 const _c2 = ["*"];
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.6');
 
 /**
  * @license
@@ -3269,7 +3269,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.6');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -50729,8 +50729,9 @@ let scrollBehaviorSupported;
 /** Check whether the browser supports scroll behaviors. */
 function supportsScrollBehavior() {
     if (scrollBehaviorSupported == null) {
-        // If we're not in the browser, it can't be supported.
-        if (typeof document !== 'object' || !document) {
+        // If we're not in the browser, it can't be supported. Also check for `Element`, because
+        // some projects stub out the global `document` during SSR which can throw us off.
+        if (typeof document !== 'object' || !document || typeof Element !== 'function' || !Element) {
             scrollBehaviorSupported = false;
             return scrollBehaviorSupported;
         }
@@ -69505,10 +69506,10 @@ function getWindow(node) {
  *
  * This class currently uses a relatively simple approach to focus trapping.
  * It assumes that the tab order is the same as DOM order, which is not necessarily true.
- * Things like `tabIndex > 0`, flex `order`, and shadow roots can cause the two to misalign.
+ * Things like `tabIndex > 0`, flex `order`, and shadow roots can cause the two to be misaligned.
  *
  * @deprecated Use `ConfigurableFocusTrap` instead.
- * @breaking-change for 11.0.0 Remove this class.
+ * @breaking-change 11.0.0
  */
 class FocusTrap {
     constructor(_element, _checker, _ngZone, _document, deferAnchors = false) {
@@ -69556,7 +69557,7 @@ class FocusTrap {
     /**
      * Inserts the anchors into the DOM. This is usually done automatically
      * in the constructor, but can be deferred for cases like directives with `*ngIf`.
-     * @returns Whether the focus trap managed to attach successfuly. This may not be the case
+     * @returns Whether the focus trap managed to attach successfully. This may not be the case
      * if the target element isn't currently in the DOM.
      */
     attachAnchors() {
@@ -69779,7 +69780,7 @@ class FocusTrap {
 /**
  * Factory that allows easy instantiation of focus traps.
  * @deprecated Use `ConfigurableFocusTrapFactory` instead.
- * @breaking-change for 11.0.0 Remove this class.
+ * @breaking-change 11.0.0
  */
 class FocusTrapFactory {
     constructor(_checker, _ngZone, _document) {
@@ -71520,7 +71521,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.6');
 
 /**
  * @license

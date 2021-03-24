@@ -6055,7 +6055,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.6');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -6095,7 +6095,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.6');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -74438,8 +74438,9 @@
 
       function supportsScrollBehavior() {
         if (scrollBehaviorSupported == null) {
-          // If we're not in the browser, it can't be supported.
-          if (typeof document !== 'object' || !document) {
+          // If we're not in the browser, it can't be supported. Also check for `Element`, because
+          // some projects stub out the global `document` during SSR which can throw us off.
+          if (typeof document !== 'object' || !document || typeof Element !== 'function' || !Element) {
             scrollBehaviorSupported = false;
             return scrollBehaviorSupported;
           } // If the element can have a `scrollBehavior` style, we can be sure that it's supported.
@@ -102035,10 +102036,10 @@
        *
        * This class currently uses a relatively simple approach to focus trapping.
        * It assumes that the tab order is the same as DOM order, which is not necessarily true.
-       * Things like `tabIndex > 0`, flex `order`, and shadow roots can cause the two to misalign.
+       * Things like `tabIndex > 0`, flex `order`, and shadow roots can cause the two to be misaligned.
        *
        * @deprecated Use `ConfigurableFocusTrap` instead.
-       * @breaking-change for 11.0.0 Remove this class.
+       * @breaking-change 11.0.0
        */
 
 
@@ -102117,7 +102118,7 @@
           /**
            * Inserts the anchors into the DOM. This is usually done automatically
            * in the constructor, but can be deferred for cases like directives with `*ngIf`.
-           * @returns Whether the focus trap managed to attach successfuly. This may not be the case
+           * @returns Whether the focus trap managed to attach successfully. This may not be the case
            * if the target element isn't currently in the DOM.
            */
 
@@ -102417,7 +102418,7 @@
       /**
        * Factory that allows easy instantiation of focus traps.
        * @deprecated Use `ConfigurableFocusTrapFactory` instead.
-       * @breaking-change for 11.0.0 Remove this class.
+       * @breaking-change 11.0.0
        */
 
 
@@ -105360,7 +105361,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.6');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
