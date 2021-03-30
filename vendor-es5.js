@@ -106325,7 +106325,15 @@
           return result.subscribe(innerSubscriber);
         }
 
-        return Object(_util_subscribeTo__WEBPACK_IMPORTED_MODULE_2__["subscribeTo"])(result)(innerSubscriber);
+        var subscription;
+
+        try {
+          subscription = Object(_util_subscribeTo__WEBPACK_IMPORTED_MODULE_2__["subscribeTo"])(result)(innerSubscriber);
+        } catch (error) {
+          innerSubscriber.error(error);
+        }
+
+        return subscription;
       } //# sourceMappingURL=innerSubscribe.js.map
 
       /***/
