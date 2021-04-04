@@ -11237,7 +11237,7 @@ SolveComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineCom
 /*!********************************************************************!*\
   !*** ./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js ***!
   \********************************************************************/
-/*! exports provided: AbstractControl, AbstractControlDirective, AbstractFormGroupDirective, COMPOSITION_BUFFER_MODE, CheckboxControlValueAccessor, CheckboxRequiredValidator, ControlContainer, DefaultValueAccessor, EmailValidator, FormArray, FormArrayName, FormBuilder, FormControl, FormControlDirective, FormControlName, FormGroup, FormGroupDirective, FormGroupName, FormsModule, MaxLengthValidator, MinLengthValidator, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgControlStatus, NgControlStatusGroup, NgForm, NgModel, NgModelGroup, NgSelectOption, NumberValueAccessor, PatternValidator, RadioControlValueAccessor, RangeValueAccessor, ReactiveFormsModule, RequiredValidator, SelectControlValueAccessor, SelectMultipleControlValueAccessor, VERSION, Validators, ɵInternalFormsSharedModule, ɵNgNoValidate, ɵNgSelectMultipleOption, ɵangular_packages_forms_forms_a, ɵangular_packages_forms_forms_b, ɵangular_packages_forms_forms_ba, ɵangular_packages_forms_forms_bb, ɵangular_packages_forms_forms_bc, ɵangular_packages_forms_forms_bd, ɵangular_packages_forms_forms_be, ɵangular_packages_forms_forms_c, ɵangular_packages_forms_forms_d, ɵangular_packages_forms_forms_e, ɵangular_packages_forms_forms_f, ɵangular_packages_forms_forms_g, ɵangular_packages_forms_forms_h, ɵangular_packages_forms_forms_i, ɵangular_packages_forms_forms_j, ɵangular_packages_forms_forms_k, ɵangular_packages_forms_forms_l, ɵangular_packages_forms_forms_m, ɵangular_packages_forms_forms_n, ɵangular_packages_forms_forms_o, ɵangular_packages_forms_forms_p, ɵangular_packages_forms_forms_q, ɵangular_packages_forms_forms_r, ɵangular_packages_forms_forms_s, ɵangular_packages_forms_forms_t, ɵangular_packages_forms_forms_u, ɵangular_packages_forms_forms_v, ɵangular_packages_forms_forms_w, ɵangular_packages_forms_forms_x, ɵangular_packages_forms_forms_y, ɵangular_packages_forms_forms_z */
+/*! exports provided: AbstractControl, AbstractControlDirective, AbstractFormGroupDirective, COMPOSITION_BUFFER_MODE, CheckboxControlValueAccessor, CheckboxRequiredValidator, ControlContainer, DefaultValueAccessor, EmailValidator, FormArray, FormArrayName, FormBuilder, FormControl, FormControlDirective, FormControlName, FormGroup, FormGroupDirective, FormGroupName, FormsModule, MaxLengthValidator, MinLengthValidator, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgControlStatus, NgControlStatusGroup, NgForm, NgModel, NgModelGroup, NgSelectOption, NumberValueAccessor, PatternValidator, RadioControlValueAccessor, RangeValueAccessor, ReactiveFormsModule, RequiredValidator, SelectControlValueAccessor, SelectMultipleControlValueAccessor, VERSION, Validators, ɵInternalFormsSharedModule, ɵNgNoValidate, ɵNgSelectMultipleOption, ɵangular_packages_forms_forms_a, ɵangular_packages_forms_forms_b, ɵangular_packages_forms_forms_ba, ɵangular_packages_forms_forms_bb, ɵangular_packages_forms_forms_bc, ɵangular_packages_forms_forms_bd, ɵangular_packages_forms_forms_be, ɵangular_packages_forms_forms_bf, ɵangular_packages_forms_forms_bg, ɵangular_packages_forms_forms_bh, ɵangular_packages_forms_forms_bi, ɵangular_packages_forms_forms_bj, ɵangular_packages_forms_forms_bk, ɵangular_packages_forms_forms_bl, ɵangular_packages_forms_forms_bm, ɵangular_packages_forms_forms_bn, ɵangular_packages_forms_forms_bo, ɵangular_packages_forms_forms_bp, ɵangular_packages_forms_forms_c, ɵangular_packages_forms_forms_d, ɵangular_packages_forms_forms_e, ɵangular_packages_forms_forms_f, ɵangular_packages_forms_forms_g, ɵangular_packages_forms_forms_h, ɵangular_packages_forms_forms_i, ɵangular_packages_forms_forms_j, ɵangular_packages_forms_forms_k, ɵangular_packages_forms_forms_l, ɵangular_packages_forms_forms_m, ɵangular_packages_forms_forms_n, ɵangular_packages_forms_forms_o, ɵangular_packages_forms_forms_p, ɵangular_packages_forms_forms_q, ɵangular_packages_forms_forms_r, ɵangular_packages_forms_forms_s, ɵangular_packages_forms_forms_t, ɵangular_packages_forms_forms_u, ɵangular_packages_forms_forms_v, ɵangular_packages_forms_forms_w, ɵangular_packages_forms_forms_x, ɵangular_packages_forms_forms_y, ɵangular_packages_forms_forms_z */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11288,41 +11288,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵNgSelectMultipleOption", function() { return ɵNgSelectMultipleOption; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_a", function() { return SHARED_FORM_DIRECTIVES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_b", function() { return TEMPLATE_DRIVEN_DIRECTIVES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_ba", function() { return CHECKBOX_REQUIRED_VALIDATOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bb", function() { return EMAIL_VALIDATOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bc", function() { return MIN_LENGTH_VALIDATOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bd", function() { return MAX_LENGTH_VALIDATOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_be", function() { return PATTERN_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_ba", function() { return ɵNgNoValidate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bb", function() { return REQUIRED_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bc", function() { return CHECKBOX_REQUIRED_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bd", function() { return EMAIL_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_be", function() { return MIN_LENGTH_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bf", function() { return MAX_LENGTH_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bg", function() { return PATTERN_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bh", function() { return minValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bi", function() { return maxValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bj", function() { return requiredValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bk", function() { return requiredTrueValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bl", function() { return emailValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bm", function() { return minLengthValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bn", function() { return maxLengthValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bo", function() { return patternValidator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_bp", function() { return nullValidator; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_c", function() { return REACTIVE_DRIVEN_DIRECTIVES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_d", function() { return ɵInternalFormsSharedModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_e", function() { return CHECKBOX_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_f", function() { return DEFAULT_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_g", function() { return AbstractControlStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_h", function() { return ngControlStatusHost; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_i", function() { return formDirectiveProvider; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_j", function() { return formControlBinding; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_k", function() { return modelGroupProvider; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_l", function() { return NUMBER_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_m", function() { return RADIO_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_n", function() { return RadioControlRegistry; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_o", function() { return RANGE_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_p", function() { return NG_MODEL_WITH_FORM_CONTROL_WARNING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_q", function() { return formControlBinding$1; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_r", function() { return controlNameBinding; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_s", function() { return formDirectiveProvider$1; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_t", function() { return formGroupNameProvider; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_u", function() { return formArrayNameProvider; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_v", function() { return SELECT_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_w", function() { return SELECT_MULTIPLE_VALUE_ACCESSOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_x", function() { return ɵNgSelectMultipleOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_y", function() { return ɵNgNoValidate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_z", function() { return REQUIRED_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_f", function() { return BuiltInControlValueAccessor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_g", function() { return DEFAULT_VALUE_ACCESSOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_h", function() { return AbstractControlStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_i", function() { return ngControlStatusHost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_j", function() { return formDirectiveProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_k", function() { return formControlBinding; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_l", function() { return modelGroupProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_m", function() { return NUMBER_VALUE_ACCESSOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_n", function() { return RADIO_VALUE_ACCESSOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_o", function() { return RadioControlRegistryModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_p", function() { return RadioControlRegistry; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_q", function() { return RANGE_VALUE_ACCESSOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_r", function() { return NG_MODEL_WITH_FORM_CONTROL_WARNING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_s", function() { return formControlBinding$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_t", function() { return controlNameBinding; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_u", function() { return formDirectiveProvider$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_v", function() { return formGroupNameProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_w", function() { return formArrayNameProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_x", function() { return SELECT_VALUE_ACCESSOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_y", function() { return SELECT_MULTIPLE_VALUE_ACCESSOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵangular_packages_forms_forms_z", function() { return ɵNgSelectMultipleOption; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.5
+ * @license Angular v11.2.8
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -11340,13 +11351,22 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Base class for all built-in ControlValueAccessor classes. We use this class to distinguish
+ * between built-in and custom CVAs, so that Forms logic can recognize built-in CVAs and treat
+ * custom ones with higher priority (when both built-in and custom CVAs are present).
+ * Note: this is an *internal-only* class and should not be extended or used directly in
+ * applications code.
+ */
+
+class BuiltInControlValueAccessor {
+}
+/**
  * Used to provide a `ControlValueAccessor` for form controls.
  *
  * See `DefaultValueAccessor` for how to implement one.
  *
  * @publicApi
  */
-
 const NG_VALUE_ACCESSOR = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('NgValueAccessor');
 
 /**
@@ -11384,8 +11404,9 @@ const CHECKBOX_VALUE_ACCESSOR = {
  * @ngModule FormsModule
  * @publicApi
  */
-class CheckboxControlValueAccessor {
+class CheckboxControlValueAccessor extends BuiltInControlValueAccessor {
     constructor(_renderer, _elementRef) {
+        super();
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         /**
@@ -11431,7 +11452,7 @@ class CheckboxControlValueAccessor {
 CheckboxControlValueAccessor.ɵfac = function CheckboxControlValueAccessor_Factory(t) { return new (t || CheckboxControlValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
 CheckboxControlValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: CheckboxControlValueAccessor, selectors: [["input", "type", "checkbox", "formControlName", ""], ["input", "type", "checkbox", "formControl", ""], ["input", "type", "checkbox", "ngModel", ""]], hostBindings: function CheckboxControlValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function CheckboxControlValueAccessor_change_HostBindingHandler($event) { return ctx.onChange($event.target.checked); })("blur", function CheckboxControlValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
-    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([CHECKBOX_VALUE_ACCESSOR])] });
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([CHECKBOX_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]] });
 CheckboxControlValueAccessor.ctorParameters = () => [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
@@ -11473,13 +11494,11 @@ function _isAndroid() {
  */
 const COMPOSITION_BUFFER_MODE = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('CompositionEventMode');
 /**
- * @description
- *
- * {@searchKeywords ngDefaultControl}
- *
  * The default `ControlValueAccessor` for writing a value and listening to changes on input
  * elements. The accessor is used by the `FormControlDirective`, `FormControlName`, and
  * `NgModel` directives.
+ *
+ * {@searchKeywords ngDefaultControl}
  *
  * @usageNotes
  *
@@ -11706,7 +11725,6 @@ class Validators {
     /**
      * @description
      * Validator that requires the control's value to be greater than or equal to the provided number.
-     * The validator exists only as a function and not as a directive.
      *
      * @usageNotes
      *
@@ -11725,20 +11743,11 @@ class Validators {
      *
      */
     static min(min) {
-        return (control) => {
-            if (isEmptyInputValue(control.value) || isEmptyInputValue(min)) {
-                return null; // don't validate empty values to allow optional controls
-            }
-            const value = parseFloat(control.value);
-            // Controls with NaN values after parsing should be treated as not having a
-            // minimum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-min
-            return !isNaN(value) && value < min ? { 'min': { 'min': min, 'actual': control.value } } : null;
-        };
+        return minValidator(min);
     }
     /**
      * @description
      * Validator that requires the control's value to be less than or equal to the provided number.
-     * The validator exists only as a function and not as a directive.
      *
      * @usageNotes
      *
@@ -11757,15 +11766,7 @@ class Validators {
      *
      */
     static max(max) {
-        return (control) => {
-            if (isEmptyInputValue(control.value) || isEmptyInputValue(max)) {
-                return null; // don't validate empty values to allow optional controls
-            }
-            const value = parseFloat(control.value);
-            // Controls with NaN values after parsing should be treated as not having a
-            // maximum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-max
-            return !isNaN(value) && value > max ? { 'max': { 'max': max, 'actual': control.value } } : null;
-        };
+        return maxValidator(max);
     }
     /**
      * @description
@@ -11788,7 +11789,7 @@ class Validators {
      *
      */
     static required(control) {
-        return isEmptyInputValue(control.value) ? { 'required': true } : null;
+        return requiredValidator(control);
     }
     /**
      * @description
@@ -11812,7 +11813,7 @@ class Validators {
      *
      */
     static requiredTrue(control) {
-        return control.value === true ? null : { 'required': true };
+        return requiredTrueValidator(control);
     }
     /**
      * @description
@@ -11851,10 +11852,7 @@ class Validators {
      *
      */
     static email(control) {
-        if (isEmptyInputValue(control.value)) {
-            return null; // don't validate empty values to allow optional controls
-        }
-        return EMAIL_REGEXP.test(control.value) ? null : { 'email': true };
+        return emailValidator(control);
     }
     /**
      * @description
@@ -11887,16 +11885,7 @@ class Validators {
      *
      */
     static minLength(minLength) {
-        return (control) => {
-            if (isEmptyInputValue(control.value) || !hasValidLength(control.value)) {
-                // don't validate empty values to allow optional controls
-                // don't validate values without `length` property
-                return null;
-            }
-            return control.value.length < minLength ?
-                { 'minlength': { 'requiredLength': minLength, 'actualLength': control.value.length } } :
-                null;
-        };
+        return minLengthValidator(minLength);
     }
     /**
      * @description
@@ -11926,11 +11915,7 @@ class Validators {
      *
      */
     static maxLength(maxLength) {
-        return (control) => {
-            return hasValidLength(control.value) && control.value.length > maxLength ?
-                { 'maxlength': { 'requiredLength': maxLength, 'actualLength': control.value.length } } :
-                null;
-        };
+        return maxLengthValidator(maxLength);
     }
     /**
      * @description
@@ -11982,31 +11967,7 @@ class Validators {
      *
      */
     static pattern(pattern) {
-        if (!pattern)
-            return Validators.nullValidator;
-        let regex;
-        let regexStr;
-        if (typeof pattern === 'string') {
-            regexStr = '';
-            if (pattern.charAt(0) !== '^')
-                regexStr += '^';
-            regexStr += pattern;
-            if (pattern.charAt(pattern.length - 1) !== '$')
-                regexStr += '$';
-            regex = new RegExp(regexStr);
-        }
-        else {
-            regexStr = pattern.toString();
-            regex = pattern;
-        }
-        return (control) => {
-            if (isEmptyInputValue(control.value)) {
-                return null; // don't validate empty values to allow optional controls
-            }
-            const value = control.value;
-            return regex.test(value) ? null :
-                { 'pattern': { 'requiredPattern': regexStr, 'actualValue': value } };
-        };
+        return patternValidator(pattern);
     }
     /**
      * @description
@@ -12016,17 +11977,10 @@ class Validators {
      *
      */
     static nullValidator(control) {
-        return null;
+        return nullValidator(control);
     }
     static compose(validators) {
-        if (!validators)
-            return null;
-        const presentValidators = validators.filter(isPresent);
-        if (presentValidators.length == 0)
-            return null;
-        return function (control) {
-            return mergeErrors(executeValidators(control, presentValidators));
-        };
+        return compose(validators);
     }
     /**
      * @description
@@ -12040,16 +11994,127 @@ class Validators {
      *
      */
     static composeAsync(validators) {
-        if (!validators)
-            return null;
-        const presentValidators = validators.filter(isPresent);
-        if (presentValidators.length == 0)
-            return null;
-        return function (control) {
-            const observables = executeValidators(control, presentValidators).map(toObservable);
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])(observables).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(mergeErrors));
-        };
+        return composeAsync(validators);
     }
+}
+/**
+ * Validator that requires the control's value to be greater than or equal to the provided number.
+ * See `Validators.min` for additional information.
+ */
+function minValidator(min) {
+    return (control) => {
+        if (isEmptyInputValue(control.value) || isEmptyInputValue(min)) {
+            return null; // don't validate empty values to allow optional controls
+        }
+        const value = parseFloat(control.value);
+        // Controls with NaN values after parsing should be treated as not having a
+        // minimum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-min
+        return !isNaN(value) && value < min ? { 'min': { 'min': min, 'actual': control.value } } : null;
+    };
+}
+/**
+ * Validator that requires the control's value to be less than or equal to the provided number.
+ * See `Validators.max` for additional information.
+ */
+function maxValidator(max) {
+    return (control) => {
+        if (isEmptyInputValue(control.value) || isEmptyInputValue(max)) {
+            return null; // don't validate empty values to allow optional controls
+        }
+        const value = parseFloat(control.value);
+        // Controls with NaN values after parsing should be treated as not having a
+        // maximum, per the HTML forms spec: https://www.w3.org/TR/html5/forms.html#attr-input-max
+        return !isNaN(value) && value > max ? { 'max': { 'max': max, 'actual': control.value } } : null;
+    };
+}
+/**
+ * Validator that requires the control have a non-empty value.
+ * See `Validators.required` for additional information.
+ */
+function requiredValidator(control) {
+    return isEmptyInputValue(control.value) ? { 'required': true } : null;
+}
+/**
+ * Validator that requires the control's value be true. This validator is commonly
+ * used for required checkboxes.
+ * See `Validators.requiredTrue` for additional information.
+ */
+function requiredTrueValidator(control) {
+    return control.value === true ? null : { 'required': true };
+}
+/**
+ * Validator that requires the control's value pass an email validation test.
+ * See `Validators.email` for additional information.
+ */
+function emailValidator(control) {
+    if (isEmptyInputValue(control.value)) {
+        return null; // don't validate empty values to allow optional controls
+    }
+    return EMAIL_REGEXP.test(control.value) ? null : { 'email': true };
+}
+/**
+ * Validator that requires the length of the control's value to be greater than or equal
+ * to the provided minimum length. See `Validators.minLength` for additional information.
+ */
+function minLengthValidator(minLength) {
+    return (control) => {
+        if (isEmptyInputValue(control.value) || !hasValidLength(control.value)) {
+            // don't validate empty values to allow optional controls
+            // don't validate values without `length` property
+            return null;
+        }
+        return control.value.length < minLength ?
+            { 'minlength': { 'requiredLength': minLength, 'actualLength': control.value.length } } :
+            null;
+    };
+}
+/**
+ * Validator that requires the length of the control's value to be less than or equal
+ * to the provided maximum length. See `Validators.maxLength` for additional information.
+ */
+function maxLengthValidator(maxLength) {
+    return (control) => {
+        return hasValidLength(control.value) && control.value.length > maxLength ?
+            { 'maxlength': { 'requiredLength': maxLength, 'actualLength': control.value.length } } :
+            null;
+    };
+}
+/**
+ * Validator that requires the control's value to match a regex pattern.
+ * See `Validators.pattern` for additional information.
+ */
+function patternValidator(pattern) {
+    if (!pattern)
+        return nullValidator;
+    let regex;
+    let regexStr;
+    if (typeof pattern === 'string') {
+        regexStr = '';
+        if (pattern.charAt(0) !== '^')
+            regexStr += '^';
+        regexStr += pattern;
+        if (pattern.charAt(pattern.length - 1) !== '$')
+            regexStr += '$';
+        regex = new RegExp(regexStr);
+    }
+    else {
+        regexStr = pattern.toString();
+        regex = pattern;
+    }
+    return (control) => {
+        if (isEmptyInputValue(control.value)) {
+            return null; // don't validate empty values to allow optional controls
+        }
+        const value = control.value;
+        return regex.test(value) ? null :
+            { 'pattern': { 'requiredPattern': regexStr, 'actualValue': value } };
+    };
+}
+/**
+ * Function that has `ValidatorFn` shape, but performs no operation.
+ */
+function nullValidator(control) {
+    return null;
 }
 function isPresent(o) {
     return o != null;
@@ -12092,20 +12157,49 @@ function normalizeValidators(validators) {
     });
 }
 /**
- * Merges synchronous validators into a single validator function (combined using
- * `Validators.compose`).
+ * Merges synchronous validators into a single validator function.
+ * See `Validators.compose` for additional information.
  */
-function composeValidators(validators) {
-    return validators != null ? Validators.compose(normalizeValidators(validators)) :
-        null;
+function compose(validators) {
+    if (!validators)
+        return null;
+    const presentValidators = validators.filter(isPresent);
+    if (presentValidators.length == 0)
+        return null;
+    return function (control) {
+        return mergeErrors(executeValidators(control, presentValidators));
+    };
 }
 /**
- * Merges asynchronous validators into a single validator function (combined using
- * `Validators.composeAsync`).
+ * Accepts a list of validators of different possible shapes (`Validator` and `ValidatorFn`),
+ * normalizes the list (converts everything to `ValidatorFn`) and merges them into a single
+ * validator function.
+ */
+function composeValidators(validators) {
+    return validators != null ? compose(normalizeValidators(validators)) : null;
+}
+/**
+ * Merges asynchronous validators into a single validator function.
+ * See `Validators.composeAsync` for additional information.
+ */
+function composeAsync(validators) {
+    if (!validators)
+        return null;
+    const presentValidators = validators.filter(isPresent);
+    if (presentValidators.length == 0)
+        return null;
+    return function (control) {
+        const observables = executeValidators(control, presentValidators).map(toObservable);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["forkJoin"])(observables).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(mergeErrors));
+    };
+}
+/**
+ * Accepts a list of async validators of different possible shapes (`AsyncValidator` and
+ * `AsyncValidatorFn`), normalizes the list (converts everything to `AsyncValidatorFn`) and merges
+ * them into a single validator function.
  */
 function composeAsyncValidators(validators) {
-    return validators != null ?
-        Validators.composeAsync(normalizeValidators(validators)) :
+    return validators != null ? composeAsync(normalizeValidators(validators)) :
         null;
 }
 /**
@@ -12591,407 +12685,6 @@ NgControlStatusGroup.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const NUMBER_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => NumberValueAccessor),
-    multi: true
-};
-/**
- * @description
- * The `ControlValueAccessor` for writing a number value and listening to number input changes.
- * The value accessor is used by the `FormControlDirective`, `FormControlName`, and `NgModel`
- * directives.
- *
- * @usageNotes
- *
- * ### Using a number input with a reactive form.
- *
- * The following example shows how to use a number input with a reactive form.
- *
- * ```ts
- * const totalCountControl = new FormControl();
- * ```
- *
- * ```
- * <input type="number" [formControl]="totalCountControl">
- * ```
- *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
- * @publicApi
- */
-class NumberValueAccessor {
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        /**
-         * The registered callback function called when a change or input event occurs on the input
-         * element.
-         * @nodoc
-         */
-        this.onChange = (_) => { };
-        /**
-         * The registered callback function called when a blur event occurs on the input element.
-         * @nodoc
-         */
-        this.onTouched = () => { };
-    }
-    /**
-     * Sets the "value" property on the input element.
-     * @nodoc
-     */
-    writeValue(value) {
-        // The value needs to be normalized for IE9, otherwise it is set to 'null' when null
-        const normalizedValue = value == null ? '' : value;
-        this._renderer.setProperty(this._elementRef.nativeElement, 'value', normalizedValue);
-    }
-    /**
-     * Registers a function called when the control value changes.
-     * @nodoc
-     */
-    registerOnChange(fn) {
-        this.onChange = (value) => {
-            fn(value == '' ? null : parseFloat(value));
-        };
-    }
-    /**
-     * Registers a function called when the control is touched.
-     * @nodoc
-     */
-    registerOnTouched(fn) {
-        this.onTouched = fn;
-    }
-    /**
-     * Sets the "disabled" property on the input element.
-     * @nodoc
-     */
-    setDisabledState(isDisabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
-    }
-}
-NumberValueAccessor.ɵfac = function NumberValueAccessor_Factory(t) { return new (t || NumberValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
-NumberValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: NumberValueAccessor, selectors: [["input", "type", "number", "formControlName", ""], ["input", "type", "number", "formControl", ""], ["input", "type", "number", "ngModel", ""]], hostBindings: function NumberValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("input", function NumberValueAccessor_input_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("blur", function NumberValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
-    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([NUMBER_VALUE_ACCESSOR])] });
-NumberValueAccessor.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
-];
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NumberValueAccessor, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
-        args: [{
-                selector: 'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
-                host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
-                providers: [NUMBER_VALUE_ACCESSOR]
-            }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, null); })();
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-const RADIO_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => RadioControlValueAccessor),
-    multi: true
-};
-function throwNameError() {
-    throw new Error(`
-      If you define both a name and a formControlName attribute on your radio button, their values
-      must match. Ex: <input type="radio" formControlName="food" name="food">
-    `);
-}
-/**
- * @description
- * Class used by Angular to track radio buttons. For internal use only.
- */
-class RadioControlRegistry {
-    constructor() {
-        this._accessors = [];
-    }
-    /**
-     * @description
-     * Adds a control to the internal registry. For internal use only.
-     */
-    add(control, accessor) {
-        this._accessors.push([control, accessor]);
-    }
-    /**
-     * @description
-     * Removes a control from the internal registry. For internal use only.
-     */
-    remove(accessor) {
-        for (let i = this._accessors.length - 1; i >= 0; --i) {
-            if (this._accessors[i][1] === accessor) {
-                this._accessors.splice(i, 1);
-                return;
-            }
-        }
-    }
-    /**
-     * @description
-     * Selects a radio button. For internal use only.
-     */
-    select(accessor) {
-        this._accessors.forEach((c) => {
-            if (this._isSameGroup(c, accessor) && c[1] !== accessor) {
-                c[1].fireUncheck(accessor.value);
-            }
-        });
-    }
-    _isSameGroup(controlPair, accessor) {
-        if (!controlPair[0].control)
-            return false;
-        return controlPair[0]._parent === accessor._control._parent &&
-            controlPair[1].name === accessor.name;
-    }
-}
-RadioControlRegistry.ɵfac = function RadioControlRegistry_Factory(t) { return new (t || RadioControlRegistry)(); };
-RadioControlRegistry.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: RadioControlRegistry, factory: RadioControlRegistry.ɵfac });
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RadioControlRegistry, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return []; }, null); })();
-/**
- * @description
- * The `ControlValueAccessor` for writing radio control values and listening to radio control
- * changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
- * `NgModel` directives.
- *
- * @usageNotes
- *
- * ### Using radio buttons with reactive form directives
- *
- * The follow example shows how to use radio buttons in a reactive form. When using radio buttons in
- * a reactive form, radio buttons in the same group should have the same `formControlName`.
- * Providing a `name` attribute is optional.
- *
- * {@example forms/ts/reactiveRadioButtons/reactive_radio_button_example.ts region='Reactive'}
- *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
- * @publicApi
- */
-class RadioControlValueAccessor {
-    constructor(_renderer, _elementRef, _registry, _injector) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        this._registry = _registry;
-        this._injector = _injector;
-        /**
-         * The registered callback function called when a change event occurs on the input element.
-         * @nodoc
-         */
-        this.onChange = () => { };
-        /**
-         * The registered callback function called when a blur event occurs on the input element.
-         * @nodoc
-         */
-        this.onTouched = () => { };
-    }
-    /** @nodoc */
-    ngOnInit() {
-        this._control = this._injector.get(NgControl);
-        this._checkName();
-        this._registry.add(this._control, this);
-    }
-    /** @nodoc */
-    ngOnDestroy() {
-        this._registry.remove(this);
-    }
-    /**
-     * Sets the "checked" property value on the radio input element.
-     * @nodoc
-     */
-    writeValue(value) {
-        this._state = value === this.value;
-        this._renderer.setProperty(this._elementRef.nativeElement, 'checked', this._state);
-    }
-    /**
-     * Registers a function called when the control value changes.
-     * @nodoc
-     */
-    registerOnChange(fn) {
-        this._fn = fn;
-        this.onChange = () => {
-            fn(this.value);
-            this._registry.select(this);
-        };
-    }
-    /**
-     * Sets the "value" on the radio input element and unchecks it.
-     *
-     * @param value
-     */
-    fireUncheck(value) {
-        this.writeValue(value);
-    }
-    /**
-     * Registers a function called when the control is touched.
-     * @nodoc
-     */
-    registerOnTouched(fn) {
-        this.onTouched = fn;
-    }
-    /**
-     * Sets the "disabled" property on the input element.
-     * @nodoc
-     */
-    setDisabledState(isDisabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
-    }
-    _checkName() {
-        if (this.name && this.formControlName && this.name !== this.formControlName &&
-            (typeof ngDevMode === 'undefined' || ngDevMode)) {
-            throwNameError();
-        }
-        if (!this.name && this.formControlName)
-            this.name = this.formControlName;
-    }
-}
-RadioControlValueAccessor.ɵfac = function RadioControlValueAccessor_Factory(t) { return new (t || RadioControlValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](RadioControlRegistry), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"])); };
-RadioControlValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: RadioControlValueAccessor, selectors: [["input", "type", "radio", "formControlName", ""], ["input", "type", "radio", "formControl", ""], ["input", "type", "radio", "ngModel", ""]], hostBindings: function RadioControlValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function RadioControlValueAccessor_change_HostBindingHandler() { return ctx.onChange(); })("blur", function RadioControlValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
-    } }, inputs: { name: "name", formControlName: "formControlName", value: "value" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([RADIO_VALUE_ACCESSOR])] });
-RadioControlValueAccessor.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
-    { type: RadioControlRegistry },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"] }
-];
-RadioControlValueAccessor.propDecorators = {
-    name: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    formControlName: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
-};
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RadioControlValueAccessor, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
-        args: [{
-                selector: 'input[type=radio][formControlName],input[type=radio][formControl],input[type=radio][ngModel]',
-                host: { '(change)': 'onChange()', '(blur)': 'onTouched()' },
-                providers: [RADIO_VALUE_ACCESSOR]
-            }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }, { type: RadioControlRegistry }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"] }]; }, { name: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }], formControlName: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }], value: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }] }); })();
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-const RANGE_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => RangeValueAccessor),
-    multi: true
-};
-/**
- * @description
- * The `ControlValueAccessor` for writing a range value and listening to range input changes.
- * The value accessor is used by the `FormControlDirective`, `FormControlName`, and  `NgModel`
- * directives.
- *
- * @usageNotes
- *
- * ### Using a range input with a reactive form
- *
- * The following example shows how to use a range input with a reactive form.
- *
- * ```ts
- * const ageControl = new FormControl();
- * ```
- *
- * ```
- * <input type="range" [formControl]="ageControl">
- * ```
- *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
- * @publicApi
- */
-class RangeValueAccessor {
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        /**
-         * The registered callback function called when a change or input event occurs on the input
-         * element.
-         * @nodoc
-         */
-        this.onChange = (_) => { };
-        /**
-         * The registered callback function called when a blur event occurs on the input element.
-         * @nodoc
-         */
-        this.onTouched = () => { };
-    }
-    /**
-     * Sets the "value" property on the input element.
-     * @nodoc
-     */
-    writeValue(value) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'value', parseFloat(value));
-    }
-    /**
-     * Registers a function called when the control value changes.
-     * @nodoc
-     */
-    registerOnChange(fn) {
-        this.onChange = (value) => {
-            fn(value == '' ? null : parseFloat(value));
-        };
-    }
-    /**
-     * Registers a function called when the control is touched.
-     * @nodoc
-     */
-    registerOnTouched(fn) {
-        this.onTouched = fn;
-    }
-    /**
-     * Sets the "disabled" property on the range input element.
-     * @nodoc
-     */
-    setDisabledState(isDisabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
-    }
-}
-RangeValueAccessor.ɵfac = function RangeValueAccessor_Factory(t) { return new (t || RangeValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
-RangeValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: RangeValueAccessor, selectors: [["input", "type", "range", "formControlName", ""], ["input", "type", "range", "formControl", ""], ["input", "type", "range", "ngModel", ""]], hostBindings: function RangeValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function RangeValueAccessor_change_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("input", function RangeValueAccessor_input_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("blur", function RangeValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
-    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([RANGE_VALUE_ACCESSOR])] });
-RangeValueAccessor.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
-];
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RangeValueAccessor, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
-        args: [{
-                selector: 'input[type=range][formControlName],input[type=range][formControl],input[type=range][ngModel]',
-                host: {
-                    '(change)': 'onChange($event.target.value)',
-                    '(input)': 'onChange($event.target.value)',
-                    '(blur)': 'onTouched()'
-                },
-                providers: [RANGE_VALUE_ACCESSOR]
-            }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, null); })();
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const FormErrorExamples = {
     formControlName: `
     <div [formGroup]="myGroup">
@@ -13121,558 +12814,6 @@ class ReactiveErrors {
     `);
     }
 }
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-const SELECT_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => SelectControlValueAccessor),
-    multi: true
-};
-function _buildValueString(id, value) {
-    if (id == null)
-        return `${value}`;
-    if (value && typeof value === 'object')
-        value = 'Object';
-    return `${id}: ${value}`.slice(0, 50);
-}
-function _extractId(valueString) {
-    return valueString.split(':')[0];
-}
-/**
- * @description
- * The `ControlValueAccessor` for writing select control values and listening to select control
- * changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
- * `NgModel` directives.
- *
- * @usageNotes
- *
- * ### Using select controls in a reactive form
- *
- * The following examples show how to use a select control in a reactive form.
- *
- * {@example forms/ts/reactiveSelectControl/reactive_select_control_example.ts region='Component'}
- *
- * ### Using select controls in a template-driven form
- *
- * To use a select in a template-driven form, simply add an `ngModel` and a `name`
- * attribute to the main `<select>` tag.
- *
- * {@example forms/ts/selectControl/select_control_example.ts region='Component'}
- *
- * ### Customizing option selection
- *
- * Angular uses object identity to select option. It's possible for the identities of items
- * to change while the data does not. This can happen, for example, if the items are produced
- * from an RPC to the server, and that RPC is re-run. Even if the data hasn't changed, the
- * second response will produce objects with different identities.
- *
- * To customize the default option comparison algorithm, `<select>` supports `compareWith` input.
- * `compareWith` takes a **function** which has two arguments: `option1` and `option2`.
- * If `compareWith` is given, Angular selects option by the return value of the function.
- *
- * ```ts
- * const selectedCountriesControl = new FormControl();
- * ```
- *
- * ```
- * <select [compareWith]="compareFn"  [formControl]="selectedCountriesControl">
- *     <option *ngFor="let country of countries" [ngValue]="country">
- *         {{country.name}}
- *     </option>
- * </select>
- *
- * compareFn(c1: Country, c2: Country): boolean {
- *     return c1 && c2 ? c1.id === c2.id : c1 === c2;
- * }
- * ```
- *
- * **Note:** We listen to the 'change' event because 'input' events aren't fired
- * for selects in IE, see:
- * https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event#browser_compatibility
- *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
- * @publicApi
- */
-class SelectControlValueAccessor {
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        /** @internal */
-        this._optionMap = new Map();
-        /** @internal */
-        this._idCounter = 0;
-        /**
-         * The registered callback function called when a change event occurs on the input element.
-         * @nodoc
-         */
-        this.onChange = (_) => { };
-        /**
-         * The registered callback function called when a blur event occurs on the input element.
-         * @nodoc
-         */
-        this.onTouched = () => { };
-        this._compareWith = Object.is;
-    }
-    /**
-     * @description
-     * Tracks the option comparison algorithm for tracking identities when
-     * checking for changes.
-     */
-    set compareWith(fn) {
-        if (typeof fn !== 'function' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-            throw new Error(`compareWith must be a function, but received ${JSON.stringify(fn)}`);
-        }
-        this._compareWith = fn;
-    }
-    /**
-     * Sets the "value" property on the input element. The "selectedIndex"
-     * property is also set if an ID is provided on the option element.
-     * @nodoc
-     */
-    writeValue(value) {
-        this.value = value;
-        const id = this._getOptionId(value);
-        if (id == null) {
-            this._renderer.setProperty(this._elementRef.nativeElement, 'selectedIndex', -1);
-        }
-        const valueString = _buildValueString(id, value);
-        this._renderer.setProperty(this._elementRef.nativeElement, 'value', valueString);
-    }
-    /**
-     * Registers a function called when the control value changes.
-     * @nodoc
-     */
-    registerOnChange(fn) {
-        this.onChange = (valueString) => {
-            this.value = this._getOptionValue(valueString);
-            fn(this.value);
-        };
-    }
-    /**
-     * Registers a function called when the control is touched.
-     * @nodoc
-     */
-    registerOnTouched(fn) {
-        this.onTouched = fn;
-    }
-    /**
-     * Sets the "disabled" property on the select input element.
-     * @nodoc
-     */
-    setDisabledState(isDisabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
-    }
-    /** @internal */
-    _registerOption() {
-        return (this._idCounter++).toString();
-    }
-    /** @internal */
-    _getOptionId(value) {
-        for (const id of Array.from(this._optionMap.keys())) {
-            if (this._compareWith(this._optionMap.get(id), value))
-                return id;
-        }
-        return null;
-    }
-    /** @internal */
-    _getOptionValue(valueString) {
-        const id = _extractId(valueString);
-        return this._optionMap.has(id) ? this._optionMap.get(id) : valueString;
-    }
-}
-SelectControlValueAccessor.ɵfac = function SelectControlValueAccessor_Factory(t) { return new (t || SelectControlValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
-SelectControlValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: SelectControlValueAccessor, selectors: [["select", "formControlName", "", 3, "multiple", ""], ["select", "formControl", "", 3, "multiple", ""], ["select", "ngModel", "", 3, "multiple", ""]], hostBindings: function SelectControlValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function SelectControlValueAccessor_change_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("blur", function SelectControlValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
-    } }, inputs: { compareWith: "compareWith" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([SELECT_VALUE_ACCESSOR])] });
-SelectControlValueAccessor.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
-];
-SelectControlValueAccessor.propDecorators = {
-    compareWith: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
-};
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectControlValueAccessor, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
-        args: [{
-                selector: 'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
-                host: { '(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
-                providers: [SELECT_VALUE_ACCESSOR]
-            }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, { compareWith: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }] }); })();
-/**
- * @description
- * Marks `<option>` as dynamic, so Angular can be notified when options change.
- *
- * @see `SelectControlValueAccessor`
- *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
- * @publicApi
- */
-class NgSelectOption {
-    constructor(_element, _renderer, _select) {
-        this._element = _element;
-        this._renderer = _renderer;
-        this._select = _select;
-        if (this._select)
-            this.id = this._select._registerOption();
-    }
-    /**
-     * @description
-     * Tracks the value bound to the option element. Unlike the value binding,
-     * ngValue supports binding to objects.
-     */
-    set ngValue(value) {
-        if (this._select == null)
-            return;
-        this._select._optionMap.set(this.id, value);
-        this._setElementValue(_buildValueString(this.id, value));
-        this._select.writeValue(this._select.value);
-    }
-    /**
-     * @description
-     * Tracks simple string values bound to the option element.
-     * For objects, use the `ngValue` input binding.
-     */
-    set value(value) {
-        this._setElementValue(value);
-        if (this._select)
-            this._select.writeValue(this._select.value);
-    }
-    /** @internal */
-    _setElementValue(value) {
-        this._renderer.setProperty(this._element.nativeElement, 'value', value);
-    }
-    /** @nodoc */
-    ngOnDestroy() {
-        if (this._select) {
-            this._select._optionMap.delete(this.id);
-            this._select.writeValue(this._select.value);
-        }
-    }
-}
-NgSelectOption.ɵfac = function NgSelectOption_Factory(t) { return new (t || NgSelectOption)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](SelectControlValueAccessor, 9)); };
-NgSelectOption.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: NgSelectOption, selectors: [["option"]], inputs: { ngValue: "ngValue", value: "value" } });
-NgSelectOption.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
-    { type: SelectControlValueAccessor, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"] }] }
-];
-NgSelectOption.propDecorators = {
-    ngValue: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngValue',] }],
-    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['value',] }]
-};
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgSelectOption, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
-        args: [{ selector: 'option' }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: SelectControlValueAccessor, decorators: [{
-                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
-            }, {
-                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"]
-            }] }]; }, { ngValue: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
-            args: ['ngValue']
-        }], value: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
-            args: ['value']
-        }] }); })();
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-const SELECT_MULTIPLE_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => SelectMultipleControlValueAccessor),
-    multi: true
-};
-function _buildValueString$1(id, value) {
-    if (id == null)
-        return `${value}`;
-    if (typeof value === 'string')
-        value = `'${value}'`;
-    if (value && typeof value === 'object')
-        value = 'Object';
-    return `${id}: ${value}`.slice(0, 50);
-}
-function _extractId$1(valueString) {
-    return valueString.split(':')[0];
-}
-/** Mock interface for HTMLCollection */
-class HTMLCollection {
-}
-/**
- * @description
- * The `ControlValueAccessor` for writing multi-select control values and listening to multi-select
- * control changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
- * `NgModel` directives.
- *
- * @see `SelectControlValueAccessor`
- *
- * @usageNotes
- *
- * ### Using a multi-select control
- *
- * The follow example shows you how to use a multi-select control with a reactive form.
- *
- * ```ts
- * const countryControl = new FormControl();
- * ```
- *
- * ```
- * <select multiple name="countries" [formControl]="countryControl">
- *   <option *ngFor="let country of countries" [ngValue]="country">
- *     {{ country.name }}
- *   </option>
- * </select>
- * ```
- *
- * ### Customizing option selection
- *
- * To customize the default option comparison algorithm, `<select>` supports `compareWith` input.
- * See the `SelectControlValueAccessor` for usage.
- *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
- * @publicApi
- */
-class SelectMultipleControlValueAccessor {
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        /** @internal */
-        this._optionMap = new Map();
-        /** @internal */
-        this._idCounter = 0;
-        /**
-         * The registered callback function called when a change event occurs on the input element.
-         * @nodoc
-         */
-        this.onChange = (_) => { };
-        /**
-         * The registered callback function called when a blur event occurs on the input element.
-         * @nodoc
-         */
-        this.onTouched = () => { };
-        this._compareWith = Object.is;
-    }
-    /**
-     * @description
-     * Tracks the option comparison algorithm for tracking identities when
-     * checking for changes.
-     */
-    set compareWith(fn) {
-        if (typeof fn !== 'function' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-            throw new Error(`compareWith must be a function, but received ${JSON.stringify(fn)}`);
-        }
-        this._compareWith = fn;
-    }
-    /**
-     * Sets the "value" property on one or of more of the select's options.
-     * @nodoc
-     */
-    writeValue(value) {
-        this.value = value;
-        let optionSelectedStateSetter;
-        if (Array.isArray(value)) {
-            // convert values to ids
-            const ids = value.map((v) => this._getOptionId(v));
-            optionSelectedStateSetter = (opt, o) => {
-                opt._setSelected(ids.indexOf(o.toString()) > -1);
-            };
-        }
-        else {
-            optionSelectedStateSetter = (opt, o) => {
-                opt._setSelected(false);
-            };
-        }
-        this._optionMap.forEach(optionSelectedStateSetter);
-    }
-    /**
-     * Registers a function called when the control value changes
-     * and writes an array of the selected options.
-     * @nodoc
-     */
-    registerOnChange(fn) {
-        this.onChange = (_) => {
-            const selected = [];
-            if (_.selectedOptions !== undefined) {
-                const options = _.selectedOptions;
-                for (let i = 0; i < options.length; i++) {
-                    const opt = options.item(i);
-                    const val = this._getOptionValue(opt.value);
-                    selected.push(val);
-                }
-            }
-            // Degrade on IE
-            else {
-                const options = _.options;
-                for (let i = 0; i < options.length; i++) {
-                    const opt = options.item(i);
-                    if (opt.selected) {
-                        const val = this._getOptionValue(opt.value);
-                        selected.push(val);
-                    }
-                }
-            }
-            this.value = selected;
-            fn(selected);
-        };
-    }
-    /**
-     * Registers a function called when the control is touched.
-     * @nodoc
-     */
-    registerOnTouched(fn) {
-        this.onTouched = fn;
-    }
-    /**
-     * Sets the "disabled" property on the select input element.
-     * @nodoc
-     */
-    setDisabledState(isDisabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
-    }
-    /** @internal */
-    _registerOption(value) {
-        const id = (this._idCounter++).toString();
-        this._optionMap.set(id, value);
-        return id;
-    }
-    /** @internal */
-    _getOptionId(value) {
-        for (const id of Array.from(this._optionMap.keys())) {
-            if (this._compareWith(this._optionMap.get(id)._value, value))
-                return id;
-        }
-        return null;
-    }
-    /** @internal */
-    _getOptionValue(valueString) {
-        const id = _extractId$1(valueString);
-        return this._optionMap.has(id) ? this._optionMap.get(id)._value : valueString;
-    }
-}
-SelectMultipleControlValueAccessor.ɵfac = function SelectMultipleControlValueAccessor_Factory(t) { return new (t || SelectMultipleControlValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
-SelectMultipleControlValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: SelectMultipleControlValueAccessor, selectors: [["select", "multiple", "", "formControlName", ""], ["select", "multiple", "", "formControl", ""], ["select", "multiple", "", "ngModel", ""]], hostBindings: function SelectMultipleControlValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function SelectMultipleControlValueAccessor_change_HostBindingHandler($event) { return ctx.onChange($event.target); })("blur", function SelectMultipleControlValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
-    } }, inputs: { compareWith: "compareWith" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([SELECT_MULTIPLE_VALUE_ACCESSOR])] });
-SelectMultipleControlValueAccessor.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
-];
-SelectMultipleControlValueAccessor.propDecorators = {
-    compareWith: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
-};
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectMultipleControlValueAccessor, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
-        args: [{
-                selector: 'select[multiple][formControlName],select[multiple][formControl],select[multiple][ngModel]',
-                host: { '(change)': 'onChange($event.target)', '(blur)': 'onTouched()' },
-                providers: [SELECT_MULTIPLE_VALUE_ACCESSOR]
-            }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, { compareWith: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }] }); })();
-/**
- * @description
- * Marks `<option>` as dynamic, so Angular can be notified when options change.
- *
- * @see `SelectMultipleControlValueAccessor`
- *
- * @ngModule ReactiveFormsModule
- * @ngModule FormsModule
- * @publicApi
- */
-class ɵNgSelectMultipleOption {
-    constructor(_element, _renderer, _select) {
-        this._element = _element;
-        this._renderer = _renderer;
-        this._select = _select;
-        if (this._select) {
-            this.id = this._select._registerOption(this);
-        }
-    }
-    /**
-     * @description
-     * Tracks the value bound to the option element. Unlike the value binding,
-     * ngValue supports binding to objects.
-     */
-    set ngValue(value) {
-        if (this._select == null)
-            return;
-        this._value = value;
-        this._setElementValue(_buildValueString$1(this.id, value));
-        this._select.writeValue(this._select.value);
-    }
-    /**
-     * @description
-     * Tracks simple string values bound to the option element.
-     * For objects, use the `ngValue` input binding.
-     */
-    set value(value) {
-        if (this._select) {
-            this._value = value;
-            this._setElementValue(_buildValueString$1(this.id, value));
-            this._select.writeValue(this._select.value);
-        }
-        else {
-            this._setElementValue(value);
-        }
-    }
-    /** @internal */
-    _setElementValue(value) {
-        this._renderer.setProperty(this._element.nativeElement, 'value', value);
-    }
-    /** @internal */
-    _setSelected(selected) {
-        this._renderer.setProperty(this._element.nativeElement, 'selected', selected);
-    }
-    /** @nodoc */
-    ngOnDestroy() {
-        if (this._select) {
-            this._select._optionMap.delete(this.id);
-            this._select.writeValue(this._select.value);
-        }
-    }
-}
-ɵNgSelectMultipleOption.ɵfac = function ɵNgSelectMultipleOption_Factory(t) { return new (t || ɵNgSelectMultipleOption)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](SelectMultipleControlValueAccessor, 9)); };
-ɵNgSelectMultipleOption.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: ɵNgSelectMultipleOption, selectors: [["option"]], inputs: { ngValue: "ngValue", value: "value" } });
-ɵNgSelectMultipleOption.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
-    { type: SelectMultipleControlValueAccessor, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"] }] }
-];
-ɵNgSelectMultipleOption.propDecorators = {
-    ngValue: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngValue',] }],
-    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['value',] }]
-};
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ɵNgSelectMultipleOption, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
-        args: [{ selector: 'option' }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: SelectMultipleControlValueAccessor, decorators: [{
-                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
-            }, {
-                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"]
-            }] }]; }, { ngValue: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
-            args: ['ngValue']
-        }], value: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
-            args: ['value']
-        }] }); })();
 
 /**
  * @license
@@ -13932,16 +13073,10 @@ function isPropertyUpdated(changes, viewModel) {
         return true;
     return !Object.is(viewModel, change.currentValue);
 }
-const BUILTIN_ACCESSORS = [
-    CheckboxControlValueAccessor,
-    RangeValueAccessor,
-    NumberValueAccessor,
-    SelectControlValueAccessor,
-    SelectMultipleControlValueAccessor,
-    RadioControlValueAccessor,
-];
 function isBuiltInAccessor(valueAccessor) {
-    return BUILTIN_ACCESSORS.some(a => valueAccessor.constructor === a);
+    // Check if a given value accessor is an instance of a class that directly extends
+    // `BuiltInControlValueAccessor` one.
+    return Object.getPrototypeOf(valueAccessor.constructor) === BuiltInControlValueAccessor;
 }
 function syncPendingControls(form, directives) {
     form._syncPendingControls();
@@ -16728,6 +15863,425 @@ class ɵNgNoValidate {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+const NUMBER_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => NumberValueAccessor),
+    multi: true
+};
+/**
+ * @description
+ * The `ControlValueAccessor` for writing a number value and listening to number input changes.
+ * The value accessor is used by the `FormControlDirective`, `FormControlName`, and `NgModel`
+ * directives.
+ *
+ * @usageNotes
+ *
+ * ### Using a number input with a reactive form.
+ *
+ * The following example shows how to use a number input with a reactive form.
+ *
+ * ```ts
+ * const totalCountControl = new FormControl();
+ * ```
+ *
+ * ```
+ * <input type="number" [formControl]="totalCountControl">
+ * ```
+ *
+ * @ngModule ReactiveFormsModule
+ * @ngModule FormsModule
+ * @publicApi
+ */
+class NumberValueAccessor extends BuiltInControlValueAccessor {
+    constructor(_renderer, _elementRef) {
+        super();
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        /**
+         * The registered callback function called when a change or input event occurs on the input
+         * element.
+         * @nodoc
+         */
+        this.onChange = (_) => { };
+        /**
+         * The registered callback function called when a blur event occurs on the input element.
+         * @nodoc
+         */
+        this.onTouched = () => { };
+    }
+    /**
+     * Sets the "value" property on the input element.
+     * @nodoc
+     */
+    writeValue(value) {
+        // The value needs to be normalized for IE9, otherwise it is set to 'null' when null
+        const normalizedValue = value == null ? '' : value;
+        this._renderer.setProperty(this._elementRef.nativeElement, 'value', normalizedValue);
+    }
+    /**
+     * Registers a function called when the control value changes.
+     * @nodoc
+     */
+    registerOnChange(fn) {
+        this.onChange = (value) => {
+            fn(value == '' ? null : parseFloat(value));
+        };
+    }
+    /**
+     * Registers a function called when the control is touched.
+     * @nodoc
+     */
+    registerOnTouched(fn) {
+        this.onTouched = fn;
+    }
+    /**
+     * Sets the "disabled" property on the input element.
+     * @nodoc
+     */
+    setDisabledState(isDisabled) {
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    }
+}
+NumberValueAccessor.ɵfac = function NumberValueAccessor_Factory(t) { return new (t || NumberValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
+NumberValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: NumberValueAccessor, selectors: [["input", "type", "number", "formControlName", ""], ["input", "type", "number", "formControl", ""], ["input", "type", "number", "ngModel", ""]], hostBindings: function NumberValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("input", function NumberValueAccessor_input_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("blur", function NumberValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([NUMBER_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]] });
+NumberValueAccessor.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+];
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NumberValueAccessor, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+                selector: 'input[type=number][formControlName],input[type=number][formControl],input[type=number][ngModel]',
+                host: { '(input)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
+                providers: [NUMBER_VALUE_ACCESSOR]
+            }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, null); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const RADIO_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => RadioControlValueAccessor),
+    multi: true
+};
+function throwNameError() {
+    throw new Error(`
+      If you define both a name and a formControlName attribute on your radio button, their values
+      must match. Ex: <input type="radio" formControlName="food" name="food">
+    `);
+}
+/**
+ * Internal-only NgModule that works as a host for the `RadioControlRegistry` tree-shakable
+ * provider. Note: the `InternalFormsSharedModule` can not be used here directly, since it's
+ * declared *after* the `RadioControlRegistry` class and the `providedIn` doesn't support
+ * `forwardRef` logic.
+ */
+class RadioControlRegistryModule {
+}
+RadioControlRegistryModule.ɵfac = function RadioControlRegistryModule_Factory(t) { return new (t || RadioControlRegistryModule)(); };
+RadioControlRegistryModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: RadioControlRegistryModule });
+RadioControlRegistryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({});
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RadioControlRegistryModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"]
+    }], null, null); })();
+/**
+ * @description
+ * Class used by Angular to track radio buttons. For internal use only.
+ */
+class RadioControlRegistry {
+    constructor() {
+        this._accessors = [];
+    }
+    /**
+     * @description
+     * Adds a control to the internal registry. For internal use only.
+     */
+    add(control, accessor) {
+        this._accessors.push([control, accessor]);
+    }
+    /**
+     * @description
+     * Removes a control from the internal registry. For internal use only.
+     */
+    remove(accessor) {
+        for (let i = this._accessors.length - 1; i >= 0; --i) {
+            if (this._accessors[i][1] === accessor) {
+                this._accessors.splice(i, 1);
+                return;
+            }
+        }
+    }
+    /**
+     * @description
+     * Selects a radio button. For internal use only.
+     */
+    select(accessor) {
+        this._accessors.forEach((c) => {
+            if (this._isSameGroup(c, accessor) && c[1] !== accessor) {
+                c[1].fireUncheck(accessor.value);
+            }
+        });
+    }
+    _isSameGroup(controlPair, accessor) {
+        if (!controlPair[0].control)
+            return false;
+        return controlPair[0]._parent === accessor._control._parent &&
+            controlPair[1].name === accessor.name;
+    }
+}
+RadioControlRegistry.ɵfac = function RadioControlRegistry_Factory(t) { return new (t || RadioControlRegistry)(); };
+RadioControlRegistry.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function RadioControlRegistry_Factory() { return new RadioControlRegistry(); }, token: RadioControlRegistry, providedIn: RadioControlRegistryModule });
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RadioControlRegistry, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{ providedIn: RadioControlRegistryModule }]
+    }], function () { return []; }, null); })();
+/**
+ * @description
+ * The `ControlValueAccessor` for writing radio control values and listening to radio control
+ * changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
+ * `NgModel` directives.
+ *
+ * @usageNotes
+ *
+ * ### Using radio buttons with reactive form directives
+ *
+ * The follow example shows how to use radio buttons in a reactive form. When using radio buttons in
+ * a reactive form, radio buttons in the same group should have the same `formControlName`.
+ * Providing a `name` attribute is optional.
+ *
+ * {@example forms/ts/reactiveRadioButtons/reactive_radio_button_example.ts region='Reactive'}
+ *
+ * @ngModule ReactiveFormsModule
+ * @ngModule FormsModule
+ * @publicApi
+ */
+class RadioControlValueAccessor extends BuiltInControlValueAccessor {
+    constructor(_renderer, _elementRef, _registry, _injector) {
+        super();
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        this._registry = _registry;
+        this._injector = _injector;
+        /**
+         * The registered callback function called when a change event occurs on the input element.
+         * @nodoc
+         */
+        this.onChange = () => { };
+        /**
+         * The registered callback function called when a blur event occurs on the input element.
+         * @nodoc
+         */
+        this.onTouched = () => { };
+    }
+    /** @nodoc */
+    ngOnInit() {
+        this._control = this._injector.get(NgControl);
+        this._checkName();
+        this._registry.add(this._control, this);
+    }
+    /** @nodoc */
+    ngOnDestroy() {
+        this._registry.remove(this);
+    }
+    /**
+     * Sets the "checked" property value on the radio input element.
+     * @nodoc
+     */
+    writeValue(value) {
+        this._state = value === this.value;
+        this._renderer.setProperty(this._elementRef.nativeElement, 'checked', this._state);
+    }
+    /**
+     * Registers a function called when the control value changes.
+     * @nodoc
+     */
+    registerOnChange(fn) {
+        this._fn = fn;
+        this.onChange = () => {
+            fn(this.value);
+            this._registry.select(this);
+        };
+    }
+    /**
+     * Sets the "value" on the radio input element and unchecks it.
+     *
+     * @param value
+     */
+    fireUncheck(value) {
+        this.writeValue(value);
+    }
+    /**
+     * Registers a function called when the control is touched.
+     * @nodoc
+     */
+    registerOnTouched(fn) {
+        this.onTouched = fn;
+    }
+    /**
+     * Sets the "disabled" property on the input element.
+     * @nodoc
+     */
+    setDisabledState(isDisabled) {
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    }
+    _checkName() {
+        if (this.name && this.formControlName && this.name !== this.formControlName &&
+            (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            throwNameError();
+        }
+        if (!this.name && this.formControlName)
+            this.name = this.formControlName;
+    }
+}
+RadioControlValueAccessor.ɵfac = function RadioControlValueAccessor_Factory(t) { return new (t || RadioControlValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](RadioControlRegistry), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"])); };
+RadioControlValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: RadioControlValueAccessor, selectors: [["input", "type", "radio", "formControlName", ""], ["input", "type", "radio", "formControl", ""], ["input", "type", "radio", "ngModel", ""]], hostBindings: function RadioControlValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function RadioControlValueAccessor_change_HostBindingHandler() { return ctx.onChange(); })("blur", function RadioControlValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
+    } }, inputs: { name: "name", formControlName: "formControlName", value: "value" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([RADIO_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]] });
+RadioControlValueAccessor.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+    { type: RadioControlRegistry },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"] }
+];
+RadioControlValueAccessor.propDecorators = {
+    name: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+    formControlName: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+};
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RadioControlValueAccessor, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+                selector: 'input[type=radio][formControlName],input[type=radio][formControl],input[type=radio][ngModel]',
+                host: { '(change)': 'onChange()', '(blur)': 'onTouched()' },
+                providers: [RADIO_VALUE_ACCESSOR]
+            }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }, { type: RadioControlRegistry }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"] }]; }, { name: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }], formControlName: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }], value: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }] }); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const RANGE_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => RangeValueAccessor),
+    multi: true
+};
+/**
+ * @description
+ * The `ControlValueAccessor` for writing a range value and listening to range input changes.
+ * The value accessor is used by the `FormControlDirective`, `FormControlName`, and  `NgModel`
+ * directives.
+ *
+ * @usageNotes
+ *
+ * ### Using a range input with a reactive form
+ *
+ * The following example shows how to use a range input with a reactive form.
+ *
+ * ```ts
+ * const ageControl = new FormControl();
+ * ```
+ *
+ * ```
+ * <input type="range" [formControl]="ageControl">
+ * ```
+ *
+ * @ngModule ReactiveFormsModule
+ * @ngModule FormsModule
+ * @publicApi
+ */
+class RangeValueAccessor extends BuiltInControlValueAccessor {
+    constructor(_renderer, _elementRef) {
+        super();
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        /**
+         * The registered callback function called when a change or input event occurs on the input
+         * element.
+         * @nodoc
+         */
+        this.onChange = (_) => { };
+        /**
+         * The registered callback function called when a blur event occurs on the input element.
+         * @nodoc
+         */
+        this.onTouched = () => { };
+    }
+    /**
+     * Sets the "value" property on the input element.
+     * @nodoc
+     */
+    writeValue(value) {
+        this._renderer.setProperty(this._elementRef.nativeElement, 'value', parseFloat(value));
+    }
+    /**
+     * Registers a function called when the control value changes.
+     * @nodoc
+     */
+    registerOnChange(fn) {
+        this.onChange = (value) => {
+            fn(value == '' ? null : parseFloat(value));
+        };
+    }
+    /**
+     * Registers a function called when the control is touched.
+     * @nodoc
+     */
+    registerOnTouched(fn) {
+        this.onTouched = fn;
+    }
+    /**
+     * Sets the "disabled" property on the range input element.
+     * @nodoc
+     */
+    setDisabledState(isDisabled) {
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    }
+}
+RangeValueAccessor.ɵfac = function RangeValueAccessor_Factory(t) { return new (t || RangeValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
+RangeValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: RangeValueAccessor, selectors: [["input", "type", "range", "formControlName", ""], ["input", "type", "range", "formControl", ""], ["input", "type", "range", "ngModel", ""]], hostBindings: function RangeValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function RangeValueAccessor_change_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("input", function RangeValueAccessor_input_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("blur", function RangeValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
+    } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([RANGE_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]] });
+RangeValueAccessor.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+];
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RangeValueAccessor, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+                selector: 'input[type=range][formControlName],input[type=range][formControl],input[type=range][ngModel]',
+                host: {
+                    '(change)': 'onChange($event.target.value)',
+                    '(input)': 'onChange($event.target.value)',
+                    '(blur)': 'onTouched()'
+                },
+                providers: [RANGE_VALUE_ACCESSOR]
+            }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, null); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Token to provide to turn off the ngModel warning on formControl and formControlName.
  */
@@ -17149,14 +16703,21 @@ class FormGroupDirective extends ControlContainer {
     /** @internal */
     _updateDomValue() {
         this.directives.forEach(dir => {
+            const oldCtrl = dir.control;
             const newCtrl = this.form.get(dir.path);
-            if (dir.control !== newCtrl) {
+            if (oldCtrl !== newCtrl) {
                 // Note: the value of the `dir.control` may not be defined, for example when it's a first
                 // `FormControl` that is added to a `FormGroup` instance (via `addControl` call).
-                cleanUpControl(dir.control || null, dir);
-                if (newCtrl)
+                cleanUpControl(oldCtrl || null, dir);
+                // Check whether new control at the same location inside the corresponding `FormGroup` is an
+                // instance of `FormControl` and perform control setup only if that's the case.
+                // Note: we don't need to clear the list of directives (`this.directives`) here, it would be
+                // taken care of in the `removeControl` method invoked when corresponding `formControlName`
+                // directive instance is being removed (invoked from `FormControlName.ngOnDestroy`).
+                if (newCtrl instanceof FormControl) {
                     setUpControl(newCtrl, dir);
-                dir.control = newCtrl;
+                    dir.control = newCtrl;
+                }
             }
         });
         this.form._updateTreeValidity({ emitEvent: false });
@@ -17691,6 +17252,560 @@ FormControlName.propDecorators = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+const SELECT_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => SelectControlValueAccessor),
+    multi: true
+};
+function _buildValueString(id, value) {
+    if (id == null)
+        return `${value}`;
+    if (value && typeof value === 'object')
+        value = 'Object';
+    return `${id}: ${value}`.slice(0, 50);
+}
+function _extractId(valueString) {
+    return valueString.split(':')[0];
+}
+/**
+ * @description
+ * The `ControlValueAccessor` for writing select control values and listening to select control
+ * changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
+ * `NgModel` directives.
+ *
+ * @usageNotes
+ *
+ * ### Using select controls in a reactive form
+ *
+ * The following examples show how to use a select control in a reactive form.
+ *
+ * {@example forms/ts/reactiveSelectControl/reactive_select_control_example.ts region='Component'}
+ *
+ * ### Using select controls in a template-driven form
+ *
+ * To use a select in a template-driven form, simply add an `ngModel` and a `name`
+ * attribute to the main `<select>` tag.
+ *
+ * {@example forms/ts/selectControl/select_control_example.ts region='Component'}
+ *
+ * ### Customizing option selection
+ *
+ * Angular uses object identity to select option. It's possible for the identities of items
+ * to change while the data does not. This can happen, for example, if the items are produced
+ * from an RPC to the server, and that RPC is re-run. Even if the data hasn't changed, the
+ * second response will produce objects with different identities.
+ *
+ * To customize the default option comparison algorithm, `<select>` supports `compareWith` input.
+ * `compareWith` takes a **function** which has two arguments: `option1` and `option2`.
+ * If `compareWith` is given, Angular selects option by the return value of the function.
+ *
+ * ```ts
+ * const selectedCountriesControl = new FormControl();
+ * ```
+ *
+ * ```
+ * <select [compareWith]="compareFn"  [formControl]="selectedCountriesControl">
+ *     <option *ngFor="let country of countries" [ngValue]="country">
+ *         {{country.name}}
+ *     </option>
+ * </select>
+ *
+ * compareFn(c1: Country, c2: Country): boolean {
+ *     return c1 && c2 ? c1.id === c2.id : c1 === c2;
+ * }
+ * ```
+ *
+ * **Note:** We listen to the 'change' event because 'input' events aren't fired
+ * for selects in IE, see:
+ * https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event#browser_compatibility
+ *
+ * @ngModule ReactiveFormsModule
+ * @ngModule FormsModule
+ * @publicApi
+ */
+class SelectControlValueAccessor extends BuiltInControlValueAccessor {
+    constructor(_renderer, _elementRef) {
+        super();
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        /** @internal */
+        this._optionMap = new Map();
+        /** @internal */
+        this._idCounter = 0;
+        /**
+         * The registered callback function called when a change event occurs on the input element.
+         * @nodoc
+         */
+        this.onChange = (_) => { };
+        /**
+         * The registered callback function called when a blur event occurs on the input element.
+         * @nodoc
+         */
+        this.onTouched = () => { };
+        this._compareWith = Object.is;
+    }
+    /**
+     * @description
+     * Tracks the option comparison algorithm for tracking identities when
+     * checking for changes.
+     */
+    set compareWith(fn) {
+        if (typeof fn !== 'function' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            throw new Error(`compareWith must be a function, but received ${JSON.stringify(fn)}`);
+        }
+        this._compareWith = fn;
+    }
+    /**
+     * Sets the "value" property on the input element. The "selectedIndex"
+     * property is also set if an ID is provided on the option element.
+     * @nodoc
+     */
+    writeValue(value) {
+        this.value = value;
+        const id = this._getOptionId(value);
+        if (id == null) {
+            this._renderer.setProperty(this._elementRef.nativeElement, 'selectedIndex', -1);
+        }
+        const valueString = _buildValueString(id, value);
+        this._renderer.setProperty(this._elementRef.nativeElement, 'value', valueString);
+    }
+    /**
+     * Registers a function called when the control value changes.
+     * @nodoc
+     */
+    registerOnChange(fn) {
+        this.onChange = (valueString) => {
+            this.value = this._getOptionValue(valueString);
+            fn(this.value);
+        };
+    }
+    /**
+     * Registers a function called when the control is touched.
+     * @nodoc
+     */
+    registerOnTouched(fn) {
+        this.onTouched = fn;
+    }
+    /**
+     * Sets the "disabled" property on the select input element.
+     * @nodoc
+     */
+    setDisabledState(isDisabled) {
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    }
+    /** @internal */
+    _registerOption() {
+        return (this._idCounter++).toString();
+    }
+    /** @internal */
+    _getOptionId(value) {
+        for (const id of Array.from(this._optionMap.keys())) {
+            if (this._compareWith(this._optionMap.get(id), value))
+                return id;
+        }
+        return null;
+    }
+    /** @internal */
+    _getOptionValue(valueString) {
+        const id = _extractId(valueString);
+        return this._optionMap.has(id) ? this._optionMap.get(id) : valueString;
+    }
+}
+SelectControlValueAccessor.ɵfac = function SelectControlValueAccessor_Factory(t) { return new (t || SelectControlValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
+SelectControlValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: SelectControlValueAccessor, selectors: [["select", "formControlName", "", 3, "multiple", ""], ["select", "formControl", "", 3, "multiple", ""], ["select", "ngModel", "", 3, "multiple", ""]], hostBindings: function SelectControlValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function SelectControlValueAccessor_change_HostBindingHandler($event) { return ctx.onChange($event.target.value); })("blur", function SelectControlValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
+    } }, inputs: { compareWith: "compareWith" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([SELECT_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]] });
+SelectControlValueAccessor.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+];
+SelectControlValueAccessor.propDecorators = {
+    compareWith: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+};
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectControlValueAccessor, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+                selector: 'select:not([multiple])[formControlName],select:not([multiple])[formControl],select:not([multiple])[ngModel]',
+                host: { '(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()' },
+                providers: [SELECT_VALUE_ACCESSOR]
+            }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, { compareWith: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }] }); })();
+/**
+ * @description
+ * Marks `<option>` as dynamic, so Angular can be notified when options change.
+ *
+ * @see `SelectControlValueAccessor`
+ *
+ * @ngModule ReactiveFormsModule
+ * @ngModule FormsModule
+ * @publicApi
+ */
+class NgSelectOption {
+    constructor(_element, _renderer, _select) {
+        this._element = _element;
+        this._renderer = _renderer;
+        this._select = _select;
+        if (this._select)
+            this.id = this._select._registerOption();
+    }
+    /**
+     * @description
+     * Tracks the value bound to the option element. Unlike the value binding,
+     * ngValue supports binding to objects.
+     */
+    set ngValue(value) {
+        if (this._select == null)
+            return;
+        this._select._optionMap.set(this.id, value);
+        this._setElementValue(_buildValueString(this.id, value));
+        this._select.writeValue(this._select.value);
+    }
+    /**
+     * @description
+     * Tracks simple string values bound to the option element.
+     * For objects, use the `ngValue` input binding.
+     */
+    set value(value) {
+        this._setElementValue(value);
+        if (this._select)
+            this._select.writeValue(this._select.value);
+    }
+    /** @internal */
+    _setElementValue(value) {
+        this._renderer.setProperty(this._element.nativeElement, 'value', value);
+    }
+    /** @nodoc */
+    ngOnDestroy() {
+        if (this._select) {
+            this._select._optionMap.delete(this.id);
+            this._select.writeValue(this._select.value);
+        }
+    }
+}
+NgSelectOption.ɵfac = function NgSelectOption_Factory(t) { return new (t || NgSelectOption)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](SelectControlValueAccessor, 9)); };
+NgSelectOption.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: NgSelectOption, selectors: [["option"]], inputs: { ngValue: "ngValue", value: "value" } });
+NgSelectOption.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+    { type: SelectControlValueAccessor, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"] }] }
+];
+NgSelectOption.propDecorators = {
+    ngValue: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngValue',] }],
+    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['value',] }]
+};
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgSelectOption, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{ selector: 'option' }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: SelectControlValueAccessor, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
+            }, {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"]
+            }] }]; }, { ngValue: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
+            args: ['ngValue']
+        }], value: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
+            args: ['value']
+        }] }); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const SELECT_MULTIPLE_VALUE_ACCESSOR = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(() => SelectMultipleControlValueAccessor),
+    multi: true
+};
+function _buildValueString$1(id, value) {
+    if (id == null)
+        return `${value}`;
+    if (typeof value === 'string')
+        value = `'${value}'`;
+    if (value && typeof value === 'object')
+        value = 'Object';
+    return `${id}: ${value}`.slice(0, 50);
+}
+function _extractId$1(valueString) {
+    return valueString.split(':')[0];
+}
+/** Mock interface for HTMLCollection */
+class HTMLCollection {
+}
+/**
+ * @description
+ * The `ControlValueAccessor` for writing multi-select control values and listening to multi-select
+ * control changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
+ * `NgModel` directives.
+ *
+ * @see `SelectControlValueAccessor`
+ *
+ * @usageNotes
+ *
+ * ### Using a multi-select control
+ *
+ * The follow example shows you how to use a multi-select control with a reactive form.
+ *
+ * ```ts
+ * const countryControl = new FormControl();
+ * ```
+ *
+ * ```
+ * <select multiple name="countries" [formControl]="countryControl">
+ *   <option *ngFor="let country of countries" [ngValue]="country">
+ *     {{ country.name }}
+ *   </option>
+ * </select>
+ * ```
+ *
+ * ### Customizing option selection
+ *
+ * To customize the default option comparison algorithm, `<select>` supports `compareWith` input.
+ * See the `SelectControlValueAccessor` for usage.
+ *
+ * @ngModule ReactiveFormsModule
+ * @ngModule FormsModule
+ * @publicApi
+ */
+class SelectMultipleControlValueAccessor extends BuiltInControlValueAccessor {
+    constructor(_renderer, _elementRef) {
+        super();
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        /** @internal */
+        this._optionMap = new Map();
+        /** @internal */
+        this._idCounter = 0;
+        /**
+         * The registered callback function called when a change event occurs on the input element.
+         * @nodoc
+         */
+        this.onChange = (_) => { };
+        /**
+         * The registered callback function called when a blur event occurs on the input element.
+         * @nodoc
+         */
+        this.onTouched = () => { };
+        this._compareWith = Object.is;
+    }
+    /**
+     * @description
+     * Tracks the option comparison algorithm for tracking identities when
+     * checking for changes.
+     */
+    set compareWith(fn) {
+        if (typeof fn !== 'function' && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            throw new Error(`compareWith must be a function, but received ${JSON.stringify(fn)}`);
+        }
+        this._compareWith = fn;
+    }
+    /**
+     * Sets the "value" property on one or of more of the select's options.
+     * @nodoc
+     */
+    writeValue(value) {
+        this.value = value;
+        let optionSelectedStateSetter;
+        if (Array.isArray(value)) {
+            // convert values to ids
+            const ids = value.map((v) => this._getOptionId(v));
+            optionSelectedStateSetter = (opt, o) => {
+                opt._setSelected(ids.indexOf(o.toString()) > -1);
+            };
+        }
+        else {
+            optionSelectedStateSetter = (opt, o) => {
+                opt._setSelected(false);
+            };
+        }
+        this._optionMap.forEach(optionSelectedStateSetter);
+    }
+    /**
+     * Registers a function called when the control value changes
+     * and writes an array of the selected options.
+     * @nodoc
+     */
+    registerOnChange(fn) {
+        this.onChange = (_) => {
+            const selected = [];
+            if (_.selectedOptions !== undefined) {
+                const options = _.selectedOptions;
+                for (let i = 0; i < options.length; i++) {
+                    const opt = options.item(i);
+                    const val = this._getOptionValue(opt.value);
+                    selected.push(val);
+                }
+            }
+            // Degrade on IE
+            else {
+                const options = _.options;
+                for (let i = 0; i < options.length; i++) {
+                    const opt = options.item(i);
+                    if (opt.selected) {
+                        const val = this._getOptionValue(opt.value);
+                        selected.push(val);
+                    }
+                }
+            }
+            this.value = selected;
+            fn(selected);
+        };
+    }
+    /**
+     * Registers a function called when the control is touched.
+     * @nodoc
+     */
+    registerOnTouched(fn) {
+        this.onTouched = fn;
+    }
+    /**
+     * Sets the "disabled" property on the select input element.
+     * @nodoc
+     */
+    setDisabledState(isDisabled) {
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    }
+    /** @internal */
+    _registerOption(value) {
+        const id = (this._idCounter++).toString();
+        this._optionMap.set(id, value);
+        return id;
+    }
+    /** @internal */
+    _getOptionId(value) {
+        for (const id of Array.from(this._optionMap.keys())) {
+            if (this._compareWith(this._optionMap.get(id)._value, value))
+                return id;
+        }
+        return null;
+    }
+    /** @internal */
+    _getOptionValue(valueString) {
+        const id = _extractId$1(valueString);
+        return this._optionMap.has(id) ? this._optionMap.get(id)._value : valueString;
+    }
+}
+SelectMultipleControlValueAccessor.ɵfac = function SelectMultipleControlValueAccessor_Factory(t) { return new (t || SelectMultipleControlValueAccessor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
+SelectMultipleControlValueAccessor.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: SelectMultipleControlValueAccessor, selectors: [["select", "multiple", "", "formControlName", ""], ["select", "multiple", "", "formControl", ""], ["select", "multiple", "", "ngModel", ""]], hostBindings: function SelectMultipleControlValueAccessor_HostBindings(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("change", function SelectMultipleControlValueAccessor_change_HostBindingHandler($event) { return ctx.onChange($event.target); })("blur", function SelectMultipleControlValueAccessor_blur_HostBindingHandler() { return ctx.onTouched(); });
+    } }, inputs: { compareWith: "compareWith" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([SELECT_MULTIPLE_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]] });
+SelectMultipleControlValueAccessor.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+];
+SelectMultipleControlValueAccessor.propDecorators = {
+    compareWith: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+};
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SelectMultipleControlValueAccessor, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+                selector: 'select[multiple][formControlName],select[multiple][formControl],select[multiple][ngModel]',
+                host: { '(change)': 'onChange($event.target)', '(blur)': 'onTouched()' },
+                providers: [SELECT_MULTIPLE_VALUE_ACCESSOR]
+            }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, { compareWith: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }] }); })();
+/**
+ * @description
+ * Marks `<option>` as dynamic, so Angular can be notified when options change.
+ *
+ * @see `SelectMultipleControlValueAccessor`
+ *
+ * @ngModule ReactiveFormsModule
+ * @ngModule FormsModule
+ * @publicApi
+ */
+class ɵNgSelectMultipleOption {
+    constructor(_element, _renderer, _select) {
+        this._element = _element;
+        this._renderer = _renderer;
+        this._select = _select;
+        if (this._select) {
+            this.id = this._select._registerOption(this);
+        }
+    }
+    /**
+     * @description
+     * Tracks the value bound to the option element. Unlike the value binding,
+     * ngValue supports binding to objects.
+     */
+    set ngValue(value) {
+        if (this._select == null)
+            return;
+        this._value = value;
+        this._setElementValue(_buildValueString$1(this.id, value));
+        this._select.writeValue(this._select.value);
+    }
+    /**
+     * @description
+     * Tracks simple string values bound to the option element.
+     * For objects, use the `ngValue` input binding.
+     */
+    set value(value) {
+        if (this._select) {
+            this._value = value;
+            this._setElementValue(_buildValueString$1(this.id, value));
+            this._select.writeValue(this._select.value);
+        }
+        else {
+            this._setElementValue(value);
+        }
+    }
+    /** @internal */
+    _setElementValue(value) {
+        this._renderer.setProperty(this._element.nativeElement, 'value', value);
+    }
+    /** @internal */
+    _setSelected(selected) {
+        this._renderer.setProperty(this._element.nativeElement, 'selected', selected);
+    }
+    /** @nodoc */
+    ngOnDestroy() {
+        if (this._select) {
+            this._select._optionMap.delete(this.id);
+            this._select.writeValue(this._select.value);
+        }
+    }
+}
+ɵNgSelectMultipleOption.ɵfac = function ɵNgSelectMultipleOption_Factory(t) { return new (t || ɵNgSelectMultipleOption)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](SelectMultipleControlValueAccessor, 9)); };
+ɵNgSelectMultipleOption.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: ɵNgSelectMultipleOption, selectors: [["option"]], inputs: { ngValue: "ngValue", value: "value" } });
+ɵNgSelectMultipleOption.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+    { type: SelectMultipleControlValueAccessor, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"] }] }
+];
+ɵNgSelectMultipleOption.propDecorators = {
+    ngValue: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['ngValue',] }],
+    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['value',] }]
+};
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ɵNgSelectMultipleOption, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{ selector: 'option' }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }, { type: SelectMultipleControlValueAccessor, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
+            }, {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"]
+            }] }]; }, { ngValue: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
+            args: ['ngValue']
+        }], value: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
+            args: ['value']
+        }] }); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * @description
  * Provider which adds `RequiredValidator` to the `NG_VALIDATORS` multi-provider list.
@@ -17750,7 +17865,7 @@ class RequiredValidator {
      * @nodoc
      */
     validate(control) {
-        return this.required ? Validators.required(control) : null;
+        return this.required ? requiredValidator(control) : null;
     }
     /**
      * Registers a callback function to call when the validator inputs change.
@@ -17805,7 +17920,7 @@ class CheckboxRequiredValidator extends RequiredValidator {
      * @nodoc
      */
     validate(control) {
-        return this.required ? Validators.requiredTrue(control) : null;
+        return this.required ? requiredTrueValidator(control) : null;
     }
 }
 CheckboxRequiredValidator.ɵfac = function CheckboxRequiredValidator_Factory(t) { return ɵCheckboxRequiredValidator_BaseFactory(t || CheckboxRequiredValidator); };
@@ -17872,7 +17987,7 @@ class EmailValidator {
      * @nodoc
      */
     validate(control) {
-        return this._enabled ? Validators.email(control) : null;
+        return this._enabled ? emailValidator(control) : null;
     }
     /**
      * Registers a callback function to call when the validator inputs change.
@@ -17928,7 +18043,7 @@ const MIN_LENGTH_VALIDATOR = {
  */
 class MinLengthValidator {
     constructor() {
-        this._validator = Validators.nullValidator;
+        this._validator = nullValidator;
     }
     /** @nodoc */
     ngOnChanges(changes) {
@@ -17954,7 +18069,7 @@ class MinLengthValidator {
         this._onChange = fn;
     }
     _createValidator() {
-        this._validator = Validators.minLength(typeof this.minlength === 'number' ? this.minlength : parseInt(this.minlength, 10));
+        this._validator = minLengthValidator(typeof this.minlength === 'number' ? this.minlength : parseInt(this.minlength, 10));
     }
 }
 MinLengthValidator.ɵfac = function MinLengthValidator_Factory(t) { return new (t || MinLengthValidator)(); };
@@ -18006,7 +18121,7 @@ const MAX_LENGTH_VALIDATOR = {
  */
 class MaxLengthValidator {
     constructor() {
-        this._validator = Validators.nullValidator;
+        this._validator = nullValidator;
     }
     /** @nodoc */
     ngOnChanges(changes) {
@@ -18031,7 +18146,7 @@ class MaxLengthValidator {
         this._onChange = fn;
     }
     _createValidator() {
-        this._validator = Validators.maxLength(typeof this.maxlength === 'number' ? this.maxlength : parseInt(this.maxlength, 10));
+        this._validator = maxLengthValidator(typeof this.maxlength === 'number' ? this.maxlength : parseInt(this.maxlength, 10));
     }
 }
 MaxLengthValidator.ɵfac = function MaxLengthValidator_Factory(t) { return new (t || MaxLengthValidator)(); };
@@ -18085,7 +18200,7 @@ const PATTERN_VALIDATOR = {
  */
 class PatternValidator {
     constructor() {
-        this._validator = Validators.nullValidator;
+        this._validator = nullValidator;
     }
     /** @nodoc */
     ngOnChanges(changes) {
@@ -18110,7 +18225,7 @@ class PatternValidator {
         this._onChange = fn;
     }
     _createValidator() {
-        this._validator = Validators.pattern(this.pattern);
+        this._validator = patternValidator(this.pattern);
     }
 }
 PatternValidator.ɵfac = function PatternValidator_Factory(t) { return new (t || PatternValidator)(); };
@@ -18167,13 +18282,89 @@ class ɵInternalFormsSharedModule {
 }
 ɵInternalFormsSharedModule.ɵfac = function ɵInternalFormsSharedModule_Factory(t) { return new (t || ɵInternalFormsSharedModule)(); };
 ɵInternalFormsSharedModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: ɵInternalFormsSharedModule });
-ɵInternalFormsSharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({});
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](ɵInternalFormsSharedModule, { declarations: [ɵNgNoValidate, NgSelectOption, ɵNgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, SelectMultipleControlValueAccessor, RadioControlValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, MinLengthValidator, MaxLengthValidator, PatternValidator, CheckboxRequiredValidator, EmailValidator], exports: [ɵNgNoValidate, NgSelectOption, ɵNgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, SelectMultipleControlValueAccessor, RadioControlValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, MinLengthValidator, MaxLengthValidator, PatternValidator, CheckboxRequiredValidator, EmailValidator] }); })();
+ɵInternalFormsSharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[RadioControlRegistryModule]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](ɵInternalFormsSharedModule, { declarations: [ɵNgNoValidate, NgSelectOption, ɵNgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, SelectMultipleControlValueAccessor, RadioControlValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, MinLengthValidator, MaxLengthValidator, PatternValidator, CheckboxRequiredValidator, EmailValidator], imports: [RadioControlRegistryModule], exports: [ɵNgNoValidate, NgSelectOption, ɵNgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, SelectMultipleControlValueAccessor, RadioControlValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, MinLengthValidator, MaxLengthValidator, PatternValidator, CheckboxRequiredValidator, EmailValidator] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ɵInternalFormsSharedModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 declarations: SHARED_FORM_DIRECTIVES,
+                imports: [RadioControlRegistryModule],
                 exports: SHARED_FORM_DIRECTIVES
+            }]
+    }], null, null); })();
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Exports the required providers and directives for template-driven forms,
+ * making them available for import by NgModules that import this module.
+ *
+ * Providers associated with this module:
+ * * `RadioControlRegistry`
+ *
+ * @see [Forms Overview](/guide/forms-overview)
+ * @see [Template-driven Forms Guide](/guide/forms)
+ *
+ * @publicApi
+ */
+class FormsModule {
+}
+FormsModule.ɵfac = function FormsModule_Factory(t) { return new (t || FormsModule)(); };
+FormsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: FormsModule });
+FormsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [ɵInternalFormsSharedModule] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](FormsModule, { declarations: [NgModel, NgModelGroup, NgForm], exports: [ɵInternalFormsSharedModule, NgModel, NgModelGroup, NgForm] }); })();
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FormsModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+        args: [{
+                declarations: TEMPLATE_DRIVEN_DIRECTIVES,
+                exports: [ɵInternalFormsSharedModule, TEMPLATE_DRIVEN_DIRECTIVES]
+            }]
+    }], null, null); })();
+/**
+ * Exports the required infrastructure and directives for reactive forms,
+ * making them available for import by NgModules that import this module.
+ *
+ * Providers associated with this module:
+ * * `FormBuilder`
+ * * `RadioControlRegistry`
+ *
+ * @see [Forms Overview](guide/forms-overview)
+ * @see [Reactive Forms Guide](guide/reactive-forms)
+ *
+ * @publicApi
+ */
+class ReactiveFormsModule {
+    /**
+     * @description
+     * Provides options for configuring the reactive forms module.
+     *
+     * @param opts An object of configuration options
+     * * `warnOnNgModelWithFormControl` Configures when to emit a warning when an `ngModel`
+     * binding is used with reactive form directives.
+     */
+    static withConfig(opts) {
+        return {
+            ngModule: ReactiveFormsModule,
+            providers: [
+                { provide: NG_MODEL_WITH_FORM_CONTROL_WARNING, useValue: opts.warnOnNgModelWithFormControl }
+            ]
+        };
+    }
+}
+ReactiveFormsModule.ɵfac = function ReactiveFormsModule_Factory(t) { return new (t || ReactiveFormsModule)(); };
+ReactiveFormsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: ReactiveFormsModule });
+ReactiveFormsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [ɵInternalFormsSharedModule] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](ReactiveFormsModule, { declarations: [FormControlDirective, FormGroupDirective, FormControlName, FormGroupName, FormArrayName], exports: [ɵInternalFormsSharedModule, FormControlDirective, FormGroupDirective, FormControlName, FormGroupName, FormArrayName] }); })();
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ReactiveFormsModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+        args: [{
+                declarations: [REACTIVE_DRIVEN_DIRECTIVES],
+                exports: [ɵInternalFormsSharedModule, REACTIVE_DRIVEN_DIRECTIVES]
             }]
     }], null, null); })();
 
@@ -18292,9 +18483,10 @@ class FormBuilder {
     }
 }
 FormBuilder.ɵfac = function FormBuilder_Factory(t) { return new (t || FormBuilder)(); };
-FormBuilder.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: FormBuilder, factory: FormBuilder.ɵfac });
+FormBuilder.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function FormBuilder_Factory() { return new FormBuilder(); }, token: FormBuilder, providedIn: ReactiveFormsModule });
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FormBuilder, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{ providedIn: ReactiveFormsModule }]
     }], null, null); })();
 
 /**
@@ -18307,77 +18499,7 @@ FormBuilder.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.5');
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Exports the required providers and directives for template-driven forms,
- * making them available for import by NgModules that import this module.
- *
- * @see [Forms Overview](/guide/forms-overview)
- * @see [Template-driven Forms Guide](/guide/forms)
- *
- * @publicApi
- */
-class FormsModule {
-}
-FormsModule.ɵfac = function FormsModule_Factory(t) { return new (t || FormsModule)(); };
-FormsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: FormsModule });
-FormsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ providers: [RadioControlRegistry], imports: [ɵInternalFormsSharedModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](FormsModule, { declarations: [NgModel, NgModelGroup, NgForm], exports: [ɵInternalFormsSharedModule, NgModel, NgModelGroup, NgForm] }); })();
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FormsModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
-        args: [{
-                declarations: TEMPLATE_DRIVEN_DIRECTIVES,
-                providers: [RadioControlRegistry],
-                exports: [ɵInternalFormsSharedModule, TEMPLATE_DRIVEN_DIRECTIVES]
-            }]
-    }], null, null); })();
-/**
- * Exports the required infrastructure and directives for reactive forms,
- * making them available for import by NgModules that import this module.
- *
- * @see [Forms Overview](guide/forms-overview)
- * @see [Reactive Forms Guide](guide/reactive-forms)
- *
- * @publicApi
- */
-class ReactiveFormsModule {
-    /**
-     * @description
-     * Provides options for configuring the reactive forms module.
-     *
-     * @param opts An object of configuration options
-     * * `warnOnNgModelWithFormControl` Configures when to emit a warning when an `ngModel`
-     * binding is used with reactive form directives.
-     */
-    static withConfig(opts) {
-        return {
-            ngModule: ReactiveFormsModule,
-            providers: [
-                { provide: NG_MODEL_WITH_FORM_CONTROL_WARNING, useValue: opts.warnOnNgModelWithFormControl }
-            ]
-        };
-    }
-}
-ReactiveFormsModule.ɵfac = function ReactiveFormsModule_Factory(t) { return new (t || ReactiveFormsModule)(); };
-ReactiveFormsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: ReactiveFormsModule });
-ReactiveFormsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ providers: [FormBuilder, RadioControlRegistry], imports: [ɵInternalFormsSharedModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](ReactiveFormsModule, { declarations: [FormControlDirective, FormGroupDirective, FormControlName, FormGroupName, FormArrayName], exports: [ɵInternalFormsSharedModule, FormControlDirective, FormGroupDirective, FormControlName, FormGroupName, FormArrayName] }); })();
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ReactiveFormsModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
-        args: [{
-                declarations: [REACTIVE_DRIVEN_DIRECTIVES],
-                providers: [FormBuilder, RadioControlRegistry],
-                exports: [ɵInternalFormsSharedModule, REACTIVE_DRIVEN_DIRECTIVES]
-            }]
-    }], null, null); })();
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.8');
 
 /**
  * @license
@@ -22253,6 +22375,354 @@ module.exports = __webpack_require__.p + "solveSudokuWorker-es2015.worker.js"
 
 /***/ }),
 
+/***/ "8UI6":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@pixi/utils/node_modules/eventemitter3/index.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var has = Object.prototype.hasOwnProperty
+  , prefix = '~';
+
+/**
+ * Constructor to create a storage for our `EE` objects.
+ * An `Events` instance is a plain object whose properties are event names.
+ *
+ * @constructor
+ * @private
+ */
+function Events() {}
+
+//
+// We try to not inherit from `Object.prototype`. In some engines creating an
+// instance in this way is faster than calling `Object.create(null)` directly.
+// If `Object.create(null)` is not supported we prefix the event names with a
+// character to make sure that the built-in object properties are not
+// overridden or used as an attack vector.
+//
+if (Object.create) {
+  Events.prototype = Object.create(null);
+
+  //
+  // This hack is needed because the `__proto__` property is still inherited in
+  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
+  //
+  if (!new Events().__proto__) prefix = false;
+}
+
+/**
+ * Representation of a single event listener.
+ *
+ * @param {Function} fn The listener function.
+ * @param {*} context The context to invoke the listener with.
+ * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
+ * @constructor
+ * @private
+ */
+function EE(fn, context, once) {
+  this.fn = fn;
+  this.context = context;
+  this.once = once || false;
+}
+
+/**
+ * Add a listener for a given event.
+ *
+ * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} context The context to invoke the listener with.
+ * @param {Boolean} once Specify if the listener is a one-time listener.
+ * @returns {EventEmitter}
+ * @private
+ */
+function addListener(emitter, event, fn, context, once) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('The listener must be a function');
+  }
+
+  var listener = new EE(fn, context || emitter, once)
+    , evt = prefix ? prefix + event : event;
+
+  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
+  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
+  else emitter._events[evt] = [emitter._events[evt], listener];
+
+  return emitter;
+}
+
+/**
+ * Clear event by name.
+ *
+ * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+ * @param {(String|Symbol)} evt The Event name.
+ * @private
+ */
+function clearEvent(emitter, evt) {
+  if (--emitter._eventsCount === 0) emitter._events = new Events();
+  else delete emitter._events[evt];
+}
+
+/**
+ * Minimal `EventEmitter` interface that is molded against the Node.js
+ * `EventEmitter` interface.
+ *
+ * @constructor
+ * @public
+ */
+function EventEmitter() {
+  this._events = new Events();
+  this._eventsCount = 0;
+}
+
+/**
+ * Return an array listing the events for which the emitter has registered
+ * listeners.
+ *
+ * @returns {Array}
+ * @public
+ */
+EventEmitter.prototype.eventNames = function eventNames() {
+  var names = []
+    , events
+    , name;
+
+  if (this._eventsCount === 0) return names;
+
+  for (name in (events = this._events)) {
+    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
+  }
+
+  if (Object.getOwnPropertySymbols) {
+    return names.concat(Object.getOwnPropertySymbols(events));
+  }
+
+  return names;
+};
+
+/**
+ * Return the listeners registered for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Array} The registered listeners.
+ * @public
+ */
+EventEmitter.prototype.listeners = function listeners(event) {
+  var evt = prefix ? prefix + event : event
+    , handlers = this._events[evt];
+
+  if (!handlers) return [];
+  if (handlers.fn) return [handlers.fn];
+
+  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
+    ee[i] = handlers[i].fn;
+  }
+
+  return ee;
+};
+
+/**
+ * Return the number of listeners listening to a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Number} The number of listeners.
+ * @public
+ */
+EventEmitter.prototype.listenerCount = function listenerCount(event) {
+  var evt = prefix ? prefix + event : event
+    , listeners = this._events[evt];
+
+  if (!listeners) return 0;
+  if (listeners.fn) return 1;
+  return listeners.length;
+};
+
+/**
+ * Calls each of the listeners registered for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @returns {Boolean} `true` if the event had listeners, else `false`.
+ * @public
+ */
+EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+  var evt = prefix ? prefix + event : event;
+
+  if (!this._events[evt]) return false;
+
+  var listeners = this._events[evt]
+    , len = arguments.length
+    , args
+    , i;
+
+  if (listeners.fn) {
+    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
+
+    switch (len) {
+      case 1: return listeners.fn.call(listeners.context), true;
+      case 2: return listeners.fn.call(listeners.context, a1), true;
+      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
+      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
+      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
+      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+    }
+
+    for (i = 1, args = new Array(len -1); i < len; i++) {
+      args[i - 1] = arguments[i];
+    }
+
+    listeners.fn.apply(listeners.context, args);
+  } else {
+    var length = listeners.length
+      , j;
+
+    for (i = 0; i < length; i++) {
+      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+
+      switch (len) {
+        case 1: listeners[i].fn.call(listeners[i].context); break;
+        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
+        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
+        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
+        default:
+          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
+            args[j - 1] = arguments[j];
+          }
+
+          listeners[i].fn.apply(listeners[i].context, args);
+      }
+    }
+  }
+
+  return true;
+};
+
+/**
+ * Add a listener for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.on = function on(event, fn, context) {
+  return addListener(this, event, fn, context, false);
+};
+
+/**
+ * Add a one-time listener for a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn The listener function.
+ * @param {*} [context=this] The context to invoke the listener with.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.once = function once(event, fn, context) {
+  return addListener(this, event, fn, context, true);
+};
+
+/**
+ * Remove the listeners of a given event.
+ *
+ * @param {(String|Symbol)} event The event name.
+ * @param {Function} fn Only remove the listeners that match this function.
+ * @param {*} context Only remove the listeners that have this context.
+ * @param {Boolean} once Only remove one-time listeners.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+  var evt = prefix ? prefix + event : event;
+
+  if (!this._events[evt]) return this;
+  if (!fn) {
+    clearEvent(this, evt);
+    return this;
+  }
+
+  var listeners = this._events[evt];
+
+  if (listeners.fn) {
+    if (
+      listeners.fn === fn &&
+      (!once || listeners.once) &&
+      (!context || listeners.context === context)
+    ) {
+      clearEvent(this, evt);
+    }
+  } else {
+    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+      if (
+        listeners[i].fn !== fn ||
+        (once && !listeners[i].once) ||
+        (context && listeners[i].context !== context)
+      ) {
+        events.push(listeners[i]);
+      }
+    }
+
+    //
+    // Reset the array, or remove it completely if we have no more listeners.
+    //
+    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
+    else clearEvent(this, evt);
+  }
+
+  return this;
+};
+
+/**
+ * Remove all listeners, or those of the specified event.
+ *
+ * @param {(String|Symbol)} [event] The event name.
+ * @returns {EventEmitter} `this`.
+ * @public
+ */
+EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+  var evt;
+
+  if (event) {
+    evt = prefix ? prefix + event : event;
+    if (this._events[evt]) clearEvent(this, evt);
+  } else {
+    this._events = new Events();
+    this._eventsCount = 0;
+  }
+
+  return this;
+};
+
+//
+// Alias methods names because people roll like that.
+//
+EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+EventEmitter.prototype.addListener = EventEmitter.prototype.on;
+
+//
+// Expose the prefix.
+//
+EventEmitter.prefixed = prefix;
+
+//
+// Allow `EventEmitter` to be imported as module namespace.
+//
+EventEmitter.EventEmitter = EventEmitter;
+
+//
+// Expose the module.
+//
+if (true) {
+  module.exports = EventEmitter;
+}
+
+
+/***/ }),
+
 /***/ "9T9m":
 /*!************************************************************!*\
   !*** ./node_modules/@pixi/particles/dist/esm/particles.js ***!
@@ -24281,7 +24751,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var punycode = __webpack_require__(/*! punycode */ "nYho");
+var punycode = __webpack_require__(/*! punycode */ "rWzI");
 var util = __webpack_require__(/*! ./util */ "Nehr");
 
 exports.parse = urlParse;
@@ -26225,7 +26695,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/settings */ "Dh0r");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isMobile", function() { return _pixi_settings__WEBPACK_IMPORTED_MODULE_0__["isMobile"]; });
 
-/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! eventemitter3 */ "uhBA");
+/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! eventemitter3 */ "8UI6");
 /* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(eventemitter3__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "EventEmitter", function() { return eventemitter3__WEBPACK_IMPORTED_MODULE_1___default.a; });
 /* harmony import */ var earcut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! earcut */ "VmRL");
@@ -54433,537 +54903,6 @@ function isMobile(param) {
 
 /***/ }),
 
-/***/ "nYho":
-/*!*******************************************!*\
-  !*** ./node_modules/punycode/punycode.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.3.2 by @mathias */
-;(function(root) {
-
-	/** Detect free variables */
-	var freeExports =  true && exports &&
-		!exports.nodeType && exports;
-	var freeModule =  true && module &&
-		!module.nodeType && module;
-	var freeGlobal = typeof global == 'object' && global;
-	if (
-		freeGlobal.global === freeGlobal ||
-		freeGlobal.window === freeGlobal ||
-		freeGlobal.self === freeGlobal
-	) {
-		root = freeGlobal;
-	}
-
-	/**
-	 * The `punycode` object.
-	 * @name punycode
-	 * @type Object
-	 */
-	var punycode,
-
-	/** Highest positive signed 32-bit float value */
-	maxInt = 2147483647, // aka. 0x7FFFFFFF or 2^31-1
-
-	/** Bootstring parameters */
-	base = 36,
-	tMin = 1,
-	tMax = 26,
-	skew = 38,
-	damp = 700,
-	initialBias = 72,
-	initialN = 128, // 0x80
-	delimiter = '-', // '\x2D'
-
-	/** Regular expressions */
-	regexPunycode = /^xn--/,
-	regexNonASCII = /[^\x20-\x7E]/, // unprintable ASCII chars + non-ASCII chars
-	regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g, // RFC 3490 separators
-
-	/** Error messages */
-	errors = {
-		'overflow': 'Overflow: input needs wider integers to process',
-		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
-		'invalid-input': 'Invalid input'
-	},
-
-	/** Convenience shortcuts */
-	baseMinusTMin = base - tMin,
-	floor = Math.floor,
-	stringFromCharCode = String.fromCharCode,
-
-	/** Temporary variable */
-	key;
-
-	/*--------------------------------------------------------------------------*/
-
-	/**
-	 * A generic error utility function.
-	 * @private
-	 * @param {String} type The error type.
-	 * @returns {Error} Throws a `RangeError` with the applicable error message.
-	 */
-	function error(type) {
-		throw RangeError(errors[type]);
-	}
-
-	/**
-	 * A generic `Array#map` utility function.
-	 * @private
-	 * @param {Array} array The array to iterate over.
-	 * @param {Function} callback The function that gets called for every array
-	 * item.
-	 * @returns {Array} A new array of values returned by the callback function.
-	 */
-	function map(array, fn) {
-		var length = array.length;
-		var result = [];
-		while (length--) {
-			result[length] = fn(array[length]);
-		}
-		return result;
-	}
-
-	/**
-	 * A simple `Array#map`-like wrapper to work with domain name strings or email
-	 * addresses.
-	 * @private
-	 * @param {String} domain The domain name or email address.
-	 * @param {Function} callback The function that gets called for every
-	 * character.
-	 * @returns {Array} A new string of characters returned by the callback
-	 * function.
-	 */
-	function mapDomain(string, fn) {
-		var parts = string.split('@');
-		var result = '';
-		if (parts.length > 1) {
-			// In email addresses, only the domain name should be punycoded. Leave
-			// the local part (i.e. everything up to `@`) intact.
-			result = parts[0] + '@';
-			string = parts[1];
-		}
-		// Avoid `split(regex)` for IE8 compatibility. See #17.
-		string = string.replace(regexSeparators, '\x2E');
-		var labels = string.split('.');
-		var encoded = map(labels, fn).join('.');
-		return result + encoded;
-	}
-
-	/**
-	 * Creates an array containing the numeric code points of each Unicode
-	 * character in the string. While JavaScript uses UCS-2 internally,
-	 * this function will convert a pair of surrogate halves (each of which
-	 * UCS-2 exposes as separate characters) into a single code point,
-	 * matching UTF-16.
-	 * @see `punycode.ucs2.encode`
-	 * @see <https://mathiasbynens.be/notes/javascript-encoding>
-	 * @memberOf punycode.ucs2
-	 * @name decode
-	 * @param {String} string The Unicode input string (UCS-2).
-	 * @returns {Array} The new array of code points.
-	 */
-	function ucs2decode(string) {
-		var output = [],
-		    counter = 0,
-		    length = string.length,
-		    value,
-		    extra;
-		while (counter < length) {
-			value = string.charCodeAt(counter++);
-			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
-				// high surrogate, and there is a next character
-				extra = string.charCodeAt(counter++);
-				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
-					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
-				} else {
-					// unmatched surrogate; only append this code unit, in case the next
-					// code unit is the high surrogate of a surrogate pair
-					output.push(value);
-					counter--;
-				}
-			} else {
-				output.push(value);
-			}
-		}
-		return output;
-	}
-
-	/**
-	 * Creates a string based on an array of numeric code points.
-	 * @see `punycode.ucs2.decode`
-	 * @memberOf punycode.ucs2
-	 * @name encode
-	 * @param {Array} codePoints The array of numeric code points.
-	 * @returns {String} The new Unicode string (UCS-2).
-	 */
-	function ucs2encode(array) {
-		return map(array, function(value) {
-			var output = '';
-			if (value > 0xFFFF) {
-				value -= 0x10000;
-				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
-				value = 0xDC00 | value & 0x3FF;
-			}
-			output += stringFromCharCode(value);
-			return output;
-		}).join('');
-	}
-
-	/**
-	 * Converts a basic code point into a digit/integer.
-	 * @see `digitToBasic()`
-	 * @private
-	 * @param {Number} codePoint The basic numeric code point value.
-	 * @returns {Number} The numeric value of a basic code point (for use in
-	 * representing integers) in the range `0` to `base - 1`, or `base` if
-	 * the code point does not represent a value.
-	 */
-	function basicToDigit(codePoint) {
-		if (codePoint - 48 < 10) {
-			return codePoint - 22;
-		}
-		if (codePoint - 65 < 26) {
-			return codePoint - 65;
-		}
-		if (codePoint - 97 < 26) {
-			return codePoint - 97;
-		}
-		return base;
-	}
-
-	/**
-	 * Converts a digit/integer into a basic code point.
-	 * @see `basicToDigit()`
-	 * @private
-	 * @param {Number} digit The numeric value of a basic code point.
-	 * @returns {Number} The basic code point whose value (when used for
-	 * representing integers) is `digit`, which needs to be in the range
-	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
-	 * used; else, the lowercase form is used. The behavior is undefined
-	 * if `flag` is non-zero and `digit` has no uppercase form.
-	 */
-	function digitToBasic(digit, flag) {
-		//  0..25 map to ASCII a..z or A..Z
-		// 26..35 map to ASCII 0..9
-		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
-	}
-
-	/**
-	 * Bias adaptation function as per section 3.4 of RFC 3492.
-	 * http://tools.ietf.org/html/rfc3492#section-3.4
-	 * @private
-	 */
-	function adapt(delta, numPoints, firstTime) {
-		var k = 0;
-		delta = firstTime ? floor(delta / damp) : delta >> 1;
-		delta += floor(delta / numPoints);
-		for (/* no initialization */; delta > baseMinusTMin * tMax >> 1; k += base) {
-			delta = floor(delta / baseMinusTMin);
-		}
-		return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
-	}
-
-	/**
-	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
-	 * symbols.
-	 * @memberOf punycode
-	 * @param {String} input The Punycode string of ASCII-only symbols.
-	 * @returns {String} The resulting string of Unicode symbols.
-	 */
-	function decode(input) {
-		// Don't use UCS-2
-		var output = [],
-		    inputLength = input.length,
-		    out,
-		    i = 0,
-		    n = initialN,
-		    bias = initialBias,
-		    basic,
-		    j,
-		    index,
-		    oldi,
-		    w,
-		    k,
-		    digit,
-		    t,
-		    /** Cached calculation results */
-		    baseMinusT;
-
-		// Handle the basic code points: let `basic` be the number of input code
-		// points before the last delimiter, or `0` if there is none, then copy
-		// the first basic code points to the output.
-
-		basic = input.lastIndexOf(delimiter);
-		if (basic < 0) {
-			basic = 0;
-		}
-
-		for (j = 0; j < basic; ++j) {
-			// if it's not a basic code point
-			if (input.charCodeAt(j) >= 0x80) {
-				error('not-basic');
-			}
-			output.push(input.charCodeAt(j));
-		}
-
-		// Main decoding loop: start just after the last delimiter if any basic code
-		// points were copied; start at the beginning otherwise.
-
-		for (index = basic > 0 ? basic + 1 : 0; index < inputLength; /* no final expression */) {
-
-			// `index` is the index of the next character to be consumed.
-			// Decode a generalized variable-length integer into `delta`,
-			// which gets added to `i`. The overflow checking is easier
-			// if we increase `i` as we go, then subtract off its starting
-			// value at the end to obtain `delta`.
-			for (oldi = i, w = 1, k = base; /* no condition */; k += base) {
-
-				if (index >= inputLength) {
-					error('invalid-input');
-				}
-
-				digit = basicToDigit(input.charCodeAt(index++));
-
-				if (digit >= base || digit > floor((maxInt - i) / w)) {
-					error('overflow');
-				}
-
-				i += digit * w;
-				t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
-
-				if (digit < t) {
-					break;
-				}
-
-				baseMinusT = base - t;
-				if (w > floor(maxInt / baseMinusT)) {
-					error('overflow');
-				}
-
-				w *= baseMinusT;
-
-			}
-
-			out = output.length + 1;
-			bias = adapt(i - oldi, out, oldi == 0);
-
-			// `i` was supposed to wrap around from `out` to `0`,
-			// incrementing `n` each time, so we'll fix that now:
-			if (floor(i / out) > maxInt - n) {
-				error('overflow');
-			}
-
-			n += floor(i / out);
-			i %= out;
-
-			// Insert `n` at position `i` of the output
-			output.splice(i++, 0, n);
-
-		}
-
-		return ucs2encode(output);
-	}
-
-	/**
-	 * Converts a string of Unicode symbols (e.g. a domain name label) to a
-	 * Punycode string of ASCII-only symbols.
-	 * @memberOf punycode
-	 * @param {String} input The string of Unicode symbols.
-	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
-	 */
-	function encode(input) {
-		var n,
-		    delta,
-		    handledCPCount,
-		    basicLength,
-		    bias,
-		    j,
-		    m,
-		    q,
-		    k,
-		    t,
-		    currentValue,
-		    output = [],
-		    /** `inputLength` will hold the number of code points in `input`. */
-		    inputLength,
-		    /** Cached calculation results */
-		    handledCPCountPlusOne,
-		    baseMinusT,
-		    qMinusT;
-
-		// Convert the input in UCS-2 to Unicode
-		input = ucs2decode(input);
-
-		// Cache the length
-		inputLength = input.length;
-
-		// Initialize the state
-		n = initialN;
-		delta = 0;
-		bias = initialBias;
-
-		// Handle the basic code points
-		for (j = 0; j < inputLength; ++j) {
-			currentValue = input[j];
-			if (currentValue < 0x80) {
-				output.push(stringFromCharCode(currentValue));
-			}
-		}
-
-		handledCPCount = basicLength = output.length;
-
-		// `handledCPCount` is the number of code points that have been handled;
-		// `basicLength` is the number of basic code points.
-
-		// Finish the basic string - if it is not empty - with a delimiter
-		if (basicLength) {
-			output.push(delimiter);
-		}
-
-		// Main encoding loop:
-		while (handledCPCount < inputLength) {
-
-			// All non-basic code points < n have been handled already. Find the next
-			// larger one:
-			for (m = maxInt, j = 0; j < inputLength; ++j) {
-				currentValue = input[j];
-				if (currentValue >= n && currentValue < m) {
-					m = currentValue;
-				}
-			}
-
-			// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
-			// but guard against overflow
-			handledCPCountPlusOne = handledCPCount + 1;
-			if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
-				error('overflow');
-			}
-
-			delta += (m - n) * handledCPCountPlusOne;
-			n = m;
-
-			for (j = 0; j < inputLength; ++j) {
-				currentValue = input[j];
-
-				if (currentValue < n && ++delta > maxInt) {
-					error('overflow');
-				}
-
-				if (currentValue == n) {
-					// Represent delta as a generalized variable-length integer
-					for (q = delta, k = base; /* no condition */; k += base) {
-						t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
-						if (q < t) {
-							break;
-						}
-						qMinusT = q - t;
-						baseMinusT = base - t;
-						output.push(
-							stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
-						);
-						q = floor(qMinusT / baseMinusT);
-					}
-
-					output.push(stringFromCharCode(digitToBasic(q, 0)));
-					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
-					delta = 0;
-					++handledCPCount;
-				}
-			}
-
-			++delta;
-			++n;
-
-		}
-		return output.join('');
-	}
-
-	/**
-	 * Converts a Punycode string representing a domain name or an email address
-	 * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
-	 * it doesn't matter if you call it on a string that has already been
-	 * converted to Unicode.
-	 * @memberOf punycode
-	 * @param {String} input The Punycoded domain name or email address to
-	 * convert to Unicode.
-	 * @returns {String} The Unicode representation of the given Punycode
-	 * string.
-	 */
-	function toUnicode(input) {
-		return mapDomain(input, function(string) {
-			return regexPunycode.test(string)
-				? decode(string.slice(4).toLowerCase())
-				: string;
-		});
-	}
-
-	/**
-	 * Converts a Unicode string representing a domain name or an email address to
-	 * Punycode. Only the non-ASCII parts of the domain name will be converted,
-	 * i.e. it doesn't matter if you call it with a domain that's already in
-	 * ASCII.
-	 * @memberOf punycode
-	 * @param {String} input The domain name or email address to convert, as a
-	 * Unicode string.
-	 * @returns {String} The Punycode representation of the given domain name or
-	 * email address.
-	 */
-	function toASCII(input) {
-		return mapDomain(input, function(string) {
-			return regexNonASCII.test(string)
-				? 'xn--' + encode(string)
-				: string;
-		});
-	}
-
-	/*--------------------------------------------------------------------------*/
-
-	/** Define the public API */
-	punycode = {
-		/**
-		 * A string representing the current Punycode.js version number.
-		 * @memberOf punycode
-		 * @type String
-		 */
-		'version': '1.3.2',
-		/**
-		 * An object of methods to convert from JavaScript's internal character
-		 * representation (UCS-2) to Unicode code points, and back.
-		 * @see <https://mathiasbynens.be/notes/javascript-encoding>
-		 * @memberOf punycode
-		 * @type Object
-		 */
-		'ucs2': {
-			'decode': ucs2decode,
-			'encode': ucs2encode
-		},
-		'decode': decode,
-		'encode': encode,
-		'toASCII': toASCII,
-		'toUnicode': toUnicode
-	};
-
-	/** Expose `punycode` */
-	// Some AMD build optimizers, like r.js, check for specific condition patterns
-	// like the following:
-	if (
-		true
-	) {
-		!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
-			return punycode;
-		}).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {}
-
-}(this));
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "YuTi")(module)))
-
-/***/ }),
-
 /***/ "oNRY":
 /*!************************************************************************!*\
   !*** ./node_modules/@pixi/sprite-animated/dist/esm/sprite-animated.js ***!
@@ -62710,6 +62649,537 @@ FullscreenOverlayContainer.ctorParameters = () => [
 
 /***/ }),
 
+/***/ "rWzI":
+/*!************************************************************!*\
+  !*** ./node_modules/url/node_modules/punycode/punycode.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.3.2 by @mathias */
+;(function(root) {
+
+	/** Detect free variables */
+	var freeExports =  true && exports &&
+		!exports.nodeType && exports;
+	var freeModule =  true && module &&
+		!module.nodeType && module;
+	var freeGlobal = typeof global == 'object' && global;
+	if (
+		freeGlobal.global === freeGlobal ||
+		freeGlobal.window === freeGlobal ||
+		freeGlobal.self === freeGlobal
+	) {
+		root = freeGlobal;
+	}
+
+	/**
+	 * The `punycode` object.
+	 * @name punycode
+	 * @type Object
+	 */
+	var punycode,
+
+	/** Highest positive signed 32-bit float value */
+	maxInt = 2147483647, // aka. 0x7FFFFFFF or 2^31-1
+
+	/** Bootstring parameters */
+	base = 36,
+	tMin = 1,
+	tMax = 26,
+	skew = 38,
+	damp = 700,
+	initialBias = 72,
+	initialN = 128, // 0x80
+	delimiter = '-', // '\x2D'
+
+	/** Regular expressions */
+	regexPunycode = /^xn--/,
+	regexNonASCII = /[^\x20-\x7E]/, // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g, // RFC 3490 separators
+
+	/** Error messages */
+	errors = {
+		'overflow': 'Overflow: input needs wider integers to process',
+		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
+		'invalid-input': 'Invalid input'
+	},
+
+	/** Convenience shortcuts */
+	baseMinusTMin = base - tMin,
+	floor = Math.floor,
+	stringFromCharCode = String.fromCharCode,
+
+	/** Temporary variable */
+	key;
+
+	/*--------------------------------------------------------------------------*/
+
+	/**
+	 * A generic error utility function.
+	 * @private
+	 * @param {String} type The error type.
+	 * @returns {Error} Throws a `RangeError` with the applicable error message.
+	 */
+	function error(type) {
+		throw RangeError(errors[type]);
+	}
+
+	/**
+	 * A generic `Array#map` utility function.
+	 * @private
+	 * @param {Array} array The array to iterate over.
+	 * @param {Function} callback The function that gets called for every array
+	 * item.
+	 * @returns {Array} A new array of values returned by the callback function.
+	 */
+	function map(array, fn) {
+		var length = array.length;
+		var result = [];
+		while (length--) {
+			result[length] = fn(array[length]);
+		}
+		return result;
+	}
+
+	/**
+	 * A simple `Array#map`-like wrapper to work with domain name strings or email
+	 * addresses.
+	 * @private
+	 * @param {String} domain The domain name or email address.
+	 * @param {Function} callback The function that gets called for every
+	 * character.
+	 * @returns {Array} A new string of characters returned by the callback
+	 * function.
+	 */
+	function mapDomain(string, fn) {
+		var parts = string.split('@');
+		var result = '';
+		if (parts.length > 1) {
+			// In email addresses, only the domain name should be punycoded. Leave
+			// the local part (i.e. everything up to `@`) intact.
+			result = parts[0] + '@';
+			string = parts[1];
+		}
+		// Avoid `split(regex)` for IE8 compatibility. See #17.
+		string = string.replace(regexSeparators, '\x2E');
+		var labels = string.split('.');
+		var encoded = map(labels, fn).join('.');
+		return result + encoded;
+	}
+
+	/**
+	 * Creates an array containing the numeric code points of each Unicode
+	 * character in the string. While JavaScript uses UCS-2 internally,
+	 * this function will convert a pair of surrogate halves (each of which
+	 * UCS-2 exposes as separate characters) into a single code point,
+	 * matching UTF-16.
+	 * @see `punycode.ucs2.encode`
+	 * @see <https://mathiasbynens.be/notes/javascript-encoding>
+	 * @memberOf punycode.ucs2
+	 * @name decode
+	 * @param {String} string The Unicode input string (UCS-2).
+	 * @returns {Array} The new array of code points.
+	 */
+	function ucs2decode(string) {
+		var output = [],
+		    counter = 0,
+		    length = string.length,
+		    value,
+		    extra;
+		while (counter < length) {
+			value = string.charCodeAt(counter++);
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
+				extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
+				}
+			} else {
+				output.push(value);
+			}
+		}
+		return output;
+	}
+
+	/**
+	 * Creates a string based on an array of numeric code points.
+	 * @see `punycode.ucs2.decode`
+	 * @memberOf punycode.ucs2
+	 * @name encode
+	 * @param {Array} codePoints The array of numeric code points.
+	 * @returns {String} The new Unicode string (UCS-2).
+	 */
+	function ucs2encode(array) {
+		return map(array, function(value) {
+			var output = '';
+			if (value > 0xFFFF) {
+				value -= 0x10000;
+				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+				value = 0xDC00 | value & 0x3FF;
+			}
+			output += stringFromCharCode(value);
+			return output;
+		}).join('');
+	}
+
+	/**
+	 * Converts a basic code point into a digit/integer.
+	 * @see `digitToBasic()`
+	 * @private
+	 * @param {Number} codePoint The basic numeric code point value.
+	 * @returns {Number} The numeric value of a basic code point (for use in
+	 * representing integers) in the range `0` to `base - 1`, or `base` if
+	 * the code point does not represent a value.
+	 */
+	function basicToDigit(codePoint) {
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
+	}
+
+	/**
+	 * Converts a digit/integer into a basic code point.
+	 * @see `basicToDigit()`
+	 * @private
+	 * @param {Number} digit The numeric value of a basic code point.
+	 * @returns {Number} The basic code point whose value (when used for
+	 * representing integers) is `digit`, which needs to be in the range
+	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+	 * used; else, the lowercase form is used. The behavior is undefined
+	 * if `flag` is non-zero and `digit` has no uppercase form.
+	 */
+	function digitToBasic(digit, flag) {
+		//  0..25 map to ASCII a..z or A..Z
+		// 26..35 map to ASCII 0..9
+		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+	}
+
+	/**
+	 * Bias adaptation function as per section 3.4 of RFC 3492.
+	 * http://tools.ietf.org/html/rfc3492#section-3.4
+	 * @private
+	 */
+	function adapt(delta, numPoints, firstTime) {
+		var k = 0;
+		delta = firstTime ? floor(delta / damp) : delta >> 1;
+		delta += floor(delta / numPoints);
+		for (/* no initialization */; delta > baseMinusTMin * tMax >> 1; k += base) {
+			delta = floor(delta / baseMinusTMin);
+		}
+		return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+	}
+
+	/**
+	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+	 * symbols.
+	 * @memberOf punycode
+	 * @param {String} input The Punycode string of ASCII-only symbols.
+	 * @returns {String} The resulting string of Unicode symbols.
+	 */
+	function decode(input) {
+		// Don't use UCS-2
+		var output = [],
+		    inputLength = input.length,
+		    out,
+		    i = 0,
+		    n = initialN,
+		    bias = initialBias,
+		    basic,
+		    j,
+		    index,
+		    oldi,
+		    w,
+		    k,
+		    digit,
+		    t,
+		    /** Cached calculation results */
+		    baseMinusT;
+
+		// Handle the basic code points: let `basic` be the number of input code
+		// points before the last delimiter, or `0` if there is none, then copy
+		// the first basic code points to the output.
+
+		basic = input.lastIndexOf(delimiter);
+		if (basic < 0) {
+			basic = 0;
+		}
+
+		for (j = 0; j < basic; ++j) {
+			// if it's not a basic code point
+			if (input.charCodeAt(j) >= 0x80) {
+				error('not-basic');
+			}
+			output.push(input.charCodeAt(j));
+		}
+
+		// Main decoding loop: start just after the last delimiter if any basic code
+		// points were copied; start at the beginning otherwise.
+
+		for (index = basic > 0 ? basic + 1 : 0; index < inputLength; /* no final expression */) {
+
+			// `index` is the index of the next character to be consumed.
+			// Decode a generalized variable-length integer into `delta`,
+			// which gets added to `i`. The overflow checking is easier
+			// if we increase `i` as we go, then subtract off its starting
+			// value at the end to obtain `delta`.
+			for (oldi = i, w = 1, k = base; /* no condition */; k += base) {
+
+				if (index >= inputLength) {
+					error('invalid-input');
+				}
+
+				digit = basicToDigit(input.charCodeAt(index++));
+
+				if (digit >= base || digit > floor((maxInt - i) / w)) {
+					error('overflow');
+				}
+
+				i += digit * w;
+				t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+
+				if (digit < t) {
+					break;
+				}
+
+				baseMinusT = base - t;
+				if (w > floor(maxInt / baseMinusT)) {
+					error('overflow');
+				}
+
+				w *= baseMinusT;
+
+			}
+
+			out = output.length + 1;
+			bias = adapt(i - oldi, out, oldi == 0);
+
+			// `i` was supposed to wrap around from `out` to `0`,
+			// incrementing `n` each time, so we'll fix that now:
+			if (floor(i / out) > maxInt - n) {
+				error('overflow');
+			}
+
+			n += floor(i / out);
+			i %= out;
+
+			// Insert `n` at position `i` of the output
+			output.splice(i++, 0, n);
+
+		}
+
+		return ucs2encode(output);
+	}
+
+	/**
+	 * Converts a string of Unicode symbols (e.g. a domain name label) to a
+	 * Punycode string of ASCII-only symbols.
+	 * @memberOf punycode
+	 * @param {String} input The string of Unicode symbols.
+	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
+	 */
+	function encode(input) {
+		var n,
+		    delta,
+		    handledCPCount,
+		    basicLength,
+		    bias,
+		    j,
+		    m,
+		    q,
+		    k,
+		    t,
+		    currentValue,
+		    output = [],
+		    /** `inputLength` will hold the number of code points in `input`. */
+		    inputLength,
+		    /** Cached calculation results */
+		    handledCPCountPlusOne,
+		    baseMinusT,
+		    qMinusT;
+
+		// Convert the input in UCS-2 to Unicode
+		input = ucs2decode(input);
+
+		// Cache the length
+		inputLength = input.length;
+
+		// Initialize the state
+		n = initialN;
+		delta = 0;
+		bias = initialBias;
+
+		// Handle the basic code points
+		for (j = 0; j < inputLength; ++j) {
+			currentValue = input[j];
+			if (currentValue < 0x80) {
+				output.push(stringFromCharCode(currentValue));
+			}
+		}
+
+		handledCPCount = basicLength = output.length;
+
+		// `handledCPCount` is the number of code points that have been handled;
+		// `basicLength` is the number of basic code points.
+
+		// Finish the basic string - if it is not empty - with a delimiter
+		if (basicLength) {
+			output.push(delimiter);
+		}
+
+		// Main encoding loop:
+		while (handledCPCount < inputLength) {
+
+			// All non-basic code points < n have been handled already. Find the next
+			// larger one:
+			for (m = maxInt, j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+				if (currentValue >= n && currentValue < m) {
+					m = currentValue;
+				}
+			}
+
+			// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
+			// but guard against overflow
+			handledCPCountPlusOne = handledCPCount + 1;
+			if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+				error('overflow');
+			}
+
+			delta += (m - n) * handledCPCountPlusOne;
+			n = m;
+
+			for (j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+
+				if (currentValue < n && ++delta > maxInt) {
+					error('overflow');
+				}
+
+				if (currentValue == n) {
+					// Represent delta as a generalized variable-length integer
+					for (q = delta, k = base; /* no condition */; k += base) {
+						t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+						if (q < t) {
+							break;
+						}
+						qMinusT = q - t;
+						baseMinusT = base - t;
+						output.push(
+							stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
+						);
+						q = floor(qMinusT / baseMinusT);
+					}
+
+					output.push(stringFromCharCode(digitToBasic(q, 0)));
+					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
+					delta = 0;
+					++handledCPCount;
+				}
+			}
+
+			++delta;
+			++n;
+
+		}
+		return output.join('');
+	}
+
+	/**
+	 * Converts a Punycode string representing a domain name or an email address
+	 * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
+	 * it doesn't matter if you call it on a string that has already been
+	 * converted to Unicode.
+	 * @memberOf punycode
+	 * @param {String} input The Punycoded domain name or email address to
+	 * convert to Unicode.
+	 * @returns {String} The Unicode representation of the given Punycode
+	 * string.
+	 */
+	function toUnicode(input) {
+		return mapDomain(input, function(string) {
+			return regexPunycode.test(string)
+				? decode(string.slice(4).toLowerCase())
+				: string;
+		});
+	}
+
+	/**
+	 * Converts a Unicode string representing a domain name or an email address to
+	 * Punycode. Only the non-ASCII parts of the domain name will be converted,
+	 * i.e. it doesn't matter if you call it with a domain that's already in
+	 * ASCII.
+	 * @memberOf punycode
+	 * @param {String} input The domain name or email address to convert, as a
+	 * Unicode string.
+	 * @returns {String} The Punycode representation of the given domain name or
+	 * email address.
+	 */
+	function toASCII(input) {
+		return mapDomain(input, function(string) {
+			return regexNonASCII.test(string)
+				? 'xn--' + encode(string)
+				: string;
+		});
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	/** Define the public API */
+	punycode = {
+		/**
+		 * A string representing the current Punycode.js version number.
+		 * @memberOf punycode
+		 * @type String
+		 */
+		'version': '1.3.2',
+		/**
+		 * An object of methods to convert from JavaScript's internal character
+		 * representation (UCS-2) to Unicode code points, and back.
+		 * @see <https://mathiasbynens.be/notes/javascript-encoding>
+		 * @memberOf punycode
+		 * @type Object
+		 */
+		'ucs2': {
+			'decode': ucs2decode,
+			'encode': ucs2encode
+		},
+		'decode': decode,
+		'encode': encode,
+		'toASCII': toASCII,
+		'toUnicode': toUnicode
+	};
+
+	/** Expose `punycode` */
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		true
+	) {
+		!(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+			return punycode;
+		}).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+
+}(this));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/module.js */ "YuTi")(module)))
+
+/***/ }),
+
 /***/ "rt8j":
 /*!******************************************************!*\
   !*** ./node_modules/@pixi/runner/dist/esm/runner.js ***!
@@ -63140,7 +63610,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /**
- * @license Angular v11.2.5
+ * @license Angular v11.2.8
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -65409,354 +65879,6 @@ __webpack_require__.r(__webpack_exports__);
  * Source https://github.com/spielhalle/spielhalle Package: @spielhalle/client
  */
 
-
-
-/***/ }),
-
-/***/ "uhBA":
-/*!*********************************************!*\
-  !*** ./node_modules/eventemitter3/index.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var has = Object.prototype.hasOwnProperty
-  , prefix = '~';
-
-/**
- * Constructor to create a storage for our `EE` objects.
- * An `Events` instance is a plain object whose properties are event names.
- *
- * @constructor
- * @private
- */
-function Events() {}
-
-//
-// We try to not inherit from `Object.prototype`. In some engines creating an
-// instance in this way is faster than calling `Object.create(null)` directly.
-// If `Object.create(null)` is not supported we prefix the event names with a
-// character to make sure that the built-in object properties are not
-// overridden or used as an attack vector.
-//
-if (Object.create) {
-  Events.prototype = Object.create(null);
-
-  //
-  // This hack is needed because the `__proto__` property is still inherited in
-  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
-  //
-  if (!new Events().__proto__) prefix = false;
-}
-
-/**
- * Representation of a single event listener.
- *
- * @param {Function} fn The listener function.
- * @param {*} context The context to invoke the listener with.
- * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
- * @constructor
- * @private
- */
-function EE(fn, context, once) {
-  this.fn = fn;
-  this.context = context;
-  this.once = once || false;
-}
-
-/**
- * Add a listener for a given event.
- *
- * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
- * @param {(String|Symbol)} event The event name.
- * @param {Function} fn The listener function.
- * @param {*} context The context to invoke the listener with.
- * @param {Boolean} once Specify if the listener is a one-time listener.
- * @returns {EventEmitter}
- * @private
- */
-function addListener(emitter, event, fn, context, once) {
-  if (typeof fn !== 'function') {
-    throw new TypeError('The listener must be a function');
-  }
-
-  var listener = new EE(fn, context || emitter, once)
-    , evt = prefix ? prefix + event : event;
-
-  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
-  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
-  else emitter._events[evt] = [emitter._events[evt], listener];
-
-  return emitter;
-}
-
-/**
- * Clear event by name.
- *
- * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
- * @param {(String|Symbol)} evt The Event name.
- * @private
- */
-function clearEvent(emitter, evt) {
-  if (--emitter._eventsCount === 0) emitter._events = new Events();
-  else delete emitter._events[evt];
-}
-
-/**
- * Minimal `EventEmitter` interface that is molded against the Node.js
- * `EventEmitter` interface.
- *
- * @constructor
- * @public
- */
-function EventEmitter() {
-  this._events = new Events();
-  this._eventsCount = 0;
-}
-
-/**
- * Return an array listing the events for which the emitter has registered
- * listeners.
- *
- * @returns {Array}
- * @public
- */
-EventEmitter.prototype.eventNames = function eventNames() {
-  var names = []
-    , events
-    , name;
-
-  if (this._eventsCount === 0) return names;
-
-  for (name in (events = this._events)) {
-    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
-  }
-
-  if (Object.getOwnPropertySymbols) {
-    return names.concat(Object.getOwnPropertySymbols(events));
-  }
-
-  return names;
-};
-
-/**
- * Return the listeners registered for a given event.
- *
- * @param {(String|Symbol)} event The event name.
- * @returns {Array} The registered listeners.
- * @public
- */
-EventEmitter.prototype.listeners = function listeners(event) {
-  var evt = prefix ? prefix + event : event
-    , handlers = this._events[evt];
-
-  if (!handlers) return [];
-  if (handlers.fn) return [handlers.fn];
-
-  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
-    ee[i] = handlers[i].fn;
-  }
-
-  return ee;
-};
-
-/**
- * Return the number of listeners listening to a given event.
- *
- * @param {(String|Symbol)} event The event name.
- * @returns {Number} The number of listeners.
- * @public
- */
-EventEmitter.prototype.listenerCount = function listenerCount(event) {
-  var evt = prefix ? prefix + event : event
-    , listeners = this._events[evt];
-
-  if (!listeners) return 0;
-  if (listeners.fn) return 1;
-  return listeners.length;
-};
-
-/**
- * Calls each of the listeners registered for a given event.
- *
- * @param {(String|Symbol)} event The event name.
- * @returns {Boolean} `true` if the event had listeners, else `false`.
- * @public
- */
-EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-  var evt = prefix ? prefix + event : event;
-
-  if (!this._events[evt]) return false;
-
-  var listeners = this._events[evt]
-    , len = arguments.length
-    , args
-    , i;
-
-  if (listeners.fn) {
-    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
-
-    switch (len) {
-      case 1: return listeners.fn.call(listeners.context), true;
-      case 2: return listeners.fn.call(listeners.context, a1), true;
-      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
-      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
-      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
-    }
-
-    for (i = 1, args = new Array(len -1); i < len; i++) {
-      args[i - 1] = arguments[i];
-    }
-
-    listeners.fn.apply(listeners.context, args);
-  } else {
-    var length = listeners.length
-      , j;
-
-    for (i = 0; i < length; i++) {
-      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
-
-      switch (len) {
-        case 1: listeners[i].fn.call(listeners[i].context); break;
-        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
-        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
-        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
-        default:
-          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
-            args[j - 1] = arguments[j];
-          }
-
-          listeners[i].fn.apply(listeners[i].context, args);
-      }
-    }
-  }
-
-  return true;
-};
-
-/**
- * Add a listener for a given event.
- *
- * @param {(String|Symbol)} event The event name.
- * @param {Function} fn The listener function.
- * @param {*} [context=this] The context to invoke the listener with.
- * @returns {EventEmitter} `this`.
- * @public
- */
-EventEmitter.prototype.on = function on(event, fn, context) {
-  return addListener(this, event, fn, context, false);
-};
-
-/**
- * Add a one-time listener for a given event.
- *
- * @param {(String|Symbol)} event The event name.
- * @param {Function} fn The listener function.
- * @param {*} [context=this] The context to invoke the listener with.
- * @returns {EventEmitter} `this`.
- * @public
- */
-EventEmitter.prototype.once = function once(event, fn, context) {
-  return addListener(this, event, fn, context, true);
-};
-
-/**
- * Remove the listeners of a given event.
- *
- * @param {(String|Symbol)} event The event name.
- * @param {Function} fn Only remove the listeners that match this function.
- * @param {*} context Only remove the listeners that have this context.
- * @param {Boolean} once Only remove one-time listeners.
- * @returns {EventEmitter} `this`.
- * @public
- */
-EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-  var evt = prefix ? prefix + event : event;
-
-  if (!this._events[evt]) return this;
-  if (!fn) {
-    clearEvent(this, evt);
-    return this;
-  }
-
-  var listeners = this._events[evt];
-
-  if (listeners.fn) {
-    if (
-      listeners.fn === fn &&
-      (!once || listeners.once) &&
-      (!context || listeners.context === context)
-    ) {
-      clearEvent(this, evt);
-    }
-  } else {
-    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
-      if (
-        listeners[i].fn !== fn ||
-        (once && !listeners[i].once) ||
-        (context && listeners[i].context !== context)
-      ) {
-        events.push(listeners[i]);
-      }
-    }
-
-    //
-    // Reset the array, or remove it completely if we have no more listeners.
-    //
-    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
-    else clearEvent(this, evt);
-  }
-
-  return this;
-};
-
-/**
- * Remove all listeners, or those of the specified event.
- *
- * @param {(String|Symbol)} [event] The event name.
- * @returns {EventEmitter} `this`.
- * @public
- */
-EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
-  var evt;
-
-  if (event) {
-    evt = prefix ? prefix + event : event;
-    if (this._events[evt]) clearEvent(this, evt);
-  } else {
-    this._events = new Events();
-    this._eventsCount = 0;
-  }
-
-  return this;
-};
-
-//
-// Alias methods names because people roll like that.
-//
-EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
-EventEmitter.prototype.addListener = EventEmitter.prototype.on;
-
-//
-// Expose the prefix.
-//
-EventEmitter.prefixed = prefix;
-
-//
-// Allow `EventEmitter` to be imported as module namespace.
-//
-EventEmitter.EventEmitter = EventEmitter;
-
-//
-// Expose the module.
-//
-if (true) {
-  module.exports = EventEmitter;
-}
 
 
 /***/ }),
