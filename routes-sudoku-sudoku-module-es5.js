@@ -2341,6 +2341,8 @@
 
             _this12.outletElement.appendChild(element);
 
+            _this12._attachedPortal = portal;
+
             _get((_thisSuper = _assertThisInitialized(_this12), _getPrototypeOf(DomPortalOutlet.prototype)), "setDisposeFn", _thisSuper).call(_thisSuper, function () {
               // We can't use `replaceWith` here because IE doesn't support it.
               if (anchorNode.parentNode) {
@@ -2391,6 +2393,7 @@
 
 
             this.outletElement.appendChild(this._getComponentRootNode(componentRef));
+            this._attachedPortal = portal;
             return componentRef;
           }
           /**
@@ -2423,7 +2426,8 @@
               if (index !== -1) {
                 viewContainer.remove(index);
               }
-            }); // TODO(jelbourn): Return locals from view.
+            });
+            this._attachedPortal = portal; // TODO(jelbourn): Return locals from view.
 
             return viewRef;
           }
@@ -2642,6 +2646,8 @@
             element.parentNode.insertBefore(anchorNode, element);
 
             _this15._getRootNode().appendChild(element);
+
+            _this15._attachedPortal = portal;
 
             _get((_thisSuper2 = _assertThisInitialized(_this15), _getPrototypeOf(CdkPortalOutlet.prototype)), "setDisposeFn", _thisSuper2).call(_thisSuper2, function () {
               if (anchorNode.parentNode) {
@@ -52484,7 +52490,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx._primaryValueBar = _t.first);
           }
         },
-        hostAttrs: ["role", "progressbar", "aria-valuemin", "0", "aria-valuemax", "100", 1, "mat-progress-bar"],
+        hostAttrs: ["role", "progressbar", "aria-valuemin", "0", "aria-valuemax", "100", "tabindex", "-1", 1, "mat-progress-bar"],
         hostVars: 4,
         hostBindings: function MatProgressBar_HostBindings(rf, ctx) {
           if (rf & 2) {
@@ -52617,6 +52623,9 @@
               'role': 'progressbar',
               'aria-valuemin': '0',
               'aria-valuemax': '100',
+              // set tab index to -1 so screen readers will read the aria-label
+              // Note: there is a known issue with JAWS that does not read progressbar aria labels on FireFox
+              'tabindex': '-1',
               '[attr.aria-valuenow]': '(mode === "indeterminate" || mode === "query") ? null : value',
               '[attr.mode]': 'mode',
               'class': 'mat-progress-bar',

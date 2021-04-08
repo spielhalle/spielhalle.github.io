@@ -1221,6 +1221,7 @@ class DomPortalOutlet extends BasePortalOutlet {
             const anchorNode = this._document.createComment('dom-portal');
             element.parentNode.insertBefore(anchorNode, element);
             this.outletElement.appendChild(element);
+            this._attachedPortal = portal;
             super.setDisposeFn(() => {
                 // We can't use `replaceWith` here because IE doesn't support it.
                 if (anchorNode.parentNode) {
@@ -1258,6 +1259,7 @@ class DomPortalOutlet extends BasePortalOutlet {
         // At this point the component has been instantiated, so we move it to the location in the DOM
         // where we want it to be rendered.
         this.outletElement.appendChild(this._getComponentRootNode(componentRef));
+        this._attachedPortal = portal;
         return componentRef;
     }
     /**
@@ -1283,6 +1285,7 @@ class DomPortalOutlet extends BasePortalOutlet {
                 viewContainer.remove(index);
             }
         }));
+        this._attachedPortal = portal;
         // TODO(jelbourn): Return locals from view.
         return viewRef;
     }
@@ -1402,6 +1405,7 @@ class CdkPortalOutlet extends BasePortalOutlet {
             portal.setAttachedHost(this);
             element.parentNode.insertBefore(anchorNode, element);
             this._getRootNode().appendChild(element);
+            this._attachedPortal = portal;
             super.setDisposeFn(() => {
                 if (anchorNode.parentNode) {
                     anchorNode.parentNode.replaceChild(element, anchorNode);
@@ -40085,7 +40089,7 @@ MatProgressBar.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCom
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx._primaryValueBar = _t.first);
-    } }, hostAttrs: ["role", "progressbar", "aria-valuemin", "0", "aria-valuemax", "100", 1, "mat-progress-bar"], hostVars: 4, hostBindings: function MatProgressBar_HostBindings(rf, ctx) { if (rf & 2) {
+    } }, hostAttrs: ["role", "progressbar", "aria-valuemin", "0", "aria-valuemax", "100", "tabindex", "-1", 1, "mat-progress-bar"], hostVars: 4, hostBindings: function MatProgressBar_HostBindings(rf, ctx) { if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("aria-valuenow", ctx.mode === "indeterminate" || ctx.mode === "query" ? null : ctx.value)("mode", ctx.mode);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("_mat-animation-noopable", ctx._isNoopAnimation);
     } }, inputs: { color: "color", mode: "mode", value: "value", bufferValue: "bufferValue" }, outputs: { animationEnd: "animationEnd" }, exportAs: ["matProgressBar"], features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]], decls: 10, vars: 4, consts: [["aria-hidden", "true"], ["width", "100%", "height", "4", "focusable", "false", 1, "mat-progress-bar-background", "mat-progress-bar-element"], ["x", "4", "y", "0", "width", "8", "height", "4", "patternUnits", "userSpaceOnUse", 3, "id"], ["cx", "2", "cy", "2", "r", "2"], ["width", "100%", "height", "100%"], [1, "mat-progress-bar-buffer", "mat-progress-bar-element", 3, "ngStyle"], [1, "mat-progress-bar-primary", "mat-progress-bar-fill", "mat-progress-bar-element", 3, "ngStyle"], ["primaryValueBar", ""], [1, "mat-progress-bar-secondary", "mat-progress-bar-fill", "mat-progress-bar-element"]], template: function MatProgressBar_Template(rf, ctx) { if (rf & 1) {
@@ -40136,6 +40140,9 @@ MatProgressBar.propDecorators = {
                     'role': 'progressbar',
                     'aria-valuemin': '0',
                     'aria-valuemax': '100',
+                    // set tab index to -1 so screen readers will read the aria-label
+                    // Note: there is a known issue with JAWS that does not read progressbar aria labels on FireFox
+                    'tabindex': '-1',
                     '[attr.aria-valuenow]': '(mode === "indeterminate" || mode === "query") ? null : value',
                     '[attr.mode]': 'mode',
                     'class': 'mat-progress-bar',
