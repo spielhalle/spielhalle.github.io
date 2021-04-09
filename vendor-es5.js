@@ -12275,7 +12275,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15624,7 +15624,7 @@
         return ɵPRE_STYLE;
       });
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -17230,7 +17230,7 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -26348,7 +26348,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -28182,6 +28182,48 @@
        */
 
 
+      var profilerCallback = null;
+      /**
+       * Sets the callback function which will be invoked before and after performing certain actions at
+       * runtime (for example, before and after running change detection).
+       *
+       * Warning: this function is *INTERNAL* and should not be relied upon in application's code.
+       * The contract of the function might be changed in any release and/or the function can be removed
+       * completely.
+       *
+       * @param profiler function provided by the caller or null value to disable profiling.
+       */
+
+      var setProfiler = function setProfiler(profiler) {
+        profilerCallback = profiler;
+      };
+      /**
+       * Profiler function which wraps user code executed by the runtime.
+       *
+       * @param event ProfilerEvent corresponding to the execution context
+       * @param instance component instance
+       * @param hookOrListener lifecycle hook function or output listener. The value depends on the
+       *  execution context
+       * @returns
+       */
+
+
+      var profiler = function profiler(event, instance, hookOrListener) {
+        if (profilerCallback != null
+        /* both `null` and `undefined` */
+        ) {
+            profilerCallback(event, instance, hookOrListener);
+          }
+      };
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
+
+
       var SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
       var MATH_ML_NAMESPACE = 'http://www.w3.org/1998/MathML/';
       /**
@@ -29367,10 +29409,30 @@
             currentView[FLAGS] += 2048
             /* IndexWithinInitPhaseIncrementer */
             ;
-            hook.call(directive);
+            profiler(4
+            /* LifecycleHookStart */
+            , directive, hook);
+
+            try {
+              hook.call(directive);
+            } finally {
+              profiler(5
+              /* LifecycleHookEnd */
+              , directive, hook);
+            }
           }
         } else {
-          hook.call(directive);
+          profiler(4
+          /* LifecycleHookStart */
+          , directive, hook);
+
+          try {
+            hook.call(directive);
+          } finally {
+            profiler(5
+            /* LifecycleHookEnd */
+            , directive, hook);
+          }
         }
       }
       /**
@@ -38077,21 +38139,34 @@
 
       function executeTemplate(tView, lView, templateFn, rf, context) {
         var prevSelectedIndex = getSelectedIndex();
+        var isUpdatePhase = rf & 2
+        /* Update */
+        ;
 
         try {
           setSelectedIndex(-1);
 
-          if (rf & 2
-          /* Update */
-          && lView.length > HEADER_OFFSET) {
+          if (isUpdatePhase && lView.length > HEADER_OFFSET) {
             // When we're updating, inherently select 0 so we don't
             // have to generate that instruction for most update blocks.
             selectIndexInternal(tView, lView, HEADER_OFFSET, isInCheckNoChangesMode());
           }
 
+          var preHookType = isUpdatePhase ? 2
+          /* TemplateUpdateStart */
+          : 0
+          /* TemplateCreateStart */
+          ;
+          profiler(preHookType, context);
           templateFn(rf, context);
         } finally {
           setSelectedIndex(prevSelectedIndex);
+          var postHookType = isUpdatePhase ? 3
+          /* TemplateUpdateEnd */
+          : 1
+          /* TemplateCreateEnd */
+          ;
+          profiler(postHookType, context);
         }
       } //////////////////////////
       //// Element
@@ -41341,6 +41416,13 @@
       function publishDefaultGlobalUtils() {
         if (!_published) {
           _published = true;
+          /**
+           * Warning: this function is *INTERNAL* and should not be relied upon in application's code.
+           * The contract of the function might be changed in any release and/or the function can be
+           * removed completely.
+           */
+
+          publishGlobalUtil('ɵsetProfiler', setProfiler);
           publishGlobalUtil('getComponent', getComponent);
           publishGlobalUtil('getContext', getContext);
           publishGlobalUtil('getListeners', getListeners);
@@ -44714,7 +44796,8 @@
         var eventTargetResolver = arguments.length > 7 ? arguments[7] : undefined;
         var isTNodeDirectiveHost = isDirectiveHost(tNode);
         var firstCreatePass = tView.firstCreatePass;
-        var tCleanup = firstCreatePass && getOrCreateTViewCleanup(tView); // When the ɵɵlistener instruction was generated and is executed we know that there is either a
+        var tCleanup = firstCreatePass && getOrCreateTViewCleanup(tView);
+        var context = lView[CONTEXT]; // When the ɵɵlistener instruction was generated and is executed we know that there is either a
         // native listener or a directive output on this element. As such we we know that we will have to
         // register a listener and store its cleanup function on LView.
 
@@ -44774,7 +44857,7 @@
                 // The first argument of `listen` function in Procedural Renderer is:
                 // - either a target name (as a string) in case of global target (window, document, body)
                 // - or element reference (in all other cases)
-                listenerFn = wrapListener(tNode, lView, listenerFn, false
+                listenerFn = wrapListener(tNode, lView, context, listenerFn, false
                 /** preventDefault */
                 );
                 var cleanupFn = renderer.listen(resolved.name || target, eventName, listenerFn);
@@ -44783,7 +44866,7 @@
                 tCleanup && tCleanup.push(eventName, idxOrTargetGetter, lCleanupIndex, lCleanupIndex + 1);
               }
             } else {
-              listenerFn = wrapListener(tNode, lView, listenerFn, true
+              listenerFn = wrapListener(tNode, lView, context, listenerFn, true
               /** preventDefault */
               );
               target.addEventListener(eventName, listenerFn, useCapture);
@@ -44794,7 +44877,7 @@
           } else {
           // Even if there is no native listener to add, we still need to wrap the listener so that OnPush
           // ancestors are marked dirty when an event occurs.
-          listenerFn = wrapListener(tNode, lView, listenerFn, false
+          listenerFn = wrapListener(tNode, lView, context, listenerFn, false
           /** preventDefault */
           );
         } // subscribe to directive outputs
@@ -44827,13 +44910,20 @@
         }
       }
 
-      function executeListenerWithErrorHandling(lView, listenerFn, e) {
+      function executeListenerWithErrorHandling(lView, context, listenerFn, e) {
         try {
-          // Only explicitly returning false from a listener should preventDefault
+          profiler(6
+          /* OutputStart */
+          , context, listenerFn); // Only explicitly returning false from a listener should preventDefault
+
           return listenerFn(e) !== false;
         } catch (error) {
           handleError(lView, error);
           return false;
+        } finally {
+          profiler(7
+          /* OutputEnd */
+          , context, listenerFn);
         }
       }
       /**
@@ -44848,7 +44938,7 @@
        */
 
 
-      function wrapListener(tNode, lView, listenerFn, wrapWithPreventDefault) {
+      function wrapListener(tNode, lView, context, listenerFn, wrapWithPreventDefault) {
         // Note: we are performing most of the work in the listener function itself
         // to optimize listener registration.
         return function wrapListenerIn_markDirtyAndPreventDefault(e) {
@@ -44870,14 +44960,14 @@
             markViewDirty(startView);
           }
 
-          var result = executeListenerWithErrorHandling(lView, listenerFn, e); // A just-invoked listener function might have coalesced listeners so we need to check for
+          var result = executeListenerWithErrorHandling(lView, context, listenerFn, e); // A just-invoked listener function might have coalesced listeners so we need to check for
           // their presence and invoke as needed.
 
           var nextListenerFn = wrapListenerIn_markDirtyAndPreventDefault.__ngNextListenerFn__;
 
           while (nextListenerFn) {
             // We should prevent default if any of the listeners explicitly return false
-            result = executeListenerWithErrorHandling(lView, nextListenerFn, e) && result;
+            result = executeListenerWithErrorHandling(lView, context, nextListenerFn, e) && result;
             nextListenerFn = nextListenerFn.__ngNextListenerFn__;
           }
 
@@ -51867,7 +51957,7 @@
        */
 
 
-      var VERSION = new Version('11.2.8');
+      var VERSION = new Version('11.2.9');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -68380,7 +68470,7 @@
         return _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"];
       });
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -71689,7 +71779,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.8');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.9');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -75336,7 +75426,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -82555,7 +82645,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.8');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.9');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -85159,7 +85249,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -92303,7 +92393,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.8
+       * @license Angular v11.2.9
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -98042,7 +98132,10 @@
           get: function get() {
             return this.serializeUrl(this.currentUrlTree);
           }
-          /** The current Navigation object if one exists */
+          /**
+           * Returns the current `Navigation` object when the router is navigating,
+           * and `null` when idle.
+           */
 
         }, {
           key: "getCurrentNavigation",
@@ -100528,7 +100621,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.8');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.9');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
