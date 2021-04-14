@@ -12275,7 +12275,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15624,7 +15624,7 @@
         return ɵPRE_STYLE;
       });
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -17230,7 +17230,7 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -26348,7 +26348,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -51957,7 +51957,7 @@
        */
 
 
-      var VERSION = new Version('11.2.9');
+      var VERSION = new Version('11.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -57939,75 +57939,40 @@
         }, {
           key: "subscribe",
           value: function subscribe(observerOrNext, error, complete) {
-            var schedulerFn;
+            var _a, _b, _c;
 
-            var errorFn = function errorFn(err) {
+            var nextFn = observerOrNext;
+
+            var errorFn = error || function () {
               return null;
             };
 
-            var completeFn = function completeFn() {
-              return null;
-            };
+            var completeFn = complete;
 
             if (observerOrNext && typeof observerOrNext === 'object') {
-              schedulerFn = this.__isAsync ? function (value) {
-                setTimeout(function () {
-                  return observerOrNext.next(value);
-                });
-              } : function (value) {
-                observerOrNext.next(value);
-              };
+              var observer = observerOrNext;
+              nextFn = (_a = observer.next) === null || _a === void 0 ? void 0 : _a.bind(observer);
+              errorFn = (_b = observer.error) === null || _b === void 0 ? void 0 : _b.bind(observer);
+              completeFn = (_c = observer.complete) === null || _c === void 0 ? void 0 : _c.bind(observer);
+            }
 
-              if (observerOrNext.error) {
-                errorFn = this.__isAsync ? function (err) {
-                  setTimeout(function () {
-                    return observerOrNext.error(err);
-                  });
-                } : function (err) {
-                  observerOrNext.error(err);
-                };
+            if (this.__isAsync) {
+              errorFn = _wrapInTimeout(errorFn);
+
+              if (nextFn) {
+                nextFn = _wrapInTimeout(nextFn);
               }
 
-              if (observerOrNext.complete) {
-                completeFn = this.__isAsync ? function () {
-                  setTimeout(function () {
-                    return observerOrNext.complete();
-                  });
-                } : function () {
-                  observerOrNext.complete();
-                };
-              }
-            } else {
-              schedulerFn = this.__isAsync ? function (value) {
-                setTimeout(function () {
-                  return observerOrNext(value);
-                });
-              } : function (value) {
-                observerOrNext(value);
-              };
-
-              if (error) {
-                errorFn = this.__isAsync ? function (err) {
-                  setTimeout(function () {
-                    return error(err);
-                  });
-                } : function (err) {
-                  error(err);
-                };
-              }
-
-              if (complete) {
-                completeFn = this.__isAsync ? function () {
-                  setTimeout(function () {
-                    return complete();
-                  });
-                } : function () {
-                  complete();
-                };
+              if (completeFn) {
+                completeFn = _wrapInTimeout(completeFn);
               }
             }
 
-            var sink = _get(_getPrototypeOf(EventEmitter_.prototype), "subscribe", this).call(this, schedulerFn, errorFn, completeFn);
+            var sink = _get(_getPrototypeOf(EventEmitter_.prototype), "subscribe", this).call(this, {
+              next: nextFn,
+              error: errorFn,
+              complete: completeFn
+            });
 
             if (observerOrNext instanceof rxjs__WEBPACK_IMPORTED_MODULE_0__["Subscription"]) {
               observerOrNext.add(sink);
@@ -58019,6 +57984,12 @@
 
         return EventEmitter_;
       }(rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]);
+
+      function _wrapInTimeout(fn) {
+        return function (value) {
+          setTimeout(fn, undefined, value);
+        };
+      }
       /**
        * @publicApi
        */
@@ -66981,10 +66952,13 @@
           key: "destroyNode",
           value: function destroyNode(node) {
             var debugNode = getDebugNode$1(node);
-            removeDebugNodeFromIndex(debugNode);
 
-            if (debugNode instanceof DebugNode__PRE_R3__) {
-              debugNode.listeners.length = 0;
+            if (debugNode) {
+              removeDebugNodeFromIndex(debugNode);
+
+              if (debugNode instanceof DebugNode__PRE_R3__) {
+                debugNode.listeners.length = 0;
+              }
             }
 
             if (this.delegate.destroyNode) {
@@ -68470,7 +68444,7 @@
         return _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"];
       });
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -71779,7 +71753,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.9');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -75426,7 +75400,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -82645,7 +82619,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.9');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -85249,7 +85223,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -92393,7 +92367,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.9
+       * @license Angular v11.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -95214,7 +95188,12 @@
               // Destroy the component
               context.outlet.deactivate(); // Destroy the contexts for all the outlets that were in the component
 
-              context.children.onOutletDeactivated();
+              context.children.onOutletDeactivated(); // Clear the information about the attached component on the context but keep the reference to
+              // the outlet.
+
+              context.attachRef = null;
+              context.resolver = null;
+              context.route = null;
             }
           }
         }, {
@@ -98415,7 +98394,6 @@
               _this264.events.next(new NavigationEnd(t.id, _this264.serializeUrl(t.extractedUrl), _this264.serializeUrl(_this264.currentUrlTree)));
 
               _this264.lastSuccessfulNavigation = _this264.currentNavigation;
-              _this264.currentNavigation = null;
               t.resolve(true);
             }, function (e) {
               _this264.console.warn("Unhandled Navigation Error: ");
@@ -100621,7 +100599,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.9');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
