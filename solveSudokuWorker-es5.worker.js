@@ -907,7 +907,7 @@
         }
 
         return selectBoard;
-      }; // BUILD: Mon Mar 22 2021 19:41:21 GMT+0000 (Coordinated Universal Time)
+      }; // BUILD: Fri Apr 16 2021 11:58:00 GMT+0200 (Central European Summer Time)
       //# sourceMappingURL=index.js.map
 
       /***/
