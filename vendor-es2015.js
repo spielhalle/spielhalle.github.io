@@ -6574,7 +6574,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8528,7 +8528,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationGroupPlayer", function() { return AnimationGroupPlayer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPRE_STYLE", function() { return ɵPRE_STYLE; });
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9762,7 +9762,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ "t9l1");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -13829,7 +13829,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -35249,7 +35249,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.2.10');
+const VERSION = new Version('11.2.11');
 
 /**
  * @license
@@ -47310,7 +47310,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ɵgetDOM", function() { return _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"]; });
 
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -49464,7 +49464,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.10');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.11');
 
 /**
  * @license
@@ -51099,7 +51099,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵsetRootDomAdapter", function() { return setRootDomAdapter; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -56393,7 +56393,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.10');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
 
 /**
  * @license
@@ -56473,21 +56473,19 @@ class BrowserViewportScroller {
      * @see https://html.spec.whatwg.org/#scroll-to-fragid
      */
     scrollToAnchor(target) {
-        var _a;
         if (!this.supportsScrolling()) {
             return;
         }
         // TODO(atscott): The correct behavior for `getElementsByName` would be to also verify that the
         // element is an anchor. However, this could be considered a breaking change and should be
         // done in a major version.
-        const elSelected = (_a = this.document.getElementById(target)) !== null && _a !== void 0 ? _a : this.document.getElementsByName(target)[0];
-        if (elSelected === undefined) {
-            return;
+        const elSelected = findAnchorFromDocument(this.document, target);
+        if (elSelected) {
+            this.scrollToElement(elSelected);
+            // After scrolling to the element, the spec dictates that we follow the focus steps for the
+            // target. Rather than following the robust steps, simply attempt focus.
+            this.attemptFocus(elSelected);
         }
-        this.scrollToElement(elSelected);
-        // After scrolling to the element, the spec dictates that we follow the focus steps for the
-        // target. Rather than following the robust steps, simply attempt focus.
-        this.attemptFocus(elSelected);
     }
     /**
      * Disables automatic scroll restoration provided by the browser.
@@ -56563,6 +56561,32 @@ class BrowserViewportScroller {
 }
 function getScrollRestorationProperty(obj) {
     return Object.getOwnPropertyDescriptor(obj, 'scrollRestoration');
+}
+function findAnchorFromDocument(document, target) {
+    const documentResult = document.getElementById(target) || document.getElementsByName(target)[0];
+    if (documentResult) {
+        return documentResult;
+    }
+    // `getElementById` and `getElementsByName` won't pierce through the shadow DOM so we
+    // have to traverse the DOM manually and do the lookup through the shadow roots.
+    if (typeof document.createTreeWalker === 'function' && document.body &&
+        (document.body.createShadowRoot || document.body.attachShadow)) {
+        const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
+        let currentNode = treeWalker.currentNode;
+        while (currentNode) {
+            const shadowRoot = currentNode.shadowRoot;
+            if (shadowRoot) {
+                // Note that `ShadowRoot` doesn't support `getElementsByName`
+                // so we have to fall back to `querySelector`.
+                const result = shadowRoot.getElementById(target) || shadowRoot.querySelector(`[name="${target}"]`);
+                if (result) {
+                    return result;
+                }
+            }
+            currentNode = treeWalker.nextNode();
+        }
+    }
+    return null;
 }
 /**
  * Provides an empty implementation of the viewport scroller.
@@ -57748,7 +57772,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ "R0Ic");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -62645,7 +62669,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /**
- * @license Angular v11.2.10
+ * @license Angular v11.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -64289,20 +64313,20 @@ function createNode(routeReuseStrategy, curr, prevState) {
         value._futureSnapshot = curr.value;
         const children = createOrReuseChildren(routeReuseStrategy, curr, prevState);
         return new TreeNode(value, children);
-        // retrieve an activated route that is used to be displayed, but is not currently displayed
     }
     else {
-        const detachedRouteHandle = routeReuseStrategy.retrieve(curr.value);
-        if (detachedRouteHandle) {
-            const tree = detachedRouteHandle.route;
-            setFutureSnapshotsOfActivatedRoutes(curr, tree);
-            return tree;
+        if (routeReuseStrategy.shouldAttach(curr.value)) {
+            // retrieve an activated route that is used to be displayed, but is not currently displayed
+            const detachedRouteHandle = routeReuseStrategy.retrieve(curr.value);
+            if (detachedRouteHandle !== null) {
+                const tree = detachedRouteHandle.route;
+                setFutureSnapshotsOfActivatedRoutes(curr, tree);
+                return tree;
+            }
         }
-        else {
-            const value = createActivatedRoute(curr.value);
-            const children = curr.children.map(c => createNode(routeReuseStrategy, c));
-            return new TreeNode(value, children);
-        }
+        const value = createActivatedRoute(curr.value);
+        const children = curr.children.map(c => createNode(routeReuseStrategy, c));
+        return new TreeNode(value, children);
     }
 }
 function setFutureSnapshotsOfActivatedRoutes(curr, result) {
@@ -66044,6 +66068,8 @@ function hasEmptyPathConfig(node) {
  */
 function mergeEmptyPathMatches(nodes) {
     const result = [];
+    // The set of nodes which contain children that were merged from two duplicate empty path nodes.
+    const mergedNodes = new Set();
     for (const node of nodes) {
         if (!hasEmptyPathConfig(node)) {
             result.push(node);
@@ -66052,12 +66078,21 @@ function mergeEmptyPathMatches(nodes) {
         const duplicateEmptyPathNode = result.find(resultNode => node.value.routeConfig === resultNode.value.routeConfig);
         if (duplicateEmptyPathNode !== undefined) {
             duplicateEmptyPathNode.children.push(...node.children);
+            mergedNodes.add(duplicateEmptyPathNode);
         }
         else {
             result.push(node);
         }
     }
-    return result;
+    // For each node which has children from multiple sources, we need to recompute a new `TreeNode`
+    // by also merging those children. This is necessary when there are multiple empty path configs in
+    // a row. Put another way: whenever we combine children of two nodes, we need to also check if any
+    // of those children can be combined into a single node as well.
+    for (const mergedNode of mergedNodes) {
+        const mergedChildren = mergeEmptyPathMatches(mergedNode.children);
+        result.push(new TreeNode(mergedNode.value, mergedChildren));
+    }
+    return result.filter(n => !mergedNodes.has(n));
 }
 function checkOutletNameUniqueness(nodes) {
     const names = {};
@@ -68584,7 +68619,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.10');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.11');
 
 /**
  * @license

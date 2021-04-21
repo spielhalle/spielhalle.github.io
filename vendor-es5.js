@@ -12282,7 +12282,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15631,7 +15631,7 @@
         return ɵPRE_STYLE;
       });
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -17237,7 +17237,7 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -26355,7 +26355,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -51964,7 +51964,7 @@
        */
 
 
-      var VERSION = new Version('11.2.10');
+      var VERSION = new Version('11.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -68451,7 +68451,7 @@
         return _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"];
       });
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -71760,7 +71760,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.10');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -75407,7 +75407,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -82626,7 +82626,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.10');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -82731,8 +82731,6 @@
         }, {
           key: "scrollToAnchor",
           value: function scrollToAnchor(target) {
-            var _a;
-
             if (!this.supportsScrolling()) {
               return;
             } // TODO(atscott): The correct behavior for `getElementsByName` would be to also verify that the
@@ -82740,16 +82738,14 @@
             // done in a major version.
 
 
-            var elSelected = (_a = this.document.getElementById(target)) !== null && _a !== void 0 ? _a : this.document.getElementsByName(target)[0];
+            var elSelected = findAnchorFromDocument(this.document, target);
 
-            if (elSelected === undefined) {
-              return;
+            if (elSelected) {
+              this.scrollToElement(elSelected); // After scrolling to the element, the spec dictates that we follow the focus steps for the
+              // target. Rather than following the robust steps, simply attempt focus.
+
+              this.attemptFocus(elSelected);
             }
-
-            this.scrollToElement(elSelected); // After scrolling to the element, the spec dictates that we follow the focus steps for the
-            // target. Rather than following the robust steps, simply attempt focus.
-
-            this.attemptFocus(elSelected);
           }
           /**
            * Disables automatic scroll restoration provided by the browser.
@@ -82841,6 +82837,39 @@
 
       function getScrollRestorationProperty(obj) {
         return Object.getOwnPropertyDescriptor(obj, 'scrollRestoration');
+      }
+
+      function findAnchorFromDocument(document, target) {
+        var documentResult = document.getElementById(target) || document.getElementsByName(target)[0];
+
+        if (documentResult) {
+          return documentResult;
+        } // `getElementById` and `getElementsByName` won't pierce through the shadow DOM so we
+        // have to traverse the DOM manually and do the lookup through the shadow roots.
+
+
+        if (typeof document.createTreeWalker === 'function' && document.body && (document.body.createShadowRoot || document.body.attachShadow)) {
+          var treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
+          var currentNode = treeWalker.currentNode;
+
+          while (currentNode) {
+            var shadowRoot = currentNode.shadowRoot;
+
+            if (shadowRoot) {
+              // Note that `ShadowRoot` doesn't support `getElementsByName`
+              // so we have to fall back to `querySelector`.
+              var result = shadowRoot.getElementById(target) || shadowRoot.querySelector("[name=\"".concat(target, "\"]"));
+
+              if (result) {
+                return result;
+              }
+            }
+
+            currentNode = treeWalker.nextNode();
+          }
+        }
+
+        return null;
       }
       /**
        * Provides an empty implementation of the viewport scroller.
@@ -85230,7 +85259,7 @@
       /*! @angular/core */
       "fXoL");
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -92374,7 +92403,7 @@
       /*! rxjs/operators */
       "kU1M");
       /**
-       * @license Angular v11.2.10
+       * @license Angular v11.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -94655,23 +94684,26 @@
           var value = prevState.value;
           value._futureSnapshot = curr.value;
           var children = createOrReuseChildren(routeReuseStrategy, curr, prevState);
-          return new TreeNode(value, children); // retrieve an activated route that is used to be displayed, but is not currently displayed
+          return new TreeNode(value, children);
         } else {
-          var detachedRouteHandle = routeReuseStrategy.retrieve(curr.value);
+          if (routeReuseStrategy.shouldAttach(curr.value)) {
+            // retrieve an activated route that is used to be displayed, but is not currently displayed
+            var detachedRouteHandle = routeReuseStrategy.retrieve(curr.value);
 
-          if (detachedRouteHandle) {
-            var _tree = detachedRouteHandle.route;
-            setFutureSnapshotsOfActivatedRoutes(curr, _tree);
-            return _tree;
-          } else {
-            var _value5 = createActivatedRoute(curr.value);
-
-            var _children2 = curr.children.map(function (c) {
-              return createNode(routeReuseStrategy, c);
-            });
-
-            return new TreeNode(_value5, _children2);
+            if (detachedRouteHandle !== null) {
+              var _tree = detachedRouteHandle.route;
+              setFutureSnapshotsOfActivatedRoutes(curr, _tree);
+              return _tree;
+            }
           }
+
+          var _value5 = createActivatedRoute(curr.value);
+
+          var _children2 = curr.children.map(function (c) {
+            return createNode(routeReuseStrategy, c);
+          });
+
+          return new TreeNode(_value5, _children2);
         }
       }
 
@@ -96929,7 +96961,9 @@
 
 
       function mergeEmptyPathMatches(nodes) {
-        var result = [];
+        var result = []; // The set of nodes which contain children that were merged from two duplicate empty path nodes.
+
+        var mergedNodes = new Set();
 
         var _iterator21 = _createForOfIteratorHelper(nodes),
             _step20;
@@ -96951,6 +96985,8 @@
               var _duplicateEmptyPathNo;
 
               (_duplicateEmptyPathNo = duplicateEmptyPathNode.children).push.apply(_duplicateEmptyPathNo, _toConsumableArray(node.children));
+
+              mergedNodes.add(duplicateEmptyPathNode);
             } else {
               result.push(node);
             }
@@ -96960,14 +96996,35 @@
             var _ret = _loop6();
 
             if (_ret === "continue") continue;
-          }
+          } // For each node which has children from multiple sources, we need to recompute a new `TreeNode`
+          // by also merging those children. This is necessary when there are multiple empty path configs in
+          // a row. Put another way: whenever we combine children of two nodes, we need to also check if any
+          // of those children can be combined into a single node as well.
+
         } catch (err) {
           _iterator21.e(err);
         } finally {
           _iterator21.f();
         }
 
-        return result;
+        var _iterator22 = _createForOfIteratorHelper(mergedNodes),
+            _step21;
+
+        try {
+          for (_iterator22.s(); !(_step21 = _iterator22.n()).done;) {
+            var mergedNode = _step21.value;
+            var mergedChildren = mergeEmptyPathMatches(mergedNode.children);
+            result.push(new TreeNode(mergedNode.value, mergedChildren));
+          }
+        } catch (err) {
+          _iterator22.e(err);
+        } finally {
+          _iterator22.f();
+        }
+
+        return result.filter(function (n) {
+          return !mergedNodes.has(n);
+        });
       }
 
       function checkOutletNameUniqueness(nodes) {
@@ -99894,12 +99951,12 @@
           value: function processRoutes(ngModule, routes) {
             var res = [];
 
-            var _iterator22 = _createForOfIteratorHelper(routes),
-                _step21;
+            var _iterator23 = _createForOfIteratorHelper(routes),
+                _step22;
 
             try {
-              for (_iterator22.s(); !(_step21 = _iterator22.n()).done;) {
-                var route = _step21.value;
+              for (_iterator23.s(); !(_step22 = _iterator23.n()).done;) {
+                var route = _step22.value;
 
                 // we already have the config loaded, just recurse
                 if (route.loadChildren && !route.canLoad && route._loadedConfig) {
@@ -99912,9 +99969,9 @@
                 }
               }
             } catch (err) {
-              _iterator22.e(err);
+              _iterator23.e(err);
             } finally {
-              _iterator22.f();
+              _iterator23.f();
             }
 
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["from"])(res).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeAll"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (_) {
@@ -100606,7 +100663,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.10');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('11.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
