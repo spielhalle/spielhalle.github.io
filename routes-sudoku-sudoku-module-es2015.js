@@ -11337,7 +11337,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "41Ph");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "9YHx");
 /**
- * @license Angular v11.2.12
+ * @license Angular v11.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -18503,7 +18503,7 @@ FormBuilder.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.13');
 
 /**
  * @license
@@ -65918,7 +65918,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "9YHx");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /**
- * @license Angular v11.2.12
+ * @license Angular v11.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -66665,9 +66665,9 @@ class HttpRequest {
         if (this.body instanceof HttpParams) {
             return 'application/x-www-form-urlencoded;charset=UTF-8';
         }
-        // Arrays, objects, and numbers will be encoded as JSON.
+        // Arrays, objects, boolean and numbers will be encoded as JSON.
         if (typeof this.body === 'object' || typeof this.body === 'number' ||
-            Array.isArray(this.body)) {
+            typeof this.body === 'boolean') {
             return 'application/json';
         }
         // No type could be inferred.

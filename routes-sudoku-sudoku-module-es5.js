@@ -15955,7 +15955,7 @@
       /*! rxjs/operators */
       "9YHx");
       /**
-       * @license Angular v11.2.12
+       * @license Angular v11.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -26269,7 +26269,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.13');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -87341,7 +87341,7 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.12
+       * @license Angular v11.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -88302,10 +88302,10 @@
 
             if (this.body instanceof HttpParams) {
               return 'application/x-www-form-urlencoded;charset=UTF-8';
-            } // Arrays, objects, and numbers will be encoded as JSON.
+            } // Arrays, objects, boolean and numbers will be encoded as JSON.
 
 
-            if (typeof this.body === 'object' || typeof this.body === 'number' || Array.isArray(this.body)) {
+            if (typeof this.body === 'object' || typeof this.body === 'number' || typeof this.body === 'boolean') {
               return 'application/json';
             } // No type could be inferred.
 
