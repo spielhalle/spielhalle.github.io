@@ -7347,7 +7347,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -7387,7 +7387,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -9058,6 +9058,17 @@
               return ripple.fadeOut();
             });
           }
+          /** Fades out all currently active non-persistent ripples. */
+
+        }, {
+          key: "fadeOutAllNonPersistent",
+          value: function fadeOutAllNonPersistent() {
+            this._activeRipples.forEach(function (ripple) {
+              if (!ripple.config.persistent) {
+                ripple.fadeOut();
+              }
+            });
+          }
           /** Sets up the trigger event listeners */
 
         }, {
@@ -9272,6 +9283,10 @@
             return this._disabled;
           },
           set: function set(value) {
+            if (value) {
+              this.fadeOutAllNonPersistent();
+            }
+
             this._disabled = value;
 
             this._setupTriggerEventsIfEnabled();
@@ -9309,6 +9324,13 @@
           key: "fadeOutAll",
           value: function fadeOutAll() {
             this._rippleRenderer.fadeOutAll();
+          }
+          /** Fades out all currently showing non-persistent ripple elements. */
+
+        }, {
+          key: "fadeOutAllNonPersistent",
+          value: function fadeOutAllNonPersistent() {
+            this._rippleRenderer.fadeOutAllNonPersistent();
           }
           /**
            * Ripple configuration from the directive's input values.
@@ -102429,7 +102451,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.

@@ -3366,7 +3366,7 @@ function MatOption_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("(", ctx_r1.group.label, ")");
 } }
 const _c2 = ["*"];
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
 
 /**
  * @license
@@ -3400,7 +3400,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -4433,6 +4433,14 @@ class RippleRenderer {
     fadeOutAll() {
         this._activeRipples.forEach(ripple => ripple.fadeOut());
     }
+    /** Fades out all currently active non-persistent ripples. */
+    fadeOutAllNonPersistent() {
+        this._activeRipples.forEach(ripple => {
+            if (!ripple.config.persistent) {
+                ripple.fadeOut();
+            }
+        });
+    }
     /** Sets up the trigger event listeners */
     setupTriggerEvents(elementOrElementRef) {
         const element = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__["coerceElement"])(elementOrElementRef);
@@ -4584,6 +4592,9 @@ class MatRipple {
      */
     get disabled() { return this._disabled; }
     set disabled(value) {
+        if (value) {
+            this.fadeOutAllNonPersistent();
+        }
         this._disabled = value;
         this._setupTriggerEventsIfEnabled();
     }
@@ -4606,6 +4617,10 @@ class MatRipple {
     /** Fades out all currently showing ripple elements. */
     fadeOutAll() {
         this._rippleRenderer.fadeOutAll();
+    }
+    /** Fades out all currently showing non-persistent ripple elements. */
+    fadeOutAllNonPersistent() {
+        this._rippleRenderer.fadeOutAllNonPersistent();
     }
     /**
      * Ripple configuration from the directive's input values.
@@ -69611,7 +69626,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.11');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
 
 /**
  * @license
