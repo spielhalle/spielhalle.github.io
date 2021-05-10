@@ -3133,8 +3133,8 @@
       /*! @pixi/display */
       "qWv5");
       /*!
-       * @pixi/graphics - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/graphics - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/graphics is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -5255,7 +5255,7 @@
 
                 nextTexture._batchEnabled = TICK;
                 nextTexture._batchLocation = textureCount;
-                nextTexture.wrapMode = 10497;
+                nextTexture.wrapMode = _pixi_constants__WEBPACK_IMPORTED_MODULE_3__["WRAP_MODES"].REPEAT;
                 currentGroup.texArray.elements[currentGroup.texArray.count++] = nextTexture;
                 textureCount++;
               }
@@ -6475,7 +6475,7 @@
 
         Graphics.prototype.isFastRect = function () {
           var data = this._geometry.graphicsData;
-          return data.length === 1 && data[0].shape.type === _pixi_math__WEBPACK_IMPORTED_MODULE_1__["SHAPES"].RECT && !(data[0].lineStyle.visible && data[0].lineStyle.width);
+          return data.length === 1 && data[0].shape.type === _pixi_math__WEBPACK_IMPORTED_MODULE_1__["SHAPES"].RECT && !data[0].holes.length && !(data[0].lineStyle.visible && data[0].lineStyle.width);
         };
         /**
          * Renders the object using the WebGL renderer
@@ -6948,8 +6948,8 @@
       /*! @pixi/utils */
       "IUqD");
       /*!
-       * @pixi/text - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/text - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/text is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -8361,7 +8361,7 @@
           var metricsString = TextMetrics.METRICS_STRING + TextMetrics.BASELINE_SYMBOL;
           var width = Math.ceil(context.measureText(metricsString).width);
           var baseline = Math.ceil(context.measureText(TextMetrics.BASELINE_SYMBOL).width);
-          var height = TextMetrics.HEIGHT_MULTIPLIER * baseline;
+          var height = Math.ceil(TextMetrics.HEIGHT_MULTIPLIER * baseline);
           baseline = baseline * TextMetrics.BASELINE_MULTIPLIER | 0;
           canvas.width = width;
           canvas.height = height;
@@ -8656,7 +8656,7 @@
            * The resolution / device pixel ratio of the canvas.
            * This is set to automatically match the renderer resolution by default, but can be overridden by setting manually.
            * @member {number}
-           * @default 1
+           * @default PIXI.settings.RESOLUTION
            */
 
           _this._resolution = _pixi_settings__WEBPACK_IMPORTED_MODULE_2__["settings"].RESOLUTION;
@@ -8783,12 +8783,18 @@
               context.shadowBlur = 0;
               context.shadowOffsetX = 0;
               context.shadowOffsetY = 0;
+            }
+
+            var linePositionYShift = (lineHeight - fontProperties.fontSize) / 2;
+
+            if (!Text.nextLineHeightBehavior || lineHeight - fontProperties.fontSize < 0) {
+              linePositionYShift = 0;
             } // draw lines line by line
 
 
             for (var i_1 = 0; i_1 < lines.length; i_1++) {
               linePositionX = style.strokeThickness / 2;
-              linePositionY = style.strokeThickness / 2 + i_1 * lineHeight + fontProperties.ascent;
+              linePositionY = style.strokeThickness / 2 + i_1 * lineHeight + fontProperties.ascent + linePositionYShift;
 
               if (style.align === 'right') {
                 linePositionX += maxLineWidth - lineWidths[i_1];
@@ -9196,6 +9202,19 @@
           enumerable: false,
           configurable: true
         });
+        /**
+         * New behavior for `lineHeight` that's meant to mimic HTML text. A value of `true` will
+         * make sure the first baseline is offset by the `lineHeight` value if it is greater than `fontSize`.
+         * A value of `false` will use the legacy behavior and not change the baseline of the first line.
+         * In the next major release, we'll enable this by default.
+         *
+         * @static
+         * @memberof PIXI.Text
+         * @member {boolean} nextLineHeightBehavior
+         * @default false
+         */
+
+        Text.nextLineHeightBehavior = false;
         return Text;
       }(_pixi_sprite__WEBPACK_IMPORTED_MODULE_0__["Sprite"]); //# sourceMappingURL=text.js.map
 
@@ -12117,8 +12136,8 @@
       /*! @pixi/loaders */
       "XXeg");
       /*!
-       * @pixi/text-bitmap - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/text-bitmap - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/text-bitmap is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -13242,7 +13261,11 @@
        *
        * ```js
        * // in this case the font is in a file called 'desyrel.fnt'
-       * let bitmapText = new PIXI.BitmapText("text using a fancy font!", {font: "35px Desyrel", align: "right"});
+       * let bitmapText = new PIXI.BitmapText("text using a fancy font!", {
+       *   fontName: "Desyrel",
+       *   fontSize: 35,
+       *   align: "right"
+       * });
        * ```
        *
        * @class
@@ -14483,8 +14506,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/app - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/app - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/app is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -14529,7 +14552,7 @@
          * @param {boolean} [options.antialias=false] - Sets antialias
          * @param {boolean} [options.preserveDrawingBuffer=false] - Enables drawing buffer preservation, enable this if you
          *  need to call toDataUrl on the WebGL context.
-         * @param {number} [options.resolution=1] - The resolution / device pixel ratio of the renderer, retina would be 2.
+         * @param {number} [options.resolution=PIXI.settings.RESOLUTION] - The resolution / device pixel ratio of the renderer.
          * @param {boolean} [options.forceCanvas=false] - prevents selection of WebGL renderer, even if such is present, this
          *   option only is available when using **pixi.js-legacy** or **@pixi/canvas-renderer** modules, otherwise
          *   it is ignored.
@@ -31352,8 +31375,8 @@
       /*! @pixi/math */
       "pHy+");
       /*!
-       * @pixi/particles - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/particles - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/particles is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -32340,8 +32363,8 @@
       /*! @pixi/settings */
       "Dh0r");
       /*!
-       * @pixi/mixin-cache-as-bitmap - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/mixin-cache-as-bitmap - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/mixin-cache-as-bitmap is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -32570,7 +32593,8 @@
         this.calculateBounds = this._calculateCachedBounds;
         this.getLocalBounds = this._getCachedLocalBounds;
         this._mask = null;
-        this.filterArea = null; // create our cached sprite
+        this.filterArea = null;
+        this.alpha = cacheAlpha; // create our cached sprite
 
         var cachedSprite = new _pixi_sprite__WEBPACK_IMPORTED_MODULE_1__["Sprite"](renderTexture);
         cachedSprite.transform.worldTransform = this.transform.worldTransform;
@@ -32673,7 +32697,8 @@
         this.calculateBounds = this._calculateCachedBounds;
         this.getLocalBounds = this._getCachedLocalBounds;
         this._mask = null;
-        this.filterArea = null; // create our cached sprite
+        this.filterArea = null;
+        this.alpha = cacheAlpha; // create our cached sprite
 
         var cachedSprite = new _pixi_sprite__WEBPACK_IMPORTED_MODULE_1__["Sprite"](renderTexture);
         cachedSprite.transform.worldTransform = this.transform.worldTransform;
@@ -33090,7 +33115,7 @@
       !*** ./node_modules/@pixi/constants/dist/esm/constants.js ***!
       \************************************************************/
 
-    /*! exports provided: ALPHA_MODES, BLEND_MODES, BUFFER_BITS, CLEAR_MODES, DRAW_MODES, ENV, FORMATS, GC_MODES, MASK_TYPES, MIPMAP_MODES, MSAA_QUALITY, PRECISION, RENDERER_TYPE, SCALE_MODES, TARGETS, TYPES, WRAP_MODES */
+    /*! exports provided: ALPHA_MODES, BLEND_MODES, BUFFER_BITS, CLEAR_MODES, DRAW_MODES, ENV, FORMATS, GC_MODES, MASK_TYPES, MIPMAP_MODES, MSAA_QUALITY, PRECISION, RENDERER_TYPE, SAMPLER_TYPES, SCALE_MODES, TARGETS, TYPES, WRAP_MODES */
 
     /***/
     function CpIl(module, __webpack_exports__, __webpack_require__) {
@@ -33178,6 +33203,12 @@
       /* harmony export (binding) */
 
 
+      __webpack_require__.d(__webpack_exports__, "SAMPLER_TYPES", function () {
+        return SAMPLER_TYPES;
+      });
+      /* harmony export (binding) */
+
+
       __webpack_require__.d(__webpack_exports__, "SCALE_MODES", function () {
         return SCALE_MODES;
       });
@@ -33200,8 +33231,8 @@
         return WRAP_MODES;
       });
       /*!
-       * @pixi/constants - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/constants - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/constants is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -33386,6 +33417,7 @@
        * @enum {number}
        * @property {number} RGBA=6408
        * @property {number} RGB=6407
+       * @property {number} RED=6403
        * @property {number} ALPHA=6406
        * @property {number} LUMINANCE=6409
        * @property {number} LUMINANCE_ALPHA=6410
@@ -33465,6 +33497,27 @@
         TYPES[TYPES["FLOAT"] = 5126] = "FLOAT";
         TYPES[TYPES["HALF_FLOAT"] = 36193] = "HALF_FLOAT";
       })(TYPES || (TYPES = {}));
+      /**
+       * Various sampler types. Correspond to `sampler`, `isampler`, `usampler` GLSL types respectively.
+       * WebGL1 works only with FLOAT.
+       *
+       * @memberof PIXI
+       * @static
+       * @name SAMPLER_TYPES
+       * @enum {number}
+       * @property {number} FLOAT=0
+       * @property {number} INT=1
+       * @property {number} UINT=2
+       */
+
+
+      var SAMPLER_TYPES;
+
+      (function (SAMPLER_TYPES) {
+        SAMPLER_TYPES[SAMPLER_TYPES["FLOAT"] = 0] = "FLOAT";
+        SAMPLER_TYPES[SAMPLER_TYPES["INT"] = 1] = "INT";
+        SAMPLER_TYPES[SAMPLER_TYPES["UINT"] = 2] = "UINT";
+      })(SAMPLER_TYPES || (SAMPLER_TYPES = {}));
       /**
        * The scale modes that are supported by pixi.
        *
@@ -34556,8 +34609,8 @@
       /*! @pixi/utils */
       "IUqD");
       /*!
-       * @pixi/mesh - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/mesh - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/mesh is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -34786,7 +34839,7 @@
            * @private
            */
 
-          _this.vertexDirty = 0;
+          _this.vertexDirty = -1;
           _this._transformID = -1;
           /**
            * Internal roundPixels field
@@ -35003,9 +35056,11 @@
 
         Mesh.prototype.calculateVertices = function () {
           var geometry = this.geometry;
-          var vertices = geometry.buffers[0].data;
+          var verticesBuffer = geometry.buffers[0];
+          var vertices = verticesBuffer.data;
+          var vertexDirtyId = verticesBuffer._updateID;
 
-          if (geometry.vertexDirtyId === this.vertexDirty && this._transformID === this.transform._worldID) {
+          if (vertexDirtyId === this.vertexDirty && this._transformID === this.transform._worldID) {
             return;
           }
 
@@ -35039,7 +35094,7 @@
             }
           }
 
-          this.vertexDirty = geometry.vertexDirtyId;
+          this.vertexDirty = vertexDirtyId;
         };
         /**
          * Updates uv field based on from geometry uv's or batchUvs
@@ -35422,8 +35477,8 @@
       /*! ismobilejs */
       "A0fv");
       /*!
-       * @pixi/settings - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/settings - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/settings is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -35491,6 +35546,517 @@
         return !isMobile.apple.device;
       }
       /**
+       * Different types of environments for WebGL.
+       *
+       * @static
+       * @memberof PIXI
+       * @name ENV
+       * @enum {number}
+       * @property {number} WEBGL_LEGACY - Used for older v1 WebGL devices. PixiJS will aim to ensure compatibility
+       *  with older / less advanced devices. If you experience unexplained flickering prefer this environment.
+       * @property {number} WEBGL - Version 1 of WebGL
+       * @property {number} WEBGL2 - Version 2 of WebGL
+       */
+
+
+      var ENV;
+
+      (function (ENV) {
+        ENV[ENV["WEBGL_LEGACY"] = 0] = "WEBGL_LEGACY";
+        ENV[ENV["WEBGL"] = 1] = "WEBGL";
+        ENV[ENV["WEBGL2"] = 2] = "WEBGL2";
+      })(ENV || (ENV = {}));
+      /**
+       * Constant to identify the Renderer Type.
+       *
+       * @static
+       * @memberof PIXI
+       * @name RENDERER_TYPE
+       * @enum {number}
+       * @property {number} UNKNOWN - Unknown render type.
+       * @property {number} WEBGL - WebGL render type.
+       * @property {number} CANVAS - Canvas render type.
+       */
+
+
+      var RENDERER_TYPE;
+
+      (function (RENDERER_TYPE) {
+        RENDERER_TYPE[RENDERER_TYPE["UNKNOWN"] = 0] = "UNKNOWN";
+        RENDERER_TYPE[RENDERER_TYPE["WEBGL"] = 1] = "WEBGL";
+        RENDERER_TYPE[RENDERER_TYPE["CANVAS"] = 2] = "CANVAS";
+      })(RENDERER_TYPE || (RENDERER_TYPE = {}));
+      /**
+       * Bitwise OR of masks that indicate the buffers to be cleared.
+       *
+       * @static
+       * @memberof PIXI
+       * @name BUFFER_BITS
+       * @enum {number}
+       * @property {number} COLOR - Indicates the buffers currently enabled for color writing.
+       * @property {number} DEPTH - Indicates the depth buffer.
+       * @property {number} STENCIL - Indicates the stencil buffer.
+       */
+
+
+      var BUFFER_BITS;
+
+      (function (BUFFER_BITS) {
+        BUFFER_BITS[BUFFER_BITS["COLOR"] = 16384] = "COLOR";
+        BUFFER_BITS[BUFFER_BITS["DEPTH"] = 256] = "DEPTH";
+        BUFFER_BITS[BUFFER_BITS["STENCIL"] = 1024] = "STENCIL";
+      })(BUFFER_BITS || (BUFFER_BITS = {}));
+      /**
+       * Various blend modes supported by PIXI.
+       *
+       * IMPORTANT - The WebGL renderer only supports the NORMAL, ADD, MULTIPLY and SCREEN blend modes.
+       * Anything else will silently act like NORMAL.
+       *
+       * @memberof PIXI
+       * @name BLEND_MODES
+       * @enum {number}
+       * @property {number} NORMAL
+       * @property {number} ADD
+       * @property {number} MULTIPLY
+       * @property {number} SCREEN
+       * @property {number} OVERLAY
+       * @property {number} DARKEN
+       * @property {number} LIGHTEN
+       * @property {number} COLOR_DODGE
+       * @property {number} COLOR_BURN
+       * @property {number} HARD_LIGHT
+       * @property {number} SOFT_LIGHT
+       * @property {number} DIFFERENCE
+       * @property {number} EXCLUSION
+       * @property {number} HUE
+       * @property {number} SATURATION
+       * @property {number} COLOR
+       * @property {number} LUMINOSITY
+       * @property {number} NORMAL_NPM
+       * @property {number} ADD_NPM
+       * @property {number} SCREEN_NPM
+       * @property {number} NONE
+       * @property {number} SRC_IN
+       * @property {number} SRC_OUT
+       * @property {number} SRC_ATOP
+       * @property {number} DST_OVER
+       * @property {number} DST_IN
+       * @property {number} DST_OUT
+       * @property {number} DST_ATOP
+       * @property {number} SUBTRACT
+       * @property {number} SRC_OVER
+       * @property {number} ERASE
+       * @property {number} XOR
+       */
+
+
+      var BLEND_MODES;
+
+      (function (BLEND_MODES) {
+        BLEND_MODES[BLEND_MODES["NORMAL"] = 0] = "NORMAL";
+        BLEND_MODES[BLEND_MODES["ADD"] = 1] = "ADD";
+        BLEND_MODES[BLEND_MODES["MULTIPLY"] = 2] = "MULTIPLY";
+        BLEND_MODES[BLEND_MODES["SCREEN"] = 3] = "SCREEN";
+        BLEND_MODES[BLEND_MODES["OVERLAY"] = 4] = "OVERLAY";
+        BLEND_MODES[BLEND_MODES["DARKEN"] = 5] = "DARKEN";
+        BLEND_MODES[BLEND_MODES["LIGHTEN"] = 6] = "LIGHTEN";
+        BLEND_MODES[BLEND_MODES["COLOR_DODGE"] = 7] = "COLOR_DODGE";
+        BLEND_MODES[BLEND_MODES["COLOR_BURN"] = 8] = "COLOR_BURN";
+        BLEND_MODES[BLEND_MODES["HARD_LIGHT"] = 9] = "HARD_LIGHT";
+        BLEND_MODES[BLEND_MODES["SOFT_LIGHT"] = 10] = "SOFT_LIGHT";
+        BLEND_MODES[BLEND_MODES["DIFFERENCE"] = 11] = "DIFFERENCE";
+        BLEND_MODES[BLEND_MODES["EXCLUSION"] = 12] = "EXCLUSION";
+        BLEND_MODES[BLEND_MODES["HUE"] = 13] = "HUE";
+        BLEND_MODES[BLEND_MODES["SATURATION"] = 14] = "SATURATION";
+        BLEND_MODES[BLEND_MODES["COLOR"] = 15] = "COLOR";
+        BLEND_MODES[BLEND_MODES["LUMINOSITY"] = 16] = "LUMINOSITY";
+        BLEND_MODES[BLEND_MODES["NORMAL_NPM"] = 17] = "NORMAL_NPM";
+        BLEND_MODES[BLEND_MODES["ADD_NPM"] = 18] = "ADD_NPM";
+        BLEND_MODES[BLEND_MODES["SCREEN_NPM"] = 19] = "SCREEN_NPM";
+        BLEND_MODES[BLEND_MODES["NONE"] = 20] = "NONE";
+        BLEND_MODES[BLEND_MODES["SRC_OVER"] = 0] = "SRC_OVER";
+        BLEND_MODES[BLEND_MODES["SRC_IN"] = 21] = "SRC_IN";
+        BLEND_MODES[BLEND_MODES["SRC_OUT"] = 22] = "SRC_OUT";
+        BLEND_MODES[BLEND_MODES["SRC_ATOP"] = 23] = "SRC_ATOP";
+        BLEND_MODES[BLEND_MODES["DST_OVER"] = 24] = "DST_OVER";
+        BLEND_MODES[BLEND_MODES["DST_IN"] = 25] = "DST_IN";
+        BLEND_MODES[BLEND_MODES["DST_OUT"] = 26] = "DST_OUT";
+        BLEND_MODES[BLEND_MODES["DST_ATOP"] = 27] = "DST_ATOP";
+        BLEND_MODES[BLEND_MODES["ERASE"] = 26] = "ERASE";
+        BLEND_MODES[BLEND_MODES["SUBTRACT"] = 28] = "SUBTRACT";
+        BLEND_MODES[BLEND_MODES["XOR"] = 29] = "XOR";
+      })(BLEND_MODES || (BLEND_MODES = {}));
+      /**
+       * Various webgl draw modes. These can be used to specify which GL drawMode to use
+       * under certain situations and renderers.
+       *
+       * @memberof PIXI
+       * @static
+       * @name DRAW_MODES
+       * @enum {number}
+       * @property {number} POINTS
+       * @property {number} LINES
+       * @property {number} LINE_LOOP
+       * @property {number} LINE_STRIP
+       * @property {number} TRIANGLES
+       * @property {number} TRIANGLE_STRIP
+       * @property {number} TRIANGLE_FAN
+       */
+
+
+      var DRAW_MODES;
+
+      (function (DRAW_MODES) {
+        DRAW_MODES[DRAW_MODES["POINTS"] = 0] = "POINTS";
+        DRAW_MODES[DRAW_MODES["LINES"] = 1] = "LINES";
+        DRAW_MODES[DRAW_MODES["LINE_LOOP"] = 2] = "LINE_LOOP";
+        DRAW_MODES[DRAW_MODES["LINE_STRIP"] = 3] = "LINE_STRIP";
+        DRAW_MODES[DRAW_MODES["TRIANGLES"] = 4] = "TRIANGLES";
+        DRAW_MODES[DRAW_MODES["TRIANGLE_STRIP"] = 5] = "TRIANGLE_STRIP";
+        DRAW_MODES[DRAW_MODES["TRIANGLE_FAN"] = 6] = "TRIANGLE_FAN";
+      })(DRAW_MODES || (DRAW_MODES = {}));
+      /**
+       * Various GL texture/resources formats.
+       *
+       * @memberof PIXI
+       * @static
+       * @name FORMATS
+       * @enum {number}
+       * @property {number} RGBA=6408
+       * @property {number} RGB=6407
+       * @property {number} RED=6403
+       * @property {number} ALPHA=6406
+       * @property {number} LUMINANCE=6409
+       * @property {number} LUMINANCE_ALPHA=6410
+       * @property {number} DEPTH_COMPONENT=6402
+       * @property {number} DEPTH_STENCIL=34041
+       */
+
+
+      var FORMATS;
+
+      (function (FORMATS) {
+        FORMATS[FORMATS["RGBA"] = 6408] = "RGBA";
+        FORMATS[FORMATS["RGB"] = 6407] = "RGB";
+        FORMATS[FORMATS["ALPHA"] = 6406] = "ALPHA";
+        FORMATS[FORMATS["LUMINANCE"] = 6409] = "LUMINANCE";
+        FORMATS[FORMATS["LUMINANCE_ALPHA"] = 6410] = "LUMINANCE_ALPHA";
+        FORMATS[FORMATS["DEPTH_COMPONENT"] = 6402] = "DEPTH_COMPONENT";
+        FORMATS[FORMATS["DEPTH_STENCIL"] = 34041] = "DEPTH_STENCIL";
+      })(FORMATS || (FORMATS = {}));
+      /**
+       * Various GL target types.
+       *
+       * @memberof PIXI
+       * @static
+       * @name TARGETS
+       * @enum {number}
+       * @property {number} TEXTURE_2D=3553
+       * @property {number} TEXTURE_CUBE_MAP=34067
+       * @property {number} TEXTURE_2D_ARRAY=35866
+       * @property {number} TEXTURE_CUBE_MAP_POSITIVE_X=34069
+       * @property {number} TEXTURE_CUBE_MAP_NEGATIVE_X=34070
+       * @property {number} TEXTURE_CUBE_MAP_POSITIVE_Y=34071
+       * @property {number} TEXTURE_CUBE_MAP_NEGATIVE_Y=34072
+       * @property {number} TEXTURE_CUBE_MAP_POSITIVE_Z=34073
+       * @property {number} TEXTURE_CUBE_MAP_NEGATIVE_Z=34074
+       */
+
+
+      var TARGETS;
+
+      (function (TARGETS) {
+        TARGETS[TARGETS["TEXTURE_2D"] = 3553] = "TEXTURE_2D";
+        TARGETS[TARGETS["TEXTURE_CUBE_MAP"] = 34067] = "TEXTURE_CUBE_MAP";
+        TARGETS[TARGETS["TEXTURE_2D_ARRAY"] = 35866] = "TEXTURE_2D_ARRAY";
+        TARGETS[TARGETS["TEXTURE_CUBE_MAP_POSITIVE_X"] = 34069] = "TEXTURE_CUBE_MAP_POSITIVE_X";
+        TARGETS[TARGETS["TEXTURE_CUBE_MAP_NEGATIVE_X"] = 34070] = "TEXTURE_CUBE_MAP_NEGATIVE_X";
+        TARGETS[TARGETS["TEXTURE_CUBE_MAP_POSITIVE_Y"] = 34071] = "TEXTURE_CUBE_MAP_POSITIVE_Y";
+        TARGETS[TARGETS["TEXTURE_CUBE_MAP_NEGATIVE_Y"] = 34072] = "TEXTURE_CUBE_MAP_NEGATIVE_Y";
+        TARGETS[TARGETS["TEXTURE_CUBE_MAP_POSITIVE_Z"] = 34073] = "TEXTURE_CUBE_MAP_POSITIVE_Z";
+        TARGETS[TARGETS["TEXTURE_CUBE_MAP_NEGATIVE_Z"] = 34074] = "TEXTURE_CUBE_MAP_NEGATIVE_Z";
+      })(TARGETS || (TARGETS = {}));
+      /**
+       * Various GL data format types.
+       *
+       * @memberof PIXI
+       * @static
+       * @name TYPES
+       * @enum {number}
+       * @property {number} UNSIGNED_BYTE=5121
+       * @property {number} UNSIGNED_SHORT=5123
+       * @property {number} UNSIGNED_SHORT_5_6_5=33635
+       * @property {number} UNSIGNED_SHORT_4_4_4_4=32819
+       * @property {number} UNSIGNED_SHORT_5_5_5_1=32820
+       * @property {number} FLOAT=5126
+       * @property {number} HALF_FLOAT=36193
+       */
+
+
+      var TYPES;
+
+      (function (TYPES) {
+        TYPES[TYPES["UNSIGNED_BYTE"] = 5121] = "UNSIGNED_BYTE";
+        TYPES[TYPES["UNSIGNED_SHORT"] = 5123] = "UNSIGNED_SHORT";
+        TYPES[TYPES["UNSIGNED_SHORT_5_6_5"] = 33635] = "UNSIGNED_SHORT_5_6_5";
+        TYPES[TYPES["UNSIGNED_SHORT_4_4_4_4"] = 32819] = "UNSIGNED_SHORT_4_4_4_4";
+        TYPES[TYPES["UNSIGNED_SHORT_5_5_5_1"] = 32820] = "UNSIGNED_SHORT_5_5_5_1";
+        TYPES[TYPES["FLOAT"] = 5126] = "FLOAT";
+        TYPES[TYPES["HALF_FLOAT"] = 36193] = "HALF_FLOAT";
+      })(TYPES || (TYPES = {}));
+      /**
+       * Various sampler types. Correspond to `sampler`, `isampler`, `usampler` GLSL types respectively.
+       * WebGL1 works only with FLOAT.
+       *
+       * @memberof PIXI
+       * @static
+       * @name SAMPLER_TYPES
+       * @enum {number}
+       * @property {number} FLOAT=0
+       * @property {number} INT=1
+       * @property {number} UINT=2
+       */
+
+
+      var SAMPLER_TYPES;
+
+      (function (SAMPLER_TYPES) {
+        SAMPLER_TYPES[SAMPLER_TYPES["FLOAT"] = 0] = "FLOAT";
+        SAMPLER_TYPES[SAMPLER_TYPES["INT"] = 1] = "INT";
+        SAMPLER_TYPES[SAMPLER_TYPES["UINT"] = 2] = "UINT";
+      })(SAMPLER_TYPES || (SAMPLER_TYPES = {}));
+      /**
+       * The scale modes that are supported by pixi.
+       *
+       * The {@link PIXI.settings.SCALE_MODE} scale mode affects the default scaling mode of future operations.
+       * It can be re-assigned to either LINEAR or NEAREST, depending upon suitability.
+       *
+       * @memberof PIXI
+       * @static
+       * @name SCALE_MODES
+       * @enum {number}
+       * @property {number} LINEAR Smooth scaling
+       * @property {number} NEAREST Pixelating scaling
+       */
+
+
+      var SCALE_MODES;
+
+      (function (SCALE_MODES) {
+        SCALE_MODES[SCALE_MODES["NEAREST"] = 0] = "NEAREST";
+        SCALE_MODES[SCALE_MODES["LINEAR"] = 1] = "LINEAR";
+      })(SCALE_MODES || (SCALE_MODES = {}));
+      /**
+       * The wrap modes that are supported by pixi.
+       *
+       * The {@link PIXI.settings.WRAP_MODE} wrap mode affects the default wrapping mode of future operations.
+       * It can be re-assigned to either CLAMP or REPEAT, depending upon suitability.
+       * If the texture is non power of two then clamp will be used regardless as WebGL can
+       * only use REPEAT if the texture is po2.
+       *
+       * This property only affects WebGL.
+       *
+       * @name WRAP_MODES
+       * @memberof PIXI
+       * @static
+       * @enum {number}
+       * @property {number} CLAMP - The textures uvs are clamped
+       * @property {number} REPEAT - The texture uvs tile and repeat
+       * @property {number} MIRRORED_REPEAT - The texture uvs tile and repeat with mirroring
+       */
+
+
+      var WRAP_MODES;
+
+      (function (WRAP_MODES) {
+        WRAP_MODES[WRAP_MODES["CLAMP"] = 33071] = "CLAMP";
+        WRAP_MODES[WRAP_MODES["REPEAT"] = 10497] = "REPEAT";
+        WRAP_MODES[WRAP_MODES["MIRRORED_REPEAT"] = 33648] = "MIRRORED_REPEAT";
+      })(WRAP_MODES || (WRAP_MODES = {}));
+      /**
+       * Mipmap filtering modes that are supported by pixi.
+       *
+       * The {@link PIXI.settings.MIPMAP_TEXTURES} affects default texture filtering.
+       * Mipmaps are generated for a baseTexture if its `mipmap` field is `ON`,
+       * or its `POW2` and texture dimensions are powers of 2.
+       * Due to platform restriction, `ON` option will work like `POW2` for webgl-1.
+       *
+       * This property only affects WebGL.
+       *
+       * @name MIPMAP_MODES
+       * @memberof PIXI
+       * @static
+       * @enum {number}
+       * @property {number} OFF - No mipmaps
+       * @property {number} POW2 - Generate mipmaps if texture dimensions are pow2
+       * @property {number} ON - Always generate mipmaps
+       * @property {number} ON_MANUAL - Use mipmaps, but do not auto-generate them; this is used with a resource
+       *   that supports buffering each level-of-detail.
+       */
+
+
+      var MIPMAP_MODES;
+
+      (function (MIPMAP_MODES) {
+        MIPMAP_MODES[MIPMAP_MODES["OFF"] = 0] = "OFF";
+        MIPMAP_MODES[MIPMAP_MODES["POW2"] = 1] = "POW2";
+        MIPMAP_MODES[MIPMAP_MODES["ON"] = 2] = "ON";
+        MIPMAP_MODES[MIPMAP_MODES["ON_MANUAL"] = 3] = "ON_MANUAL";
+      })(MIPMAP_MODES || (MIPMAP_MODES = {}));
+      /**
+       * How to treat textures with premultiplied alpha
+       *
+       * @name ALPHA_MODES
+       * @memberof PIXI
+       * @static
+       * @enum {number}
+       * @property {number} NO_PREMULTIPLIED_ALPHA - Source is not premultiplied, leave it like that.
+       *  Option for compressed and data textures that are created from typed arrays.
+       * @property {number} PREMULTIPLY_ON_UPLOAD - Source is not premultiplied, premultiply on upload.
+       *  Default option, used for all loaded images.
+       * @property {number} PREMULTIPLIED_ALPHA - Source is already premultiplied
+       *  Example: spine atlases with `_pma` suffix.
+       * @property {number} NPM - Alias for NO_PREMULTIPLIED_ALPHA.
+       * @property {number} UNPACK - Default option, alias for PREMULTIPLY_ON_UPLOAD.
+       * @property {number} PMA - Alias for PREMULTIPLIED_ALPHA.
+       */
+
+
+      var ALPHA_MODES;
+
+      (function (ALPHA_MODES) {
+        ALPHA_MODES[ALPHA_MODES["NPM"] = 0] = "NPM";
+        ALPHA_MODES[ALPHA_MODES["UNPACK"] = 1] = "UNPACK";
+        ALPHA_MODES[ALPHA_MODES["PMA"] = 2] = "PMA";
+        ALPHA_MODES[ALPHA_MODES["NO_PREMULTIPLIED_ALPHA"] = 0] = "NO_PREMULTIPLIED_ALPHA";
+        ALPHA_MODES[ALPHA_MODES["PREMULTIPLY_ON_UPLOAD"] = 1] = "PREMULTIPLY_ON_UPLOAD";
+        ALPHA_MODES[ALPHA_MODES["PREMULTIPLY_ALPHA"] = 2] = "PREMULTIPLY_ALPHA";
+      })(ALPHA_MODES || (ALPHA_MODES = {}));
+      /**
+       * Configure whether filter textures are cleared after binding.
+       *
+       * Filter textures need not be cleared if the filter does not use pixel blending. {@link CLEAR_MODES.BLIT} will detect
+       * this and skip clearing as an optimization.
+       *
+       * @name CLEAR_MODES
+       * @memberof PIXI
+       * @static
+       * @enum {number}
+       * @property {number} BLEND - Do not clear the filter texture. The filter's output will blend on top of the output texture.
+       * @property {number} CLEAR - Always clear the filter texture.
+       * @property {number} BLIT - Clear only if {@link FilterSystem.forceClear} is set or if the filter uses pixel blending.
+       * @property {number} NO - Alias for BLEND, same as `false` in earlier versions
+       * @property {number} YES - Alias for CLEAR, same as `true` in earlier versions
+       * @property {number} AUTO - Alias for BLIT
+       */
+
+
+      var CLEAR_MODES;
+
+      (function (CLEAR_MODES) {
+        CLEAR_MODES[CLEAR_MODES["NO"] = 0] = "NO";
+        CLEAR_MODES[CLEAR_MODES["YES"] = 1] = "YES";
+        CLEAR_MODES[CLEAR_MODES["AUTO"] = 2] = "AUTO";
+        CLEAR_MODES[CLEAR_MODES["BLEND"] = 0] = "BLEND";
+        CLEAR_MODES[CLEAR_MODES["CLEAR"] = 1] = "CLEAR";
+        CLEAR_MODES[CLEAR_MODES["BLIT"] = 2] = "BLIT";
+      })(CLEAR_MODES || (CLEAR_MODES = {}));
+      /**
+       * The gc modes that are supported by pixi.
+       *
+       * The {@link PIXI.settings.GC_MODE} Garbage Collection mode for PixiJS textures is AUTO
+       * If set to GC_MODE, the renderer will occasionally check textures usage. If they are not
+       * used for a specified period of time they will be removed from the GPU. They will of course
+       * be uploaded again when they are required. This is a silent behind the scenes process that
+       * should ensure that the GPU does not  get filled up.
+       *
+       * Handy for mobile devices!
+       * This property only affects WebGL.
+       *
+       * @name GC_MODES
+       * @enum {number}
+       * @static
+       * @memberof PIXI
+       * @property {number} AUTO - Garbage collection will happen periodically automatically
+       * @property {number} MANUAL - Garbage collection will need to be called manually
+       */
+
+
+      var GC_MODES;
+
+      (function (GC_MODES) {
+        GC_MODES[GC_MODES["AUTO"] = 0] = "AUTO";
+        GC_MODES[GC_MODES["MANUAL"] = 1] = "MANUAL";
+      })(GC_MODES || (GC_MODES = {}));
+      /**
+       * Constants that specify float precision in shaders.
+       *
+       * @name PRECISION
+       * @memberof PIXI
+       * @constant
+       * @static
+       * @enum {string}
+       * @property {string} LOW='lowp'
+       * @property {string} MEDIUM='mediump'
+       * @property {string} HIGH='highp'
+       */
+
+
+      var PRECISION;
+
+      (function (PRECISION) {
+        PRECISION["LOW"] = "lowp";
+        PRECISION["MEDIUM"] = "mediump";
+        PRECISION["HIGH"] = "highp";
+      })(PRECISION || (PRECISION = {}));
+      /**
+       * Constants for mask implementations.
+       * We use `type` suffix because it leads to very different behaviours
+       *
+       * @name MASK_TYPES
+       * @memberof PIXI
+       * @static
+       * @enum {number}
+       * @property {number} NONE - Mask is ignored
+       * @property {number} SCISSOR - Scissor mask, rectangle on screen, cheap
+       * @property {number} STENCIL - Stencil mask, 1-bit, medium, works only if renderer supports stencil
+       * @property {number} SPRITE - Mask that uses SpriteMaskFilter, uses temporary RenderTexture
+       */
+
+
+      var MASK_TYPES;
+
+      (function (MASK_TYPES) {
+        MASK_TYPES[MASK_TYPES["NONE"] = 0] = "NONE";
+        MASK_TYPES[MASK_TYPES["SCISSOR"] = 1] = "SCISSOR";
+        MASK_TYPES[MASK_TYPES["STENCIL"] = 2] = "STENCIL";
+        MASK_TYPES[MASK_TYPES["SPRITE"] = 3] = "SPRITE";
+      })(MASK_TYPES || (MASK_TYPES = {}));
+      /**
+       * Constants for multi-sampling antialiasing.
+       *
+       * @see PIXI.Framebuffer#multisample
+       *
+       * @name MSAA_QUALITY
+       * @memberof PIXI
+       * @static
+       * @enum {number}
+       * @property {number} NONE - No multisampling for this renderTexture
+       * @property {number} LOW - Try 2 samples
+       * @property {number} MEDIUM - Try 4 samples
+       * @property {number} HIGH - Try 8 samples
+       */
+
+
+      var MSAA_QUALITY;
+
+      (function (MSAA_QUALITY) {
+        MSAA_QUALITY[MSAA_QUALITY["NONE"] = 0] = "NONE";
+        MSAA_QUALITY[MSAA_QUALITY["LOW"] = 2] = "LOW";
+        MSAA_QUALITY[MSAA_QUALITY["MEDIUM"] = 4] = "MEDIUM";
+        MSAA_QUALITY[MSAA_QUALITY["HIGH"] = 8] = "HIGH";
+      })(MSAA_QUALITY || (MSAA_QUALITY = {}));
+      /**
        * User's customizable globals for overriding the default PIXI settings, such
        * as a renderer's default resolution, framerate, float precision, etc.
        * @example
@@ -35515,7 +36081,7 @@
          * @type {PIXI.MIPMAP_MODES}
          * @default PIXI.MIPMAP_MODES.POW2
          */
-        MIPMAP_TEXTURES: 1,
+        MIPMAP_TEXTURES: MIPMAP_MODES.POW2,
 
         /**
          * Default anisotropic filtering level of textures.
@@ -35586,7 +36152,6 @@
          * @memberof PIXI.settings
          * @type {object}
          * @property {HTMLCanvasElement} view=null
-         * @property {number} resolution=1
          * @property {boolean} antialias=false
          * @property {boolean} autoDensity=false
          * @property {boolean} useContextAlpha=true
@@ -35621,7 +36186,7 @@
          * @type {PIXI.GC_MODES}
          * @default PIXI.GC_MODES.AUTO
          */
-        GC_MODE: 0,
+        GC_MODE: GC_MODES.AUTO,
 
         /**
          * Default Garbage Collection max idle.
@@ -35654,7 +36219,7 @@
          * @type {PIXI.WRAP_MODES}
          * @default PIXI.WRAP_MODES.CLAMP
          */
-        WRAP_MODE: 33071,
+        WRAP_MODE: WRAP_MODES.CLAMP,
 
         /**
          * Default scale mode for textures.
@@ -35665,7 +36230,7 @@
          * @type {PIXI.SCALE_MODES}
          * @default PIXI.SCALE_MODES.LINEAR
          */
-        SCALE_MODE: 1,
+        SCALE_MODE: SCALE_MODES.LINEAR,
 
         /**
          * Default specify float precision in vertex shader.
@@ -35676,7 +36241,7 @@
          * @type {PIXI.PRECISION}
          * @default PIXI.PRECISION.HIGH
          */
-        PRECISION_VERTEX: 'highp',
+        PRECISION_VERTEX: PRECISION.HIGH,
 
         /**
          * Default specify float precision in fragment shader.
@@ -35688,7 +36253,7 @@
          * @type {PIXI.PRECISION}
          * @default PIXI.PRECISION.MEDIUM
          */
-        PRECISION_FRAGMENT: isMobile.apple.device ? 'highp' : 'mediump',
+        PRECISION_FRAGMENT: isMobile.apple.device ? PRECISION.HIGH : PRECISION.MEDIUM,
 
         /**
          * Can we upload the same buffer in a single frame?
@@ -35870,8 +36435,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/filter-fxaa - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/filter-fxaa - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/filter-fxaa is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -35921,8 +36486,8 @@
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
       }
 
-      var vertex = "\nattribute vec2 aVertexPosition;\n\nuniform mat3 projectionMatrix;\n\nvarying vec2 v_rgbNW;\nvarying vec2 v_rgbNE;\nvarying vec2 v_rgbSW;\nvarying vec2 v_rgbSE;\nvarying vec2 v_rgbM;\n\nvarying vec2 vFragCoord;\n\nuniform vec4 inputPixel;\nuniform vec4 outputFrame;\n\nvec4 filterVertexPosition( void )\n{\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\n\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\n}\n\nvoid texcoords(vec2 fragCoord, vec2 inverseVP,\n               out vec2 v_rgbNW, out vec2 v_rgbNE,\n               out vec2 v_rgbSW, out vec2 v_rgbSE,\n               out vec2 v_rgbM) {\n    v_rgbNW = (fragCoord + vec2(-1.0, -1.0)) * inverseVP;\n    v_rgbNE = (fragCoord + vec2(1.0, -1.0)) * inverseVP;\n    v_rgbSW = (fragCoord + vec2(-1.0, 1.0)) * inverseVP;\n    v_rgbSE = (fragCoord + vec2(1.0, 1.0)) * inverseVP;\n    v_rgbM = vec2(fragCoord * inverseVP);\n}\n\nvoid main(void) {\n\n   gl_Position = filterVertexPosition();\n\n   vFragCoord = aVertexPosition * outputFrame.zw;\n\n   texcoords(vFragCoord, inputPixel.zw, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);\n}\n";
-      var fragment = "varying vec2 v_rgbNW;\nvarying vec2 v_rgbNE;\nvarying vec2 v_rgbSW;\nvarying vec2 v_rgbSE;\nvarying vec2 v_rgbM;\n\nvarying vec2 vFragCoord;\nuniform sampler2D uSampler;\nuniform highp vec4 inputPixel;\n\n\n/**\n Basic FXAA implementation based on the code on geeks3d.com with the\n modification that the texture2DLod stuff was removed since it's\n unsupported by WebGL.\n\n --\n\n From:\n https://github.com/mitsuhiko/webgl-meincraft\n\n Copyright (c) 2011 by Armin Ronacher.\n\n Some rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n\n * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following\n disclaimer in the documentation and/or other materials provided\n with the distribution.\n\n * The names of the contributors may not be used to endorse or\n promote products derived from this software without specific\n prior written permission.\n\n THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n#ifndef FXAA_REDUCE_MIN\n#define FXAA_REDUCE_MIN   (1.0/ 128.0)\n#endif\n#ifndef FXAA_REDUCE_MUL\n#define FXAA_REDUCE_MUL   (1.0 / 8.0)\n#endif\n#ifndef FXAA_SPAN_MAX\n#define FXAA_SPAN_MAX     8.0\n#endif\n\n//optimized version for mobile, where dependent\n//texture reads can be a bottleneck\nvec4 fxaa(sampler2D tex, vec2 fragCoord, vec2 inverseVP,\n          vec2 v_rgbNW, vec2 v_rgbNE,\n          vec2 v_rgbSW, vec2 v_rgbSE,\n          vec2 v_rgbM) {\n    vec4 color;\n    vec3 rgbNW = texture2D(tex, v_rgbNW).xyz;\n    vec3 rgbNE = texture2D(tex, v_rgbNE).xyz;\n    vec3 rgbSW = texture2D(tex, v_rgbSW).xyz;\n    vec3 rgbSE = texture2D(tex, v_rgbSE).xyz;\n    vec4 texColor = texture2D(tex, v_rgbM);\n    vec3 rgbM  = texColor.xyz;\n    vec3 luma = vec3(0.299, 0.587, 0.114);\n    float lumaNW = dot(rgbNW, luma);\n    float lumaNE = dot(rgbNE, luma);\n    float lumaSW = dot(rgbSW, luma);\n    float lumaSE = dot(rgbSE, luma);\n    float lumaM  = dot(rgbM,  luma);\n    float lumaMin = min(lumaM, min(min(lumaNW, lumaNE), min(lumaSW, lumaSE)));\n    float lumaMax = max(lumaM, max(max(lumaNW, lumaNE), max(lumaSW, lumaSE)));\n\n    mediump vec2 dir;\n    dir.x = -((lumaNW + lumaNE) - (lumaSW + lumaSE));\n    dir.y =  ((lumaNW + lumaSW) - (lumaNE + lumaSE));\n\n    float dirReduce = max((lumaNW + lumaNE + lumaSW + lumaSE) *\n                          (0.25 * FXAA_REDUCE_MUL), FXAA_REDUCE_MIN);\n\n    float rcpDirMin = 1.0 / (min(abs(dir.x), abs(dir.y)) + dirReduce);\n    dir = min(vec2(FXAA_SPAN_MAX, FXAA_SPAN_MAX),\n              max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX),\n                  dir * rcpDirMin)) * inverseVP;\n\n    vec3 rgbA = 0.5 * (\n                       texture2D(tex, fragCoord * inverseVP + dir * (1.0 / 3.0 - 0.5)).xyz +\n                       texture2D(tex, fragCoord * inverseVP + dir * (2.0 / 3.0 - 0.5)).xyz);\n    vec3 rgbB = rgbA * 0.5 + 0.25 * (\n                                     texture2D(tex, fragCoord * inverseVP + dir * -0.5).xyz +\n                                     texture2D(tex, fragCoord * inverseVP + dir * 0.5).xyz);\n\n    float lumaB = dot(rgbB, luma);\n    if ((lumaB < lumaMin) || (lumaB > lumaMax))\n        color = vec4(rgbA, texColor.a);\n    else\n        color = vec4(rgbB, texColor.a);\n    return color;\n}\n\nvoid main() {\n\n      vec4 color;\n\n      color = fxaa(uSampler, vFragCoord, inputPixel.zw, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);\n\n      gl_FragColor = color;\n}\n";
+      var vertex = "\nattribute vec2 aVertexPosition;\n\nuniform mat3 projectionMatrix;\n\nvarying vec2 v_rgbNW;\nvarying vec2 v_rgbNE;\nvarying vec2 v_rgbSW;\nvarying vec2 v_rgbSE;\nvarying vec2 v_rgbM;\n\nvarying vec2 vFragCoord;\n\nuniform vec4 inputSize;\nuniform vec4 outputFrame;\n\nvec4 filterVertexPosition( void )\n{\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\n\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\n}\n\nvoid texcoords(vec2 fragCoord, vec2 inverseVP,\n               out vec2 v_rgbNW, out vec2 v_rgbNE,\n               out vec2 v_rgbSW, out vec2 v_rgbSE,\n               out vec2 v_rgbM) {\n    v_rgbNW = (fragCoord + vec2(-1.0, -1.0)) * inverseVP;\n    v_rgbNE = (fragCoord + vec2(1.0, -1.0)) * inverseVP;\n    v_rgbSW = (fragCoord + vec2(-1.0, 1.0)) * inverseVP;\n    v_rgbSE = (fragCoord + vec2(1.0, 1.0)) * inverseVP;\n    v_rgbM = vec2(fragCoord * inverseVP);\n}\n\nvoid main(void) {\n\n   gl_Position = filterVertexPosition();\n\n   vFragCoord = aVertexPosition * outputFrame.zw;\n\n   texcoords(vFragCoord, inputSize.zw, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);\n}\n";
+      var fragment = "varying vec2 v_rgbNW;\nvarying vec2 v_rgbNE;\nvarying vec2 v_rgbSW;\nvarying vec2 v_rgbSE;\nvarying vec2 v_rgbM;\n\nvarying vec2 vFragCoord;\nuniform sampler2D uSampler;\nuniform highp vec4 inputSize;\n\n\n/**\n Basic FXAA implementation based on the code on geeks3d.com with the\n modification that the texture2DLod stuff was removed since it's\n unsupported by WebGL.\n\n --\n\n From:\n https://github.com/mitsuhiko/webgl-meincraft\n\n Copyright (c) 2011 by Armin Ronacher.\n\n Some rights reserved.\n\n Redistribution and use in source and binary forms, with or without\n modification, are permitted provided that the following conditions are\n met:\n\n * Redistributions of source code must retain the above copyright\n notice, this list of conditions and the following disclaimer.\n\n * Redistributions in binary form must reproduce the above\n copyright notice, this list of conditions and the following\n disclaimer in the documentation and/or other materials provided\n with the distribution.\n\n * The names of the contributors may not be used to endorse or\n promote products derived from this software without specific\n prior written permission.\n\n THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\n OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n\n#ifndef FXAA_REDUCE_MIN\n#define FXAA_REDUCE_MIN   (1.0/ 128.0)\n#endif\n#ifndef FXAA_REDUCE_MUL\n#define FXAA_REDUCE_MUL   (1.0 / 8.0)\n#endif\n#ifndef FXAA_SPAN_MAX\n#define FXAA_SPAN_MAX     8.0\n#endif\n\n//optimized version for mobile, where dependent\n//texture reads can be a bottleneck\nvec4 fxaa(sampler2D tex, vec2 fragCoord, vec2 inverseVP,\n          vec2 v_rgbNW, vec2 v_rgbNE,\n          vec2 v_rgbSW, vec2 v_rgbSE,\n          vec2 v_rgbM) {\n    vec4 color;\n    vec3 rgbNW = texture2D(tex, v_rgbNW).xyz;\n    vec3 rgbNE = texture2D(tex, v_rgbNE).xyz;\n    vec3 rgbSW = texture2D(tex, v_rgbSW).xyz;\n    vec3 rgbSE = texture2D(tex, v_rgbSE).xyz;\n    vec4 texColor = texture2D(tex, v_rgbM);\n    vec3 rgbM  = texColor.xyz;\n    vec3 luma = vec3(0.299, 0.587, 0.114);\n    float lumaNW = dot(rgbNW, luma);\n    float lumaNE = dot(rgbNE, luma);\n    float lumaSW = dot(rgbSW, luma);\n    float lumaSE = dot(rgbSE, luma);\n    float lumaM  = dot(rgbM,  luma);\n    float lumaMin = min(lumaM, min(min(lumaNW, lumaNE), min(lumaSW, lumaSE)));\n    float lumaMax = max(lumaM, max(max(lumaNW, lumaNE), max(lumaSW, lumaSE)));\n\n    mediump vec2 dir;\n    dir.x = -((lumaNW + lumaNE) - (lumaSW + lumaSE));\n    dir.y =  ((lumaNW + lumaSW) - (lumaNE + lumaSE));\n\n    float dirReduce = max((lumaNW + lumaNE + lumaSW + lumaSE) *\n                          (0.25 * FXAA_REDUCE_MUL), FXAA_REDUCE_MIN);\n\n    float rcpDirMin = 1.0 / (min(abs(dir.x), abs(dir.y)) + dirReduce);\n    dir = min(vec2(FXAA_SPAN_MAX, FXAA_SPAN_MAX),\n              max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX),\n                  dir * rcpDirMin)) * inverseVP;\n\n    vec3 rgbA = 0.5 * (\n                       texture2D(tex, fragCoord * inverseVP + dir * (1.0 / 3.0 - 0.5)).xyz +\n                       texture2D(tex, fragCoord * inverseVP + dir * (2.0 / 3.0 - 0.5)).xyz);\n    vec3 rgbB = rgbA * 0.5 + 0.25 * (\n                                     texture2D(tex, fragCoord * inverseVP + dir * -0.5).xyz +\n                                     texture2D(tex, fragCoord * inverseVP + dir * 0.5).xyz);\n\n    float lumaB = dot(rgbB, luma);\n    if ((lumaB < lumaMin) || (lumaB > lumaMax))\n        color = vec4(rgbA, texColor.a);\n    else\n        color = vec4(rgbB, texColor.a);\n    return color;\n}\n\nvoid main() {\n\n      vec4 color;\n\n      color = fxaa(uSampler, vFragCoord, inputSize.zw, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);\n\n      gl_FragColor = color;\n}\n";
       /**
        * Basic FXAA (Fast Approximate Anti-Aliasing) implementation based on the code on geeks3d.com
        * with the modification that the texture2DLod stuff was removed since it is unsupported by WebGL.
@@ -36230,8 +36795,8 @@
       /*! @pixi/constants */
       "CpIl");
       /*!
-       * @pixi/utils - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/utils - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/utils is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -36291,7 +36856,7 @@
 
       _pixi_settings__WEBPACK_IMPORTED_MODULE_0__["settings"].FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
       var saidHello = false;
-      var VERSION = '6.0.2';
+      var VERSION = '6.0.3';
       /**
        * Skips the hello message of renderers that are created after this is run.
        *
@@ -37252,7 +37817,7 @@
         /**
          * @param width - the width for the newly created canvas
          * @param height - the height for the newly created canvas
-         * @param {number} [resolution=1] - The resolution / device pixel ratio of the canvas
+         * @param {number} [resolution=PIXI.settings.RESOLUTION] - The resolution / device pixel ratio of the canvas
          */
         function CanvasRenderTarget(width, height, resolution) {
           this.canvas = document.createElement('canvas');
@@ -37714,8 +38279,8 @@
       /*! @pixi/utils */
       "IUqD");
       /*!
-       * @pixi/sprite-tiling - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/sprite-tiling - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/sprite-tiling is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -38030,7 +38595,8 @@
 
 
         TilingSprite.from = function (source, options) {
-          return new TilingSprite(_pixi_core__WEBPACK_IMPORTED_MODULE_0__["Texture"].from(source, options), options.width, options.height);
+          var texture = source instanceof _pixi_core__WEBPACK_IMPORTED_MODULE_0__["Texture"] ? source : _pixi_core__WEBPACK_IMPORTED_MODULE_0__["Texture"].from(source, options);
+          return new TilingSprite(texture, options.width, options.height);
         };
 
         Object.defineProperty(TilingSprite.prototype, "width", {
@@ -38273,12 +38839,18 @@
       /* harmony import */
 
 
-      var _pixi_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _pixi_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @pixi/utils */
+      "IUqD");
+      /* harmony import */
+
+
+      var _pixi_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @pixi/constants */
       "CpIl");
       /*!
-       * @pixi/compressed-textures - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/compressed-textures - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/compressed-textures is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -38892,2443 +39464,6 @@
 
         return CompressedTextureResource;
       }(BlobResource);
-
-      var appleIphone = /iPhone/i;
-      var appleIpod = /iPod/i;
-      var appleTablet = /iPad/i;
-      var appleUniversal = /\biOS-universal(?:.+)Mac\b/i;
-      var androidPhone = /\bAndroid(?:.+)Mobile\b/i;
-      var androidTablet = /Android/i;
-      var amazonPhone = /(?:SD4930UR|\bSilk(?:.+)Mobile\b)/i;
-      var amazonTablet = /Silk/i;
-      var windowsPhone = /Windows Phone/i;
-      var windowsTablet = /\bWindows(?:.+)ARM\b/i;
-      var otherBlackBerry = /BlackBerry/i;
-      var otherBlackBerry10 = /BB10/i;
-      var otherOpera = /Opera Mini/i;
-      var otherChrome = /\b(CriOS|Chrome)(?:.+)Mobile/i;
-      var otherFirefox = /Mobile(?:.+)Firefox\b/i;
-
-      var isAppleTabletOnIos13 = function isAppleTabletOnIos13(navigator) {
-        return typeof navigator !== 'undefined' && navigator.platform === 'MacIntel' && typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints > 1 && typeof MSStream === 'undefined';
-      };
-
-      function createMatch(userAgent) {
-        return function (regex) {
-          return regex.test(userAgent);
-        };
-      }
-
-      function isMobile(param) {
-        var nav = {
-          userAgent: '',
-          platform: '',
-          maxTouchPoints: 0
-        };
-
-        if (!param && typeof navigator !== 'undefined') {
-          nav = {
-            userAgent: navigator.userAgent,
-            platform: navigator.platform,
-            maxTouchPoints: navigator.maxTouchPoints || 0
-          };
-        } else if (typeof param === 'string') {
-          nav.userAgent = param;
-        } else if (param && param.userAgent) {
-          nav = {
-            userAgent: param.userAgent,
-            platform: param.platform,
-            maxTouchPoints: param.maxTouchPoints || 0
-          };
-        }
-
-        var userAgent = nav.userAgent;
-        var tmp = userAgent.split('[FBAN');
-
-        if (typeof tmp[1] !== 'undefined') {
-          userAgent = tmp[0];
-        }
-
-        tmp = userAgent.split('Twitter');
-
-        if (typeof tmp[1] !== 'undefined') {
-          userAgent = tmp[0];
-        }
-
-        var match = createMatch(userAgent);
-        var result = {
-          apple: {
-            phone: match(appleIphone) && !match(windowsPhone),
-            ipod: match(appleIpod),
-            tablet: !match(appleIphone) && (match(appleTablet) || isAppleTabletOnIos13(nav)) && !match(windowsPhone),
-            universal: match(appleUniversal),
-            device: (match(appleIphone) || match(appleIpod) || match(appleTablet) || match(appleUniversal) || isAppleTabletOnIos13(nav)) && !match(windowsPhone)
-          },
-          amazon: {
-            phone: match(amazonPhone),
-            tablet: !match(amazonPhone) && match(amazonTablet),
-            device: match(amazonPhone) || match(amazonTablet)
-          },
-          android: {
-            phone: !match(windowsPhone) && match(amazonPhone) || !match(windowsPhone) && match(androidPhone),
-            tablet: !match(windowsPhone) && !match(amazonPhone) && !match(androidPhone) && (match(amazonTablet) || match(androidTablet)),
-            device: !match(windowsPhone) && (match(amazonPhone) || match(amazonTablet) || match(androidPhone) || match(androidTablet)) || match(/\bokhttp\b/i)
-          },
-          windows: {
-            phone: match(windowsPhone),
-            tablet: match(windowsTablet),
-            device: match(windowsPhone) || match(windowsTablet)
-          },
-          other: {
-            blackberry: match(otherBlackBerry),
-            blackberry10: match(otherBlackBerry10),
-            opera: match(otherOpera),
-            firefox: match(otherFirefox),
-            chrome: match(otherChrome),
-            device: match(otherBlackBerry) || match(otherBlackBerry10) || match(otherOpera) || match(otherFirefox) || match(otherChrome)
-          },
-          any: false,
-          phone: false,
-          tablet: false
-        };
-        result.any = result.apple.device || result.android.device || result.windows.device || result.other.device;
-        result.phone = result.apple.phone || result.android.phone || result.windows.phone;
-        result.tablet = result.apple.tablet || result.android.tablet || result.windows.tablet;
-        return result;
-      }
-      /*!
-       * @pixi/settings - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
-       *
-       * @pixi/settings is licensed under the MIT License.
-       * http://www.opensource.org/licenses/mit-license
-       */
-      // The ESM/CJS versions of ismobilejs only
-
-
-      var isMobile$1 = isMobile(self.navigator);
-      /**
-       * The maximum recommended texture units to use.
-       * In theory the bigger the better, and for desktop we'll use as many as we can.
-       * But some mobile devices slow down if there is to many branches in the shader.
-       * So in practice there seems to be a sweet spot size that varies depending on the device.
-       *
-       * In v4, all mobile devices were limited to 4 texture units because for this.
-       * In v5, we allow all texture units to be used on modern Apple or Android devices.
-       *
-       * @private
-       * @param {number} max
-       * @returns {number}
-       */
-
-      function maxRecommendedTextures(max) {
-        var allowMax = true;
-
-        if (isMobile$1.tablet || isMobile$1.phone) {
-          if (isMobile$1.apple.device) {
-            var match = navigator.userAgent.match(/OS (\d+)_(\d+)?/);
-
-            if (match) {
-              var majorVersion = parseInt(match[1], 10); // Limit texture units on devices below iOS 11, which will be older hardware
-
-              if (majorVersion < 11) {
-                allowMax = false;
-              }
-            }
-          }
-
-          if (isMobile$1.android.device) {
-            var match = navigator.userAgent.match(/Android\s([0-9.]*)/);
-
-            if (match) {
-              var majorVersion = parseInt(match[1], 10); // Limit texture units on devices below Android 7 (Nougat), which will be older hardware
-
-              if (majorVersion < 7) {
-                allowMax = false;
-              }
-            }
-          }
-        }
-
-        return allowMax ? max : 4;
-      }
-      /**
-       * Uploading the same buffer multiple times in a single frame can cause performance issues.
-       * Apparent on iOS so only check for that at the moment
-       * This check may become more complex if this issue pops up elsewhere.
-       *
-       * @private
-       * @returns {boolean}
-       */
-
-
-      function canUploadSameBuffer() {
-        return !isMobile$1.apple.device;
-      }
-      /**
-       * User's customizable globals for overriding the default PIXI settings, such
-       * as a renderer's default resolution, framerate, float precision, etc.
-       * @example
-       * // Use the native window resolution as the default resolution
-       * // will support high-density displays when rendering
-       * PIXI.settings.RESOLUTION = window.devicePixelRatio;
-       *
-       * // Disable interpolation when scaling, will make texture be pixelated
-       * PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-       * @namespace PIXI.settings
-       */
-
-
-      var settings = {
-        /**
-         * If set to true WebGL will attempt make textures mimpaped by default.
-         * Mipmapping will only succeed if the base texture uploaded has power of two dimensions.
-         *
-         * @static
-         * @name MIPMAP_TEXTURES
-         * @memberof PIXI.settings
-         * @type {PIXI.MIPMAP_MODES}
-         * @default PIXI.MIPMAP_MODES.POW2
-         */
-        MIPMAP_TEXTURES: 1,
-
-        /**
-         * Default anisotropic filtering level of textures.
-         * Usually from 0 to 16
-         *
-         * @static
-         * @name ANISOTROPIC_LEVEL
-         * @memberof PIXI.settings
-         * @type {number}
-         * @default 0
-         */
-        ANISOTROPIC_LEVEL: 0,
-
-        /**
-         * Default resolution / device pixel ratio of the renderer.
-         *
-         * @static
-         * @name RESOLUTION
-         * @memberof PIXI.settings
-         * @type {number}
-         * @default 1
-         */
-        RESOLUTION: 1,
-
-        /**
-         * Default filter resolution.
-         *
-         * @static
-         * @name FILTER_RESOLUTION
-         * @memberof PIXI.settings
-         * @type {number}
-         * @default 1
-         */
-        FILTER_RESOLUTION: 1,
-
-        /**
-         * The maximum textures that this device supports.
-         *
-         * @static
-         * @name SPRITE_MAX_TEXTURES
-         * @memberof PIXI.settings
-         * @type {number}
-         * @default 32
-         */
-        SPRITE_MAX_TEXTURES: maxRecommendedTextures(32),
-        // TODO: maybe change to SPRITE.BATCH_SIZE: 2000
-        // TODO: maybe add PARTICLE.BATCH_SIZE: 15000
-
-        /**
-         * The default sprite batch size.
-         *
-         * The default aims to balance desktop and mobile devices.
-         *
-         * @static
-         * @name SPRITE_BATCH_SIZE
-         * @memberof PIXI.settings
-         * @type {number}
-         * @default 4096
-         */
-        SPRITE_BATCH_SIZE: 4096,
-
-        /**
-         * The default render options if none are supplied to {@link PIXI.Renderer}
-         * or {@link PIXI.CanvasRenderer}.
-         *
-         * @static
-         * @name RENDER_OPTIONS
-         * @memberof PIXI.settings
-         * @type {object}
-         * @property {HTMLCanvasElement} view=null
-         * @property {number} resolution=1
-         * @property {boolean} antialias=false
-         * @property {boolean} autoDensity=false
-         * @property {boolean} useContextAlpha=true
-         * @property {number} backgroundColor=0x000000
-         * @property {number} backgroundAlpha=1
-         * @property {boolean} clearBeforeRender=true
-         * @property {boolean} preserveDrawingBuffer=false
-         * @property {number} width=800
-         * @property {number} height=600
-         * @property {boolean} legacy=false
-         */
-        RENDER_OPTIONS: {
-          view: null,
-          antialias: false,
-          autoDensity: false,
-          backgroundColor: 0x000000,
-          backgroundAlpha: 1,
-          useContextAlpha: true,
-          clearBeforeRender: true,
-          preserveDrawingBuffer: false,
-          width: 800,
-          height: 600,
-          legacy: false
-        },
-
-        /**
-         * Default Garbage Collection mode.
-         *
-         * @static
-         * @name GC_MODE
-         * @memberof PIXI.settings
-         * @type {PIXI.GC_MODES}
-         * @default PIXI.GC_MODES.AUTO
-         */
-        GC_MODE: 0,
-
-        /**
-         * Default Garbage Collection max idle.
-         *
-         * @static
-         * @name GC_MAX_IDLE
-         * @memberof PIXI.settings
-         * @type {number}
-         * @default 3600
-         */
-        GC_MAX_IDLE: 60 * 60,
-
-        /**
-         * Default Garbage Collection maximum check count.
-         *
-         * @static
-         * @name GC_MAX_CHECK_COUNT
-         * @memberof PIXI.settings
-         * @type {number}
-         * @default 600
-         */
-        GC_MAX_CHECK_COUNT: 60 * 10,
-
-        /**
-         * Default wrap modes that are supported by pixi.
-         *
-         * @static
-         * @name WRAP_MODE
-         * @memberof PIXI.settings
-         * @type {PIXI.WRAP_MODES}
-         * @default PIXI.WRAP_MODES.CLAMP
-         */
-        WRAP_MODE: 33071,
-
-        /**
-         * Default scale mode for textures.
-         *
-         * @static
-         * @name SCALE_MODE
-         * @memberof PIXI.settings
-         * @type {PIXI.SCALE_MODES}
-         * @default PIXI.SCALE_MODES.LINEAR
-         */
-        SCALE_MODE: 1,
-
-        /**
-         * Default specify float precision in vertex shader.
-         *
-         * @static
-         * @name PRECISION_VERTEX
-         * @memberof PIXI.settings
-         * @type {PIXI.PRECISION}
-         * @default PIXI.PRECISION.HIGH
-         */
-        PRECISION_VERTEX: 'highp',
-
-        /**
-         * Default specify float precision in fragment shader.
-         * iOS is best set at highp due to https://github.com/pixijs/pixi.js/issues/3742
-         *
-         * @static
-         * @name PRECISION_FRAGMENT
-         * @memberof PIXI.settings
-         * @type {PIXI.PRECISION}
-         * @default PIXI.PRECISION.MEDIUM
-         */
-        PRECISION_FRAGMENT: isMobile$1.apple.device ? 'highp' : 'mediump',
-
-        /**
-         * Can we upload the same buffer in a single frame?
-         *
-         * @static
-         * @name CAN_UPLOAD_SAME_BUFFER
-         * @memberof PIXI.settings
-         * @type {boolean}
-         */
-        CAN_UPLOAD_SAME_BUFFER: canUploadSameBuffer(),
-
-        /**
-         * Enables bitmap creation before image load. This feature is experimental.
-         *
-         * @static
-         * @name CREATE_IMAGE_BITMAP
-         * @memberof PIXI.settings
-         * @type {boolean}
-         * @default false
-         */
-        CREATE_IMAGE_BITMAP: false,
-
-        /**
-         * If true PixiJS will Math.floor() x/y values when rendering, stopping pixel interpolation.
-         * Advantages can include sharper image quality (like text) and faster rendering on canvas.
-         * The main disadvantage is movement of objects may appear less smooth.
-         *
-         * @static
-         * @constant
-         * @memberof PIXI.settings
-         * @type {boolean}
-         * @default false
-         */
-        ROUND_PIXELS: false
-      };
-      var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-      function createCommonjsModule(fn, basedir, module) {
-        return module = {
-          path: basedir,
-          exports: {},
-          require: function require(path, base) {
-            return commonjsRequire(path, base === undefined || base === null ? module.path : base);
-          }
-        }, fn(module, module.exports), module.exports;
-      }
-
-      function commonjsRequire() {
-        throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
-      }
-
-      var eventemitter3 = createCommonjsModule(function (module) {
-        var has = Object.prototype.hasOwnProperty,
-            prefix = '~';
-        /**
-         * Constructor to create a storage for our `EE` objects.
-         * An `Events` instance is a plain object whose properties are event names.
-         *
-         * @constructor
-         * @private
-         */
-
-        function Events() {} //
-        // We try to not inherit from `Object.prototype`. In some engines creating an
-        // instance in this way is faster than calling `Object.create(null)` directly.
-        // If `Object.create(null)` is not supported we prefix the event names with a
-        // character to make sure that the built-in object properties are not
-        // overridden or used as an attack vector.
-        //
-
-
-        if (Object.create) {
-          Events.prototype = Object.create(null); //
-          // This hack is needed because the `__proto__` property is still inherited in
-          // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
-          //
-
-          if (!new Events().__proto__) {
-            prefix = false;
-          }
-        }
-        /**
-         * Representation of a single event listener.
-         *
-         * @param {Function} fn The listener function.
-         * @param {*} context The context to invoke the listener with.
-         * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
-         * @constructor
-         * @private
-         */
-
-
-        function EE(fn, context, once) {
-          this.fn = fn;
-          this.context = context;
-          this.once = once || false;
-        }
-        /**
-         * Add a listener for a given event.
-         *
-         * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
-         * @param {(String|Symbol)} event The event name.
-         * @param {Function} fn The listener function.
-         * @param {*} context The context to invoke the listener with.
-         * @param {Boolean} once Specify if the listener is a one-time listener.
-         * @returns {EventEmitter}
-         * @private
-         */
-
-
-        function addListener(emitter, event, fn, context, once) {
-          if (typeof fn !== 'function') {
-            throw new TypeError('The listener must be a function');
-          }
-
-          var listener = new EE(fn, context || emitter, once),
-              evt = prefix ? prefix + event : event;
-
-          if (!emitter._events[evt]) {
-            emitter._events[evt] = listener, emitter._eventsCount++;
-          } else if (!emitter._events[evt].fn) {
-            emitter._events[evt].push(listener);
-          } else {
-            emitter._events[evt] = [emitter._events[evt], listener];
-          }
-
-          return emitter;
-        }
-        /**
-         * Clear event by name.
-         *
-         * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
-         * @param {(String|Symbol)} evt The Event name.
-         * @private
-         */
-
-
-        function clearEvent(emitter, evt) {
-          if (--emitter._eventsCount === 0) {
-            emitter._events = new Events();
-          } else {
-            delete emitter._events[evt];
-          }
-        }
-        /**
-         * Minimal `EventEmitter` interface that is molded against the Node.js
-         * `EventEmitter` interface.
-         *
-         * @constructor
-         * @public
-         */
-
-
-        function EventEmitter() {
-          this._events = new Events();
-          this._eventsCount = 0;
-        }
-        /**
-         * Return an array listing the events for which the emitter has registered
-         * listeners.
-         *
-         * @returns {Array}
-         * @public
-         */
-
-
-        EventEmitter.prototype.eventNames = function eventNames() {
-          var names = [],
-              events,
-              name;
-
-          if (this._eventsCount === 0) {
-            return names;
-          }
-
-          for (name in events = this._events) {
-            if (has.call(events, name)) {
-              names.push(prefix ? name.slice(1) : name);
-            }
-          }
-
-          if (Object.getOwnPropertySymbols) {
-            return names.concat(Object.getOwnPropertySymbols(events));
-          }
-
-          return names;
-        };
-        /**
-         * Return the listeners registered for a given event.
-         *
-         * @param {(String|Symbol)} event The event name.
-         * @returns {Array} The registered listeners.
-         * @public
-         */
-
-
-        EventEmitter.prototype.listeners = function listeners(event) {
-          var evt = prefix ? prefix + event : event,
-              handlers = this._events[evt];
-
-          if (!handlers) {
-            return [];
-          }
-
-          if (handlers.fn) {
-            return [handlers.fn];
-          }
-
-          for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
-            ee[i] = handlers[i].fn;
-          }
-
-          return ee;
-        };
-        /**
-         * Return the number of listeners listening to a given event.
-         *
-         * @param {(String|Symbol)} event The event name.
-         * @returns {Number} The number of listeners.
-         * @public
-         */
-
-
-        EventEmitter.prototype.listenerCount = function listenerCount(event) {
-          var evt = prefix ? prefix + event : event,
-              listeners = this._events[evt];
-
-          if (!listeners) {
-            return 0;
-          }
-
-          if (listeners.fn) {
-            return 1;
-          }
-
-          return listeners.length;
-        };
-        /**
-         * Calls each of the listeners registered for a given event.
-         *
-         * @param {(String|Symbol)} event The event name.
-         * @returns {Boolean} `true` if the event had listeners, else `false`.
-         * @public
-         */
-
-
-        EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
-          var arguments$1 = arguments;
-          var evt = prefix ? prefix + event : event;
-
-          if (!this._events[evt]) {
-            return false;
-          }
-
-          var listeners = this._events[evt],
-              len = arguments.length,
-              args,
-              i;
-
-          if (listeners.fn) {
-            if (listeners.once) {
-              this.removeListener(event, listeners.fn, undefined, true);
-            }
-
-            switch (len) {
-              case 1:
-                return listeners.fn.call(listeners.context), true;
-
-              case 2:
-                return listeners.fn.call(listeners.context, a1), true;
-
-              case 3:
-                return listeners.fn.call(listeners.context, a1, a2), true;
-
-              case 4:
-                return listeners.fn.call(listeners.context, a1, a2, a3), true;
-
-              case 5:
-                return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
-
-              case 6:
-                return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
-            }
-
-            for (i = 1, args = new Array(len - 1); i < len; i++) {
-              args[i - 1] = arguments$1[i];
-            }
-
-            listeners.fn.apply(listeners.context, args);
-          } else {
-            var length = listeners.length,
-                j;
-
-            for (i = 0; i < length; i++) {
-              if (listeners[i].once) {
-                this.removeListener(event, listeners[i].fn, undefined, true);
-              }
-
-              switch (len) {
-                case 1:
-                  listeners[i].fn.call(listeners[i].context);
-                  break;
-
-                case 2:
-                  listeners[i].fn.call(listeners[i].context, a1);
-                  break;
-
-                case 3:
-                  listeners[i].fn.call(listeners[i].context, a1, a2);
-                  break;
-
-                case 4:
-                  listeners[i].fn.call(listeners[i].context, a1, a2, a3);
-                  break;
-
-                default:
-                  if (!args) {
-                    for (j = 1, args = new Array(len - 1); j < len; j++) {
-                      args[j - 1] = arguments$1[j];
-                    }
-                  }
-
-                  listeners[i].fn.apply(listeners[i].context, args);
-              }
-            }
-          }
-
-          return true;
-        };
-        /**
-         * Add a listener for a given event.
-         *
-         * @param {(String|Symbol)} event The event name.
-         * @param {Function} fn The listener function.
-         * @param {*} [context=this] The context to invoke the listener with.
-         * @returns {EventEmitter} `this`.
-         * @public
-         */
-
-
-        EventEmitter.prototype.on = function on(event, fn, context) {
-          return addListener(this, event, fn, context, false);
-        };
-        /**
-         * Add a one-time listener for a given event.
-         *
-         * @param {(String|Symbol)} event The event name.
-         * @param {Function} fn The listener function.
-         * @param {*} [context=this] The context to invoke the listener with.
-         * @returns {EventEmitter} `this`.
-         * @public
-         */
-
-
-        EventEmitter.prototype.once = function once(event, fn, context) {
-          return addListener(this, event, fn, context, true);
-        };
-        /**
-         * Remove the listeners of a given event.
-         *
-         * @param {(String|Symbol)} event The event name.
-         * @param {Function} fn Only remove the listeners that match this function.
-         * @param {*} context Only remove the listeners that have this context.
-         * @param {Boolean} once Only remove one-time listeners.
-         * @returns {EventEmitter} `this`.
-         * @public
-         */
-
-
-        EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
-          var evt = prefix ? prefix + event : event;
-
-          if (!this._events[evt]) {
-            return this;
-          }
-
-          if (!fn) {
-            clearEvent(this, evt);
-            return this;
-          }
-
-          var listeners = this._events[evt];
-
-          if (listeners.fn) {
-            if (listeners.fn === fn && (!once || listeners.once) && (!context || listeners.context === context)) {
-              clearEvent(this, evt);
-            }
-          } else {
-            for (var i = 0, events = [], length = listeners.length; i < length; i++) {
-              if (listeners[i].fn !== fn || once && !listeners[i].once || context && listeners[i].context !== context) {
-                events.push(listeners[i]);
-              }
-            } //
-            // Reset the array, or remove it completely if we have no more listeners.
-            //
-
-
-            if (events.length) {
-              this._events[evt] = events.length === 1 ? events[0] : events;
-            } else {
-              clearEvent(this, evt);
-            }
-          }
-
-          return this;
-        };
-        /**
-         * Remove all listeners, or those of the specified event.
-         *
-         * @param {(String|Symbol)} [event] The event name.
-         * @returns {EventEmitter} `this`.
-         * @public
-         */
-
-
-        EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
-          var evt;
-
-          if (event) {
-            evt = prefix ? prefix + event : event;
-
-            if (this._events[evt]) {
-              clearEvent(this, evt);
-            }
-          } else {
-            this._events = new Events();
-            this._eventsCount = 0;
-          }
-
-          return this;
-        }; //
-        // Alias methods names because people roll like that.
-        //
-
-
-        EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
-        EventEmitter.prototype.addListener = EventEmitter.prototype.on; //
-        // Expose the prefix.
-        //
-
-        EventEmitter.prefixed = prefix; //
-        // Allow `EventEmitter` to be imported as module namespace.
-        //
-
-        EventEmitter.EventEmitter = EventEmitter; //
-        // Expose the module.
-        //
-
-        {
-          module.exports = EventEmitter;
-        }
-      });
-      var punycode = createCommonjsModule(function (module, exports) {
-        (function (root) {
-          /** Detect free variables */
-          var freeExports = exports && !exports.nodeType && exports;
-          var freeModule = module && !module.nodeType && module;
-          var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal;
-
-          if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal || freeGlobal.self === freeGlobal) {
-            root = freeGlobal;
-          }
-          /**
-           * The `punycode` object.
-           * @name punycode
-           * @type Object
-           */
-
-
-          var punycode,
-
-          /** Highest positive signed 32-bit float value */
-          maxInt = 2147483647,
-              // aka. 0x7FFFFFFF or 2^31-1
-
-          /** Bootstring parameters */
-          base = 36,
-              tMin = 1,
-              tMax = 26,
-              skew = 38,
-              damp = 700,
-              initialBias = 72,
-              initialN = 128,
-              // 0x80
-          delimiter = '-',
-              // '\x2D'
-
-          /** Regular expressions */
-          regexPunycode = /^xn--/,
-              regexNonASCII = /[^\x20-\x7E]/,
-              // unprintable ASCII chars + non-ASCII chars
-          regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g,
-              // RFC 3490 separators
-
-          /** Error messages */
-          errors = {
-            'overflow': 'Overflow: input needs wider integers to process',
-            'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
-            'invalid-input': 'Invalid input'
-          },
-
-          /** Convenience shortcuts */
-          baseMinusTMin = base - tMin,
-              floor = Math.floor,
-              stringFromCharCode = String.fromCharCode,
-
-          /** Temporary variable */
-          key;
-          /*--------------------------------------------------------------------------*/
-
-          /**
-           * A generic error utility function.
-           * @private
-           * @param {String} type The error type.
-           * @returns {Error} Throws a `RangeError` with the applicable error message.
-           */
-
-          function error(type) {
-            throw RangeError(errors[type]);
-          }
-          /**
-           * A generic `Array#map` utility function.
-           * @private
-           * @param {Array} array The array to iterate over.
-           * @param {Function} callback The function that gets called for every array
-           * item.
-           * @returns {Array} A new array of values returned by the callback function.
-           */
-
-
-          function map(array, fn) {
-            var length = array.length;
-            var result = [];
-
-            while (length--) {
-              result[length] = fn(array[length]);
-            }
-
-            return result;
-          }
-          /**
-           * A simple `Array#map`-like wrapper to work with domain name strings or email
-           * addresses.
-           * @private
-           * @param {String} domain The domain name or email address.
-           * @param {Function} callback The function that gets called for every
-           * character.
-           * @returns {Array} A new string of characters returned by the callback
-           * function.
-           */
-
-
-          function mapDomain(string, fn) {
-            var parts = string.split('@');
-            var result = '';
-
-            if (parts.length > 1) {
-              // In email addresses, only the domain name should be punycoded. Leave
-              // the local part (i.e. everything up to `@`) intact.
-              result = parts[0] + '@';
-              string = parts[1];
-            } // Avoid `split(regex)` for IE8 compatibility. See #17.
-
-
-            string = string.replace(regexSeparators, '\x2E');
-            var labels = string.split('.');
-            var encoded = map(labels, fn).join('.');
-            return result + encoded;
-          }
-          /**
-           * Creates an array containing the numeric code points of each Unicode
-           * character in the string. While JavaScript uses UCS-2 internally,
-           * this function will convert a pair of surrogate halves (each of which
-           * UCS-2 exposes as separate characters) into a single code point,
-           * matching UTF-16.
-           * @see `punycode.ucs2.encode`
-           * @see <https://mathiasbynens.be/notes/javascript-encoding>
-           * @memberOf punycode.ucs2
-           * @name decode
-           * @param {String} string The Unicode input string (UCS-2).
-           * @returns {Array} The new array of code points.
-           */
-
-
-          function ucs2decode(string) {
-            var output = [],
-                counter = 0,
-                length = string.length,
-                value,
-                extra;
-
-            while (counter < length) {
-              value = string.charCodeAt(counter++);
-
-              if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
-                // high surrogate, and there is a next character
-                extra = string.charCodeAt(counter++);
-
-                if ((extra & 0xFC00) == 0xDC00) {
-                  // low surrogate
-                  output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
-                } else {
-                  // unmatched surrogate; only append this code unit, in case the next
-                  // code unit is the high surrogate of a surrogate pair
-                  output.push(value);
-                  counter--;
-                }
-              } else {
-                output.push(value);
-              }
-            }
-
-            return output;
-          }
-          /**
-           * Creates a string based on an array of numeric code points.
-           * @see `punycode.ucs2.decode`
-           * @memberOf punycode.ucs2
-           * @name encode
-           * @param {Array} codePoints The array of numeric code points.
-           * @returns {String} The new Unicode string (UCS-2).
-           */
-
-
-          function ucs2encode(array) {
-            return map(array, function (value) {
-              var output = '';
-
-              if (value > 0xFFFF) {
-                value -= 0x10000;
-                output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
-                value = 0xDC00 | value & 0x3FF;
-              }
-
-              output += stringFromCharCode(value);
-              return output;
-            }).join('');
-          }
-          /**
-           * Converts a basic code point into a digit/integer.
-           * @see `digitToBasic()`
-           * @private
-           * @param {Number} codePoint The basic numeric code point value.
-           * @returns {Number} The numeric value of a basic code point (for use in
-           * representing integers) in the range `0` to `base - 1`, or `base` if
-           * the code point does not represent a value.
-           */
-
-
-          function basicToDigit(codePoint) {
-            if (codePoint - 48 < 10) {
-              return codePoint - 22;
-            }
-
-            if (codePoint - 65 < 26) {
-              return codePoint - 65;
-            }
-
-            if (codePoint - 97 < 26) {
-              return codePoint - 97;
-            }
-
-            return base;
-          }
-          /**
-           * Converts a digit/integer into a basic code point.
-           * @see `basicToDigit()`
-           * @private
-           * @param {Number} digit The numeric value of a basic code point.
-           * @returns {Number} The basic code point whose value (when used for
-           * representing integers) is `digit`, which needs to be in the range
-           * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
-           * used; else, the lowercase form is used. The behavior is undefined
-           * if `flag` is non-zero and `digit` has no uppercase form.
-           */
-
-
-          function digitToBasic(digit, flag) {
-            //  0..25 map to ASCII a..z or A..Z
-            // 26..35 map to ASCII 0..9
-            return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
-          }
-          /**
-           * Bias adaptation function as per section 3.4 of RFC 3492.
-           * http://tools.ietf.org/html/rfc3492#section-3.4
-           * @private
-           */
-
-
-          function adapt(delta, numPoints, firstTime) {
-            var k = 0;
-            delta = firstTime ? floor(delta / damp) : delta >> 1;
-            delta += floor(delta / numPoints);
-
-            for (;
-            /* no initialization */
-            delta > baseMinusTMin * tMax >> 1; k += base) {
-              delta = floor(delta / baseMinusTMin);
-            }
-
-            return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
-          }
-          /**
-           * Converts a Punycode string of ASCII-only symbols to a string of Unicode
-           * symbols.
-           * @memberOf punycode
-           * @param {String} input The Punycode string of ASCII-only symbols.
-           * @returns {String} The resulting string of Unicode symbols.
-           */
-
-
-          function decode(input) {
-            // Don't use UCS-2
-            var output = [],
-                inputLength = input.length,
-                out,
-                i = 0,
-                n = initialN,
-                bias = initialBias,
-                basic,
-                j,
-                index,
-                oldi,
-                w,
-                k,
-                digit,
-                t,
-
-            /** Cached calculation results */
-            baseMinusT; // Handle the basic code points: let `basic` be the number of input code
-            // points before the last delimiter, or `0` if there is none, then copy
-            // the first basic code points to the output.
-
-            basic = input.lastIndexOf(delimiter);
-
-            if (basic < 0) {
-              basic = 0;
-            }
-
-            for (j = 0; j < basic; ++j) {
-              // if it's not a basic code point
-              if (input.charCodeAt(j) >= 0x80) {
-                error('not-basic');
-              }
-
-              output.push(input.charCodeAt(j));
-            } // Main decoding loop: start just after the last delimiter if any basic code
-            // points were copied; start at the beginning otherwise.
-
-
-            for (index = basic > 0 ? basic + 1 : 0; index < inputLength;)
-            /* no final expression */
-            {
-              // `index` is the index of the next character to be consumed.
-              // Decode a generalized variable-length integer into `delta`,
-              // which gets added to `i`. The overflow checking is easier
-              // if we increase `i` as we go, then subtract off its starting
-              // value at the end to obtain `delta`.
-              for (oldi = i, w = 1, k = base;;
-              /* no condition */
-              k += base) {
-                if (index >= inputLength) {
-                  error('invalid-input');
-                }
-
-                digit = basicToDigit(input.charCodeAt(index++));
-
-                if (digit >= base || digit > floor((maxInt - i) / w)) {
-                  error('overflow');
-                }
-
-                i += digit * w;
-                t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
-
-                if (digit < t) {
-                  break;
-                }
-
-                baseMinusT = base - t;
-
-                if (w > floor(maxInt / baseMinusT)) {
-                  error('overflow');
-                }
-
-                w *= baseMinusT;
-              }
-
-              out = output.length + 1;
-              bias = adapt(i - oldi, out, oldi == 0); // `i` was supposed to wrap around from `out` to `0`,
-              // incrementing `n` each time, so we'll fix that now:
-
-              if (floor(i / out) > maxInt - n) {
-                error('overflow');
-              }
-
-              n += floor(i / out);
-              i %= out; // Insert `n` at position `i` of the output
-
-              output.splice(i++, 0, n);
-            }
-
-            return ucs2encode(output);
-          }
-          /**
-           * Converts a string of Unicode symbols (e.g. a domain name label) to a
-           * Punycode string of ASCII-only symbols.
-           * @memberOf punycode
-           * @param {String} input The string of Unicode symbols.
-           * @returns {String} The resulting Punycode string of ASCII-only symbols.
-           */
-
-
-          function encode(input) {
-            var n,
-                delta,
-                handledCPCount,
-                basicLength,
-                bias,
-                j,
-                m,
-                q,
-                k,
-                t,
-                currentValue,
-                output = [],
-
-            /** `inputLength` will hold the number of code points in `input`. */
-            inputLength,
-
-            /** Cached calculation results */
-            handledCPCountPlusOne,
-                baseMinusT,
-                qMinusT; // Convert the input in UCS-2 to Unicode
-
-            input = ucs2decode(input); // Cache the length
-
-            inputLength = input.length; // Initialize the state
-
-            n = initialN;
-            delta = 0;
-            bias = initialBias; // Handle the basic code points
-
-            for (j = 0; j < inputLength; ++j) {
-              currentValue = input[j];
-
-              if (currentValue < 0x80) {
-                output.push(stringFromCharCode(currentValue));
-              }
-            }
-
-            handledCPCount = basicLength = output.length; // `handledCPCount` is the number of code points that have been handled;
-            // `basicLength` is the number of basic code points.
-            // Finish the basic string - if it is not empty - with a delimiter
-
-            if (basicLength) {
-              output.push(delimiter);
-            } // Main encoding loop:
-
-
-            while (handledCPCount < inputLength) {
-              // All non-basic code points < n have been handled already. Find the next
-              // larger one:
-              for (m = maxInt, j = 0; j < inputLength; ++j) {
-                currentValue = input[j];
-
-                if (currentValue >= n && currentValue < m) {
-                  m = currentValue;
-                }
-              } // Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
-              // but guard against overflow
-
-
-              handledCPCountPlusOne = handledCPCount + 1;
-
-              if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
-                error('overflow');
-              }
-
-              delta += (m - n) * handledCPCountPlusOne;
-              n = m;
-
-              for (j = 0; j < inputLength; ++j) {
-                currentValue = input[j];
-
-                if (currentValue < n && ++delta > maxInt) {
-                  error('overflow');
-                }
-
-                if (currentValue == n) {
-                  // Represent delta as a generalized variable-length integer
-                  for (q = delta, k = base;;
-                  /* no condition */
-                  k += base) {
-                    t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
-
-                    if (q < t) {
-                      break;
-                    }
-
-                    qMinusT = q - t;
-                    baseMinusT = base - t;
-                    output.push(stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0)));
-                    q = floor(qMinusT / baseMinusT);
-                  }
-
-                  output.push(stringFromCharCode(digitToBasic(q, 0)));
-                  bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
-                  delta = 0;
-                  ++handledCPCount;
-                }
-              }
-
-              ++delta;
-              ++n;
-            }
-
-            return output.join('');
-          }
-          /**
-           * Converts a Punycode string representing a domain name or an email address
-           * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
-           * it doesn't matter if you call it on a string that has already been
-           * converted to Unicode.
-           * @memberOf punycode
-           * @param {String} input The Punycoded domain name or email address to
-           * convert to Unicode.
-           * @returns {String} The Unicode representation of the given Punycode
-           * string.
-           */
-
-
-          function toUnicode(input) {
-            return mapDomain(input, function (string) {
-              return regexPunycode.test(string) ? decode(string.slice(4).toLowerCase()) : string;
-            });
-          }
-          /**
-           * Converts a Unicode string representing a domain name or an email address to
-           * Punycode. Only the non-ASCII parts of the domain name will be converted,
-           * i.e. it doesn't matter if you call it with a domain that's already in
-           * ASCII.
-           * @memberOf punycode
-           * @param {String} input The domain name or email address to convert, as a
-           * Unicode string.
-           * @returns {String} The Punycode representation of the given domain name or
-           * email address.
-           */
-
-
-          function toASCII(input) {
-            return mapDomain(input, function (string) {
-              return regexNonASCII.test(string) ? 'xn--' + encode(string) : string;
-            });
-          }
-          /*--------------------------------------------------------------------------*/
-
-          /** Define the public API */
-
-
-          punycode = {
-            /**
-             * A string representing the current Punycode.js version number.
-             * @memberOf punycode
-             * @type String
-             */
-            'version': '1.3.2',
-
-            /**
-             * An object of methods to convert from JavaScript's internal character
-             * representation (UCS-2) to Unicode code points, and back.
-             * @see <https://mathiasbynens.be/notes/javascript-encoding>
-             * @memberOf punycode
-             * @type Object
-             */
-            'ucs2': {
-              'decode': ucs2decode,
-              'encode': ucs2encode
-            },
-            'decode': decode,
-            'encode': encode,
-            'toASCII': toASCII,
-            'toUnicode': toUnicode
-          };
-          /** Expose `punycode` */
-          // Some AMD build optimizers, like r.js, check for specific condition patterns
-          // like the following:
-
-          if (freeExports && freeModule) {
-            if (module.exports == freeExports) {
-              // in Node.js or RingoJS v0.8.0+
-              freeModule.exports = punycode;
-            } else {
-              // in Narwhal or RingoJS v0.7.0-
-              for (key in punycode) {
-                punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
-              }
-            }
-          } else {
-            // in Rhino or a web browser
-            root.punycode = punycode;
-          }
-        })(commonjsGlobal);
-      });
-      var util = {
-        isString: function isString(arg) {
-          return typeof arg === 'string';
-        },
-        isObject: function isObject(arg) {
-          return typeof arg === 'object' && arg !== null;
-        },
-        isNull: function isNull(arg) {
-          return arg === null;
-        },
-        isNullOrUndefined: function isNullOrUndefined(arg) {
-          return arg == null;
-        }
-      }; // Copyright Joyent, Inc. and other Node contributors.
-      // If obj.hasOwnProperty has been overridden, then calling
-      // obj.hasOwnProperty(prop) will break.
-      // See: https://github.com/joyent/node/issues/1707
-
-      function hasOwnProperty(obj, prop) {
-        return Object.prototype.hasOwnProperty.call(obj, prop);
-      }
-
-      var decode = function decode(qs, sep, eq, options) {
-        sep = sep || '&';
-        eq = eq || '=';
-        var obj = {};
-
-        if (typeof qs !== 'string' || qs.length === 0) {
-          return obj;
-        }
-
-        var regexp = /\+/g;
-        qs = qs.split(sep);
-        var maxKeys = 1000;
-
-        if (options && typeof options.maxKeys === 'number') {
-          maxKeys = options.maxKeys;
-        }
-
-        var len = qs.length; // maxKeys <= 0 means that we should not limit keys count
-
-        if (maxKeys > 0 && len > maxKeys) {
-          len = maxKeys;
-        }
-
-        for (var i = 0; i < len; ++i) {
-          var x = qs[i].replace(regexp, '%20'),
-              idx = x.indexOf(eq),
-              kstr,
-              vstr,
-              k,
-              v;
-
-          if (idx >= 0) {
-            kstr = x.substr(0, idx);
-            vstr = x.substr(idx + 1);
-          } else {
-            kstr = x;
-            vstr = '';
-          }
-
-          k = decodeURIComponent(kstr);
-          v = decodeURIComponent(vstr);
-
-          if (!hasOwnProperty(obj, k)) {
-            obj[k] = v;
-          } else if (Array.isArray(obj[k])) {
-            obj[k].push(v);
-          } else {
-            obj[k] = [obj[k], v];
-          }
-        }
-
-        return obj;
-      }; // Copyright Joyent, Inc. and other Node contributors.
-
-
-      var stringifyPrimitive = function stringifyPrimitive(v) {
-        switch (typeof v) {
-          case 'string':
-            return v;
-
-          case 'boolean':
-            return v ? 'true' : 'false';
-
-          case 'number':
-            return isFinite(v) ? v : '';
-
-          default:
-            return '';
-        }
-      };
-
-      var encode = function encode(obj, sep, eq, name) {
-        sep = sep || '&';
-        eq = eq || '=';
-
-        if (obj === null) {
-          obj = undefined;
-        }
-
-        if (typeof obj === 'object') {
-          return Object.keys(obj).map(function (k) {
-            var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
-
-            if (Array.isArray(obj[k])) {
-              return obj[k].map(function (v) {
-                return ks + encodeURIComponent(stringifyPrimitive(v));
-              }).join(sep);
-            } else {
-              return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
-            }
-          }).join(sep);
-        }
-
-        if (!name) {
-          return '';
-        }
-
-        return encodeURIComponent(stringifyPrimitive(name)) + eq + encodeURIComponent(stringifyPrimitive(obj));
-      };
-
-      var querystring = createCommonjsModule(function (module, exports) {
-        exports.decode = exports.parse = decode;
-        exports.encode = exports.stringify = encode;
-      });
-      var parse = urlParse;
-      var resolve = urlResolve;
-      var format = urlFormat;
-
-      function Url() {
-        this.protocol = null;
-        this.slashes = null;
-        this.auth = null;
-        this.host = null;
-        this.port = null;
-        this.hostname = null;
-        this.hash = null;
-        this.search = null;
-        this.query = null;
-        this.pathname = null;
-        this.path = null;
-        this.href = null;
-      } // Reference: RFC 3986, RFC 1808, RFC 2396
-      // define these here so at least they only have to be
-      // compiled once on the first module load.
-
-
-      var protocolPattern = /^([a-z0-9.+-]+:)/i,
-          portPattern = /:[0-9]*$/,
-          // Special case for a simple path URL
-      simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,
-          // RFC 2396: characters reserved for delimiting URLs.
-      // We actually just auto-escape these.
-      delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
-          // RFC 2396: characters not allowed for various reasons.
-      unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims),
-          // Allowed by RFCs, but cause of XSS attacks.  Always escape these.
-      autoEscape = ['\''].concat(unwise),
-          // Characters that are never ever allowed in a hostname.
-      // Note that any invalid chars are also handled, but these
-      // are the ones that are *expected* to be seen, so we fast-path
-      // them.
-      nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape),
-          hostEndingChars = ['/', '?', '#'],
-          hostnameMaxLen = 255,
-          hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/,
-          hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/,
-          // protocols that can allow "unsafe" and "unwise" chars.
-      unsafeProtocol = {
-        'javascript': true,
-        'javascript:': true
-      },
-          // protocols that never have a hostname.
-      hostlessProtocol = {
-        'javascript': true,
-        'javascript:': true
-      },
-          // protocols that always contain a // bit.
-      slashedProtocol = {
-        'http': true,
-        'https': true,
-        'ftp': true,
-        'gopher': true,
-        'file': true,
-        'http:': true,
-        'https:': true,
-        'ftp:': true,
-        'gopher:': true,
-        'file:': true
-      };
-
-      function urlParse(url, parseQueryString, slashesDenoteHost) {
-        if (url && util.isObject(url) && url instanceof Url) {
-          return url;
-        }
-
-        var u = new Url();
-        u.parse(url, parseQueryString, slashesDenoteHost);
-        return u;
-      }
-
-      Url.prototype.parse = function (url, parseQueryString, slashesDenoteHost) {
-        if (!util.isString(url)) {
-          throw new TypeError("Parameter 'url' must be a string, not " + typeof url);
-        } // Copy chrome, IE, opera backslash-handling behavior.
-        // Back slashes before the query string get converted to forward slashes
-        // See: https://code.google.com/p/chromium/issues/detail?id=25916
-
-
-        var queryIndex = url.indexOf('?'),
-            splitter = queryIndex !== -1 && queryIndex < url.indexOf('#') ? '?' : '#',
-            uSplit = url.split(splitter),
-            slashRegex = /\\/g;
-        uSplit[0] = uSplit[0].replace(slashRegex, '/');
-        url = uSplit.join(splitter);
-        var rest = url; // trim before proceeding.
-        // This is to support parse stuff like "  http://foo.com  \n"
-
-        rest = rest.trim();
-
-        if (!slashesDenoteHost && url.split('#').length === 1) {
-          // Try fast path regexp
-          var simplePath = simplePathPattern.exec(rest);
-
-          if (simplePath) {
-            this.path = rest;
-            this.href = rest;
-            this.pathname = simplePath[1];
-
-            if (simplePath[2]) {
-              this.search = simplePath[2];
-
-              if (parseQueryString) {
-                this.query = querystring.parse(this.search.substr(1));
-              } else {
-                this.query = this.search.substr(1);
-              }
-            } else if (parseQueryString) {
-              this.search = '';
-              this.query = {};
-            }
-
-            return this;
-          }
-        }
-
-        var proto = protocolPattern.exec(rest);
-
-        if (proto) {
-          proto = proto[0];
-          var lowerProto = proto.toLowerCase();
-          this.protocol = lowerProto;
-          rest = rest.substr(proto.length);
-        } // figure out if it's got a host
-        // user@server is *always* interpreted as a hostname, and url
-        // resolution will treat //foo/bar as host=foo,path=bar because that's
-        // how the browser resolves relative URLs.
-
-
-        if (slashesDenoteHost || proto || rest.match(/^\/\/[^@\/]+@[^@\/]+/)) {
-          var slashes = rest.substr(0, 2) === '//';
-
-          if (slashes && !(proto && hostlessProtocol[proto])) {
-            rest = rest.substr(2);
-            this.slashes = true;
-          }
-        }
-
-        if (!hostlessProtocol[proto] && (slashes || proto && !slashedProtocol[proto])) {
-          // there's a hostname.
-          // the first instance of /, ?, ;, or # ends the host.
-          //
-          // If there is an @ in the hostname, then non-host chars *are* allowed
-          // to the left of the last @ sign, unless some host-ending character
-          // comes *before* the @-sign.
-          // URLs are obnoxious.
-          //
-          // ex:
-          // http://a@b@c/ => user:a@b host:c
-          // http://a@b?@c => user:a host:c path:/?@c
-          // v0.12 TODO(isaacs): This is not quite how Chrome does things.
-          // Review our test case against browsers more comprehensively.
-          // find the first instance of any hostEndingChars
-          var hostEnd = -1;
-
-          for (var i = 0; i < hostEndingChars.length; i++) {
-            var hec = rest.indexOf(hostEndingChars[i]);
-
-            if (hec !== -1 && (hostEnd === -1 || hec < hostEnd)) {
-              hostEnd = hec;
-            }
-          } // at this point, either we have an explicit point where the
-          // auth portion cannot go past, or the last @ char is the decider.
-
-
-          var auth, atSign;
-
-          if (hostEnd === -1) {
-            // atSign can be anywhere.
-            atSign = rest.lastIndexOf('@');
-          } else {
-            // atSign must be in auth portion.
-            // http://a@b/c@d => host:b auth:a path:/c@d
-            atSign = rest.lastIndexOf('@', hostEnd);
-          } // Now we have a portion which is definitely the auth.
-          // Pull that off.
-
-
-          if (atSign !== -1) {
-            auth = rest.slice(0, atSign);
-            rest = rest.slice(atSign + 1);
-            this.auth = decodeURIComponent(auth);
-          } // the host is the remaining to the left of the first non-host char
-
-
-          hostEnd = -1;
-
-          for (var i = 0; i < nonHostChars.length; i++) {
-            var hec = rest.indexOf(nonHostChars[i]);
-
-            if (hec !== -1 && (hostEnd === -1 || hec < hostEnd)) {
-              hostEnd = hec;
-            }
-          } // if we still have not hit it, then the entire thing is a host.
-
-
-          if (hostEnd === -1) {
-            hostEnd = rest.length;
-          }
-
-          this.host = rest.slice(0, hostEnd);
-          rest = rest.slice(hostEnd); // pull out port.
-
-          this.parseHost(); // we've indicated that there is a hostname,
-          // so even if it's empty, it has to be present.
-
-          this.hostname = this.hostname || ''; // if hostname begins with [ and ends with ]
-          // assume that it's an IPv6 address.
-
-          var ipv6Hostname = this.hostname[0] === '[' && this.hostname[this.hostname.length - 1] === ']'; // validate a little.
-
-          if (!ipv6Hostname) {
-            var hostparts = this.hostname.split(/\./);
-
-            for (var i = 0, l = hostparts.length; i < l; i++) {
-              var part = hostparts[i];
-
-              if (!part) {
-                continue;
-              }
-
-              if (!part.match(hostnamePartPattern)) {
-                var newpart = '';
-
-                for (var j = 0, k = part.length; j < k; j++) {
-                  if (part.charCodeAt(j) > 127) {
-                    // we replace non-ASCII char with a temporary placeholder
-                    // we need this to make sure size of hostname is not
-                    // broken by replacing non-ASCII by nothing
-                    newpart += 'x';
-                  } else {
-                    newpart += part[j];
-                  }
-                } // we test again with ASCII char only
-
-
-                if (!newpart.match(hostnamePartPattern)) {
-                  var validParts = hostparts.slice(0, i);
-                  var notHost = hostparts.slice(i + 1);
-                  var bit = part.match(hostnamePartStart);
-
-                  if (bit) {
-                    validParts.push(bit[1]);
-                    notHost.unshift(bit[2]);
-                  }
-
-                  if (notHost.length) {
-                    rest = '/' + notHost.join('.') + rest;
-                  }
-
-                  this.hostname = validParts.join('.');
-                  break;
-                }
-              }
-            }
-          }
-
-          if (this.hostname.length > hostnameMaxLen) {
-            this.hostname = '';
-          } else {
-            // hostnames are always lower case.
-            this.hostname = this.hostname.toLowerCase();
-          }
-
-          if (!ipv6Hostname) {
-            // IDNA Support: Returns a punycoded representation of "domain".
-            // It only converts parts of the domain name that
-            // have non-ASCII characters, i.e. it doesn't matter if
-            // you call it with a domain that already is ASCII-only.
-            this.hostname = punycode.toASCII(this.hostname);
-          }
-
-          var p = this.port ? ':' + this.port : '';
-          var h = this.hostname || '';
-          this.host = h + p;
-          this.href += this.host; // strip [ and ] from the hostname
-          // the host field still retains them, though
-
-          if (ipv6Hostname) {
-            this.hostname = this.hostname.substr(1, this.hostname.length - 2);
-
-            if (rest[0] !== '/') {
-              rest = '/' + rest;
-            }
-          }
-        } // now rest is set to the post-host stuff.
-        // chop off any delim chars.
-
-
-        if (!unsafeProtocol[lowerProto]) {
-          // First, make 100% sure that any "autoEscape" chars get
-          // escaped, even if encodeURIComponent doesn't think they
-          // need to be.
-          for (var i = 0, l = autoEscape.length; i < l; i++) {
-            var ae = autoEscape[i];
-
-            if (rest.indexOf(ae) === -1) {
-              continue;
-            }
-
-            var esc = encodeURIComponent(ae);
-
-            if (esc === ae) {
-              esc = escape(ae);
-            }
-
-            rest = rest.split(ae).join(esc);
-          }
-        } // chop off from the tail first.
-
-
-        var hash = rest.indexOf('#');
-
-        if (hash !== -1) {
-          // got a fragment string.
-          this.hash = rest.substr(hash);
-          rest = rest.slice(0, hash);
-        }
-
-        var qm = rest.indexOf('?');
-
-        if (qm !== -1) {
-          this.search = rest.substr(qm);
-          this.query = rest.substr(qm + 1);
-
-          if (parseQueryString) {
-            this.query = querystring.parse(this.query);
-          }
-
-          rest = rest.slice(0, qm);
-        } else if (parseQueryString) {
-          // no query string, but parseQueryString still requested
-          this.search = '';
-          this.query = {};
-        }
-
-        if (rest) {
-          this.pathname = rest;
-        }
-
-        if (slashedProtocol[lowerProto] && this.hostname && !this.pathname) {
-          this.pathname = '/';
-        } //to support http.request
-
-
-        if (this.pathname || this.search) {
-          var p = this.pathname || '';
-          var s = this.search || '';
-          this.path = p + s;
-        } // finally, reconstruct the href based on what has been validated.
-
-
-        this.href = this.format();
-        return this;
-      }; // format a parsed object into a url string
-
-
-      function urlFormat(obj) {
-        // ensure it's an object, and not a string url.
-        // If it's an obj, this is a no-op.
-        // this way, you can call url_format() on strings
-        // to clean up potentially wonky urls.
-        if (util.isString(obj)) {
-          obj = urlParse(obj);
-        }
-
-        if (!(obj instanceof Url)) {
-          return Url.prototype.format.call(obj);
-        }
-
-        return obj.format();
-      }
-
-      Url.prototype.format = function () {
-        var auth = this.auth || '';
-
-        if (auth) {
-          auth = encodeURIComponent(auth);
-          auth = auth.replace(/%3A/i, ':');
-          auth += '@';
-        }
-
-        var protocol = this.protocol || '',
-            pathname = this.pathname || '',
-            hash = this.hash || '',
-            host = false,
-            query = '';
-
-        if (this.host) {
-          host = auth + this.host;
-        } else if (this.hostname) {
-          host = auth + (this.hostname.indexOf(':') === -1 ? this.hostname : '[' + this.hostname + ']');
-
-          if (this.port) {
-            host += ':' + this.port;
-          }
-        }
-
-        if (this.query && util.isObject(this.query) && Object.keys(this.query).length) {
-          query = querystring.stringify(this.query);
-        }
-
-        var search = this.search || query && '?' + query || '';
-
-        if (protocol && protocol.substr(-1) !== ':') {
-          protocol += ':';
-        } // only the slashedProtocols get the //.  Not mailto:, xmpp:, etc.
-        // unless they had them to begin with.
-
-
-        if (this.slashes || (!protocol || slashedProtocol[protocol]) && host !== false) {
-          host = '//' + (host || '');
-
-          if (pathname && pathname.charAt(0) !== '/') {
-            pathname = '/' + pathname;
-          }
-        } else if (!host) {
-          host = '';
-        }
-
-        if (hash && hash.charAt(0) !== '#') {
-          hash = '#' + hash;
-        }
-
-        if (search && search.charAt(0) !== '?') {
-          search = '?' + search;
-        }
-
-        pathname = pathname.replace(/[?#]/g, function (match) {
-          return encodeURIComponent(match);
-        });
-        search = search.replace('#', '%23');
-        return protocol + host + pathname + search + hash;
-      };
-
-      function urlResolve(source, relative) {
-        return urlParse(source, false, true).resolve(relative);
-      }
-
-      Url.prototype.resolve = function (relative) {
-        return this.resolveObject(urlParse(relative, false, true)).format();
-      };
-
-      Url.prototype.resolveObject = function (relative) {
-        if (util.isString(relative)) {
-          var rel = new Url();
-          rel.parse(relative, false, true);
-          relative = rel;
-        }
-
-        var result = new Url();
-        var tkeys = Object.keys(this);
-
-        for (var tk = 0; tk < tkeys.length; tk++) {
-          var tkey = tkeys[tk];
-          result[tkey] = this[tkey];
-        } // hash is always overridden, no matter what.
-        // even href="" will remove it.
-
-
-        result.hash = relative.hash; // if the relative url is empty, then there's nothing left to do here.
-
-        if (relative.href === '') {
-          result.href = result.format();
-          return result;
-        } // hrefs like //foo/bar always cut to the protocol.
-
-
-        if (relative.slashes && !relative.protocol) {
-          // take everything except the protocol from relative
-          var rkeys = Object.keys(relative);
-
-          for (var rk = 0; rk < rkeys.length; rk++) {
-            var rkey = rkeys[rk];
-
-            if (rkey !== 'protocol') {
-              result[rkey] = relative[rkey];
-            }
-          } //urlParse appends trailing / to urls like http://www.example.com
-
-
-          if (slashedProtocol[result.protocol] && result.hostname && !result.pathname) {
-            result.path = result.pathname = '/';
-          }
-
-          result.href = result.format();
-          return result;
-        }
-
-        if (relative.protocol && relative.protocol !== result.protocol) {
-          // if it's a known url protocol, then changing
-          // the protocol does weird things
-          // first, if it's not file:, then we MUST have a host,
-          // and if there was a path
-          // to begin with, then we MUST have a path.
-          // if it is file:, then the host is dropped,
-          // because that's known to be hostless.
-          // anything else is assumed to be absolute.
-          if (!slashedProtocol[relative.protocol]) {
-            var keys = Object.keys(relative);
-
-            for (var v = 0; v < keys.length; v++) {
-              var k = keys[v];
-              result[k] = relative[k];
-            }
-
-            result.href = result.format();
-            return result;
-          }
-
-          result.protocol = relative.protocol;
-
-          if (!relative.host && !hostlessProtocol[relative.protocol]) {
-            var relPath = (relative.pathname || '').split('/');
-
-            while (relPath.length && !(relative.host = relPath.shift())) {}
-
-            if (!relative.host) {
-              relative.host = '';
-            }
-
-            if (!relative.hostname) {
-              relative.hostname = '';
-            }
-
-            if (relPath[0] !== '') {
-              relPath.unshift('');
-            }
-
-            if (relPath.length < 2) {
-              relPath.unshift('');
-            }
-
-            result.pathname = relPath.join('/');
-          } else {
-            result.pathname = relative.pathname;
-          }
-
-          result.search = relative.search;
-          result.query = relative.query;
-          result.host = relative.host || '';
-          result.auth = relative.auth;
-          result.hostname = relative.hostname || relative.host;
-          result.port = relative.port; // to support http.request
-
-          if (result.pathname || result.search) {
-            var p = result.pathname || '';
-            var s = result.search || '';
-            result.path = p + s;
-          }
-
-          result.slashes = result.slashes || relative.slashes;
-          result.href = result.format();
-          return result;
-        }
-
-        var isSourceAbs = result.pathname && result.pathname.charAt(0) === '/',
-            isRelAbs = relative.host || relative.pathname && relative.pathname.charAt(0) === '/',
-            mustEndAbs = isRelAbs || isSourceAbs || result.host && relative.pathname,
-            removeAllDots = mustEndAbs,
-            srcPath = result.pathname && result.pathname.split('/') || [],
-            relPath = relative.pathname && relative.pathname.split('/') || [],
-            psychotic = result.protocol && !slashedProtocol[result.protocol]; // if the url is a non-slashed url, then relative
-        // links like ../.. should be able
-        // to crawl up to the hostname, as well.  This is strange.
-        // result.protocol has already been set by now.
-        // Later on, put the first path part into the host field.
-
-        if (psychotic) {
-          result.hostname = '';
-          result.port = null;
-
-          if (result.host) {
-            if (srcPath[0] === '') {
-              srcPath[0] = result.host;
-            } else {
-              srcPath.unshift(result.host);
-            }
-          }
-
-          result.host = '';
-
-          if (relative.protocol) {
-            relative.hostname = null;
-            relative.port = null;
-
-            if (relative.host) {
-              if (relPath[0] === '') {
-                relPath[0] = relative.host;
-              } else {
-                relPath.unshift(relative.host);
-              }
-            }
-
-            relative.host = null;
-          }
-
-          mustEndAbs = mustEndAbs && (relPath[0] === '' || srcPath[0] === '');
-        }
-
-        if (isRelAbs) {
-          // it's absolute.
-          result.host = relative.host || relative.host === '' ? relative.host : result.host;
-          result.hostname = relative.hostname || relative.hostname === '' ? relative.hostname : result.hostname;
-          result.search = relative.search;
-          result.query = relative.query;
-          srcPath = relPath; // fall through to the dot-handling below.
-        } else if (relPath.length) {
-          // it's relative
-          // throw away the existing file, and take the new path instead.
-          if (!srcPath) {
-            srcPath = [];
-          }
-
-          srcPath.pop();
-          srcPath = srcPath.concat(relPath);
-          result.search = relative.search;
-          result.query = relative.query;
-        } else if (!util.isNullOrUndefined(relative.search)) {
-          // just pull out the search.
-          // like href='?foo'.
-          // Put this after the other two cases because it simplifies the booleans
-          if (psychotic) {
-            result.hostname = result.host = srcPath.shift(); //occationaly the auth can get stuck only in host
-            //this especially happens in cases like
-            //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-
-            var authInHost = result.host && result.host.indexOf('@') > 0 ? result.host.split('@') : false;
-
-            if (authInHost) {
-              result.auth = authInHost.shift();
-              result.host = result.hostname = authInHost.shift();
-            }
-          }
-
-          result.search = relative.search;
-          result.query = relative.query; //to support http.request
-
-          if (!util.isNull(result.pathname) || !util.isNull(result.search)) {
-            result.path = (result.pathname ? result.pathname : '') + (result.search ? result.search : '');
-          }
-
-          result.href = result.format();
-          return result;
-        }
-
-        if (!srcPath.length) {
-          // no path at all.  easy.
-          // we've already handled the other stuff above.
-          result.pathname = null; //to support http.request
-
-          if (result.search) {
-            result.path = '/' + result.search;
-          } else {
-            result.path = null;
-          }
-
-          result.href = result.format();
-          return result;
-        } // if a url ENDs in . or .., then it must get a trailing slash.
-        // however, if it ends in anything else non-slashy,
-        // then it must NOT get a trailing slash.
-
-
-        var last = srcPath.slice(-1)[0];
-        var hasTrailingSlash = (result.host || relative.host || srcPath.length > 1) && (last === '.' || last === '..') || last === ''; // strip single dots, resolve double dots to parent dir
-        // if the path tries to go above the root, `up` ends up > 0
-
-        var up = 0;
-
-        for (var i = srcPath.length; i >= 0; i--) {
-          last = srcPath[i];
-
-          if (last === '.') {
-            srcPath.splice(i, 1);
-          } else if (last === '..') {
-            srcPath.splice(i, 1);
-            up++;
-          } else if (up) {
-            srcPath.splice(i, 1);
-            up--;
-          }
-        } // if the path is allowed to go above the root, restore leading ..s
-
-
-        if (!mustEndAbs && !removeAllDots) {
-          for (; up--; up) {
-            srcPath.unshift('..');
-          }
-        }
-
-        if (mustEndAbs && srcPath[0] !== '' && (!srcPath[0] || srcPath[0].charAt(0) !== '/')) {
-          srcPath.unshift('');
-        }
-
-        if (hasTrailingSlash && srcPath.join('/').substr(-1) !== '/') {
-          srcPath.push('');
-        }
-
-        var isAbsolute = srcPath[0] === '' || srcPath[0] && srcPath[0].charAt(0) === '/'; // put the host back
-
-        if (psychotic) {
-          result.hostname = result.host = isAbsolute ? '' : srcPath.length ? srcPath.shift() : ''; //occationaly the auth can get stuck only in host
-          //this especially happens in cases like
-          //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-
-          var authInHost = result.host && result.host.indexOf('@') > 0 ? result.host.split('@') : false;
-
-          if (authInHost) {
-            result.auth = authInHost.shift();
-            result.host = result.hostname = authInHost.shift();
-          }
-        }
-
-        mustEndAbs = mustEndAbs || result.host && srcPath.length;
-
-        if (mustEndAbs && !isAbsolute) {
-          srcPath.unshift('');
-        }
-
-        if (!srcPath.length) {
-          result.pathname = null;
-          result.path = null;
-        } else {
-          result.pathname = srcPath.join('/');
-        } //to support request.http
-
-
-        if (!util.isNull(result.pathname) || !util.isNull(result.search)) {
-          result.path = (result.pathname ? result.pathname : '') + (result.search ? result.search : '');
-        }
-
-        result.auth = relative.auth || result.auth;
-        result.slashes = result.slashes || relative.slashes;
-        result.href = result.format();
-        return result;
-      };
-
-      Url.prototype.parseHost = function () {
-        var host = this.host;
-        var port = portPattern.exec(host);
-
-        if (port) {
-          port = port[0];
-
-          if (port !== ':') {
-            this.port = port.substr(1);
-          }
-
-          host = host.substr(0, host.length - port.length);
-        }
-
-        if (host) {
-          this.hostname = host;
-        }
-      };
-      /**
-       * This file contains redeclared types for Node `url` and `querystring` modules. These modules
-       * don't provide their own typings but instead are a part of the full Node typings. The purpose of
-       * this file is to redeclare the required types to avoid having the whole Node types as a
-       * dependency.
-       */
-
-
-      var url = {
-        parse: parse,
-        format: format,
-        resolve: resolve
-      };
-      /**
-       * The prefix that denotes a URL is for a retina asset.
-       *
-       * @static
-       * @name RETINA_PREFIX
-       * @memberof PIXI.settings
-       * @type {RegExp}
-       * @default /@([0-9\.]+)x/
-       * @example `@2x`
-       */
-
-      settings.RETINA_PREFIX = /@([0-9\.]+)x/;
-      /**
-       * Should the `failIfMajorPerformanceCaveat` flag be enabled as a context option used in the `isWebGLSupported` function.
-       * If set to true, a WebGL renderer can fail to be created if the browser thinks there could be performance issues when
-       * using WebGL.
-       *
-       * In PixiJS v6 this has changed from true to false by default, to allow WebGL to work in as many scenarios as possible.
-       * However, some users may have a poor experience, for example, if a user has a gpu or driver version blacklisted by the
-       * browser.
-       *
-       * If your application requires high performance rendering, you may wish to set this to false.
-       * We recommend one of two options if you decide to set this flag to false:
-       *
-       * 1: Use the `pixi.js-legacy` package, which includes a Canvas renderer as a fallback in case high performance WebGL is
-       *    not supported.
-       *
-       * 2: Call `isWebGLSupported` (which if found in the PIXI.utils package) in your code before attempting to create a PixiJS
-       *    renderer, and show an error message to the user if the function returns false, explaining that their device & browser
-       *    combination does not support high performance WebGL.
-       *    This is a much better strategy than trying to create a PixiJS renderer and finding it then fails.
-       *
-       * @static
-       * @name FAIL_IF_MAJOR_PERFORMANCE_CAVEAT
-       * @memberof PIXI.settings
-       * @type {boolean}
-       * @default false
-       */
-
-      settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
-      /**
-       * Corrects PixiJS blend, takes premultiplied alpha into account
-       *
-       * @memberof PIXI.utils
-       * @function mapPremultipliedBlendModes
-       * @private
-       * @return {Array<number[]>} Mapped modes.
-       */
-
-      function mapPremultipliedBlendModes() {
-        var pm = [];
-        var npm = [];
-
-        for (var i = 0; i < 32; i++) {
-          pm[i] = i;
-          npm[i] = i;
-        }
-
-        pm[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].NORMAL_NPM] = _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].NORMAL;
-        pm[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].ADD_NPM] = _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].ADD;
-        pm[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].SCREEN_NPM] = _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].SCREEN;
-        npm[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].NORMAL] = _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].NORMAL_NPM;
-        npm[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].ADD] = _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].ADD_NPM;
-        npm[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].SCREEN] = _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["BLEND_MODES"].SCREEN_NPM;
-        var array = [];
-        array.push(npm);
-        array.push(pm);
-        return array;
-      }
-      /**
-       * maps premultiply flag and blendMode to adjusted blendMode
-       * @memberof PIXI.utils
-       * @const premultiplyBlendMode
-       * @type {Array<number[]>}
-       */
-
-
-      var premultiplyBlendMode = mapPremultipliedBlendModes();
-      /**
-       * Creates a Canvas element of the given size to be used as a target for rendering to.
-       *
-       * @class
-       * @memberof PIXI.utils
-       */
-
-      var CanvasRenderTarget =
-      /** @class */
-      function () {
-        /**
-         * @param width - the width for the newly created canvas
-         * @param height - the height for the newly created canvas
-         * @param {number} [resolution=1] - The resolution / device pixel ratio of the canvas
-         */
-        function CanvasRenderTarget(width, height, resolution) {
-          this.canvas = document.createElement('canvas');
-          this.context = this.canvas.getContext('2d');
-          this.resolution = resolution || settings.RESOLUTION;
-          this.resize(width, height);
-        }
-        /**
-         * Clears the canvas that was created by the CanvasRenderTarget class.
-         *
-         * @private
-         */
-
-
-        CanvasRenderTarget.prototype.clear = function () {
-          this.context.setTransform(1, 0, 0, 1, 0, 0);
-          this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        };
-        /**
-         * Resizes the canvas to the specified width and height.
-         *
-         * @param width - the new width of the canvas
-         * @param height - the new height of the canvas
-         */
-
-
-        CanvasRenderTarget.prototype.resize = function (width, height) {
-          this.canvas.width = width * this.resolution;
-          this.canvas.height = height * this.resolution;
-        };
-        /** Destroys this canvas. */
-
-
-        CanvasRenderTarget.prototype.destroy = function () {
-          this.context = null;
-          this.canvas = null;
-        };
-
-        Object.defineProperty(CanvasRenderTarget.prototype, "width", {
-          /**
-           * The width of the canvas buffer in pixels.
-           *
-           * @member {number}
-           */
-          get: function get() {
-            return this.canvas.width;
-          },
-          set: function set(val) {
-            this.canvas.width = val;
-          },
-          enumerable: false,
-          configurable: true
-        });
-        Object.defineProperty(CanvasRenderTarget.prototype, "height", {
-          /**
-           * The height of the canvas buffer in pixels.
-           *
-           * @member {number}
-           */
-          get: function get() {
-            return this.canvas.height;
-          },
-          set: function set(val) {
-            this.canvas.height = val;
-          },
-          enumerable: false,
-          configurable: true
-        });
-        return CanvasRenderTarget;
-      }();
       /* eslint-enable camelcase */
 
       /**
@@ -41407,7 +39542,9 @@
               metadata: resource.metadata.imageMetadata,
               parentResource: resource
             };
-            var resourcePath = url.resolve(resource.url.replace(loader.baseUrl, ''), textureURL);
+
+            var resourcePath = _pixi_utils__WEBPACK_IMPORTED_MODULE_2__["url"].resolve(resource.url.replace(loader.baseUrl, ''), textureURL);
+
             var resourceName = data.cacheID; // The appropriate loader should register the texture
 
             loader.add(resourceName, resourcePath, loadOptions, function (res) {
@@ -41497,8 +39634,8 @@
 
         var textures = resources.map(function (resource) {
           return new _pixi_core__WEBPACK_IMPORTED_MODULE_0__["Texture"](new _pixi_core__WEBPACK_IMPORTED_MODULE_0__["BaseTexture"](resource, Object.assign({
-            mipmap: _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["MIPMAP_MODES"].OFF,
-            alphaMode: _pixi_constants__WEBPACK_IMPORTED_MODULE_2__["ALPHA_MODES"].NO_PREMULTIPLIED_ALPHA
+            mipmap: _pixi_constants__WEBPACK_IMPORTED_MODULE_3__["MIPMAP_MODES"].OFF,
+            alphaMode: _pixi_constants__WEBPACK_IMPORTED_MODULE_3__["ALPHA_MODES"].NO_PREMULTIPLIED_ALPHA
           }, metadata)));
         });
         textures.forEach(function (texture, i) {
@@ -41966,21 +40103,21 @@
        * @ignore
        */
 
-      var TYPES_TO_BYTES_PER_COMPONENT = (_a$2 = {}, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["TYPES"].UNSIGNED_BYTE] = 1, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["TYPES"].UNSIGNED_SHORT] = 2, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["TYPES"].FLOAT] = 4, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["TYPES"].HALF_FLOAT] = 8, _a$2);
+      var TYPES_TO_BYTES_PER_COMPONENT = (_a$2 = {}, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["TYPES"].UNSIGNED_BYTE] = 1, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["TYPES"].UNSIGNED_SHORT] = 2, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["TYPES"].FLOAT] = 4, _a$2[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["TYPES"].HALF_FLOAT] = 8, _a$2);
       /**
        * Number of components in each {@link PIXI.FORMATS}
        *
        * @ignore
        */
 
-      var FORMATS_TO_COMPONENTS = (_b$1 = {}, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["FORMATS"].RGBA] = 4, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["FORMATS"].RGB] = 3, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["FORMATS"].LUMINANCE] = 1, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["FORMATS"].LUMINANCE_ALPHA] = 2, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["FORMATS"].ALPHA] = 1, _b$1);
+      var FORMATS_TO_COMPONENTS = (_b$1 = {}, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["FORMATS"].RGBA] = 4, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["FORMATS"].RGB] = 3, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["FORMATS"].LUMINANCE] = 1, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["FORMATS"].LUMINANCE_ALPHA] = 2, _b$1[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["FORMATS"].ALPHA] = 1, _b$1);
       /**
        * Number of bytes per pixel in bit-field types in {@link PIXI.TYPES}
        *
        * @ignore
        */
 
-      var TYPES_TO_BYTES_PER_PIXEL = (_c = {}, _c[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["TYPES"].UNSIGNED_SHORT_4_4_4_4] = 2, _c[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["TYPES"].UNSIGNED_SHORT_5_5_5_1] = 2, _c[_pixi_constants__WEBPACK_IMPORTED_MODULE_2__["TYPES"].UNSIGNED_SHORT_5_6_5] = 2, _c);
+      var TYPES_TO_BYTES_PER_PIXEL = (_c = {}, _c[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["TYPES"].UNSIGNED_SHORT_4_4_4_4] = 2, _c[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["TYPES"].UNSIGNED_SHORT_5_5_5_1] = 2, _c[_pixi_constants__WEBPACK_IMPORTED_MODULE_3__["TYPES"].UNSIGNED_SHORT_5_6_5] = 2, _c);
       /**
        * Loader plugin for handling KTX texture container files.
        *
@@ -43979,8 +42116,8 @@
       /*! @pixi/utils */
       "IUqD");
       /*!
-       * @pixi/sprite - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/sprite - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/sprite is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -44702,8 +42839,8 @@
       /*! @pixi/math */
       "pHy+");
       /*!
-       * @pixi/filter-displacement - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/filter-displacement - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/filter-displacement is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -44892,8 +43029,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/filter-noise - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/filter-noise - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/filter-noise is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -45090,8 +43227,8 @@
       /*! @pixi/utils */
       "IUqD");
       /*!
-       * @pixi/interaction - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/interaction - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/interaction is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -47792,8 +45929,8 @@
 
       var object_assign__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(object_assign__WEBPACK_IMPORTED_MODULE_1__);
       /*!
-       * @pixi/polyfill - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/polyfill - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/polyfill is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -47965,8 +46102,8 @@
       /*! @pixi/utils */
       "IUqD");
       /*!
-       * @pixi/accessibility - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/accessibility - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/accessibility is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -48685,8 +46822,8 @@
       /*! @pixi/text */
       "0AWp");
       /*!
-       * @pixi/prepare - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/prepare - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/prepare is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -49482,8 +47619,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/extract - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/extract - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/extract is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -50428,8 +48565,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/loaders - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/loaders - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/loaders is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -50906,8 +49043,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/mesh-extras - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/mesh-extras - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/mesh-extras is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -51918,8 +50055,8 @@
       /*! @pixi/display */
       "qWv5");
       /*!
-       * @pixi/mixin-get-child-by-name - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/mixin-get-child-by-name - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/mixin-get-child-by-name is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -53227,8 +51364,8 @@
       /*! @pixi/math */
       "pHy+");
       /*!
-       * @pixi/core - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/core - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/core is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -53774,7 +51911,7 @@
          * @param {PIXI.ALPHA_MODES} [options.alphaMode=PIXI.ALPHA_MODES.UNPACK] - Pre multiply the image alpha
          * @param {number} [options.width=0] - Width of the texture
          * @param {number} [options.height=0] - Height of the texture
-         * @param {number} [options.resolution] - Resolution of the base texture
+         * @param {number} [options.resolution=PIXI.settings.RESOLUTION] - Resolution of the base texture
          * @param {object} [options.resourceOptions] - Optional resource options,
          *        see {@link PIXI.autoDetectResource autoDetectResource}
          */
@@ -53814,6 +51951,7 @@
            *
            * @readonly
            * @member {number}
+           * @default PIXI.settings.RESOLUTION
            */
 
 
@@ -53852,7 +51990,8 @@
           _this.anisotropicLevel = anisotropicLevel !== undefined ? anisotropicLevel : _pixi_settings__WEBPACK_IMPORTED_MODULE_0__["settings"].ANISOTROPIC_LEVEL;
           /**
            * How the texture wraps
-           * @member {number}
+           * @member {PIXI.WRAP_MODES}
+           * @default PIXI.settings.WRAP_MODE
            */
 
           _this.wrapMode = wrapMode || _pixi_settings__WEBPACK_IMPORTED_MODULE_0__["settings"].WRAP_MODE;
@@ -56375,8 +54514,10 @@
          * @param {object} [options]
          * @param {number} [options.width=100] - The width of the base render texture.
          * @param {number} [options.height=100] - The height of the base render texture.
-         * @param {PIXI.SCALE_MODES} [options.scaleMode] - See {@link PIXI.SCALE_MODES} for possible values.
-         * @param {number} [options.resolution=1] - The resolution / device pixel ratio of the texture being generated.
+         * @param {PIXI.SCALE_MODES} [options.scaleMode=PIXI.settings.SCALE_MODE] - See {@link PIXI.SCALE_MODES}
+         *   for possible values.
+         * @param {number} [options.resolution=PIXI.settings.RESOLUTION] - The resolution / device pixel ratio
+         *   of the texture being generated.
          */
 
 
@@ -56406,7 +54547,7 @@
               height = _a.height; // Set defaults
 
 
-          _this.mipmap = 0;
+          _this.mipmap = _pixi_constants__WEBPACK_IMPORTED_MODULE_1__["MIPMAP_MODES"].OFF;
           _this.width = Math.ceil(width) || 100;
           _this.height = Math.ceil(height) || 100;
           _this.valid = true;
@@ -57656,7 +55797,7 @@
          * @param {string} buffer - the id of the buffer that this attribute will look for
          * @param {Number} [size=0] - the size of the attribute. If you have 2 floats per vertex (eg position x and y) this would be 2.
          * @param {Boolean} [normalized=false] - should the data be normalized.
-         * @param {Number} [type=PIXI.TYPES.FLOAT] - what type of number is the attribute. Check {@link PIXI.TYPES} to see the ones available
+         * @param {PIXI.TYPES} [type=PIXI.TYPES.FLOAT] - what type of number is the attribute. Check {@link PIXI.TYPES} to see the ones available
          * @param {Number} [stride=0] - How far apart (in floats) the start of each value is. (used for interleaving data)
          * @param {Number} [start=0] - How far into the array to start reading values (used for interleaving data)
          */
@@ -57670,7 +55811,7 @@
           }
 
           if (type === void 0) {
-            type = 5126;
+            type = _pixi_constants__WEBPACK_IMPORTED_MODULE_1__["TYPES"].FLOAT;
           }
 
           this.buffer = buffer;
@@ -57696,7 +55837,7 @@
          * @param {string} buffer - the id of the buffer that this attribute will look for
          * @param {Number} [size=0] - the size of the attribute. If you have 2 floats per vertex (eg position x and y) this would be 2
          * @param {Boolean} [normalized=false] - should the data be normalized.
-         * @param {Number} [type=PIXI.TYPES.FLOAT] - what type of number is the attribute. Check {@link PIXI.TYPES} to see the ones available
+         * @param {PIXI.TYPES} [type=PIXI.TYPES.FLOAT] - what type of number is the attribute. Check {@link PIXI.TYPES} to see the ones available
          * @param {Number} [stride=0] - How far apart (in floats) the start of each value is. (used for interleaving data)
          *
          * @returns {PIXI.Attribute} A new {@link PIXI.Attribute} based on the information provided
@@ -57963,7 +56104,7 @@
         * @param {PIXI.Buffer|number[]} buffer - the buffer that holds the data of the attribute . You can also provide an Array and a buffer will be created from it.
         * @param {Number} [size=0] - the size of the attribute. If you have 2 floats per vertex (eg position x and y) this would be 2
         * @param {Boolean} [normalized=false] - should the data be normalized.
-        * @param {Number} [type=PIXI.TYPES.FLOAT] - what type of number is the attribute. Check {PIXI.TYPES} to see the ones available
+        * @param {PIXI.TYPES} [type=PIXI.TYPES.FLOAT] - what type of number is the attribute. Check {PIXI.TYPES} to see the ones available
         * @param {Number} [stride] - How far apart (in floats) the start of each value is. (used for interleaving data)
         * @param {Number} [start] - How far into the array to start reading values (used for interleaving data)
         * @param {boolean} [instance=false] - Instancing flag
@@ -61005,8 +59146,8 @@
        *
        * @private
        * @param {string} src - The shader source
-       * @param {string} requestedPrecision - The request float precision of the shader. Options are 'lowp', 'mediump' or 'highp'.
-       * @param {string} maxSupportedPrecision - The maximum precision the shader supports.
+       * @param {PIXI.PRECISION} requestedPrecision - The request float precision of the shader.
+       * @param {PIXI.PRECISION} maxSupportedPrecision - The maximum precision the shader supports.
        *
        * @return {string} modified shader source
        */
@@ -64246,6 +62387,7 @@
            */
 
           this.internalFormat = 5121;
+          this.samplerType = 0;
         }
 
         return GLTexture;
@@ -64307,6 +62449,7 @@
            */
 
           _this.unknownTexture = new BaseTexture();
+          _this.hasIntegerTextures = false;
           return _this;
         }
         /**
@@ -64414,6 +62557,7 @@
 
         TextureSystem.prototype.reset = function () {
           this._unknownBoundTextures = true;
+          this.hasIntegerTextures = false;
           this.currentLocation = -1;
 
           for (var i = 0; i < this.boundTextures.length; i++) {
@@ -64451,6 +62595,36 @@
 
               gl.bindTexture(texture.target, this.emptyTextures[texture.target].texture);
               boundTextures[i] = null;
+            }
+          }
+        };
+        /**
+         * Ensures that current boundTextures all have FLOAT sampler type,
+         * see {@link PIXI.SAMPLER_TYPES} for explanation.
+         *
+         * @param maxTextures - number of locations to check
+         */
+
+
+        TextureSystem.prototype.ensureSamplerType = function (maxTextures) {
+          var _a = this,
+              boundTextures = _a.boundTextures,
+              hasIntegerTextures = _a.hasIntegerTextures,
+              CONTEXT_UID = _a.CONTEXT_UID;
+
+          if (!hasIntegerTextures) {
+            return;
+          }
+
+          for (var i = maxTextures - 1; i >= 0; --i) {
+            var tex = boundTextures[i];
+
+            if (tex) {
+              var glTexture = tex._glTextures[CONTEXT_UID];
+
+              if (glTexture.samplerType !== _pixi_constants__WEBPACK_IMPORTED_MODULE_1__["SAMPLER_TYPES"].FLOAT) {
+                this.renderer.texture.unbind(tex);
+              }
             }
           }
         };
@@ -64513,7 +62687,13 @@
 
           var renderer = this.renderer;
           this.initTextureType(texture, glTexture);
-          if (texture.resource && texture.resource.upload(renderer, texture, glTexture)) ;else {
+
+          if (texture.resource && texture.resource.upload(renderer, texture, glTexture)) {
+            // texture is uploaded, dont do anything!
+            if (glTexture.samplerType !== _pixi_constants__WEBPACK_IMPORTED_MODULE_1__["SAMPLER_TYPES"].FLOAT) {
+              this.hasIntegerTextures = true;
+            }
+          } else {
             // default, renderTexture-like logic
             var width = texture.realWidth;
             var height = texture.realHeight;
@@ -64525,6 +62705,7 @@
               gl.texImage2D(texture.target, 0, glTexture.internalFormat, width, height, 0, texture.format, glTexture.type, null);
             }
           } // lets only update what changes..
+
 
           if (texture.dirtyStyleId !== glTexture.dirtyStyleId) {
             this.updateTextureStyle(texture);
@@ -64676,8 +62857,7 @@
          * @param {boolean} [options.autoDensity=false] - Resizes renderer view in CSS pixels to allow for
          *   resolutions other than 1.
          * @param {boolean} [options.antialias=false] - Sets antialias
-         * @param {number} [options.resolution=1] - The resolution / device pixel ratio of the renderer. The
-         *  resolution of the renderer retina would be 2.
+         * @param {number} [options.resolution=PIXI.settings.RESOLUTION] - The resolution / device pixel ratio of the renderer.
          * @param {boolean} [options.preserveDrawingBuffer=false] - Enables drawing buffer preservation,
          *  enable this if you need to call toDataUrl on the WebGL context.
          * @param {boolean} [options.clearBeforeRender=true] - This sets if the renderer will clear the canvas or
@@ -64734,7 +62914,7 @@
            * The resolution / device pixel ratio of the renderer.
            *
            * @member {number}
-           * @default 1
+           * @default PIXI.settings.RESOLUTION
            */
 
           _this.resolution = options.resolution || _pixi_settings__WEBPACK_IMPORTED_MODULE_0__["settings"].RESOLUTION;
@@ -65051,8 +63231,7 @@
          *   resolutions other than 1.
          * @param {boolean} [options.antialias=false] - Sets antialias. If not available natively then FXAA
          *  antialiasing is used.
-         * @param {number} [options.resolution=1] - The resolution / device pixel ratio of the renderer.
-         *  The resolution of the renderer retina would be 2.
+         * @param {number} [options.resolution=PIXI.settings.RESOLUTION] - The resolution / device pixel ratio of the renderer.
          * @param {boolean} [options.clearBeforeRender=true] - This sets if the renderer will clear
          *  the canvas or not before the new render pass. If you wish to set this to false, you *must* set
          *  preserveDrawingBuffer to `true`.
@@ -65493,7 +63672,7 @@
        * @param {number} [options.backgroundAlpha=1] - Value from 0 (fully transparent) to 1 (fully opaque).
        * @param {boolean} [options.clearBeforeRender=true] - This sets if the renderer will clear the canvas or
        *   not before the new render pass.
-       * @param {number} [options.resolution=1] - The resolution / device pixel ratio of the renderer, retina would be 2
+       * @param {number} [options.resolution=PIXI.settings.RESOLUTION] - The resolution / device pixel ratio of the renderer.
        * @param {boolean} [options.forceCanvas=false] - prevents selection of WebGL renderer, even if such is present, this
        *   option only is available when using **pixi.js-legacy** or **@pixi/canvas-renderer** modules, otherwise
        *   it is ignored.
@@ -66298,6 +64477,7 @@
 
         AbstractBatchRenderer.prototype.start = function () {
           this.renderer.state.set(this.state);
+          this.renderer.texture.ensureSamplerType(this.MAX_TEXTURES);
           this.renderer.shader.bind(this._shader);
 
           if (_pixi_settings__WEBPACK_IMPORTED_MODULE_0__["settings"].CAN_UPLOAD_SAME_BUFFER) {
@@ -66768,7 +64948,7 @@
       !*** ./node_modules/pixi.js/dist/esm/pixi.js ***!
       \***********************************************/
 
-    /*! exports provided: utils, AccessibilityManager, accessibleTarget, InteractionData, InteractionEvent, InteractionManager, InteractionTrackingData, interactiveTarget, Application, AbstractBatchRenderer, AbstractMultiResource, AbstractRenderer, ArrayResource, Attribute, BaseImageResource, BaseRenderTexture, BaseTexture, BatchDrawCall, BatchGeometry, BatchPluginFactory, BatchRenderer, BatchShaderGenerator, BatchSystem, BatchTextureArray, Buffer, BufferResource, CanvasResource, ContextSystem, CubeResource, Filter, FilterState, FilterSystem, Framebuffer, FramebufferSystem, GLFramebuffer, GLProgram, GLTexture, Geometry, GeometrySystem, IGLUniformData, INSTALLED, ImageBitmapResource, ImageResource, MaskData, MaskSystem, ObjectRenderer, Program, ProjectionSystem, Quad, QuadUv, RenderTexture, RenderTexturePool, RenderTextureSystem, Renderer, Resource, SVGResource, ScissorSystem, Shader, ShaderSystem, SpriteMaskFilter, State, StateSystem, StencilSystem, System, Texture, TextureGCSystem, TextureMatrix, TextureSystem, TextureUvs, UniformGroup, VideoResource, ViewableBuffer, autoDetectRenderer, autoDetectResource, checkMaxIfStatementsInShader, defaultFilterVertex, defaultVertex, resources, systems, uniformParsers, Extract, AppLoaderPlugin, Loader, LoaderResource, TextureLoader, BlobResource, CompressedTextureLoader, CompressedTextureResource, DDSLoader, FORMATS_TO_COMPONENTS, INTERNAL_FORMATS, INTERNAL_FORMAT_TO_BYTES_PER_PIXEL, KTXLoader, TYPES_TO_BYTES_PER_COMPONENT, TYPES_TO_BYTES_PER_PIXEL, ParticleContainer, ParticleRenderer, BasePrepare, CountLimiter, Prepare, TimeLimiter, Spritesheet, SpritesheetLoader, TilingSprite, TilingSpriteRenderer, BitmapFont, BitmapFontData, BitmapFontLoader, BitmapText, Ticker, TickerPlugin, UPDATE_PRIORITY, ALPHA_MODES, BLEND_MODES, BUFFER_BITS, CLEAR_MODES, DRAW_MODES, ENV, FORMATS, GC_MODES, MASK_TYPES, MIPMAP_MODES, MSAA_QUALITY, PRECISION, RENDERER_TYPE, SCALE_MODES, TARGETS, TYPES, WRAP_MODES, Bounds, Container, DisplayObject, TemporaryDisplayObject, FillStyle, GRAPHICS_CURVES, Graphics, GraphicsData, GraphicsGeometry, LINE_CAP, LINE_JOIN, LineStyle, graphicsUtils, Circle, DEG_TO_RAD, Ellipse, Matrix, ObservablePoint, PI_2, Point, Polygon, RAD_TO_DEG, Rectangle, RoundedRectangle, SHAPES, Transform, groupD8, Mesh, MeshBatchUvs, MeshGeometry, MeshMaterial, NineSlicePlane, PlaneGeometry, RopeGeometry, SimpleMesh, SimplePlane, SimpleRope, Runner, Sprite, AnimatedSprite, TEXT_GRADIENT, Text, TextMetrics, TextStyle, isMobile, settings, VERSION, filters */
+    /*! exports provided: utils, AccessibilityManager, accessibleTarget, InteractionData, InteractionEvent, InteractionManager, InteractionTrackingData, interactiveTarget, Application, AbstractBatchRenderer, AbstractMultiResource, AbstractRenderer, ArrayResource, Attribute, BaseImageResource, BaseRenderTexture, BaseTexture, BatchDrawCall, BatchGeometry, BatchPluginFactory, BatchRenderer, BatchShaderGenerator, BatchSystem, BatchTextureArray, Buffer, BufferResource, CanvasResource, ContextSystem, CubeResource, Filter, FilterState, FilterSystem, Framebuffer, FramebufferSystem, GLFramebuffer, GLProgram, GLTexture, Geometry, GeometrySystem, IGLUniformData, INSTALLED, ImageBitmapResource, ImageResource, MaskData, MaskSystem, ObjectRenderer, Program, ProjectionSystem, Quad, QuadUv, RenderTexture, RenderTexturePool, RenderTextureSystem, Renderer, Resource, SVGResource, ScissorSystem, Shader, ShaderSystem, SpriteMaskFilter, State, StateSystem, StencilSystem, System, Texture, TextureGCSystem, TextureMatrix, TextureSystem, TextureUvs, UniformGroup, VideoResource, ViewableBuffer, autoDetectRenderer, autoDetectResource, checkMaxIfStatementsInShader, defaultFilterVertex, defaultVertex, resources, systems, uniformParsers, Extract, AppLoaderPlugin, Loader, LoaderResource, TextureLoader, BlobResource, CompressedTextureLoader, CompressedTextureResource, DDSLoader, FORMATS_TO_COMPONENTS, INTERNAL_FORMATS, INTERNAL_FORMAT_TO_BYTES_PER_PIXEL, KTXLoader, TYPES_TO_BYTES_PER_COMPONENT, TYPES_TO_BYTES_PER_PIXEL, ParticleContainer, ParticleRenderer, BasePrepare, CountLimiter, Prepare, TimeLimiter, Spritesheet, SpritesheetLoader, TilingSprite, TilingSpriteRenderer, BitmapFont, BitmapFontData, BitmapFontLoader, BitmapText, Ticker, TickerPlugin, UPDATE_PRIORITY, ALPHA_MODES, BLEND_MODES, BUFFER_BITS, CLEAR_MODES, DRAW_MODES, ENV, FORMATS, GC_MODES, MASK_TYPES, MIPMAP_MODES, MSAA_QUALITY, PRECISION, RENDERER_TYPE, SAMPLER_TYPES, SCALE_MODES, TARGETS, TYPES, WRAP_MODES, Bounds, Container, DisplayObject, TemporaryDisplayObject, FillStyle, GRAPHICS_CURVES, Graphics, GraphicsData, GraphicsGeometry, LINE_CAP, LINE_JOIN, LineStyle, graphicsUtils, Circle, DEG_TO_RAD, Ellipse, Matrix, ObservablePoint, PI_2, Point, Polygon, RAD_TO_DEG, Rectangle, RoundedRectangle, SHAPES, Transform, groupD8, Mesh, MeshBatchUvs, MeshGeometry, MeshMaterial, NineSlicePlane, PlaneGeometry, RopeGeometry, SimpleMesh, SimplePlane, SimpleRope, Runner, Sprite, AnimatedSprite, TEXT_GRADIENT, Text, TextMetrics, TextStyle, isMobile, settings, VERSION, filters */
 
     /***/
     function eqqe(module, __webpack_exports__, __webpack_require__) {
@@ -67690,6 +65870,12 @@
       /* harmony reexport (safe) */
 
 
+      __webpack_require__.d(__webpack_exports__, "SAMPLER_TYPES", function () {
+        return _pixi_constants__WEBPACK_IMPORTED_MODULE_24__["SAMPLER_TYPES"];
+      });
+      /* harmony reexport (safe) */
+
+
       __webpack_require__.d(__webpack_exports__, "SCALE_MODES", function () {
         return _pixi_constants__WEBPACK_IMPORTED_MODULE_24__["SCALE_MODES"];
       });
@@ -68048,8 +66234,8 @@
         return _pixi_settings__WEBPACK_IMPORTED_MODULE_34__["settings"];
       });
       /*!
-       * pixi.js - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * pixi.js - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * pixi.js is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -68097,7 +66283,7 @@
        */
 
 
-      var VERSION = '6.0.2';
+      var VERSION = '6.0.3';
       /**
        * @namespace PIXI
        */
@@ -68193,8 +66379,8 @@
       /*! @pixi/loaders */
       "XXeg");
       /*!
-       * @pixi/spritesheet - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/spritesheet - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/spritesheet is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -68910,8 +67096,8 @@
       /*! @pixi/settings */
       "Dh0r");
       /*!
-       * @pixi/filter-blur - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/filter-blur - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/filter-blur is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -69201,6 +67387,7 @@
        * @enum {number}
        * @property {number} RGBA=6408
        * @property {number} RGB=6407
+       * @property {number} RED=6403
        * @property {number} ALPHA=6406
        * @property {number} LUMINANCE=6409
        * @property {number} LUMINANCE_ALPHA=6410
@@ -69280,6 +67467,27 @@
         TYPES[TYPES["FLOAT"] = 5126] = "FLOAT";
         TYPES[TYPES["HALF_FLOAT"] = 36193] = "HALF_FLOAT";
       })(TYPES || (TYPES = {}));
+      /**
+       * Various sampler types. Correspond to `sampler`, `isampler`, `usampler` GLSL types respectively.
+       * WebGL1 works only with FLOAT.
+       *
+       * @memberof PIXI
+       * @static
+       * @name SAMPLER_TYPES
+       * @enum {number}
+       * @property {number} FLOAT=0
+       * @property {number} INT=1
+       * @property {number} UINT=2
+       */
+
+
+      var SAMPLER_TYPES;
+
+      (function (SAMPLER_TYPES) {
+        SAMPLER_TYPES[SAMPLER_TYPES["FLOAT"] = 0] = "FLOAT";
+        SAMPLER_TYPES[SAMPLER_TYPES["INT"] = 1] = "INT";
+        SAMPLER_TYPES[SAMPLER_TYPES["UINT"] = 2] = "UINT";
+      })(SAMPLER_TYPES || (SAMPLER_TYPES = {}));
       /**
        * The scale modes that are supported by pixi.
        *
@@ -74466,8 +72674,8 @@
       /*! @pixi/settings */
       "Dh0r");
       /*!
-       * @pixi/ticker - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/ticker - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/ticker is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -75596,8 +73804,8 @@
       /*! @pixi/ticker */
       "kI30");
       /*!
-       * @pixi/sprite-animated - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/sprite-animated - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/sprite-animated is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -76364,8 +74572,8 @@
         return groupD8;
       });
       /*!
-       * @pixi/math - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/math - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/math is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -77207,8 +75415,8 @@
         return RoundedRectangle;
       }();
       /**
-       * The Point object represents a location in a two-dimensional coordinate system, where x represents
-       * the horizontal axis and y represents the vertical axis.
+       * The Point object represents a location in a two-dimensional coordinate system, where `x` represents
+       * the position on the horizontal axis and `y` represents the position on the vertical axis
        *
        * @class
        * @memberof PIXI
@@ -77219,7 +75427,7 @@
       var Point =
       /** @class */
       function () {
-        /**
+        /** Creates a new `Point`
          * @param {number} [x=0] - position of the point on the x axis
          * @param {number} [y=0] - position of the point on the y axis
          */
@@ -77231,24 +75439,18 @@
           if (y === void 0) {
             y = 0;
           }
-          /**
-           * @member {number}
-           * @default 0
-           */
+          /** Position of the point on the x axis */
 
 
+          this.x = 0;
+          /** Position of the point on the y axis */
+
+          this.y = 0;
           this.x = x;
-          /**
-           * @member {number}
-           * @default 0
-           */
-
           this.y = y;
         }
-        /**
-         * Creates a clone of this point
-         *
-         * @return {PIXI.Point} a copy of the point
+        /** Creates a clone of this point
+         * @returns A clone of this point
          */
 
 
@@ -77256,10 +75458,10 @@
           return new Point(this.x, this.y);
         };
         /**
-         * Copies x and y from the given point
+         * Copies `x` and `y` from the given point into this point
          *
-         * @param {PIXI.IPointData} p - The point to copy from
-         * @returns {this} Returns itself.
+         * @param p - The point to copy from
+         * @returns The point instance itself
          */
 
 
@@ -77268,10 +75470,10 @@
           return this;
         };
         /**
-         * Copies x and y into the given point
+         * Copies this point's x and y into the given point (`p`).
          *
-         * @param {PIXI.IPoint} p - The point to copy.
-         * @returns {PIXI.IPoint} Given point with values updated
+         * @param p - The point to copy to. Can be any of type that is or extends `IPointData`
+         * @returns The point (`p`) with values updated
          */
 
 
@@ -77280,10 +75482,10 @@
           return p;
         };
         /**
-         * Returns true if the given point is equal to this point
+         * Accepts another point (`p`) and returns `true` if the given point is equal to this point
          *
-         * @param {PIXI.IPointData} p - The point to check
-         * @returns {boolean} Whether the given point equal to this point
+         * @param p - The point to check
+         * @returns Returns `true` if both `x` and `y` are equal
          */
 
 
@@ -77291,12 +75493,12 @@
           return p.x === this.x && p.y === this.y;
         };
         /**
-         * Sets the point to a new x and y position.
-         * If y is omitted, both x and y will be set to x.
+         * Sets the point to a new `x` and `y` position.
+         * If `y` is omitted, both `x` and `y` will be set to `x`.
          *
-         * @param {number} [x=0] - position of the point on the x axis
-         * @param {number} [y=x] - position of the point on the y axis
-         * @returns {this} Returns itself.
+         * @param {number} [x=0] - position of the point on the `x` axis
+         * @param {number} [y=x] - position of the point on the `y` axis
+         * @returns The point instance itself
          */
 
 
@@ -77321,10 +75523,10 @@
         return Point;
       }();
       /**
-       * The Point object represents a location in a two-dimensional coordinate system, where x represents
-       * the horizontal axis and y represents the vertical axis.
+       * The ObservablePoint object represents a location in a two-dimensional coordinate system, where `x` represents
+       * the position on the horizontal axis and `y` represents the position on the vertical axis.
        *
-       * An ObservablePoint is a point that triggers a callback when the point's position is changed.
+       * An `ObservablePoint` is a point that triggers a callback when the point's position is changed.
        *
        * @class
        * @memberof PIXI
@@ -77336,11 +75538,13 @@
       /** @class */
       function () {
         /**
-         * @param {Function} cb - callback when changed
-         * @param {object} scope - owner of callback
+         * Creates a new `ObservablePoint`
+         *
+         * @param cb - callback function triggered when `x` and/or `y` are changed
+         * @param scope - owner of callback
          * @param {number} [x=0] - position of the point on the x axis
          * @param {number} [y=0] - position of the point on the y axis
-         */
+        */
         function ObservablePoint(cb, scope, x, y) {
           if (x === void 0) {
             x = 0;
@@ -77361,9 +75565,9 @@
          * to the clone object's values.
          *
          * @override
-         * @param {Function} [cb=null] - callback when changed
-         * @param {object} [scope=null] - owner of callback
-         * @return {PIXI.ObservablePoint} a copy of the point
+         * @param cb - The callback function triggered when `x` and/or `y` are changed
+         * @param scope - The owner of the callback
+         * @return a copy of this observable point
          */
 
 
@@ -77379,12 +75583,12 @@
           return new ObservablePoint(cb, scope, this._x, this._y);
         };
         /**
-         * Sets the point to a new x and y position.
-         * If y is omitted, both x and y will be set to x.
+         * Sets the point to a new `x` and `y` position.
+         * If `y` is omitted, both `x` and `y` will be set to `x`.
          *
          * @param {number} [x=0] - position of the point on the x axis
          * @param {number} [y=x] - position of the point on the y axis
-         * @returns {this} Returns itself.
+         * @returns The observable point instance itself
          */
 
 
@@ -77406,10 +75610,10 @@
           return this;
         };
         /**
-         * Copies x and y from the given point
+         * Copies x and y from the given point (`p`)
          *
-         * @param {PIXI.IPointData} p - The point to copy from.
-         * @returns {this} Returns itself.
+         * @param p - The point to copy from. Can be any of type that is or extends `IPointData`
+         * @returns The observable point instance itself
          */
 
 
@@ -77423,10 +75627,10 @@
           return this;
         };
         /**
-         * Copies x and y into the given point
+         * Copies this point's x and y into that of the given point (`p`)
          *
-         * @param {PIXI.IPoint} p - The point to copy.
-         * @returns {PIXI.IPoint} Given point with values updated
+         * @param p - The point to copy to. Can be any of type that is or extends `IPointData`
+         * @returns The point (`p`) with values updated
          */
 
 
@@ -77435,10 +75639,10 @@
           return p;
         };
         /**
-         * Returns true if the given point is equal to this point
+         * Accepts another point (`p`) and returns `true` if the given point is equal to this point
          *
-         * @param {PIXI.IPointData} p - The point to check
-         * @returns {boolean} Whether the given point equal to this point
+         * @param p - The point to check
+         * @returns Returns `true` if both `x` and `y` are equal
          */
 
 
@@ -77451,10 +75655,8 @@
         };
 
         Object.defineProperty(ObservablePoint.prototype, "x", {
-          /**
-           * The position of the displayObject on the x axis relative to the local coordinates of the parent.
-           *
-           * @member {number}
+          /** Position of the observable point on the x axis
+           * @type {number}
            */
           get: function get() {
             return this._x;
@@ -77469,10 +75671,8 @@
           configurable: true
         });
         Object.defineProperty(ObservablePoint.prototype, "y", {
-          /**
-           * The position of the displayObject on the x axis relative to the local coordinates of the parent.
-           *
-           * @member {number}
+          /** Position of the observable point on the y axis
+           * @type {number}
            */
           get: function get() {
             return this._y;
@@ -78736,8 +76936,8 @@
       /*! @pixi/utils */
       "IUqD");
       /*!
-       * @pixi/display - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/display - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/display is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -86623,8 +84823,8 @@
         return Runner;
       });
       /*!
-       * @pixi/runner - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/runner - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/runner is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -87008,8 +85208,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/filter-alpha - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/filter-alpha - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/filter-alpha is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -92902,8 +91102,8 @@
       /*! @pixi/core */
       "dY3r");
       /*!
-       * @pixi/filter-color-matrix - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/filter-color-matrix - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/filter-color-matrix is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
@@ -93508,8 +91708,8 @@
       /*! @pixi/math */
       "pHy+");
       /*!
-       * @pixi/mixin-get-global-position - v6.0.2
-       * Compiled Mon, 05 Apr 2021 18:17:46 UTC
+       * @pixi/mixin-get-global-position - v6.0.3
+       * Compiled Mon, 10 May 2021 17:16:58 UTC
        *
        * @pixi/mixin-get-global-position is licensed under the MIT License.
        * http://www.opensource.org/licenses/mit-license
