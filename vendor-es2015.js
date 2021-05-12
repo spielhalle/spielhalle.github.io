@@ -6880,8 +6880,8 @@ function schedulePromise(input, scheduler) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "retry", function() { return retry; });
 /* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/lift */ "EPzc");
-/* harmony import */ var _observable_empty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../observable/empty */ "eX4W");
-/* harmony import */ var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OperatorSubscriber */ "xt23");
+/* harmony import */ var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OperatorSubscriber */ "xt23");
+/* harmony import */ var _util_identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/identity */ "TYm1");
 
 
 
@@ -6897,13 +6897,13 @@ function retry(configOrCount = Infinity) {
     }
     const { count, resetOnSuccess = false } = config;
     return count <= 0
-        ? () => _observable_empty__WEBPACK_IMPORTED_MODULE_1__["EMPTY"]
+        ? _util_identity__WEBPACK_IMPORTED_MODULE_2__["identity"]
         : Object(_util_lift__WEBPACK_IMPORTED_MODULE_0__["operate"])((source, subscriber) => {
             let soFar = 0;
             let innerSub;
             const subscribeForRetry = () => {
                 let syncUnsub = false;
-                innerSub = source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__["OperatorSubscriber"](subscriber, (value) => {
+                innerSub = source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__["OperatorSubscriber"](subscriber, (value) => {
                     if (resetOnSuccess) {
                         soFar = 0;
                     }
@@ -7538,6 +7538,14 @@ function share(options) {
     return Object(_util_lift__WEBPACK_IMPORTED_MODULE_3__["operate"])((source, subscriber) => {
         refCount++;
         subject = subject !== null && subject !== void 0 ? subject : connector();
+        subscriber.add(() => {
+            refCount--;
+            if (resetOnRefCountZero && !refCount && !hasErrored && !hasCompleted) {
+                const conn = connection;
+                reset();
+                conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
+            }
+        });
         subject.subscribe(subscriber);
         if (!connection) {
             connection = new _Subscriber__WEBPACK_IMPORTED_MODULE_1__["SafeSubscriber"]({
@@ -7561,14 +7569,6 @@ function share(options) {
             });
             Object(_observable_from__WEBPACK_IMPORTED_MODULE_2__["from"])(source).subscribe(connection);
         }
-        return () => {
-            refCount--;
-            if (resetOnRefCountZero && !refCount && !hasErrored && !hasCompleted) {
-                const conn = connection;
-                reset();
-                conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
-            }
-        };
     });
 }
 //# sourceMappingURL=share.js.map
@@ -9614,7 +9614,7 @@ class Observable {
         }
         else {
             try {
-                this._subscribe(subscriber);
+                subscriber.add(this._subscribe(subscriber));
             }
             catch (err) {
                 localSubscriber.__syncError = err;
@@ -10873,8 +10873,8 @@ function bindCallbackInternals(isNodeStyle, callbackFunc, resultSelector, schedu
                 .pipe(Object(_operators_subscribeOn__WEBPACK_IMPORTED_MODULE_2__["subscribeOn"])(scheduler), Object(_operators_observeOn__WEBPACK_IMPORTED_MODULE_4__["observeOn"])(scheduler));
         };
     }
-    const subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_5__["AsyncSubject"]();
     return function (...args) {
+        const subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_5__["AsyncSubject"]();
         let uninitialized = true;
         return new _Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((subscriber) => {
             const subs = subject.subscribe(subscriber);
@@ -48579,13 +48579,16 @@ class Subscription {
         if (!this.closed) {
             this.closed = true;
             const { _parentage } = this;
-            if (Array.isArray(_parentage)) {
-                for (const parent of _parentage) {
-                    parent.remove(this);
+            if (_parentage) {
+                this._parentage = null;
+                if (Array.isArray(_parentage)) {
+                    for (const parent of _parentage) {
+                        parent.remove(this);
+                    }
                 }
-            }
-            else {
-                _parentage === null || _parentage === void 0 ? void 0 : _parentage.remove(this);
+                else {
+                    _parentage.remove(this);
+                }
             }
             const { initialTeardown } = this;
             if (Object(_util_isFunction__WEBPACK_IMPORTED_MODULE_0__["isFunction"])(initialTeardown)) {
@@ -55867,14 +55870,10 @@ function every(predicate, thisArg) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapTo", function() { return mapTo; });
-/* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/lift */ "EPzc");
-/* harmony import */ var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OperatorSubscriber */ "xt23");
-
+/* harmony import */ var _map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./map */ "rdQv");
 
 function mapTo(value) {
-    return Object(_util_lift__WEBPACK_IMPORTED_MODULE_0__["operate"])((source, subscriber) => {
-        source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__["OperatorSubscriber"](subscriber, () => subscriber.next(value)));
-    });
+    return Object(_map__WEBPACK_IMPORTED_MODULE_0__["map"])(() => value);
 }
 //# sourceMappingURL=mapTo.js.map
 

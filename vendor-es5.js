@@ -13761,15 +13761,15 @@
       /* harmony import */
 
 
-      var _observable_empty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! ../observable/empty */
-      "eX4W");
+      var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./OperatorSubscriber */
+      "xt23");
       /* harmony import */
 
 
-      var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! ./OperatorSubscriber */
-      "xt23");
+      var _util_identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../util/identity */
+      "TYm1");
 
       function retry() {
         var configOrCount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Infinity;
@@ -13787,15 +13787,13 @@
             count = _config2.count,
             _config2$resetOnSucce = _config2.resetOnSuccess,
             resetOnSuccess = _config2$resetOnSucce === void 0 ? false : _config2$resetOnSucce;
-        return count <= 0 ? function () {
-          return _observable_empty__WEBPACK_IMPORTED_MODULE_1__["EMPTY"];
-        } : Object(_util_lift__WEBPACK_IMPORTED_MODULE_0__["operate"])(function (source, subscriber) {
+        return count <= 0 ? _util_identity__WEBPACK_IMPORTED_MODULE_2__["identity"] : Object(_util_lift__WEBPACK_IMPORTED_MODULE_0__["operate"])(function (source, subscriber) {
           var soFar = 0;
           var innerSub;
 
           var subscribeForRetry = function subscribeForRetry() {
             var syncUnsub = false;
-            innerSub = source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__["OperatorSubscriber"](subscriber, function (value) {
+            innerSub = source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__["OperatorSubscriber"](subscriber, function (value) {
               if (resetOnSuccess) {
                 soFar = 0;
               }
@@ -14934,6 +14932,15 @@
         return Object(_util_lift__WEBPACK_IMPORTED_MODULE_3__["operate"])(function (source, subscriber) {
           refCount++;
           subject = subject !== null && subject !== void 0 ? subject : connector();
+          subscriber.add(function () {
+            refCount--;
+
+            if (resetOnRefCountZero && !refCount && !hasErrored && !hasCompleted) {
+              var conn = connection;
+              reset();
+              conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
+            }
+          });
           subject.subscribe(subscriber);
 
           if (!connection) {
@@ -14964,16 +14971,6 @@
             });
             Object(_observable_from__WEBPACK_IMPORTED_MODULE_2__["from"])(source).subscribe(connection);
           }
-
-          return function () {
-            refCount--;
-
-            if (resetOnRefCountZero && !refCount && !hasErrored && !hasCompleted) {
-              var conn = connection;
-              reset();
-              conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
-            }
-          };
         });
       } //# sourceMappingURL=share.js.map
 
@@ -18043,7 +18040,7 @@
               subscriber.add(operator.call(subscriber, this.source));
             } else {
               try {
-                this._subscribe(subscriber);
+                subscriber.add(this._subscribe(subscriber));
               } catch (err) {
                 localSubscriber.__syncError = err;
               }
@@ -20377,7 +20374,6 @@
           };
         }
 
-        var subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_5__["AsyncSubject"]();
         return function () {
           var _this44 = this;
 
@@ -20385,6 +20381,7 @@
             args[_key25] = arguments[_key25];
           }
 
+          var subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_5__["AsyncSubject"]();
           var uninitialized = true;
           return new _Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"](function (subscriber) {
             var subs = subject.subscribe(subscriber);
@@ -71453,22 +71450,26 @@
               this.closed = true;
               var _parentage = this._parentage;
 
-              if (Array.isArray(_parentage)) {
-                var _iterator18 = _createForOfIteratorHelper(_parentage),
-                    _step18;
+              if (_parentage) {
+                this._parentage = null;
 
-                try {
-                  for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
-                    var parent = _step18.value;
-                    parent.remove(this);
+                if (Array.isArray(_parentage)) {
+                  var _iterator18 = _createForOfIteratorHelper(_parentage),
+                      _step18;
+
+                  try {
+                    for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+                      var parent = _step18.value;
+                      parent.remove(this);
+                    }
+                  } catch (err) {
+                    _iterator18.e(err);
+                  } finally {
+                    _iterator18.f();
                   }
-                } catch (err) {
-                  _iterator18.e(err);
-                } finally {
-                  _iterator18.f();
+                } else {
+                  _parentage.remove(this);
                 }
-              } else {
-                _parentage === null || _parentage === void 0 ? void 0 : _parentage.remove(this);
               }
 
               var initialTeardown = this.initialTeardown;
@@ -82309,21 +82310,13 @@
       /* harmony import */
 
 
-      var _util_lift__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ../util/lift */
-      "EPzc");
-      /* harmony import */
-
-
-      var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! ./OperatorSubscriber */
-      "xt23");
+      var _map__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! ./map */
+      "rdQv");
 
       function mapTo(value) {
-        return Object(_util_lift__WEBPACK_IMPORTED_MODULE_0__["operate"])(function (source, subscriber) {
-          source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_1__["OperatorSubscriber"](subscriber, function () {
-            return subscriber.next(value);
-          }));
+        return Object(_map__WEBPACK_IMPORTED_MODULE_0__["map"])(function () {
+          return value;
         });
       } //# sourceMappingURL=mapTo.js.map
 
