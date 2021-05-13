@@ -15978,7 +15978,7 @@
       /*! rxjs/operators */
       "9YHx");
       /**
-       * @license Angular v11.2.13
+       * @license Angular v11.2.14
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -26292,7 +26292,7 @@
        */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.13');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.14');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -85541,7 +85541,7 @@
       /*! @angular/common */
       "ofXK");
       /**
-       * @license Angular v11.2.13
+       * @license Angular v11.2.14
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
