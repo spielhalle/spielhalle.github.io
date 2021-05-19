@@ -7347,7 +7347,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.13');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -7387,7 +7387,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.13');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -100042,7 +100042,12 @@
         }, {
           key: "_captureFocus",
           value: function _captureFocus() {
-            this._previouslyFocusedElement = this._document.activeElement;
+            var _a, _b; // If the `activeElement` is inside a shadow root, `document.activeElement` will
+            // point to the shadow root so we have to descend into it ourselves.
+
+
+            var activeElement = (_a = this._document) === null || _a === void 0 ? void 0 : _a.activeElement;
+            this._previouslyFocusedElement = ((_b = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _b === void 0 ? void 0 : _b.activeElement) || activeElement;
             this.focusTrap.focusInitialElementWhenReady();
           }
         }]);
@@ -102531,7 +102536,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.12');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('11.2.13');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
