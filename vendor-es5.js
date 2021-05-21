@@ -12624,9 +12624,8 @@
         }
 
         var selector = Object(_util_isFunction__WEBPACK_IMPORTED_MODULE_2__["isFunction"])(selectorOrScheduler) ? selectorOrScheduler : undefined;
-        var subject = new _ReplaySubject__WEBPACK_IMPORTED_MODULE_0__["ReplaySubject"](bufferSize, windowTime, timestampProvider);
         return function (source) {
-          return Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(subject, selector)(source);
+          return Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(new _ReplaySubject__WEBPACK_IMPORTED_MODULE_0__["ReplaySubject"](bufferSize, windowTime, timestampProvider), selector)(source);
         };
       } //# sourceMappingURL=publishReplay.js.map
 
@@ -14883,94 +14882,128 @@
       /* harmony import */
 
 
-      var _Subject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ../Subject */
-      "oXA7");
-      /* harmony import */
-
-
-      var _Subscriber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! ../Subscriber */
-      "bx2D");
-      /* harmony import */
-
-
-      var _observable_from__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _observable_from__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! ../observable/from */
       "g/MW");
       /* harmony import */
 
 
-      var _util_lift__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _operators_take__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ../operators/take */
+      "nnEh");
+      /* harmony import */
+
+
+      var _Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../Subject */
+      "oXA7");
+      /* harmony import */
+
+
+      var _Subscriber__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ../Subscriber */
+      "bx2D");
+      /* harmony import */
+
+
+      var _util_lift__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ../util/lift */
       "EPzc");
 
-      function share(options) {
-        options = options || {};
-        var _options = options,
-            _options$connector = _options.connector,
+      function share() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var _options$connector = options.connector,
             connector = _options$connector === void 0 ? function () {
-          return new _Subject__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
+          return new _Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         } : _options$connector,
-            _options$resetOnCompl = _options.resetOnComplete,
-            resetOnComplete = _options$resetOnCompl === void 0 ? true : _options$resetOnCompl,
-            _options$resetOnError = _options.resetOnError,
+            _options$resetOnError = options.resetOnError,
             resetOnError = _options$resetOnError === void 0 ? true : _options$resetOnError,
-            _options$resetOnRefCo = _options.resetOnRefCountZero,
+            _options$resetOnCompl = options.resetOnComplete,
+            resetOnComplete = _options$resetOnCompl === void 0 ? true : _options$resetOnCompl,
+            _options$resetOnRefCo = options.resetOnRefCountZero,
             resetOnRefCountZero = _options$resetOnRefCo === void 0 ? true : _options$resetOnRefCo;
-        var connection = null;
-        var subject = null;
-        var refCount = 0;
-        var hasCompleted = false;
-        var hasErrored = false;
+        return function (wrapperSource) {
+          var connection = null;
+          var resetConnection = null;
+          var subject = null;
+          var refCount = 0;
+          var hasCompleted = false;
+          var hasErrored = false;
 
-        var reset = function reset() {
-          connection = subject = null;
-          hasCompleted = hasErrored = false;
-        };
+          var cancelReset = function cancelReset() {
+            resetConnection === null || resetConnection === void 0 ? void 0 : resetConnection.unsubscribe();
+            resetConnection = null;
+          };
 
-        return Object(_util_lift__WEBPACK_IMPORTED_MODULE_3__["operate"])(function (source, subscriber) {
-          refCount++;
-          subject = subject !== null && subject !== void 0 ? subject : connector();
-          subscriber.add(function () {
-            refCount--;
+          var reset = function reset() {
+            cancelReset();
+            connection = subject = null;
+            hasCompleted = hasErrored = false;
+          };
 
-            if (resetOnRefCountZero && !refCount && !hasErrored && !hasCompleted) {
-              var conn = connection;
-              reset();
-              conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
+          var resetAndUnsubscribe = function resetAndUnsubscribe() {
+            var conn = connection;
+            reset();
+            conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
+          };
+
+          return Object(_util_lift__WEBPACK_IMPORTED_MODULE_4__["operate"])(function (source, subscriber) {
+            refCount++;
+
+            if (!hasErrored && !hasCompleted) {
+              cancelReset();
             }
-          });
-          subject.subscribe(subscriber);
 
-          if (!connection) {
-            connection = new _Subscriber__WEBPACK_IMPORTED_MODULE_1__["SafeSubscriber"]({
-              next: function next(value) {
-                return subject.next(value);
-              },
-              error: function error(err) {
-                hasErrored = true;
-                var dest = subject;
+            var dest = subject = subject !== null && subject !== void 0 ? subject : connector();
+            subscriber.add(function () {
+              refCount--;
 
-                if (resetOnError) {
-                  reset();
-                }
-
-                dest.error(err);
-              },
-              complete: function complete() {
-                hasCompleted = true;
-                var dest = subject;
-
-                if (resetOnComplete) {
-                  reset();
-                }
-
-                dest.complete();
+              if (refCount === 0 && !hasErrored && !hasCompleted) {
+                resetConnection = handleReset(resetAndUnsubscribe, resetOnRefCountZero);
               }
             });
-            Object(_observable_from__WEBPACK_IMPORTED_MODULE_2__["from"])(source).subscribe(connection);
-          }
+            dest.subscribe(subscriber);
+
+            if (!connection) {
+              connection = new _Subscriber__WEBPACK_IMPORTED_MODULE_3__["SafeSubscriber"]({
+                next: function next(value) {
+                  return dest.next(value);
+                },
+                error: function error(err) {
+                  hasErrored = true;
+                  cancelReset();
+                  resetConnection = handleReset(reset, resetOnError, err);
+                  dest.error(err);
+                },
+                complete: function complete() {
+                  hasCompleted = true;
+                  cancelReset();
+                  resetConnection = handleReset(reset, resetOnComplete);
+                  dest.complete();
+                }
+              });
+              Object(_observable_from__WEBPACK_IMPORTED_MODULE_0__["from"])(source).subscribe(connection);
+            }
+          })(wrapperSource);
+        };
+      }
+
+      function handleReset(reset, on) {
+        if (on === true) {
+          reset();
+          return null;
+        }
+
+        if (on === false) {
+          return null;
+        }
+
+        for (var _len19 = arguments.length, args = new Array(_len19 > 2 ? _len19 - 2 : 0), _key19 = 2; _key19 < _len19; _key19++) {
+          args[_key19 - 2] = arguments[_key19];
+        }
+
+        return on.apply(void 0, args).pipe(Object(_operators_take__WEBPACK_IMPORTED_MODULE_1__["take"])(1)).subscribe(function () {
+          return reset();
         });
       } //# sourceMappingURL=share.js.map
 
@@ -17006,8 +17039,8 @@
         }, {
           key: "_command",
           value: function _command(command) {
-            for (var _len19 = arguments.length, args = new Array(_len19 > 1 ? _len19 - 1 : 0), _key19 = 1; _key19 < _len19; _key19++) {
-              args[_key19 - 1] = arguments[_key19];
+            for (var _len20 = arguments.length, args = new Array(_len20 > 1 ? _len20 - 1 : 0), _key20 = 1; _key20 < _len20; _key20++) {
+              args[_key20 - 1] = arguments[_key20];
             }
 
             return issueAnimationCommand(this._renderer, this.element, this.id, command, args);
@@ -18104,8 +18137,8 @@
         }, {
           key: "pipe",
           value: function pipe() {
-            for (var _len20 = arguments.length, operations = new Array(_len20), _key20 = 0; _key20 < _len20; _key20++) {
-              operations[_key20] = arguments[_key20];
+            for (var _len21 = arguments.length, operations = new Array(_len21), _key21 = 0; _key21 < _len21; _key21++) {
+              operations[_key21] = arguments[_key21];
             }
 
             return operations.length ? Object(_util_pipe__WEBPACK_IMPORTED_MODULE_3__["pipeFromArray"])(operations)(this) : this;
@@ -18335,7 +18368,11 @@
       "23x6");
 
       function publish(selector) {
-        return selector ? Object(_connect__WEBPACK_IMPORTED_MODULE_2__["connect"])(selector) : Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(new _Subject__WEBPACK_IMPORTED_MODULE_0__["Subject"]());
+        return selector ? function (source) {
+          return Object(_connect__WEBPACK_IMPORTED_MODULE_2__["connect"])(selector)(source);
+        } : function (source) {
+          return Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(new _Subject__WEBPACK_IMPORTED_MODULE_0__["Subject"]())(source);
+        };
       } //# sourceMappingURL=publish.js.map
 
       /***/
@@ -18842,8 +18879,8 @@
       "TYm1");
 
       function raceWith() {
-        for (var _len21 = arguments.length, otherSources = new Array(_len21), _key21 = 0; _key21 < _len21; _key21++) {
-          otherSources[_key21] = arguments[_key21];
+        for (var _len22 = arguments.length, otherSources = new Array(_len22), _key22 = 0; _key22 < _len22; _key22++) {
+          otherSources[_key22] = arguments[_key22];
         }
 
         return !otherSources.length ? _util_identity__WEBPACK_IMPORTED_MODULE_2__["identity"] : Object(_util_lift__WEBPACK_IMPORTED_MODULE_1__["operate"])(function (source, subscriber) {
@@ -19967,8 +20004,8 @@
       "eD/B");
 
       function onErrorResumeNext() {
-        for (var _len22 = arguments.length, sources = new Array(_len22), _key22 = 0; _key22 < _len22; _key22++) {
-          sources[_key22] = arguments[_key22];
+        for (var _len23 = arguments.length, sources = new Array(_len23), _key23 = 0; _key23 < _len23; _key23++) {
+          sources[_key23] = arguments[_key23];
         }
 
         return Object(_operators_onErrorResumeNext__WEBPACK_IMPORTED_MODULE_1__["onErrorResumeNext"])(Object(_util_argsOrArgArray__WEBPACK_IMPORTED_MODULE_2__["argsOrArgArray"])(sources))(_empty__WEBPACK_IMPORTED_MODULE_0__["EMPTY"]);
@@ -20355,8 +20392,8 @@
             scheduler = resultSelector;
           } else {
             return function () {
-              for (var _len23 = arguments.length, args = new Array(_len23), _key23 = 0; _key23 < _len23; _key23++) {
-                args[_key23] = arguments[_key23];
+              for (var _len24 = arguments.length, args = new Array(_len24), _key24 = 0; _key24 < _len24; _key24++) {
+                args[_key24] = arguments[_key24];
               }
 
               return bindCallbackInternals(isNodeStyle, callbackFunc, scheduler).apply(this, args).pipe(Object(_util_mapOneOrManyArgs__WEBPACK_IMPORTED_MODULE_3__["mapOneOrManyArgs"])(resultSelector));
@@ -20366,8 +20403,8 @@
 
         if (scheduler) {
           return function () {
-            for (var _len24 = arguments.length, args = new Array(_len24), _key24 = 0; _key24 < _len24; _key24++) {
-              args[_key24] = arguments[_key24];
+            for (var _len25 = arguments.length, args = new Array(_len25), _key25 = 0; _key25 < _len25; _key25++) {
+              args[_key25] = arguments[_key25];
             }
 
             return bindCallbackInternals(isNodeStyle, callbackFunc).apply(this, args).pipe(Object(_operators_subscribeOn__WEBPACK_IMPORTED_MODULE_2__["subscribeOn"])(scheduler), Object(_operators_observeOn__WEBPACK_IMPORTED_MODULE_4__["observeOn"])(scheduler));
@@ -20377,8 +20414,8 @@
         return function () {
           var _this44 = this;
 
-          for (var _len25 = arguments.length, args = new Array(_len25), _key25 = 0; _key25 < _len25; _key25++) {
-            args[_key25] = arguments[_key25];
+          for (var _len26 = arguments.length, args = new Array(_len26), _key26 = 0; _key26 < _len26; _key26++) {
+            args[_key26] = arguments[_key26];
           }
 
           var subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_5__["AsyncSubject"]();
@@ -20391,8 +20428,8 @@
               var isAsync = false;
               var isComplete = false;
               callbackFunc.apply(_this44, [].concat(args, [function () {
-                for (var _len26 = arguments.length, results = new Array(_len26), _key26 = 0; _key26 < _len26; _key26++) {
-                  results[_key26] = arguments[_key26];
+                for (var _len27 = arguments.length, results = new Array(_len27), _key27 = 0; _key27 < _len27; _key27++) {
+                  results[_key27] = arguments[_key27];
                 }
 
                 if (isNodeStyle) {
@@ -20744,8 +20781,8 @@
       "ZXg6");
 
       function publishLast() {
-        var subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_0__["AsyncSubject"]();
         return function (source) {
+          var subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_0__["AsyncSubject"]();
           return new _observable_ConnectableObservable__WEBPACK_IMPORTED_MODULE_1__["ConnectableObservable"](source, function () {
             return subject;
           });
@@ -21267,8 +21304,8 @@
           value: function _hasHostAttributes() {
             var _this48 = this;
 
-            for (var _len27 = arguments.length, attributes = new Array(_len27), _key27 = 0; _key27 < _len27; _key27++) {
-              attributes[_key27] = arguments[_key27];
+            for (var _len28 = arguments.length, attributes = new Array(_len28), _key28 = 0; _key28 < _len28; _key28++) {
+              attributes[_key28] = arguments[_key28];
             }
 
             return attributes.some(function (attribute) {
@@ -22557,8 +22594,8 @@
       "ZXg6");
 
       function publishBehavior(initialValue) {
-        var subject = new _BehaviorSubject__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](initialValue);
         return function (source) {
+          var subject = new _BehaviorSubject__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](initialValue);
           return new _observable_ConnectableObservable__WEBPACK_IMPORTED_MODULE_1__["ConnectableObservable"](source, function () {
             return subject;
           });
@@ -25988,8 +26025,8 @@
       }
 
       function assertOneOf(value) {
-        for (var _len28 = arguments.length, validValues = new Array(_len28 > 1 ? _len28 - 1 : 0), _key28 = 1; _key28 < _len28; _key28++) {
-          validValues[_key28 - 1] = arguments[_key28];
+        for (var _len29 = arguments.length, validValues = new Array(_len29 > 1 ? _len29 - 1 : 0), _key29 = 1; _key29 < _len29; _key29++) {
+          validValues[_key29 - 1] = arguments[_key29];
         }
 
         if (validValues.indexOf(value) !== -1) return true;
@@ -30020,8 +30057,8 @@
           var metaCtor = makeMetadataCtor(props);
 
           function DecoratorFactory() {
-            for (var _len29 = arguments.length, args = new Array(_len29), _key29 = 0; _key29 < _len29; _key29++) {
-              args[_key29] = arguments[_key29];
+            for (var _len30 = arguments.length, args = new Array(_len30), _key30 = 0; _key30 < _len30; _key30++) {
+              args[_key30] = arguments[_key30];
             }
 
             if (this instanceof DecoratorFactory) {
@@ -30071,8 +30108,8 @@
           var metaCtor = makeMetadataCtor(props);
 
           function ParamDecoratorFactory() {
-            for (var _len30 = arguments.length, args = new Array(_len30), _key30 = 0; _key30 < _len30; _key30++) {
-              args[_key30] = arguments[_key30];
+            for (var _len31 = arguments.length, args = new Array(_len31), _key31 = 0; _key31 < _len31; _key31++) {
+              args[_key31] = arguments[_key31];
             }
 
             if (this instanceof ParamDecoratorFactory) {
@@ -30117,8 +30154,8 @@
           var metaCtor = makeMetadataCtor(props);
 
           function PropDecoratorFactory() {
-            for (var _len31 = arguments.length, args = new Array(_len31), _key31 = 0; _key31 < _len31; _key31++) {
-              args[_key31] = arguments[_key31];
+            for (var _len32 = arguments.length, args = new Array(_len32), _key32 = 0; _key32 < _len32; _key32++) {
+              args[_key32] = arguments[_key32];
             }
 
             if (this instanceof PropDecoratorFactory) {
@@ -30961,8 +30998,8 @@
           key: "factory",
           value: function factory(t) {
             return function () {
-              for (var _len32 = arguments.length, args = new Array(_len32), _key32 = 0; _key32 < _len32; _key32++) {
-                args[_key32] = arguments[_key32];
+              for (var _len33 = arguments.length, args = new Array(_len33), _key33 = 0; _key33 < _len33; _key33++) {
+                args[_key33] = arguments[_key33];
               }
 
               return _construct(t, args);
@@ -31877,8 +31914,8 @@
           throw new Error('newTrustedFunctionForDev should never be called in production');
         }
 
-        for (var _len33 = arguments.length, args = new Array(_len33), _key33 = 0; _key33 < _len33; _key33++) {
-          args[_key33] = arguments[_key33];
+        for (var _len34 = arguments.length, args = new Array(_len34), _key34 = 0; _key34 < _len34; _key34++) {
+          args[_key34] = arguments[_key34];
         }
 
         if (!_global.trustedTypes) {
@@ -32503,8 +32540,8 @@
       function merge() {
         var res = {};
 
-        for (var _len34 = arguments.length, sets = new Array(_len34), _key34 = 0; _key34 < _len34; _key34++) {
-          sets[_key34] = arguments[_key34];
+        for (var _len35 = arguments.length, sets = new Array(_len35), _key35 = 0; _key35 < _len35; _key35++) {
+          sets[_key35] = arguments[_key35];
         }
 
         for (var _i2 = 0, _sets = sets; _i2 < _sets.length; _i2++) {
@@ -33109,8 +33146,8 @@
       }
 
       function defaultErrorLogger(console) {
-        for (var _len35 = arguments.length, values = new Array(_len35 > 1 ? _len35 - 1 : 0), _key35 = 1; _key35 < _len35; _key35++) {
-          values[_key35 - 1] = arguments[_key35];
+        for (var _len36 = arguments.length, values = new Array(_len36 > 1 ? _len36 - 1 : 0), _key36 = 1; _key36 < _len36; _key36++) {
+          values[_key36 - 1] = arguments[_key36];
         }
 
         console.error.apply(console, values);
@@ -33350,8 +33387,8 @@
 
       function camelCaseToDashCase(input) {
         return input.replace(CAMEL_CASE_REGEXP, function () {
-          for (var _len36 = arguments.length, m = new Array(_len36), _key36 = 0; _key36 < _len36; _key36++) {
-            m[_key36] = arguments[_key36];
+          for (var _len37 = arguments.length, m = new Array(_len37), _key37 = 0; _key37 < _len37; _key37++) {
+            m[_key37] = arguments[_key37];
           }
 
           return '-' + m[1].toLowerCase();
@@ -38935,8 +38972,8 @@
             propBindingIdxs.push(bindingIndex);
             var bindingMetadata = propertyName;
 
-            for (var _len37 = arguments.length, interpolationParts = new Array(_len37 > 4 ? _len37 - 4 : 0), _key37 = 4; _key37 < _len37; _key37++) {
-              interpolationParts[_key37 - 4] = arguments[_key37];
+            for (var _len38 = arguments.length, interpolationParts = new Array(_len38 > 4 ? _len38 - 4 : 0), _key38 = 4; _key38 < _len38; _key38++) {
+              interpolationParts[_key38 - 4] = arguments[_key38];
             }
 
             if (interpolationParts.length > 0) {
@@ -65811,8 +65848,8 @@
         function debugCheckDirectivesFn(view, nodeIndex, argStyle) {
           var nodeDef = view.def.nodes[nodeIndex];
 
-          for (var _len38 = arguments.length, values = new Array(_len38 > 3 ? _len38 - 3 : 0), _key38 = 3; _key38 < _len38; _key38++) {
-            values[_key38 - 3] = arguments[_key38];
+          for (var _len39 = arguments.length, values = new Array(_len39 > 3 ? _len39 - 3 : 0), _key39 = 3; _key39 < _len39; _key39++) {
+            values[_key39 - 3] = arguments[_key39];
           }
 
           if (checkType === 0
@@ -65848,8 +65885,8 @@
         function debugCheckRenderNodeFn(view, nodeIndex, argStyle) {
           var nodeDef = view.def.nodes[nodeIndex];
 
-          for (var _len39 = arguments.length, values = new Array(_len39 > 3 ? _len39 - 3 : 0), _key39 = 3; _key39 < _len39; _key39++) {
-            values[_key39 - 3] = arguments[_key39];
+          for (var _len40 = arguments.length, values = new Array(_len40 > 3 ? _len40 - 3 : 0), _key40 = 3; _key40 < _len40; _key40++) {
+            values[_key40 - 3] = arguments[_key40];
           }
 
           if (checkType === 0
@@ -66063,8 +66100,8 @@
         }, {
           key: "logError",
           value: function logError(console) {
-            for (var _len40 = arguments.length, values = new Array(_len40 > 1 ? _len40 - 1 : 0), _key40 = 1; _key40 < _len40; _key40++) {
-              values[_key40 - 1] = arguments[_key40];
+            for (var _len41 = arguments.length, values = new Array(_len41 > 1 ? _len41 - 1 : 0), _key41 = 1; _key41 < _len41; _key41++) {
+              values[_key41 - 1] = arguments[_key41];
             }
 
             var logViewDef;
@@ -66749,8 +66786,8 @@
       "1lu8");
 
       function concat() {
-        for (var _len41 = arguments.length, args = new Array(_len41), _key41 = 0; _key41 < _len41; _key41++) {
-          args[_key41] = arguments[_key41];
+        for (var _len42 = arguments.length, args = new Array(_len42), _key42 = 0; _key42 < _len42; _key42++) {
+          args[_key42] = arguments[_key42];
         }
 
         return Object(_operators_concatAll__WEBPACK_IMPORTED_MODULE_0__["concatAll"])()(Object(_fromArray__WEBPACK_IMPORTED_MODULE_1__["internalFromArray"])(args, Object(_util_args__WEBPACK_IMPORTED_MODULE_2__["popScheduler"])(args)));
@@ -67433,8 +67470,8 @@
       function windowTime(windowTimeSpan) {
         var _a, _b;
 
-        for (var _len42 = arguments.length, otherArgs = new Array(_len42 > 1 ? _len42 - 1 : 0), _key42 = 1; _key42 < _len42; _key42++) {
-          otherArgs[_key42 - 1] = arguments[_key42];
+        for (var _len43 = arguments.length, otherArgs = new Array(_len43 > 1 ? _len43 - 1 : 0), _key43 = 1; _key43 < _len43; _key43++) {
+          otherArgs[_key43 - 1] = arguments[_key43];
         }
 
         var scheduler = (_a = Object(_util_args__WEBPACK_IMPORTED_MODULE_6__["popScheduler"])(otherArgs)) !== null && _a !== void 0 ? _a : _scheduler_async__WEBPACK_IMPORTED_MODULE_1__["asyncScheduler"];
@@ -68365,8 +68402,8 @@
 
       function camelCaseToDashCase(input) {
         return input.replace(CAMEL_CASE_REGEXP, function () {
-          for (var _len43 = arguments.length, m = new Array(_len43), _key43 = 0; _key43 < _len43; _key43++) {
-            m[_key43] = arguments[_key43];
+          for (var _len44 = arguments.length, m = new Array(_len44), _key44 = 0; _key44 < _len44; _key44++) {
+            m[_key44] = arguments[_key44];
           }
 
           return '-' + m[1].toLowerCase();
@@ -68375,8 +68412,8 @@
 
       function dashCaseToCamelCase(input) {
         return input.replace(DASH_CASE_REGEXP, function () {
-          for (var _len44 = arguments.length, m = new Array(_len44), _key44 = 0; _key44 < _len44; _key44++) {
-            m[_key44] = arguments[_key44];
+          for (var _len45 = arguments.length, m = new Array(_len45), _key45 = 0; _key45 < _len45; _key45++) {
+            m[_key45] = arguments[_key45];
           }
 
           return m[1].toUpperCase();
@@ -71691,8 +71728,8 @@
       "MRCm");
 
       function onErrorResumeNext() {
-        for (var _len45 = arguments.length, sources = new Array(_len45), _key45 = 0; _key45 < _len45; _key45++) {
-          sources[_key45] = arguments[_key45];
+        for (var _len46 = arguments.length, sources = new Array(_len46), _key46 = 0; _key46 < _len46; _key46++) {
+          sources[_key46] = arguments[_key46];
         }
 
         var nextSources = Object(_util_argsOrArgArray__WEBPACK_IMPORTED_MODULE_2__["argsOrArgArray"])(sources);
@@ -71756,24 +71793,40 @@
       /* harmony import */
 
 
-      var _Subject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var _observable_from__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ../observable/from */
+      "g/MW");
+      /* harmony import */
+
+
+      var _Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! ../Subject */
       "oXA7");
       /* harmony import */
 
 
-      var _util_lift__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _util_lift__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ../util/lift */
       "EPzc");
       /* harmony import */
 
 
-      var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ./OperatorSubscriber */
       "xt23");
 
-      function groupBy(keySelector, elementSelector, durationSelector, subjectSelector) {
-        return Object(_util_lift__WEBPACK_IMPORTED_MODULE_2__["operate"])(function (source, subscriber) {
+      function groupBy(keySelector, elementOrOptions, duration, connector) {
+        return Object(_util_lift__WEBPACK_IMPORTED_MODULE_3__["operate"])(function (source, subscriber) {
+          var element;
+
+          if (!elementOrOptions || typeof elementOrOptions === 'function') {
+            element = elementOrOptions;
+          } else {
+            duration = elementOrOptions.duration;
+            element = elementOrOptions.element;
+            connector = elementOrOptions.connector;
+          }
+
           var groups = new Map();
 
           var notify = function notify(cb) {
@@ -71793,22 +71846,22 @@
               var group = groups.get(key);
 
               if (!group) {
-                groups.set(key, group = subjectSelector ? subjectSelector() : new _Subject__WEBPACK_IMPORTED_MODULE_1__["Subject"]());
+                groups.set(key, group = connector ? connector() : new _Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]());
                 var grouped = createGroupedObservable(key, group);
                 subscriber.next(grouped);
 
-                if (durationSelector) {
-                  var durationSubscriber = new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_3__["OperatorSubscriber"](group, function () {
+                if (duration) {
+                  var durationSubscriber = new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_4__["OperatorSubscriber"](group, function () {
                     group.complete();
                     durationSubscriber === null || durationSubscriber === void 0 ? void 0 : durationSubscriber.unsubscribe();
                   }, undefined, undefined, function () {
                     return groups["delete"](key);
                   });
-                  groupBySourceSubscriber.add(durationSelector(grouped).subscribe(durationSubscriber));
+                  groupBySourceSubscriber.add(Object(_observable_from__WEBPACK_IMPORTED_MODULE_1__["innerFrom"])(duration(grouped)).subscribe(durationSubscriber));
                 }
               }
 
-              group.next(elementSelector ? elementSelector(value) : value);
+              group.next(element ? element(value) : value);
             } catch (err) {
               handleError(err);
             }
@@ -71861,7 +71914,7 @@
         }]);
 
         return GroupBySubscriber;
-      }(_OperatorSubscriber__WEBPACK_IMPORTED_MODULE_3__["OperatorSubscriber"]); //# sourceMappingURL=groupBy.js.map
+      }(_OperatorSubscriber__WEBPACK_IMPORTED_MODULE_4__["OperatorSubscriber"]); //# sourceMappingURL=groupBy.js.map
 
       /***/
 
@@ -71912,8 +71965,8 @@
 
         return new _Observable__WEBPACK_IMPORTED_MODULE_0__["Observable"](function (subscriber) {
           var handler = function handler() {
-            for (var _len46 = arguments.length, e = new Array(_len46), _key46 = 0; _key46 < _len46; _key46++) {
-              e[_key46] = arguments[_key46];
+            for (var _len47 = arguments.length, e = new Array(_len47), _key47 = 0; _key47 < _len47; _key47++) {
+              e[_key47] = arguments[_key47];
             }
 
             return subscriber.next(e.length === 1 ? e[0] : e);
@@ -72307,8 +72360,8 @@
       "xt23");
 
       function combineLatest() {
-        for (var _len47 = arguments.length, args = new Array(_len47), _key47 = 0; _key47 < _len47; _key47++) {
-          args[_key47] = arguments[_key47];
+        for (var _len48 = arguments.length, args = new Array(_len48), _key48 = 0; _key48 < _len48; _key48++) {
+          args[_key48] = arguments[_key48];
         }
 
         var scheduler = Object(_util_args__WEBPACK_IMPORTED_MODULE_5__["popScheduler"])(args);
@@ -73530,6 +73583,13 @@
           value: function unsubscribe() {
             this.isStopped = this.closed = true;
             this.observers = null;
+          }
+        }, {
+          key: "observed",
+          get: function get() {
+            var _a;
+
+            return ((_a = this.observers) === null || _a === void 0 ? void 0 : _a.length) > 0;
           }
         }, {
           key: "_trySubscribe",
@@ -82043,8 +82103,8 @@
       "TYm1");
 
       function pipe() {
-        for (var _len48 = arguments.length, fns = new Array(_len48), _key48 = 0; _key48 < _len48; _key48++) {
-          fns[_key48] = arguments[_key48];
+        for (var _len49 = arguments.length, fns = new Array(_len49), _key49 = 0; _key49 < _len49; _key49++) {
+          fns[_key49] = arguments[_key49];
         }
 
         return pipeFromArray(fns);
@@ -83214,14 +83274,14 @@
           styleAttrValue += getStyleAttributeString(element, key, element.style.getPropertyValue(key));
         }
 
-        for (var _key49 in element.style) {
+        for (var _key50 in element.style) {
           // Skip internal Domino properties that don't need to be reflected.
-          if (!element.style.hasOwnProperty(_key49) || _key49.startsWith('_')) {
+          if (!element.style.hasOwnProperty(_key50) || _key50.startsWith('_')) {
             continue;
           }
 
-          var dashKey = camelCaseToDashCase(_key49);
-          styleAttrValue += getStyleAttributeString(element, dashKey, element.style[_key49]);
+          var dashKey = camelCaseToDashCase(_key50);
+          styleAttrValue += getStyleAttributeString(element, dashKey, element.style[_key50]);
         }
 
         element.setAttribute('style', styleAttrValue);
@@ -83330,8 +83390,8 @@
 
       function dashCaseToCamelCase(input) {
         return input.replace(DASH_CASE_REGEXP, function () {
-          for (var _len49 = arguments.length, m = new Array(_len49), _key50 = 0; _key50 < _len49; _key50++) {
-            m[_key50] = arguments[_key50];
+          for (var _len50 = arguments.length, m = new Array(_len50), _key51 = 0; _key51 < _len50; _key51++) {
+            m[_key51] = arguments[_key51];
           }
 
           return m[1].toUpperCase();
@@ -100621,8 +100681,8 @@
             var politeness;
             var duration;
 
-            for (var _len50 = arguments.length, args = new Array(_len50 > 1 ? _len50 - 1 : 0), _key51 = 1; _key51 < _len50; _key51++) {
-              args[_key51 - 1] = arguments[_key51];
+            for (var _len51 = arguments.length, args = new Array(_len51 > 1 ? _len51 - 1 : 0), _key52 = 1; _key52 < _len51; _key52++) {
+              args[_key52 - 1] = arguments[_key52];
             }
 
             if (args.length === 1 && typeof args[0] === 'number') {
@@ -102089,8 +102149,8 @@
       "VTNJ");
 
       function race() {
-        for (var _len51 = arguments.length, args = new Array(_len51), _key52 = 0; _key52 < _len51; _key52++) {
-          args[_key52] = arguments[_key52];
+        for (var _len52 = arguments.length, args = new Array(_len52), _key53 = 0; _key53 < _len52; _key53++) {
+          args[_key53] = arguments[_key53];
         }
 
         return Object(_raceWith__WEBPACK_IMPORTED_MODULE_1__["raceWith"]).apply(void 0, _toConsumableArray(Object(_util_argsOrArgArray__WEBPACK_IMPORTED_MODULE_0__["argsOrArgArray"])(args)));
@@ -102674,8 +102734,8 @@
       "rdQv");
 
       function pluck() {
-        for (var _len52 = arguments.length, properties = new Array(_len52), _key53 = 0; _key53 < _len52; _key53++) {
-          properties[_key53] = arguments[_key53];
+        for (var _len53 = arguments.length, properties = new Array(_len53), _key54 = 0; _key54 < _len53; _key54++) {
+          properties[_key54] = arguments[_key54];
         }
 
         var length = properties.length;
@@ -103062,8 +103122,8 @@
       "1lu8");
 
       function concat() {
-        for (var _len53 = arguments.length, args = new Array(_len53), _key54 = 0; _key54 < _len53; _key54++) {
-          args[_key54] = arguments[_key54];
+        for (var _len54 = arguments.length, args = new Array(_len54), _key55 = 0; _key55 < _len54; _key55++) {
+          args[_key55] = arguments[_key55];
         }
 
         var scheduler = Object(_util_args__WEBPACK_IMPORTED_MODULE_3__["popScheduler"])(args);
@@ -103139,8 +103199,8 @@
       "rFin");
 
       function forkJoin() {
-        for (var _len54 = arguments.length, args = new Array(_len54), _key55 = 0; _key55 < _len54; _key55++) {
-          args[_key55] = arguments[_key55];
+        for (var _len55 = arguments.length, args = new Array(_len55), _key56 = 0; _key56 < _len55; _key56++) {
+          args[_key56] = arguments[_key56];
         }
 
         var resultSelector = Object(_util_args__WEBPACK_IMPORTED_MODULE_3__["popResultSelector"])(args);
@@ -103317,8 +103377,8 @@
       "EPzc");
 
       function startWith() {
-        for (var _len55 = arguments.length, values = new Array(_len55), _key56 = 0; _key56 < _len55; _key56++) {
-          values[_key56] = arguments[_key56];
+        for (var _len56 = arguments.length, values = new Array(_len56), _key57 = 0; _key57 < _len56; _key57++) {
+          values[_key57] = arguments[_key57];
         }
 
         var scheduler = Object(_util_args__WEBPACK_IMPORTED_MODULE_1__["popScheduler"])(values);

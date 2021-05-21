@@ -6187,8 +6187,7 @@ function publishReplay(bufferSize, windowTime, selectorOrScheduler, timestampPro
         timestampProvider = selectorOrScheduler;
     }
     const selector = Object(_util_isFunction__WEBPACK_IMPORTED_MODULE_2__["isFunction"])(selectorOrScheduler) ? selectorOrScheduler : undefined;
-    const subject = new _ReplaySubject__WEBPACK_IMPORTED_MODULE_0__["ReplaySubject"](bufferSize, windowTime, timestampProvider);
-    return (source) => Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(subject, selector)(source);
+    return (source) => Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(new _ReplaySubject__WEBPACK_IMPORTED_MODULE_0__["ReplaySubject"](bufferSize, windowTime, timestampProvider), selector)(source);
 }
 //# sourceMappingURL=publishReplay.js.map
 
@@ -7515,61 +7514,84 @@ function retryWhen(notifier) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "share", function() { return share; });
-/* harmony import */ var _Subject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Subject */ "oXA7");
-/* harmony import */ var _Subscriber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Subscriber */ "bx2D");
-/* harmony import */ var _observable_from__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../observable/from */ "g/MW");
-/* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/lift */ "EPzc");
+/* harmony import */ var _observable_from__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../observable/from */ "g/MW");
+/* harmony import */ var _operators_take__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../operators/take */ "nnEh");
+/* harmony import */ var _Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Subject */ "oXA7");
+/* harmony import */ var _Subscriber__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Subscriber */ "bx2D");
+/* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/lift */ "EPzc");
 
 
 
 
-function share(options) {
-    options = options || {};
-    const { connector = () => new _Subject__WEBPACK_IMPORTED_MODULE_0__["Subject"](), resetOnComplete = true, resetOnError = true, resetOnRefCountZero = true } = options;
-    let connection = null;
-    let subject = null;
-    let refCount = 0;
-    let hasCompleted = false;
-    let hasErrored = false;
-    const reset = () => {
-        connection = subject = null;
-        hasCompleted = hasErrored = false;
-    };
-    return Object(_util_lift__WEBPACK_IMPORTED_MODULE_3__["operate"])((source, subscriber) => {
-        refCount++;
-        subject = subject !== null && subject !== void 0 ? subject : connector();
-        subscriber.add(() => {
-            refCount--;
-            if (resetOnRefCountZero && !refCount && !hasErrored && !hasCompleted) {
-                const conn = connection;
-                reset();
-                conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
+
+function share(options = {}) {
+    const { connector = () => new _Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"](), resetOnError = true, resetOnComplete = true, resetOnRefCountZero = true } = options;
+    return (wrapperSource) => {
+        let connection = null;
+        let resetConnection = null;
+        let subject = null;
+        let refCount = 0;
+        let hasCompleted = false;
+        let hasErrored = false;
+        const cancelReset = () => {
+            resetConnection === null || resetConnection === void 0 ? void 0 : resetConnection.unsubscribe();
+            resetConnection = null;
+        };
+        const reset = () => {
+            cancelReset();
+            connection = subject = null;
+            hasCompleted = hasErrored = false;
+        };
+        const resetAndUnsubscribe = () => {
+            const conn = connection;
+            reset();
+            conn === null || conn === void 0 ? void 0 : conn.unsubscribe();
+        };
+        return Object(_util_lift__WEBPACK_IMPORTED_MODULE_4__["operate"])((source, subscriber) => {
+            refCount++;
+            if (!hasErrored && !hasCompleted) {
+                cancelReset();
             }
-        });
-        subject.subscribe(subscriber);
-        if (!connection) {
-            connection = new _Subscriber__WEBPACK_IMPORTED_MODULE_1__["SafeSubscriber"]({
-                next: (value) => subject.next(value),
-                error: (err) => {
-                    hasErrored = true;
-                    const dest = subject;
-                    if (resetOnError) {
-                        reset();
-                    }
-                    dest.error(err);
-                },
-                complete: () => {
-                    hasCompleted = true;
-                    const dest = subject;
-                    if (resetOnComplete) {
-                        reset();
-                    }
-                    dest.complete();
-                },
+            const dest = (subject = subject !== null && subject !== void 0 ? subject : connector());
+            subscriber.add(() => {
+                refCount--;
+                if (refCount === 0 && !hasErrored && !hasCompleted) {
+                    resetConnection = handleReset(resetAndUnsubscribe, resetOnRefCountZero);
+                }
             });
-            Object(_observable_from__WEBPACK_IMPORTED_MODULE_2__["from"])(source).subscribe(connection);
-        }
-    });
+            dest.subscribe(subscriber);
+            if (!connection) {
+                connection = new _Subscriber__WEBPACK_IMPORTED_MODULE_3__["SafeSubscriber"]({
+                    next: (value) => dest.next(value),
+                    error: (err) => {
+                        hasErrored = true;
+                        cancelReset();
+                        resetConnection = handleReset(reset, resetOnError, err);
+                        dest.error(err);
+                    },
+                    complete: () => {
+                        hasCompleted = true;
+                        cancelReset();
+                        resetConnection = handleReset(reset, resetOnComplete);
+                        dest.complete();
+                    },
+                });
+                Object(_observable_from__WEBPACK_IMPORTED_MODULE_0__["from"])(source).subscribe(connection);
+            }
+        })(wrapperSource);
+    };
+}
+function handleReset(reset, on, ...args) {
+    if (on === true) {
+        reset();
+        return null;
+    }
+    if (on === false) {
+        return null;
+    }
+    return on(...args)
+        .pipe(Object(_operators_take__WEBPACK_IMPORTED_MODULE_1__["take"])(1))
+        .subscribe(() => reset());
 }
 //# sourceMappingURL=share.js.map
 
@@ -9781,7 +9803,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function publish(selector) {
-    return selector ? Object(_connect__WEBPACK_IMPORTED_MODULE_2__["connect"])(selector) : Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(new _Subject__WEBPACK_IMPORTED_MODULE_0__["Subject"]());
+    return selector ? (source) => Object(_connect__WEBPACK_IMPORTED_MODULE_2__["connect"])(selector)(source) : (source) => Object(_multicast__WEBPACK_IMPORTED_MODULE_1__["multicast"])(new _Subject__WEBPACK_IMPORTED_MODULE_0__["Subject"]())(source);
 }
 //# sourceMappingURL=publish.js.map
 
@@ -11098,8 +11120,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function publishLast() {
-    const subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_0__["AsyncSubject"]();
-    return (source) => new _observable_ConnectableObservable__WEBPACK_IMPORTED_MODULE_1__["ConnectableObservable"](source, () => subject);
+    return (source) => {
+        const subject = new _AsyncSubject__WEBPACK_IMPORTED_MODULE_0__["AsyncSubject"]();
+        return new _observable_ConnectableObservable__WEBPACK_IMPORTED_MODULE_1__["ConnectableObservable"](source, () => subject);
+    };
 }
 //# sourceMappingURL=publishLast.js.map
 
@@ -12082,8 +12106,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function publishBehavior(initialValue) {
-    const subject = new _BehaviorSubject__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](initialValue);
-    return (source) => new _observable_ConnectableObservable__WEBPACK_IMPORTED_MODULE_1__["ConnectableObservable"](source, () => subject);
+    return (source) => {
+        const subject = new _BehaviorSubject__WEBPACK_IMPORTED_MODULE_0__["BehaviorSubject"](initialValue);
+        return new _observable_ConnectableObservable__WEBPACK_IMPORTED_MODULE_1__["ConnectableObservable"](source, () => subject);
+    };
 }
 //# sourceMappingURL=publishBehavior.js.map
 
@@ -48773,15 +48799,24 @@ function onErrorResumeNext(...sources) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "groupBy", function() { return groupBy; });
 /* harmony import */ var _Observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Observable */ "SIQg");
-/* harmony import */ var _Subject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Subject */ "oXA7");
-/* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/lift */ "EPzc");
-/* harmony import */ var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OperatorSubscriber */ "xt23");
+/* harmony import */ var _observable_from__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../observable/from */ "g/MW");
+/* harmony import */ var _Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Subject */ "oXA7");
+/* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/lift */ "EPzc");
+/* harmony import */ var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./OperatorSubscriber */ "xt23");
 
 
 
 
-function groupBy(keySelector, elementSelector, durationSelector, subjectSelector) {
-    return Object(_util_lift__WEBPACK_IMPORTED_MODULE_2__["operate"])((source, subscriber) => {
+
+function groupBy(keySelector, elementOrOptions, duration, connector) {
+    return Object(_util_lift__WEBPACK_IMPORTED_MODULE_3__["operate"])((source, subscriber) => {
+        let element;
+        if (!elementOrOptions || typeof elementOrOptions === 'function') {
+            element = elementOrOptions;
+        }
+        else {
+            ({ duration, element, connector } = elementOrOptions);
+        }
         const groups = new Map();
         const notify = (cb) => {
             groups.forEach(cb);
@@ -48793,18 +48828,18 @@ function groupBy(keySelector, elementSelector, durationSelector, subjectSelector
                 const key = keySelector(value);
                 let group = groups.get(key);
                 if (!group) {
-                    groups.set(key, (group = subjectSelector ? subjectSelector() : new _Subject__WEBPACK_IMPORTED_MODULE_1__["Subject"]()));
+                    groups.set(key, (group = connector ? connector() : new _Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]()));
                     const grouped = createGroupedObservable(key, group);
                     subscriber.next(grouped);
-                    if (durationSelector) {
-                        const durationSubscriber = new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_3__["OperatorSubscriber"](group, () => {
+                    if (duration) {
+                        const durationSubscriber = new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_4__["OperatorSubscriber"](group, () => {
                             group.complete();
                             durationSubscriber === null || durationSubscriber === void 0 ? void 0 : durationSubscriber.unsubscribe();
                         }, undefined, undefined, () => groups.delete(key));
-                        groupBySourceSubscriber.add(durationSelector(grouped).subscribe(durationSubscriber));
+                        groupBySourceSubscriber.add(Object(_observable_from__WEBPACK_IMPORTED_MODULE_1__["innerFrom"])(duration(grouped)).subscribe(durationSubscriber));
                     }
                 }
-                group.next(elementSelector ? elementSelector(value) : value);
+                group.next(element ? element(value) : value);
             }
             catch (err) {
                 handleError(err);
@@ -48827,7 +48862,7 @@ function groupBy(keySelector, elementSelector, durationSelector, subjectSelector
         }
     });
 }
-class GroupBySubscriber extends _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_3__["OperatorSubscriber"] {
+class GroupBySubscriber extends _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_4__["OperatorSubscriber"] {
     constructor() {
         super(...arguments);
         this.activeGroups = 0;
@@ -49856,6 +49891,10 @@ class Subject extends _Observable__WEBPACK_IMPORTED_MODULE_0__["Observable"] {
     unsubscribe() {
         this.isStopped = this.closed = true;
         this.observers = null;
+    }
+    get observed() {
+        var _a;
+        return ((_a = this.observers) === null || _a === void 0 ? void 0 : _a.length) > 0;
     }
     _trySubscribe(subscriber) {
         this._throwIfClosed();
