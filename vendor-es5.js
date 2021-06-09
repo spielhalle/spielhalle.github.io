@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1880,7 +1880,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15879,7 +15879,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -22873,7 +22873,8 @@
 
         _createClass2(_CurrencyPipe, [{
           key: "transform",
-          value: function transform(value, currencyCode) {
+          value: function transform(value) {
+            var currencyCode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._defaultCurrencyCode;
             var display = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'symbol';
             var digitsInfo = arguments.length > 3 ? arguments[3] : undefined;
             var locale = arguments.length > 4 ? arguments[4] : undefined;
@@ -23206,7 +23207,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.3');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27131,7 +27132,7 @@
       /*! rxjs/operators */
       88047);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -35083,6 +35084,10 @@
       };
       /**
        * Defines a schema that allows any property on any element.
+       *
+       * This schema allows you to ignore the errors related to any unknown elements or properties in a
+       * template. The usage of this schema is generally discouraged because it prevents useful validation
+       * and may hide real errors in your template. Consider using the `CUSTOM_ELEMENTS_SCHEMA` instead.
        *
        * @publicApi
        */
@@ -52535,6 +52540,9 @@
        * then use the factory's `create()` method to create a component of that type.
        *
        * @see [Dynamic Components](guide/dynamic-component-loader)
+       * @see [Usage Example](guide/dynamic-component-loader#resolving-components)
+       * @see <live-example name="dynamic-component-loader" noDownload></live-example>
+      of the code in this cookbook
        * @publicApi
        */
 
@@ -52822,7 +52830,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.0.3');
+      var _VERSION3 = new _Version('12.0.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -73984,7 +73992,7 @@
       /*! @angular/common */
       38583);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75378,7 +75386,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -78677,7 +78685,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.3');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79440,7 +79448,7 @@
       /*! rxjs/operators */
       70023);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -80787,6 +80795,8 @@
           return Array.isArray(value) ? value.map(function (v) {
             return "".concat(encodeUriQuery(name), "=").concat(encodeUriQuery(v));
           }).join('&') : "".concat(encodeUriQuery(name), "=").concat(encodeUriQuery(value));
+        }).filter(function (s) {
+          return !!s;
         });
         return strParams.length ? "?".concat(strParams.join('&')) : '';
       }
@@ -84732,8 +84742,16 @@
           this.routeReuseStrategy = new DefaultRouteReuseStrategy();
           /**
            * How to handle a navigation request to the current URL. One of:
+           *
            * - `'ignore'` :  The router ignores the request.
            * - `'reload'` : The router reloads the URL. Use to implement a "refresh" feature.
+           *
+           * Note that this only configures whether the Route reprocesses the URL and triggers related
+           * action and events like redirects, guards, and resolvers. By default, the router re-uses a
+           * component instance when it re-navigates to the same component type without visiting a different
+           * component first. This behavior is configured by the `RouteReuseStrategy`. In order to reload
+           * routed components on same url navigation, you need to set `onSameUrlNavigation` to `'reload'`
+           * _and_ provide a `RouteReuseStrategy` which returns `false` for `shouldReuseRoute`.
            */
 
           this.onSameUrlNavigation = 'ignore';
@@ -87781,7 +87799,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.3');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88008,7 +88026,7 @@
       /*! rxjs/operators */
       58252);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */

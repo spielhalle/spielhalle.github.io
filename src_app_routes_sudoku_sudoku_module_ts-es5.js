@@ -14635,7 +14635,7 @@
       /*! rxjs/operators */
       5207);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -18530,7 +18530,7 @@
       /*! rxjs/operators */
       5207);
       /**
-       * @license Angular v12.0.3
+       * @license Angular v12.0.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -27801,7 +27801,9 @@
         hostVars: 1,
         hostBindings: function MaxValidator_HostBindings(rf, ctx) {
           if (rf & 2) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("max", ctx.max ? ctx.max : null);
+            var tmp_b_0;
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("max", (tmp_b_0 = ctx.max) !== null && tmp_b_0 !== undefined ? tmp_b_0 : null);
           }
         },
         inputs: {
@@ -27822,7 +27824,7 @@
             selector: 'input[type=number][max][formControlName],input[type=number][max][formControl],input[type=number][max][ngModel]',
             providers: [MAX_VALIDATOR],
             host: {
-              '[attr.max]': 'max ? max : null'
+              '[attr.max]': 'max ?? null'
             }
           }]
         }], null, {
@@ -27925,7 +27927,9 @@
         hostVars: 1,
         hostBindings: function MinValidator_HostBindings(rf, ctx) {
           if (rf & 2) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("min", ctx.min ? ctx.min : null);
+            var tmp_b_0;
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("min", (tmp_b_0 = ctx.min) !== null && tmp_b_0 !== undefined ? tmp_b_0 : null);
           }
         },
         inputs: {
@@ -27946,7 +27950,7 @@
             selector: 'input[type=number][min][formControlName],input[type=number][min][formControl],input[type=number][min][ngModel]',
             providers: [MIN_VALIDATOR],
             host: {
-              '[attr.min]': 'min ? min : null'
+              '[attr.min]': 'min ?? null'
             }
           }]
         }], null, {
@@ -29018,7 +29022,7 @@
        */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.3');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.

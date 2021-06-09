@@ -8524,7 +8524,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 34689);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10920,7 +10920,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 62052);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -17367,7 +17367,8 @@ class MaxValidator extends AbstractValidatorDirective {
 }
 MaxValidator.ɵfac = /*@__PURE__*/ function () { let ɵMaxValidator_BaseFactory; return function MaxValidator_Factory(t) { return (ɵMaxValidator_BaseFactory || (ɵMaxValidator_BaseFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetInheritedFactory"](MaxValidator)))(t || MaxValidator); }; }();
 MaxValidator.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: MaxValidator, selectors: [["input", "type", "number", "max", "", "formControlName", ""], ["input", "type", "number", "max", "", "formControl", ""], ["input", "type", "number", "max", "", "ngModel", ""]], hostVars: 1, hostBindings: function MaxValidator_HostBindings(rf, ctx) { if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("max", ctx.max ? ctx.max : null);
+        let tmp_b_0;
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("max", (tmp_b_0 = ctx.max) !== null && tmp_b_0 !== undefined ? tmp_b_0 : null);
     } }, inputs: { max: "max" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([MAX_VALIDATOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]] });
 MaxValidator.propDecorators = {
     max: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input }]
@@ -17377,7 +17378,7 @@ MaxValidator.propDecorators = {
         args: [{
                 selector: 'input[type=number][max][formControlName],input[type=number][max][formControl],input[type=number][max][ngModel]',
                 providers: [MAX_VALIDATOR],
-                host: { '[attr.max]': 'max ? max : null' }
+                host: { '[attr.max]': 'max ?? null' }
             }]
     }], null, { max: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
@@ -17434,7 +17435,8 @@ class MinValidator extends AbstractValidatorDirective {
 }
 MinValidator.ɵfac = /*@__PURE__*/ function () { let ɵMinValidator_BaseFactory; return function MinValidator_Factory(t) { return (ɵMinValidator_BaseFactory || (ɵMinValidator_BaseFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetInheritedFactory"](MinValidator)))(t || MinValidator); }; }();
 MinValidator.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: MinValidator, selectors: [["input", "type", "number", "min", "", "formControlName", ""], ["input", "type", "number", "min", "", "formControl", ""], ["input", "type", "number", "min", "", "ngModel", ""]], hostVars: 1, hostBindings: function MinValidator_HostBindings(rf, ctx) { if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("min", ctx.min ? ctx.min : null);
+        let tmp_b_0;
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("min", (tmp_b_0 = ctx.min) !== null && tmp_b_0 !== undefined ? tmp_b_0 : null);
     } }, inputs: { min: "min" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([MIN_VALIDATOR]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]] });
 MinValidator.propDecorators = {
     min: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input }]
@@ -17444,7 +17446,7 @@ MinValidator.propDecorators = {
         args: [{
                 selector: 'input[type=number][min][formControlName],input[type=number][min][formControl],input[type=number][min][ngModel]',
                 providers: [MIN_VALIDATOR],
-                host: { '[attr.min]': 'min ? min : null' }
+                host: { '[attr.min]': 'min ?? null' }
             }]
     }], null, { min: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
@@ -18143,7 +18145,7 @@ FormBuilder.ɵprov = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.3');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
 
 /**
  * @license

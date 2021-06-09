@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1268,7 +1268,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 17238);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9783,7 +9783,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -14903,7 +14903,7 @@ class CurrencyPipe {
         this._locale = _locale;
         this._defaultCurrencyCode = _defaultCurrencyCode;
     }
-    transform(value, currencyCode, display = 'symbol', digitsInfo, locale) {
+    transform(value, currencyCode = this._defaultCurrencyCode, display = 'symbol', digitsInfo, locale) {
         if (!isValue(value))
             return null;
         locale = locale || this._locale;
@@ -15143,7 +15143,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.3');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
 
 /**
  * @license
@@ -15873,7 +15873,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 33763);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 88047);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -22421,6 +22421,10 @@ const CUSTOM_ELEMENTS_SCHEMA = {
 };
 /**
  * Defines a schema that allows any property on any element.
+ *
+ * This schema allows you to ignore the errors related to any unknown elements or properties in a
+ * template. The usage of this schema is generally discouraged because it prevents useful validation
+ * and may hide real errors in your template. Consider using the `CUSTOM_ELEMENTS_SCHEMA` instead.
  *
  * @publicApi
  */
@@ -37118,6 +37122,9 @@ class _NullComponentFactoryResolver {
  * then use the factory's `create()` method to create a component of that type.
  *
  * @see [Dynamic Components](guide/dynamic-component-loader)
+ * @see [Usage Example](guide/dynamic-component-loader#resolving-components)
+ * @see <live-example name="dynamic-component-loader" noDownload></live-example>
+of the code in this cookbook
  * @publicApi
  */
 class ComponentFactoryResolver {
@@ -37336,7 +37343,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.3');
+const VERSION = new Version('12.0.4');
 
 /**
  * @license
@@ -51958,7 +51965,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 93154);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 38583);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52572,7 +52579,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54709,7 +54716,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.3');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.4');
 
 /**
  * @license
@@ -54853,7 +54860,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 3050);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 70023);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -55825,12 +55832,14 @@ function serializeMatrixParams(params) {
         .join('');
 }
 function serializeQueryParams(params) {
-    const strParams = Object.keys(params).map((name) => {
+    const strParams = Object.keys(params)
+        .map((name) => {
         const value = params[name];
         return Array.isArray(value) ?
             value.map(v => `${encodeUriQuery(name)}=${encodeUriQuery(v)}`).join('&') :
             `${encodeUriQuery(name)}=${encodeUriQuery(value)}`;
-    });
+    })
+        .filter(s => !!s);
     return strParams.length ? `?${strParams.join('&')}` : '';
 }
 const SEGMENT_RE = /^[^\/()?;=#]+/;
@@ -58776,8 +58785,16 @@ class Router {
         this.routeReuseStrategy = new DefaultRouteReuseStrategy();
         /**
          * How to handle a navigation request to the current URL. One of:
+         *
          * - `'ignore'` :  The router ignores the request.
          * - `'reload'` : The router reloads the URL. Use to implement a "refresh" feature.
+         *
+         * Note that this only configures whether the Route reprocesses the URL and triggers related
+         * action and events like redirects, guards, and resolvers. By default, the router re-uses a
+         * component instance when it re-navigates to the same component type without visiting a different
+         * component first. This behavior is configured by the `RouteReuseStrategy`. In order to reload
+         * routed components on same url navigation, you need to set `onSameUrlNavigation` to `'reload'`
+         * _and_ provide a `RouteReuseStrategy` which returns `false` for `shouldReuseRoute`.
          */
         this.onSameUrlNavigation = 'ignore';
         /**
@@ -60880,7 +60897,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.3');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
 
 /**
  * @license
@@ -60961,7 +60978,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 99922);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 58252);
 /**
- * @license Angular v12.0.3
+ * @license Angular v12.0.4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
