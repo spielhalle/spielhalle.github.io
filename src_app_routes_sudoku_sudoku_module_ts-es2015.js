@@ -1259,10 +1259,13 @@ OverlayOutsideClickDispatcher.ctorParameters = () => [
  */
 /**
  * Whether we're in a testing environment.
- * TODO(crisbeto): remove this once we have an overlay testing module.
+ * TODO(crisbeto): remove this once we have an overlay testing module or Angular starts tearing
+ * down the testing `NgModule` (see https://github.com/angular/angular/issues/18831).
  */
-const isTestEnvironment = typeof window !== 'undefined' && !!window &&
-    !!(window.__karma__ || window.jasmine);
+const isTestEnvironment = (typeof __karma__ !== 'undefined' && !!__karma__) ||
+    (typeof jasmine !== 'undefined' && !!jasmine) ||
+    (typeof jest !== 'undefined' && !!jest) ||
+    (typeof Mocha !== 'undefined' && !!Mocha);
 /** Container inside which all overlays will render. */
 class OverlayContainer {
     constructor(document, _platform) {
@@ -18982,8 +18985,8 @@ class _MatDialogBase {
             { provide: this._dialogDataToken, useValue: config.data },
             { provide: this._dialogRefConstructor, useValue: dialogRef }
         ];
-        if (config.direction &&
-            (!userInjector || !userInjector.get(_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__.Directionality, null))) {
+        if (config.direction && (!userInjector ||
+            !userInjector.get(_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__.Directionality, null, _angular_core__WEBPACK_IMPORTED_MODULE_2__.InjectFlags.Optional))) {
             providers.push({
                 provide: _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__.Directionality,
                 useValue: { value: config.direction, change: (0,rxjs__WEBPACK_IMPORTED_MODULE_14__.of)() }
@@ -21042,10 +21045,6 @@ class MatSlider extends _MatSliderMixinBase {
     get min() { return this._min; }
     set min(v) {
         this._min = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(v, this._min);
-        // If the value wasn't explicitly set by the user, set it to the min.
-        if (this._value === null) {
-            this.value = this._min;
-        }
         this._percent = this._calculatePercentage(this._value);
         // Since this also modifies the percentage, we need to let the change detection know.
         this._changeDetectorRef.markForCheck();
@@ -21089,7 +21088,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     set value(v) {
         if (v !== this._value) {
-            let value = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(v);
+            let value = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(v, 0);
             // While incrementing by a decimal we can end up with values like 33.300000000000004.
             // Truncate it to ensure that it matches the label and to make it easier to work with.
             if (this._roundToDecimal && value !== this.min && value !== this.max) {
@@ -21521,7 +21520,7 @@ MatSlider.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵhostProperty"]("tabIndex", ctx.tabIndex);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵattribute"]("aria-disabled", ctx.disabled)("aria-valuemax", ctx.max)("aria-valuemin", ctx.min)("aria-valuenow", ctx.value)("aria-valuetext", ctx.valueText == null ? ctx.displayValue : ctx.valueText)("aria-orientation", ctx.vertical ? "vertical" : "horizontal");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵclassProp"]("mat-slider-disabled", ctx.disabled)("mat-slider-has-ticks", ctx.tickInterval)("mat-slider-horizontal", !ctx.vertical)("mat-slider-axis-inverted", ctx._shouldInvertAxis())("mat-slider-invert-mouse-coords", ctx._shouldInvertMouseCoords())("mat-slider-sliding", ctx._isSliding)("mat-slider-thumb-label-showing", ctx.thumbLabel)("mat-slider-vertical", ctx.vertical)("mat-slider-min-value", ctx._isMinValue())("mat-slider-hide-last-tick", ctx.disabled || ctx._isMinValue() && ctx._getThumbGap() && ctx._shouldInvertAxis())("_mat-animation-noopable", ctx._animationMode === "NoopAnimations");
-    } }, inputs: { disabled: "disabled", color: "color", tabIndex: "tabIndex", invert: "invert", max: "max", min: "min", value: "value", step: "step", thumbLabel: "thumbLabel", tickInterval: "tickInterval", vertical: "vertical", displayWith: "displayWith", valueText: "valueText" }, outputs: { change: "change", input: "input", valueChange: "valueChange" }, exportAs: ["matSlider"], features: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵProvidersFeature"]([MAT_SLIDER_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵInheritDefinitionFeature"]], decls: 13, vars: 6, consts: [[1, "mat-slider-wrapper"], ["sliderWrapper", ""], [1, "mat-slider-track-wrapper"], [1, "mat-slider-track-background", 3, "ngStyle"], [1, "mat-slider-track-fill", 3, "ngStyle"], [1, "mat-slider-ticks-container", 3, "ngStyle"], [1, "mat-slider-ticks", 3, "ngStyle"], [1, "mat-slider-thumb-container", 3, "ngStyle"], [1, "mat-slider-focus-ring"], [1, "mat-slider-thumb"], [1, "mat-slider-thumb-label"], [1, "mat-slider-thumb-label-text"]], template: function MatSlider_Template(rf, ctx) { if (rf & 1) {
+    } }, inputs: { disabled: "disabled", color: "color", tabIndex: "tabIndex", invert: "invert", max: "max", min: "min", step: "step", thumbLabel: "thumbLabel", tickInterval: "tickInterval", value: "value", vertical: "vertical", displayWith: "displayWith", valueText: "valueText" }, outputs: { change: "change", input: "input", valueChange: "valueChange" }, exportAs: ["matSlider"], features: [_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵProvidersFeature"]([MAT_SLIDER_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵInheritDefinitionFeature"]], decls: 13, vars: 6, consts: [[1, "mat-slider-wrapper"], ["sliderWrapper", ""], [1, "mat-slider-track-wrapper"], [1, "mat-slider-track-background", 3, "ngStyle"], [1, "mat-slider-track-fill", 3, "ngStyle"], [1, "mat-slider-ticks-container", 3, "ngStyle"], [1, "mat-slider-ticks", 3, "ngStyle"], [1, "mat-slider-thumb-container", 3, "ngStyle"], [1, "mat-slider-focus-ring"], [1, "mat-slider-thumb"], [1, "mat-slider-thumb-label"], [1, "mat-slider-thumb-label-text"]], template: function MatSlider_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 0, 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "div", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](3, "div", 3);
@@ -21654,13 +21653,13 @@ MatSlider.propDecorators = {
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
         }], min: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
-        }], value: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
         }], step: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
         }], thumbLabel: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
         }], tickInterval: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
+        }], value: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
         }], vertical: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input

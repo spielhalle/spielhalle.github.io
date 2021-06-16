@@ -2276,11 +2276,12 @@
 
       /**
        * Whether we're in a testing environment.
-       * TODO(crisbeto): remove this once we have an overlay testing module.
+       * TODO(crisbeto): remove this once we have an overlay testing module or Angular starts tearing
+       * down the testing `NgModule` (see https://github.com/angular/angular/issues/18831).
        */
 
 
-      var isTestEnvironment = typeof window !== 'undefined' && !!window && !!(window.__karma__ || window.jasmine);
+      var isTestEnvironment = typeof __karma__ !== 'undefined' && !!__karma__ || typeof jasmine !== 'undefined' && !!jasmine || typeof jest !== 'undefined' && !!jest || typeof Mocha !== 'undefined' && !!Mocha;
       /** Container inside which all overlays will render. */
 
       var _OverlayContainer = /*#__PURE__*/function () {
@@ -30468,7 +30469,7 @@
               useValue: dialogRef
             }];
 
-            if (config.direction && (!userInjector || !userInjector.get(_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__.Directionality, null))) {
+            if (config.direction && (!userInjector || !userInjector.get(_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__.Directionality, null, _angular_core__WEBPACK_IMPORTED_MODULE_2__.InjectFlags.Optional))) {
               providers.push({
                 provide: _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_13__.Directionality,
                 useValue: {
@@ -33985,12 +33986,7 @@
             return this._min;
           },
           set: function set(v) {
-            this._min = (0, _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(v, this._min); // If the value wasn't explicitly set by the user, set it to the min.
-
-            if (this._value === null) {
-              this.value = this._min;
-            }
-
+            this._min = (0, _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(v, this._min);
             this._percent = this._calculatePercentage(this._value); // Since this also modifies the percentage, we need to let the change detection know.
 
             this._changeDetectorRef.markForCheck();
@@ -34055,7 +34051,7 @@
           },
           set: function set(v) {
             if (v !== this._value) {
-              var value = (0, _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(v); // While incrementing by a decimal we can end up with values like 33.300000000000004.
+              var value = (0, _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(v, 0); // While incrementing by a decimal we can end up with values like 33.300000000000004.
               // Truncate it to ensure that it matches the label and to make it easier to work with.
 
               if (this._roundToDecimal && value !== this.min && value !== this.max) {
@@ -34699,10 +34695,10 @@
           invert: "invert",
           max: "max",
           min: "min",
-          value: "value",
           step: "step",
           thumbLabel: "thumbLabel",
           tickInterval: "tickInterval",
+          value: "value",
           vertical: "vertical",
           displayWith: "displayWith",
           valueText: "valueText"
@@ -34975,9 +34971,6 @@
           min: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
           }],
-          value: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
-          }],
           step: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
           }],
@@ -34985,6 +34978,9 @@
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
           }],
           tickInterval: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
+          }],
+          value: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input
           }],
           vertical: [{
