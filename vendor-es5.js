@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1880,7 +1880,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15879,7 +15879,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23207,7 +23207,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27132,7 +27132,7 @@
       /*! rxjs/operators */
       88047);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -28261,24 +28261,24 @@
        */
 
       function _ɵɵdefineNgModule(def) {
-        var res = {
-          type: def.type,
-          bootstrap: def.bootstrap || EMPTY_ARRAY,
-          declarations: def.declarations || EMPTY_ARRAY,
-          imports: def.imports || EMPTY_ARRAY,
-          exports: def.exports || EMPTY_ARRAY,
-          transitiveCompileScopes: null,
-          schemas: def.schemas || null,
-          id: def.id || null
-        };
+        return noSideEffects(function () {
+          var res = {
+            type: def.type,
+            bootstrap: def.bootstrap || EMPTY_ARRAY,
+            declarations: def.declarations || EMPTY_ARRAY,
+            imports: def.imports || EMPTY_ARRAY,
+            exports: def.exports || EMPTY_ARRAY,
+            transitiveCompileScopes: null,
+            schemas: def.schemas || null,
+            id: def.id || null
+          };
 
-        if (def.id != null) {
-          noSideEffects(function () {
+          if (def.id != null) {
             autoRegisterModuleById[def.id] = def.type;
-          });
-        }
+          }
 
-        return res;
+          return res;
+        });
       }
       /**
        * Adds the module metadata that is necessary to compute the module's transitive scope to an
@@ -52830,7 +52830,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.0.4');
+      var _VERSION3 = new _Version('12.0.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -73992,7 +73992,7 @@
       /*! @angular/common */
       38583);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75386,7 +75386,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -78685,7 +78685,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.4');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79448,7 +79448,7 @@
       /*! rxjs/operators */
       70023);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -84691,6 +84691,12 @@
 
           this.lastLocationChangeInfo = null;
           this.navigationId = 0;
+          /**
+           * The id of the currently active page in the router.
+           * Updated to the transition's target id on a successful navigation.
+           */
+
+          this.currentPageId = 0;
           this.isNgZoneEnabled = false;
           /**
            * An event stream for routing events in this NgModule.
@@ -84781,6 +84787,25 @@
            */
 
           this.relativeLinkResolution = 'corrected';
+          /**
+           * Configures how the Router attempts to restore state when a navigation is cancelled.
+           *
+           * 'replace' - Always uses `location.replaceState` to set the browser state to the state of the
+           * router before the navigation started.
+           *
+           * 'computed' - Will always return to the same state that corresponds to the actual Angular route
+           * when the navigation gets cancelled right after triggering a `popstate` event.
+           *
+           * The default value is `replace`
+           *
+           * @internal
+           */
+          // TODO(atscott): Determine how/when/if to make this public API
+          // This shouldn’t be an option at all but may need to be in order to allow migration without a
+          // breaking change. We need to determine if it should be made into public api (or if we forgo
+          // the option and release as a breaking change bug fix in a major version).
+
+          this.canceledNavigationResolution = 'replace';
 
           var onLoadStart = function onLoadStart(r) {
             return _this192.triggerEvent(new _RouteConfigLoadStart(r));
@@ -84802,6 +84827,7 @@
           this.routerState = createEmptyState(this.currentUrlTree, this.rootComponentType);
           this.transitions = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject({
             id: 0,
+            targetPageId: 0,
             currentUrlTree: this.currentUrlTree,
             currentRawUrl: this.currentUrlTree,
             extractedUrl: this.urlHandlingStrategy.extract(this.currentUrlTree),
@@ -84888,7 +84914,7 @@
                   (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
                     if (_this193.urlUpdateStrategy === 'eager') {
                       if (!t.extras.skipLocationChange) {
-                        _this193.setBrowserUrl(t.urlAfterRedirects, !!t.extras.replaceUrl, t.id, t.extras.state);
+                        _this193.setBrowserUrl(t.urlAfterRedirects, t);
                       }
 
                       _this193.browserUrlTree = t.urlAfterRedirects;
@@ -84973,11 +84999,8 @@
                 _this193.triggerEvent(guardsEnd);
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(function (t) {
                 if (!t.guardsResult) {
-                  _this193.resetUrlToCurrentUrlTree();
+                  _this193.cancelNavigationTransition(t, '');
 
-                  var navCancel = new _NavigationCancel(t.id, _this193.serializeUrl(t.extractedUrl), '');
-                  eventsSubject.next(navCancel);
-                  t.resolve(false);
                   return false;
                 }
 
@@ -84997,9 +85020,7 @@
                       },
                       complete: function complete() {
                         if (!dataResolved) {
-                          var navCancel = new _NavigationCancel(t.id, _this193.serializeUrl(t.extractedUrl), "At least one route resolver didn't emit any value.");
-                          eventsSubject.next(navCancel);
-                          t.resolve(false);
+                          _this193.cancelNavigationTransition(t, "At least one route resolver didn't emit any value.");
                         }
                       }
                     }));
@@ -85045,7 +85066,7 @@
 
                 if (_this193.urlUpdateStrategy === 'deferred') {
                   if (!t.extras.skipLocationChange) {
-                    _this193.setBrowserUrl(_this193.rawUrlTree, !!t.extras.replaceUrl, t.id, t.extras.state);
+                    _this193.setBrowserUrl(_this193.rawUrlTree, t);
                   }
 
                   _this193.browserUrlTree = t.urlAfterRedirects;
@@ -85075,11 +85096,7 @@
                   // sync code which looks for a value here in order to determine whether or
                   // not to handle a given popstate event or to leave it to the Angular
                   // router.
-                  _this193.resetUrlToCurrentUrlTree();
-
-                  var navCancel = new _NavigationCancel(t.id, _this193.serializeUrl(t.extractedUrl), "Navigation ID ".concat(t.id, " is not equal to the current navigation id ").concat(_this193.navigationId));
-                  eventsSubject.next(navCancel);
-                  t.resolve(false);
+                  _this193.cancelNavigationTransition(t, "Navigation ID ".concat(t.id, " is not equal to the current navigation id ").concat(_this193.navigationId));
                 } // currentNavigation should always be reset to null here. If navigation was
                 // successful, lastSuccessfulTransition will have already been set. Therefore
                 // we can safely set currentNavigation to null here.
@@ -85226,6 +85243,7 @@
                     if (state) {
                       var stateCopy = Object.assign({}, state);
                       delete stateCopy.navigationId;
+                      delete stateCopy.ɵrouterPageId;
 
                       if (Object.keys(stateCopy).length !== 0) {
                         extras.state = stateCopy;
@@ -85469,7 +85487,17 @@
 
             var urlTree = isUrlTree(url) ? url : this.parseUrl(url);
             var mergedTree = this.urlHandlingStrategy.merge(urlTree, this.rawUrlTree);
-            return this.scheduleNavigation(mergedTree, 'imperative', null, extras);
+            var restoredState = null;
+
+            if (this.canceledNavigationResolution === 'computed') {
+              var isInitialPage = this.currentPageId === 0;
+
+              if (isInitialPage || extras.skipLocationChange || extras.replaceUrl) {
+                restoredState = this.location.getState();
+              }
+            }
+
+            return this.scheduleNavigation(mergedTree, 'imperative', restoredState, extras);
           }
           /**
            * Navigate based on the provided array of commands and a starting point.
@@ -85574,6 +85602,7 @@
             this.navigations.subscribe(function (t) {
               _this195.navigated = true;
               _this195.lastSuccessfulId = t.id;
+              _this195.currentPageId = t.targetPageId;
 
               _this195.events.next(new _NavigationEnd(t.id, _this195.serializeUrl(t.extractedUrl), _this195.serializeUrl(_this195.currentUrlTree)));
 
@@ -85629,8 +85658,24 @@
             }
 
             var id = ++this.navigationId;
+            var targetPageId;
+
+            if (this.canceledNavigationResolution === 'computed') {
+              // If the `ɵrouterPageId` exist in the state then `targetpageId` should have the value of
+              // `ɵrouterPageId`
+              if (restoredState && restoredState.ɵrouterPageId) {
+                targetPageId = restoredState.ɵrouterPageId;
+              } else {
+                targetPageId = this.currentPageId + 1;
+              }
+            } else {
+              // This is unused when `canceledNavigationResolution` is not computed.
+              targetPageId = 0;
+            }
+
             this.setTransition({
               id: id,
+              targetPageId: targetPageId,
               source: source,
               restoredState: restoredState,
               currentUrlTree: this.currentUrlTree,
@@ -85651,19 +85696,14 @@
           }
         }, {
           key: "setBrowserUrl",
-          value: function setBrowserUrl(url, replaceUrl, id, state) {
+          value: function setBrowserUrl(url, t) {
             var path = this.urlSerializer.serialize(url);
-            state = state || {};
+            var state = Object.assign(Object.assign({}, t.extras.state), this.generateNgRouterState(t.id, t.targetPageId));
 
-            if (this.location.isCurrentPathEqualTo(path) || replaceUrl) {
-              // TODO(jasonaden): Remove first `navigationId` and rely on `ng` namespace.
-              this.location.replaceState(path, '', Object.assign(Object.assign({}, state), {
-                navigationId: id
-              }));
+            if (this.location.isCurrentPathEqualTo(path) || !!t.extras.replaceUrl) {
+              this.location.replaceState(path, '', state);
             } else {
-              this.location.go(path, '', Object.assign(Object.assign({}, state), {
-                navigationId: id
-              }));
+              this.location.go(path, '', state);
             }
           }
         }, {
@@ -85677,9 +85717,52 @@
         }, {
           key: "resetUrlToCurrentUrlTree",
           value: function resetUrlToCurrentUrlTree() {
-            this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree), '', {
-              navigationId: this.lastSuccessfulId
-            });
+            this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree), '', this.generateNgRouterState(this.lastSuccessfulId, this.currentPageId));
+          }
+          /**
+           * Responsible for handling the cancellation of a navigation:
+           * - performs the necessary rollback action to restore the browser URL to the
+           * state before the transition
+           * - triggers the `NavigationCancel` event
+           * - resolves the transition promise with `false`
+           */
+
+        }, {
+          key: "cancelNavigationTransition",
+          value: function cancelNavigationTransition(t, reason) {
+            if (this.canceledNavigationResolution === 'computed') {
+              // The navigator change the location before triggered the browser event,
+              // so we need to go back to the current url if the navigation is canceled.
+              // Also, when navigation gets cancelled while using url update strategy eager, then we need to
+              // go back. Because, when `urlUpdateSrategy` is `eager`; `setBrowserUrl` method is called
+              // before any verification.
+              if (t.source === 'popstate' || this.urlUpdateStrategy === 'eager') {
+                var targetPagePosition = this.currentPageId - t.targetPageId;
+                this.location.historyGo(targetPagePosition);
+              } else {// If update is not 'eager' and the transition navigation source isn't 'popstate', then the
+                // navigation was cancelled before any browser url change so nothing needs to be restored.
+              }
+            } else {
+              this.resetUrlToCurrentUrlTree();
+            }
+
+            var navCancel = new _NavigationCancel(t.id, this.serializeUrl(t.extractedUrl), reason);
+            this.triggerEvent(navCancel);
+            t.resolve(false);
+          }
+        }, {
+          key: "generateNgRouterState",
+          value: function generateNgRouterState(navigationId, routerPageId) {
+            if (this.canceledNavigationResolution === 'computed') {
+              return {
+                navigationId: navigationId,
+                ɵrouterPageId: routerPageId
+              };
+            }
+
+            return {
+              navigationId: navigationId
+            };
           }
         }]);
 
@@ -87799,7 +87882,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88026,7 +88109,7 @@
       /*! rxjs/operators */
       58252);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */

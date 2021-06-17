@@ -14636,7 +14636,7 @@
       /*! rxjs/operators */
       5207);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -18531,7 +18531,7 @@
       /*! rxjs/operators */
       5207);
       /**
-       * @license Angular v12.0.4
+       * @license Angular v12.0.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -21982,7 +21982,7 @@
             // `VALID` or `INVALID`.
             // The status should be broadcasted via the `statusChanges` observable, so we set `emitEvent`
             // to `true` to allow that during the control creation process.
-            emitEvent: !!asyncValidator
+            emitEvent: !!_this92.asyncValidator
           });
 
           return _this92;
@@ -22301,7 +22301,7 @@
             // If `asyncValidator` is present, it will trigger control status change from `PENDING` to
             // `VALID` or `INVALID`. The status should be broadcasted via the `statusChanges` observable,
             // so we set `emitEvent` to `true` to allow that during the control creation process.
-            emitEvent: !!asyncValidator
+            emitEvent: !!_this94.asyncValidator
           });
 
           return _this94;
@@ -22862,7 +22862,7 @@
             // `VALID` or `INVALID`.
             // The status should be broadcasted via the `statusChanges` observable, so we set `emitEvent`
             // to `true` to allow that during the control creation process.
-            emitEvent: !!asyncValidator
+            emitEvent: !!_this100.asyncValidator
           });
 
           return _this100;
@@ -23118,19 +23118,19 @@
            * ]);
            * arr.reset(['name', 'last name']);
            *
-           * console.log(this.arr.value);  // ['name', 'last name']
+           * console.log(arr.value);  // ['name', 'last name']
            * ```
            *
            * ### Reset the values in a form array and the disabled status for the first control
            *
            * ```
-           * this.arr.reset([
+           * arr.reset([
            *   {value: 'name', disabled: true},
            *   'last'
            * ]);
            *
-           * console.log(this.arr.value);  // ['name', 'last name']
-           * console.log(this.arr.get(0).status);  // 'DISABLED'
+           * console.log(arr.value);  // ['last']
+           * console.log(arr.at(0).status);  // 'DISABLED'
            * ```
            *
            * @param value Array of values for the controls
@@ -29023,7 +29023,7 @@
        */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.

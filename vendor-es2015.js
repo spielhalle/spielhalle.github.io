@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1268,7 +1268,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 17238);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9783,7 +9783,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15143,7 +15143,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
 
 /**
  * @license
@@ -15873,7 +15873,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 33763);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 88047);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -16821,22 +16821,22 @@ const autoRegisterModuleById = {};
  * @codeGenApi
  */
 function ɵɵdefineNgModule(def) {
-    const res = {
-        type: def.type,
-        bootstrap: def.bootstrap || EMPTY_ARRAY,
-        declarations: def.declarations || EMPTY_ARRAY,
-        imports: def.imports || EMPTY_ARRAY,
-        exports: def.exports || EMPTY_ARRAY,
-        transitiveCompileScopes: null,
-        schemas: def.schemas || null,
-        id: def.id || null,
-    };
-    if (def.id != null) {
-        noSideEffects(() => {
+    return noSideEffects(() => {
+        const res = {
+            type: def.type,
+            bootstrap: def.bootstrap || EMPTY_ARRAY,
+            declarations: def.declarations || EMPTY_ARRAY,
+            imports: def.imports || EMPTY_ARRAY,
+            exports: def.exports || EMPTY_ARRAY,
+            transitiveCompileScopes: null,
+            schemas: def.schemas || null,
+            id: def.id || null,
+        };
+        if (def.id != null) {
             autoRegisterModuleById[def.id] = def.type;
-        });
-    }
-    return res;
+        }
+        return res;
+    });
 }
 /**
  * Adds the module metadata that is necessary to compute the module's transitive scope to an
@@ -37343,7 +37343,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.4');
+const VERSION = new Version('12.0.5');
 
 /**
  * @license
@@ -51965,7 +51965,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 93154);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 38583);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52579,7 +52579,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54716,7 +54716,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.5');
 
 /**
  * @license
@@ -54860,7 +54860,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 3050);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 70023);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -58744,6 +58744,11 @@ class Router {
          */
         this.lastLocationChangeInfo = null;
         this.navigationId = 0;
+        /**
+         * The id of the currently active page in the router.
+         * Updated to the transition's target id on a successful navigation.
+         */
+        this.currentPageId = 0;
         this.isNgZoneEnabled = false;
         /**
          * An event stream for routing events in this NgModule.
@@ -58820,6 +58825,24 @@ class Router {
          * @see `RouterModule`
          */
         this.relativeLinkResolution = 'corrected';
+        /**
+         * Configures how the Router attempts to restore state when a navigation is cancelled.
+         *
+         * 'replace' - Always uses `location.replaceState` to set the browser state to the state of the
+         * router before the navigation started.
+         *
+         * 'computed' - Will always return to the same state that corresponds to the actual Angular route
+         * when the navigation gets cancelled right after triggering a `popstate` event.
+         *
+         * The default value is `replace`
+         *
+         * @internal
+         */
+        // TODO(atscott): Determine how/when/if to make this public API
+        // This shouldn’t be an option at all but may need to be in order to allow migration without a
+        // breaking change. We need to determine if it should be made into public api (or if we forgo
+        // the option and release as a breaking change bug fix in a major version).
+        this.canceledNavigationResolution = 'replace';
         const onLoadStart = (r) => this.triggerEvent(new RouteConfigLoadStart(r));
         const onLoadEnd = (r) => this.triggerEvent(new RouteConfigLoadEnd(r));
         this.ngModule = injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModuleRef);
@@ -58834,6 +58857,7 @@ class Router {
         this.routerState = createEmptyState(this.currentUrlTree, this.rootComponentType);
         this.transitions = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject({
             id: 0,
+            targetPageId: 0,
             currentUrlTree: this.currentUrlTree,
             currentRawUrl: this.currentUrlTree,
             extractedUrl: this.urlHandlingStrategy.extract(this.currentUrlTree),
@@ -58906,7 +58930,7 @@ class Router {
                     (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(t => {
                         if (this.urlUpdateStrategy === 'eager') {
                             if (!t.extras.skipLocationChange) {
-                                this.setBrowserUrl(t.urlAfterRedirects, !!t.extras.replaceUrl, t.id, t.extras.state);
+                                this.setBrowserUrl(t.urlAfterRedirects, t);
                             }
                             this.browserUrlTree = t.urlAfterRedirects;
                         }
@@ -58966,10 +58990,7 @@ class Router {
                 this.triggerEvent(guardsEnd);
             }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(t => {
                 if (!t.guardsResult) {
-                    this.resetUrlToCurrentUrlTree();
-                    const navCancel = new NavigationCancel(t.id, this.serializeUrl(t.extractedUrl), '');
-                    eventsSubject.next(navCancel);
-                    t.resolve(false);
+                    this.cancelNavigationTransition(t, '');
                     return false;
                 }
                 return true;
@@ -58986,9 +59007,7 @@ class Router {
                             next: () => dataResolved = true,
                             complete: () => {
                                 if (!dataResolved) {
-                                    const navCancel = new NavigationCancel(t.id, this.serializeUrl(t.extractedUrl), `At least one route resolver didn't emit any value.`);
-                                    eventsSubject.next(navCancel);
-                                    t.resolve(false);
+                                    this.cancelNavigationTransition(t, `At least one route resolver didn't emit any value.`);
                                 }
                             }
                         }));
@@ -59025,7 +59044,7 @@ class Router {
                 this.routerState = t.targetRouterState;
                 if (this.urlUpdateStrategy === 'deferred') {
                     if (!t.extras.skipLocationChange) {
-                        this.setBrowserUrl(this.rawUrlTree, !!t.extras.replaceUrl, t.id, t.extras.state);
+                        this.setBrowserUrl(this.rawUrlTree, t);
                     }
                     this.browserUrlTree = t.urlAfterRedirects;
                 }
@@ -59052,10 +59071,7 @@ class Router {
                     // sync code which looks for a value here in order to determine whether or
                     // not to handle a given popstate event or to leave it to the Angular
                     // router.
-                    this.resetUrlToCurrentUrlTree();
-                    const navCancel = new NavigationCancel(t.id, this.serializeUrl(t.extractedUrl), `Navigation ID ${t.id} is not equal to the current navigation id ${this.navigationId}`);
-                    eventsSubject.next(navCancel);
-                    t.resolve(false);
+                    this.cancelNavigationTransition(t, `Navigation ID ${t.id} is not equal to the current navigation id ${this.navigationId}`);
                 }
                 // currentNavigation should always be reset to null here. If navigation was
                 // successful, lastSuccessfulTransition will have already been set. Therefore
@@ -59167,6 +59183,7 @@ class Router {
                         if (state) {
                             const stateCopy = Object.assign({}, state);
                             delete stateCopy.navigationId;
+                            delete stateCopy.ɵrouterPageId;
                             if (Object.keys(stateCopy).length !== 0) {
                                 extras.state = stateCopy;
                             }
@@ -59361,7 +59378,14 @@ class Router {
         }
         const urlTree = isUrlTree(url) ? url : this.parseUrl(url);
         const mergedTree = this.urlHandlingStrategy.merge(urlTree, this.rawUrlTree);
-        return this.scheduleNavigation(mergedTree, 'imperative', null, extras);
+        let restoredState = null;
+        if (this.canceledNavigationResolution === 'computed') {
+            const isInitialPage = this.currentPageId === 0;
+            if (isInitialPage || extras.skipLocationChange || extras.replaceUrl) {
+                restoredState = this.location.getState();
+            }
+        }
+        return this.scheduleNavigation(mergedTree, 'imperative', restoredState, extras);
     }
     /**
      * Navigate based on the provided array of commands and a starting point.
@@ -59442,6 +59466,7 @@ class Router {
         this.navigations.subscribe(t => {
             this.navigated = true;
             this.lastSuccessfulId = t.id;
+            this.currentPageId = t.targetPageId;
             this.events
                 .next(new NavigationEnd(t.id, this.serializeUrl(t.extractedUrl), this.serializeUrl(this.currentUrlTree)));
             this.lastSuccessfulNavigation = this.currentNavigation;
@@ -59492,8 +59517,24 @@ class Router {
             });
         }
         const id = ++this.navigationId;
+        let targetPageId;
+        if (this.canceledNavigationResolution === 'computed') {
+            // If the `ɵrouterPageId` exist in the state then `targetpageId` should have the value of
+            // `ɵrouterPageId`
+            if (restoredState && restoredState.ɵrouterPageId) {
+                targetPageId = restoredState.ɵrouterPageId;
+            }
+            else {
+                targetPageId = this.currentPageId + 1;
+            }
+        }
+        else {
+            // This is unused when `canceledNavigationResolution` is not computed.
+            targetPageId = 0;
+        }
         this.setTransition({
             id,
+            targetPageId,
             source,
             restoredState,
             currentUrlTree: this.currentUrlTree,
@@ -59512,15 +59553,14 @@ class Router {
             return Promise.reject(e);
         });
     }
-    setBrowserUrl(url, replaceUrl, id, state) {
+    setBrowserUrl(url, t) {
         const path = this.urlSerializer.serialize(url);
-        state = state || {};
-        if (this.location.isCurrentPathEqualTo(path) || replaceUrl) {
-            // TODO(jasonaden): Remove first `navigationId` and rely on `ng` namespace.
-            this.location.replaceState(path, '', Object.assign(Object.assign({}, state), { navigationId: id }));
+        const state = Object.assign(Object.assign({}, t.extras.state), this.generateNgRouterState(t.id, t.targetPageId));
+        if (this.location.isCurrentPathEqualTo(path) || !!t.extras.replaceUrl) {
+            this.location.replaceState(path, '', state);
         }
         else {
-            this.location.go(path, '', Object.assign(Object.assign({}, state), { navigationId: id }));
+            this.location.go(path, '', state);
         }
     }
     resetStateAndUrl(storedState, storedUrl, rawUrl) {
@@ -59530,7 +59570,43 @@ class Router {
         this.resetUrlToCurrentUrlTree();
     }
     resetUrlToCurrentUrlTree() {
-        this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree), '', { navigationId: this.lastSuccessfulId });
+        this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree), '', this.generateNgRouterState(this.lastSuccessfulId, this.currentPageId));
+    }
+    /**
+     * Responsible for handling the cancellation of a navigation:
+     * - performs the necessary rollback action to restore the browser URL to the
+     * state before the transition
+     * - triggers the `NavigationCancel` event
+     * - resolves the transition promise with `false`
+     */
+    cancelNavigationTransition(t, reason) {
+        if (this.canceledNavigationResolution === 'computed') {
+            // The navigator change the location before triggered the browser event,
+            // so we need to go back to the current url if the navigation is canceled.
+            // Also, when navigation gets cancelled while using url update strategy eager, then we need to
+            // go back. Because, when `urlUpdateSrategy` is `eager`; `setBrowserUrl` method is called
+            // before any verification.
+            if (t.source === 'popstate' || this.urlUpdateStrategy === 'eager') {
+                const targetPagePosition = this.currentPageId - t.targetPageId;
+                this.location.historyGo(targetPagePosition);
+            }
+            else {
+                // If update is not 'eager' and the transition navigation source isn't 'popstate', then the
+                // navigation was cancelled before any browser url change so nothing needs to be restored.
+            }
+        }
+        else {
+            this.resetUrlToCurrentUrlTree();
+        }
+        const navCancel = new NavigationCancel(t.id, this.serializeUrl(t.extractedUrl), reason);
+        this.triggerEvent(navCancel);
+        t.resolve(false);
+    }
+    generateNgRouterState(navigationId, routerPageId) {
+        if (this.canceledNavigationResolution === 'computed') {
+            return { navigationId, ɵrouterPageId: routerPageId };
+        }
+        return { navigationId };
     }
 }
 Router.ɵfac = function Router_Factory(t) { return new (t || Router)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Type), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](UrlSerializer), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ChildrenOutletContexts), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_27__.Location), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModuleFactoryLoader), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Compiler), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](undefined)); };
@@ -60897,7 +60973,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
 
 /**
  * @license
@@ -60978,7 +61054,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 99922);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 58252);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */

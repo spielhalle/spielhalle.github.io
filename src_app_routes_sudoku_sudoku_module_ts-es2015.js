@@ -8527,7 +8527,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 34689);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10923,7 +10923,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 62052);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.0.4
+ * @license Angular v12.0.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -13617,7 +13617,7 @@ class FormControl extends AbstractControl {
             // `VALID` or `INVALID`.
             // The status should be broadcasted via the `statusChanges` observable, so we set `emitEvent`
             // to `true` to allow that during the control creation process.
-            emitEvent: !!asyncValidator
+            emitEvent: !!this.asyncValidator
         });
     }
     /**
@@ -13859,7 +13859,7 @@ class FormGroup extends AbstractControl {
             // If `asyncValidator` is present, it will trigger control status change from `PENDING` to
             // `VALID` or `INVALID`. The status should be broadcasted via the `statusChanges` observable,
             // so we set `emitEvent` to `true` to allow that during the control creation process.
-            emitEvent: !!asyncValidator
+            emitEvent: !!this.asyncValidator
         });
     }
     /**
@@ -14292,7 +14292,7 @@ class FormArray extends AbstractControl {
             // `VALID` or `INVALID`.
             // The status should be broadcasted via the `statusChanges` observable, so we set `emitEvent`
             // to `true` to allow that during the control creation process.
-            emitEvent: !!asyncValidator
+            emitEvent: !!this.asyncValidator
         });
     }
     /**
@@ -14486,19 +14486,19 @@ class FormArray extends AbstractControl {
      * ]);
      * arr.reset(['name', 'last name']);
      *
-     * console.log(this.arr.value);  // ['name', 'last name']
+     * console.log(arr.value);  // ['name', 'last name']
      * ```
      *
      * ### Reset the values in a form array and the disabled status for the first control
      *
      * ```
-     * this.arr.reset([
+     * arr.reset([
      *   {value: 'name', disabled: true},
      *   'last'
      * ]);
      *
-     * console.log(this.arr.value);  // ['name', 'last name']
-     * console.log(this.arr.get(0).status);  // 'DISABLED'
+     * console.log(arr.value);  // ['last']
+     * console.log(arr.at(0).status);  // 'DISABLED'
      * ```
      *
      * @param value Array of values for the controls
@@ -18148,7 +18148,7 @@ FormBuilder.ɵprov = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
 
 /**
  * @license
