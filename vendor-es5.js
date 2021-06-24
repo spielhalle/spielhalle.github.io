@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1880,7 +1880,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15879,7 +15879,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -22764,6 +22764,23 @@
 
           this._locale = _locale;
         }
+        /**
+         *
+         * @param value The number to be formatted as a percentage.
+         * @param digitsInfo Decimal representation options, specified by a string
+         * in the following format:<br>
+         * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>.
+         *   - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
+         * Default is `1`.
+         *   - `minFractionDigits`: The minimum number of digits after the decimal point.
+         * Default is `0`.
+         *   - `maxFractionDigits`: The maximum number of digits after the decimal point.
+         * Default is `0`.
+         * @param locale A locale code for the locale format rules to use.
+         * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
+         * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
+         */
+
 
         _createClass2(_PercentPipe, [{
           key: "transform",
@@ -22870,6 +22887,40 @@
           this._locale = _locale;
           this._defaultCurrencyCode = _defaultCurrencyCode;
         }
+        /**
+         *
+         * @param value The number to be formatted as currency.
+         * @param currencyCode The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code,
+         * such as `USD` for the US dollar and `EUR` for the euro. The default currency code can be
+         * configured using the `DEFAULT_CURRENCY_CODE` injection token.
+         * @param display The format for the currency indicator. One of the following:
+         *   - `code`: Show the code (such as `USD`).
+         *   - `symbol`(default): Show the symbol (such as `$`).
+         *   - `symbol-narrow`: Use the narrow symbol for locales that have two symbols for their
+         * currency.
+         * For example, the Canadian dollar CAD has the symbol `CA$` and the symbol-narrow `$`. If the
+         * locale has no narrow symbol, uses the standard symbol for the locale.
+         *   - String: Use the given string value instead of a code or a symbol.
+         * For example, an empty string will suppress the currency & symbol.
+         *   - Boolean (marked deprecated in v5): `true` for symbol and false for `code`.
+         *
+         * @param digitsInfo Decimal representation options, specified by a string
+         * in the following format:<br>
+         * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>.
+         *   - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
+         * Default is `1`.
+         *   - `minFractionDigits`: The minimum number of digits after the decimal point.
+         * Default is `2`.
+         *   - `maxFractionDigits`: The maximum number of digits after the decimal point.
+         * Default is `2`.
+         * If not provided, the number will be formatted with the proper amount of digits,
+         * depending on what the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) specifies.
+         * For example, the Canadian dollar has 2 digits, whereas the Chilean peso has none.
+         * @param locale A locale code for the locale format rules to use.
+         * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
+         * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
+         */
+
 
         _createClass2(_CurrencyPipe, [{
           key: "transform",
@@ -23207,7 +23258,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27132,7 +27183,7 @@
       /*! rxjs/operators */
       88047);
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -52830,7 +52881,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.0.5');
+      var _VERSION3 = new _Version('12.1.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -55690,6 +55741,8 @@
           ) === 0 || (renderParent.flags & 33554432
           /* ComponentView */
           ) === 0 || renderParent.element.componentRendererType && (renderParent.element.componentRendererType.encapsulation === _ViewEncapsulation.ShadowDom || // TODO(FW-2290): remove the `encapsulation === 1` fallback logic in v12.
+          // @ts-ignore TODO: Remove as part of FW-2290. TS complains about us dealing with an enum
+          // value that is not known (but previously was the value for ViewEncapsulation.Native)
           renderParent.element.componentRendererType.encapsulation === 1)) {
             // only children of non components, or children of components with native encapsulation should
             // be attached.
@@ -59084,6 +59137,8 @@
 
         return _QueryList;
       }();
+
+      Symbol.iterator;
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -59093,7 +59148,6 @@
        */
       // Note: This hack is necessary so we don't erroneously get a circular dependency
       // failure based on types.
-
 
       var unusedValueExportToPlacateAjd$7 = 1;
       /**
@@ -63417,20 +63471,41 @@
           this.isStable = (0, rxjs__WEBPACK_IMPORTED_MODULE_3__.merge)(isCurrentlyStable, isStable.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.share)()));
         }
         /**
-         * Bootstrap a new component at the root level of the application.
+         * Bootstrap a component onto the element identified by its selector or, optionally, to a
+         * specified element.
          *
          * @usageNotes
          * ### Bootstrap process
          *
-         * When bootstrapping a new root component into an application, Angular mounts the
-         * specified application component onto DOM elements identified by the componentType's
-         * selector and kicks off automatic change detection to finish initializing the component.
+         * When bootstrapping a component, Angular mounts it onto a target DOM element
+         * and kicks off automatic change detection. The target DOM element can be
+         * provided using the `rootSelectorOrNode` argument.
          *
-         * Optionally, a component can be mounted onto a DOM element that does not match the
-         * componentType's selector.
+         * If the target DOM element is not provided, Angular tries to find one on a page
+         * using the `selector` of the component that is being bootstrapped
+         * (first matched element is used).
          *
          * ### Example
-         * {@example core/ts/platform/platform.ts region='longform'}
+         *
+         * Generally, we define the component to bootstrap in the `bootstrap` array of `NgModule`,
+         * but it requires us to know the component while writing the application code.
+         *
+         * Imagine a situation where we have to wait for an API call to decide about the component to
+         * bootstrap. We can use the `ngDoBootstrap` hook of the `NgModule` and call this method to
+         * dynamically bootstrap a component.
+         *
+         * {@example core/ts/platform/platform.ts region='componentSelector'}
+         *
+         * Optionally, a component can be mounted onto a DOM element that does not match the
+         * selector of the bootstrapped component.
+         *
+         * In the following example, we are providing a CSS selector to match the target element.
+         *
+         * {@example core/ts/platform/platform.ts region='cssSelector'}
+         *
+         * While in this example, we are providing reference to a DOM node.
+         *
+         * {@example core/ts/platform/platform.ts region='domNode'}
          */
 
 
@@ -73992,7 +74067,7 @@
       /*! @angular/common */
       38583);
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75386,7 +75461,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -76305,11 +76380,16 @@
                   renderer.applyToHost(element);
                   return renderer;
                 }
+              // @ts-ignore TODO: Remove as part of FW-2290. TS complains about us dealing with an enum
+              // value that is not known (but previously was the value for ViewEncapsulation.Native)
 
               case 1:
               case _angular_core__WEBPACK_IMPORTED_MODULE_1__.ViewEncapsulation.ShadowDom:
                 // TODO(FW-2290): remove the `case 1:` fallback logic and the warning in v12.
-                if ((typeof ngDevMode === 'undefined' || ngDevMode) && !hasLoggedNativeEncapsulationWarning && type.encapsulation === 1) {
+                if ((typeof ngDevMode === 'undefined' || ngDevMode) && // @ts-ignore TODO: Remove as part of FW-2290. TS complains about us dealing with an
+                // enum value that is not known (but previously was the value for
+                // ViewEncapsulation.Native)
+                !hasLoggedNativeEncapsulationWarning && type.encapsulation === 1) {
                   hasLoggedNativeEncapsulationWarning = true;
                   console.warn('ViewEncapsulation.Native is no longer supported. Falling back to ViewEncapsulation.ShadowDom. The fallback will be removed in v12.');
                 }
@@ -78685,7 +78765,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.0.5');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79448,7 +79528,7 @@
       /*! rxjs/operators */
       70023);
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -87739,6 +87819,7 @@
 
           this.injector = injector;
           this.initNavigation = false;
+          this.destroyed = false;
           this.resultOfPreactivationDone = new rxjs__WEBPACK_IMPORTED_MODULE_24__.Subject();
         }
 
@@ -87749,6 +87830,11 @@
 
             var p = this.injector.get(_angular_common__WEBPACK_IMPORTED_MODULE_27__.LOCATION_INITIALIZED, Promise.resolve(null));
             return p.then(function () {
+              // If the injector was destroyed, the DI lookups below will fail.
+              if (_this205.destroyed) {
+                return Promise.resolve(true);
+              }
+
               var resolve = null;
               var res = new Promise(function (r) {
                 return resolve = r;
@@ -87805,6 +87891,11 @@
             router.resetRootComponentType(ref.componentTypes[0]);
             this.resultOfPreactivationDone.next(null);
             this.resultOfPreactivationDone.complete();
+          }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this.destroyed = true;
           }
         }]);
 
@@ -87882,7 +87973,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88109,7 +88200,7 @@
       /*! rxjs/operators */
       58252);
       /**
-       * @license Angular v12.0.5
+       * @license Angular v12.1.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -88307,6 +88398,9 @@
        *
        * <code-example path="service-worker/push/module.ts" region="subscribe-to-notification-clicks"
        * header="app.component.ts"></code-example>
+       *
+       * You can read more on handling notification clicks in the [Service worker notifications
+       * guide](guide/service-worker-notifications).
        *
        * @see [Push Notifications](https://developers.google.com/web/fundamentals/codelabs/push-notifications/)
        * @see [Angular Push Notifications](https://blog.angular-university.io/angular-push-notifications/)

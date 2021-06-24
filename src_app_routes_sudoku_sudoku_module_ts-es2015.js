@@ -8527,7 +8527,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 34689);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.0.5
+ * @license Angular v12.1.0
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9215,6 +9215,14 @@ function isFormData(value) {
     return typeof FormData !== 'undefined' && value instanceof FormData;
 }
 /**
+ * Safely assert whether the given value is a URLSearchParams instance.
+ *
+ * In some execution environments URLSearchParams is not defined.
+ */
+function isUrlSearchParams(value) {
+    return typeof URLSearchParams !== 'undefined' && value instanceof URLSearchParams;
+}
+/**
  * An outgoing HTTP request with an optional typed body.
  *
  * `HttpRequest` represents an outgoing request, including URL, method,
@@ -9335,7 +9343,7 @@ class HttpRequest {
         // Check whether the body is already in a serialized form. If so,
         // it can just be returned directly.
         if (isArrayBuffer(this.body) || isBlob(this.body) || isFormData(this.body) ||
-            typeof this.body === 'string') {
+            isUrlSearchParams(this.body) || typeof this.body === 'string') {
             return this.body;
         }
         // Check whether the body is an instance of HttpUrlEncodedParams.
@@ -10873,25 +10881,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵNgSelectMultipleOption": function() { return /* binding */ ɵNgSelectMultipleOption; },
 /* harmony export */   "ɵangular_packages_forms_forms_a": function() { return /* binding */ SHARED_FORM_DIRECTIVES; },
 /* harmony export */   "ɵangular_packages_forms_forms_b": function() { return /* binding */ TEMPLATE_DRIVEN_DIRECTIVES; },
-/* harmony export */   "ɵangular_packages_forms_forms_ba": function() { return /* binding */ ɵNgSelectMultipleOption; },
-/* harmony export */   "ɵangular_packages_forms_forms_bb": function() { return /* binding */ ɵNgNoValidate; },
-/* harmony export */   "ɵangular_packages_forms_forms_bc": function() { return /* binding */ MAX_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_bd": function() { return /* binding */ MIN_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_be": function() { return /* binding */ REQUIRED_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_bf": function() { return /* binding */ CHECKBOX_REQUIRED_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_bg": function() { return /* binding */ EMAIL_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_bh": function() { return /* binding */ MIN_LENGTH_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_bi": function() { return /* binding */ MAX_LENGTH_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_bj": function() { return /* binding */ PATTERN_VALIDATOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_bk": function() { return /* binding */ minValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_bl": function() { return /* binding */ maxValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_bm": function() { return /* binding */ requiredValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_bn": function() { return /* binding */ requiredTrueValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_bo": function() { return /* binding */ emailValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_bp": function() { return /* binding */ minLengthValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_bq": function() { return /* binding */ maxLengthValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_br": function() { return /* binding */ patternValidator; },
-/* harmony export */   "ɵangular_packages_forms_forms_bs": function() { return /* binding */ nullValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_ba": function() { return /* binding */ SELECT_MULTIPLE_VALUE_ACCESSOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bb": function() { return /* binding */ ɵNgSelectMultipleOption; },
+/* harmony export */   "ɵangular_packages_forms_forms_bc": function() { return /* binding */ ɵNgNoValidate; },
+/* harmony export */   "ɵangular_packages_forms_forms_bd": function() { return /* binding */ MAX_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_be": function() { return /* binding */ MIN_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bf": function() { return /* binding */ REQUIRED_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bg": function() { return /* binding */ CHECKBOX_REQUIRED_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bh": function() { return /* binding */ EMAIL_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bi": function() { return /* binding */ MIN_LENGTH_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bj": function() { return /* binding */ MAX_LENGTH_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bk": function() { return /* binding */ PATTERN_VALIDATOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_bl": function() { return /* binding */ minValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_bm": function() { return /* binding */ maxValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_bn": function() { return /* binding */ requiredValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_bo": function() { return /* binding */ requiredTrueValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_bp": function() { return /* binding */ emailValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_bq": function() { return /* binding */ minLengthValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_br": function() { return /* binding */ maxLengthValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_bs": function() { return /* binding */ patternValidator; },
+/* harmony export */   "ɵangular_packages_forms_forms_bt": function() { return /* binding */ nullValidator; },
 /* harmony export */   "ɵangular_packages_forms_forms_c": function() { return /* binding */ REACTIVE_DRIVEN_DIRECTIVES; },
 /* harmony export */   "ɵangular_packages_forms_forms_d": function() { return /* binding */ ɵInternalFormsSharedModule; },
 /* harmony export */   "ɵangular_packages_forms_forms_e": function() { return /* binding */ CHECKBOX_VALUE_ACCESSOR; },
@@ -10900,22 +10909,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵangular_packages_forms_forms_h": function() { return /* binding */ DEFAULT_VALUE_ACCESSOR; },
 /* harmony export */   "ɵangular_packages_forms_forms_i": function() { return /* binding */ AbstractControlStatus; },
 /* harmony export */   "ɵangular_packages_forms_forms_j": function() { return /* binding */ ngControlStatusHost; },
-/* harmony export */   "ɵangular_packages_forms_forms_k": function() { return /* binding */ formDirectiveProvider; },
-/* harmony export */   "ɵangular_packages_forms_forms_l": function() { return /* binding */ formControlBinding; },
-/* harmony export */   "ɵangular_packages_forms_forms_m": function() { return /* binding */ modelGroupProvider; },
-/* harmony export */   "ɵangular_packages_forms_forms_n": function() { return /* binding */ NUMBER_VALUE_ACCESSOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_o": function() { return /* binding */ RADIO_VALUE_ACCESSOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_p": function() { return /* binding */ RadioControlRegistryModule; },
-/* harmony export */   "ɵangular_packages_forms_forms_q": function() { return /* binding */ RadioControlRegistry; },
-/* harmony export */   "ɵangular_packages_forms_forms_r": function() { return /* binding */ RANGE_VALUE_ACCESSOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_s": function() { return /* binding */ NG_MODEL_WITH_FORM_CONTROL_WARNING; },
-/* harmony export */   "ɵangular_packages_forms_forms_t": function() { return /* binding */ formControlBinding$1; },
-/* harmony export */   "ɵangular_packages_forms_forms_u": function() { return /* binding */ controlNameBinding; },
-/* harmony export */   "ɵangular_packages_forms_forms_v": function() { return /* binding */ formDirectiveProvider$1; },
-/* harmony export */   "ɵangular_packages_forms_forms_w": function() { return /* binding */ formGroupNameProvider; },
-/* harmony export */   "ɵangular_packages_forms_forms_x": function() { return /* binding */ formArrayNameProvider; },
-/* harmony export */   "ɵangular_packages_forms_forms_y": function() { return /* binding */ SELECT_VALUE_ACCESSOR; },
-/* harmony export */   "ɵangular_packages_forms_forms_z": function() { return /* binding */ SELECT_MULTIPLE_VALUE_ACCESSOR; }
+/* harmony export */   "ɵangular_packages_forms_forms_k": function() { return /* binding */ ngGroupStatusHost; },
+/* harmony export */   "ɵangular_packages_forms_forms_l": function() { return /* binding */ formDirectiveProvider; },
+/* harmony export */   "ɵangular_packages_forms_forms_m": function() { return /* binding */ formControlBinding; },
+/* harmony export */   "ɵangular_packages_forms_forms_n": function() { return /* binding */ modelGroupProvider; },
+/* harmony export */   "ɵangular_packages_forms_forms_o": function() { return /* binding */ NUMBER_VALUE_ACCESSOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_p": function() { return /* binding */ RADIO_VALUE_ACCESSOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_q": function() { return /* binding */ RadioControlRegistryModule; },
+/* harmony export */   "ɵangular_packages_forms_forms_r": function() { return /* binding */ RadioControlRegistry; },
+/* harmony export */   "ɵangular_packages_forms_forms_s": function() { return /* binding */ RANGE_VALUE_ACCESSOR; },
+/* harmony export */   "ɵangular_packages_forms_forms_t": function() { return /* binding */ NG_MODEL_WITH_FORM_CONTROL_WARNING; },
+/* harmony export */   "ɵangular_packages_forms_forms_u": function() { return /* binding */ formControlBinding$1; },
+/* harmony export */   "ɵangular_packages_forms_forms_v": function() { return /* binding */ controlNameBinding; },
+/* harmony export */   "ɵangular_packages_forms_forms_w": function() { return /* binding */ formDirectiveProvider$1; },
+/* harmony export */   "ɵangular_packages_forms_forms_x": function() { return /* binding */ formGroupNameProvider; },
+/* harmony export */   "ɵangular_packages_forms_forms_y": function() { return /* binding */ formArrayNameProvider; },
+/* harmony export */   "ɵangular_packages_forms_forms_z": function() { return /* binding */ SELECT_VALUE_ACCESSOR; }
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ 38583);
@@ -10923,7 +10932,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 62052);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.0.5
+ * @license Angular v12.1.0
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12176,8 +12185,19 @@ class AbstractControlStatus {
         this._cd = cd;
     }
     is(status) {
-        var _a, _b;
-        return !!((_b = (_a = this._cd) === null || _a === void 0 ? void 0 : _a.control) === null || _b === void 0 ? void 0 : _b[status]);
+        var _a, _b, _c;
+        // Currently with ViewEngine (in AOT mode) it's not possible to use private methods in host
+        // bindings.
+        // TODO: once ViewEngine is removed, this function should be refactored:
+        //  - make the `is` method `protected`, so it's not accessible publicly
+        //  - move the `submitted` status logic to the `NgControlStatusGroup` class
+        //    and make it `private` or `protected` too.
+        if (status === 'submitted') {
+            // We check for the `submitted` field from `NgForm` and `FormGroupDirective` classes, but
+            // we avoid instanceof checks to prevent non-tree-shakable references to those types.
+            return !!((_a = this._cd) === null || _a === void 0 ? void 0 : _a.submitted);
+        }
+        return !!((_c = (_b = this._cd) === null || _b === void 0 ? void 0 : _b.control) === null || _c === void 0 ? void 0 : _c[status]);
     }
 }
 const ngControlStatusHost = {
@@ -12188,6 +12208,16 @@ const ngControlStatusHost = {
     '[class.ng-valid]': 'is("valid")',
     '[class.ng-invalid]': 'is("invalid")',
     '[class.ng-pending]': 'is("pending")',
+};
+const ngGroupStatusHost = {
+    '[class.ng-untouched]': 'is("untouched")',
+    '[class.ng-touched]': 'is("touched")',
+    '[class.ng-pristine]': 'is("pristine")',
+    '[class.ng-dirty]': 'is("dirty")',
+    '[class.ng-valid]': 'is("valid")',
+    '[class.ng-invalid]': 'is("invalid")',
+    '[class.ng-pending]': 'is("pending")',
+    '[class.ng-submitted]': 'is("submitted")',
 };
 /**
  * @description
@@ -12233,7 +12263,8 @@ NgControlStatus.ctorParameters = () => [
 /**
  * @description
  * Directive automatically applied to Angular form groups that sets CSS classes
- * based on control status (valid/invalid/dirty/etc).
+ * based on control status (valid/invalid/dirty/etc). On groups, this includes the additional
+ * class ng-submitted.
  *
  * @see `NgControlStatus`
  *
@@ -12247,8 +12278,8 @@ class NgControlStatusGroup extends AbstractControlStatus {
     }
 }
 NgControlStatusGroup.ɵfac = function NgControlStatusGroup_Factory(t) { return new (t || NgControlStatusGroup)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ControlContainer, 10)); };
-NgControlStatusGroup.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: NgControlStatusGroup, selectors: [["", "formGroupName", ""], ["", "formArrayName", ""], ["", "ngModelGroup", ""], ["", "formGroup", ""], ["form", 3, "ngNoForm", ""], ["", "ngForm", ""]], hostVars: 14, hostBindings: function NgControlStatusGroup_HostBindings(rf, ctx) { if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("ng-untouched", ctx.is("untouched"))("ng-touched", ctx.is("touched"))("ng-pristine", ctx.is("pristine"))("ng-dirty", ctx.is("dirty"))("ng-valid", ctx.is("valid"))("ng-invalid", ctx.is("invalid"))("ng-pending", ctx.is("pending"));
+NgControlStatusGroup.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: NgControlStatusGroup, selectors: [["", "formGroupName", ""], ["", "formArrayName", ""], ["", "ngModelGroup", ""], ["", "formGroup", ""], ["form", 3, "ngNoForm", ""], ["", "ngForm", ""]], hostVars: 16, hostBindings: function NgControlStatusGroup_HostBindings(rf, ctx) { if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("ng-untouched", ctx.is("untouched"))("ng-touched", ctx.is("touched"))("ng-pristine", ctx.is("pristine"))("ng-dirty", ctx.is("dirty"))("ng-valid", ctx.is("valid"))("ng-invalid", ctx.is("invalid"))("ng-pending", ctx.is("pending"))("ng-submitted", ctx.is("submitted"));
     } }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]] });
 NgControlStatusGroup.ctorParameters = () => [
     { type: ControlContainer, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Self }] }
@@ -12257,7 +12288,7 @@ NgControlStatusGroup.ctorParameters = () => [
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Directive,
         args: [{
                 selector: '[formGroupName],[formArrayName],[ngModelGroup],[formGroup],form:not([ngNoForm]),[ngForm]',
-                host: ngControlStatusHost
+                host: ngGroupStatusHost
             }]
     }], function () { return [{ type: ControlContainer, decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional
@@ -18148,7 +18179,7 @@ FormBuilder.ɵprov = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
 
 /**
  * @license
