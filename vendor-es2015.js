@@ -5998,6 +5998,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FocusTrap": function() { return /* binding */ FocusTrap; },
 /* harmony export */   "FocusTrapFactory": function() { return /* binding */ FocusTrapFactory; },
 /* harmony export */   "HighContrastModeDetector": function() { return /* binding */ HighContrastModeDetector; },
+/* harmony export */   "INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS": function() { return /* binding */ INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS; },
+/* harmony export */   "INPUT_MODALITY_DETECTOR_OPTIONS": function() { return /* binding */ INPUT_MODALITY_DETECTOR_OPTIONS; },
+/* harmony export */   "InputModalityDetector": function() { return /* binding */ InputModalityDetector; },
 /* harmony export */   "InteractivityChecker": function() { return /* binding */ InteractivityChecker; },
 /* harmony export */   "IsFocusableConfig": function() { return /* binding */ IsFocusableConfig; },
 /* harmony export */   "LIVE_ANNOUNCER_DEFAULT_OPTIONS": function() { return /* binding */ LIVE_ANNOUNCER_DEFAULT_OPTIONS; },
@@ -6006,7 +6009,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ListKeyManager": function() { return /* binding */ ListKeyManager; },
 /* harmony export */   "LiveAnnouncer": function() { return /* binding */ LiveAnnouncer; },
 /* harmony export */   "MESSAGES_CONTAINER_ID": function() { return /* binding */ MESSAGES_CONTAINER_ID; },
-/* harmony export */   "TOUCH_BUFFER_MS": function() { return /* binding */ TOUCH_BUFFER_MS; },
 /* harmony export */   "isFakeMousedownFromScreenReader": function() { return /* binding */ isFakeMousedownFromScreenReader; },
 /* harmony export */   "isFakeTouchstartFromScreenReader": function() { return /* binding */ isFakeTouchstartFromScreenReader; },
 /* harmony export */   "ɵangular_material_src_cdk_a11y_a11y_a": function() { return /* binding */ FocusTrapManager; }
@@ -6015,16 +6017,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 47762);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 46665);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! rxjs */ 41964);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! rxjs */ 45094);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs */ 41964);
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/cdk/keycodes */ 36461);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 99922);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 74703);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 34689);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 74294);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! rxjs/operators */ 21438);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! rxjs/operators */ 42687);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! rxjs/operators */ 25755);
 /* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/cdk/coercion */ 39490);
 /* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/cdk/platform */ 80521);
-/* harmony import */ var _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/cdk/observers */ 18553);
+/* harmony import */ var _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/cdk/observers */ 18553);
 
 
 
@@ -7568,6 +7574,212 @@ ConfigurableFocusTrapFactory.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Gets whether an event could be a faked `mousedown` event dispatched by a screen reader. */
+function isFakeMousedownFromScreenReader(event) {
+    // We can typically distinguish between these faked mousedown events and real mousedown events
+    // using the "buttons" property. While real mousedowns will indicate the mouse button that was
+    // pressed (e.g. "1" for the left mouse button), faked mousedowns will usually set the property
+    // value to 0.
+    return event.buttons === 0;
+}
+/** Gets whether an event could be a faked `touchstart` event dispatched by a screen reader. */
+function isFakeTouchstartFromScreenReader(event) {
+    const touch = (event.touches && event.touches[0]) ||
+        (event.changedTouches && event.changedTouches[0]);
+    // A fake `touchstart` can be distinguished from a real one by looking at the `identifier`
+    // which is typically >= 0 on a real device versus -1 from a screen reader. Just to be safe,
+    // we can also look at `radiusX` and `radiusY`. This behavior was observed against a Windows 10
+    // device with a touch screen running NVDA v2020.4 and Firefox 85 or Chrome 88.
+    return !!touch && touch.identifier === -1 && (touch.radiusX == null || touch.radiusX === 1) &&
+        (touch.radiusY == null || touch.radiusY === 1);
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Injectable options for the InputModalityDetector. These are shallowly merged with the default
+ * options.
+ */
+const INPUT_MODALITY_DETECTOR_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectionToken('cdk-input-modality-detector-options');
+/**
+ * Default options for the InputModalityDetector.
+ *
+ * Modifier keys are ignored by default (i.e. when pressed won't cause the service to detect
+ * keyboard input modality) for two reasons:
+ *
+ * 1. Modifier keys are commonly used with mouse to perform actions such as 'right click' or 'open
+ *    in new tab', and are thus less representative of actual keyboard interaction.
+ * 2. VoiceOver triggers some keyboard events when linearly navigating with Control + Option (but
+ *    confusingly not with Caps Lock). Thus, to have parity with other screen readers, we ignore
+ *    these keys so as to not update the input modality.
+ *
+ * Note that we do not by default ignore the right Meta key on Safari because it has the same key
+ * code as the ContextMenu key on other browsers. When we switch to using event.key, we can
+ * distinguish between the two.
+ */
+const INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS = {
+    ignoreKeys: [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__.ALT, _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__.CONTROL, _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__.MAC_META, _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__.META, _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__.SHIFT],
+};
+/**
+ * The amount of time needed to pass after a touchstart event in order for a subsequent mousedown
+ * event to be attributed as mouse and not touch.
+ *
+ * This is the value used by AngularJS Material. Through trial and error (on iPhone 6S) they found
+ * that a value of around 650ms seems appropriate.
+ */
+const TOUCH_BUFFER_MS = 650;
+/**
+ * Event listener options that enable capturing and also mark the listener as passive if the browser
+ * supports it.
+ */
+const modalityEventListenerOptions = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.normalizePassiveListenerOptions)({
+    passive: true,
+    capture: true,
+});
+/**
+ * Service that detects the user's input modality.
+ *
+ * This service does not update the input modality when a user navigates with a screen reader
+ * (e.g. linear navigation with VoiceOver, object navigation / browse mode with NVDA, virtual PC
+ * cursor mode with JAWS). This is in part due to technical limitations (i.e. keyboard events do not
+ * fire as expected in these modes) but is also arguably the correct behavior. Navigating with a
+ * screen reader is akin to visually scanning a page, and should not be interpreted as actual user
+ * input interaction.
+ *
+ * When a user is not navigating but *interacting* with a screen reader, this service attempts to
+ * update the input modality to keyboard, but in general this service's behavior is largely
+ * undefined.
+ */
+class InputModalityDetector {
+    constructor(_platform, ngZone, document, options) {
+        this._platform = _platform;
+        /**
+         * The most recently detected input modality event target. Is null if no input modality has been
+         * detected or if the associated event target is null for some unknown reason.
+         */
+        this._mostRecentTarget = null;
+        /** The underlying BehaviorSubject that emits whenever an input modality is detected. */
+        this._modality = new rxjs__WEBPACK_IMPORTED_MODULE_12__.BehaviorSubject(null);
+        /**
+         * The timestamp of the last touch input modality. Used to determine whether mousedown events
+         * should be attributed to mouse or touch.
+         */
+        this._lastTouchMs = 0;
+        /**
+         * Handles keydown events. Must be an arrow function in order to preserve the context when it gets
+         * bound.
+         */
+        this._onKeydown = (event) => {
+            var _a, _b;
+            // If this is one of the keys we should ignore, then ignore it and don't update the input
+            // modality to keyboard.
+            if ((_b = (_a = this._options) === null || _a === void 0 ? void 0 : _a.ignoreKeys) === null || _b === void 0 ? void 0 : _b.some(keyCode => keyCode === event.keyCode)) {
+                return;
+            }
+            this._modality.next('keyboard');
+            this._mostRecentTarget = getTarget(event);
+        };
+        /**
+         * Handles mousedown events. Must be an arrow function in order to preserve the context when it
+         * gets bound.
+         */
+        this._onMousedown = (event) => {
+            // Touches trigger both touch and mouse events, so we need to distinguish between mouse events
+            // that were triggered via mouse vs touch. To do so, check if the mouse event occurs closely
+            // after the previous touch event.
+            if (Date.now() - this._lastTouchMs < TOUCH_BUFFER_MS) {
+                return;
+            }
+            // Fake mousedown events are fired by some screen readers when controls are activated by the
+            // screen reader. Attribute them to keyboard input modality.
+            this._modality.next(isFakeMousedownFromScreenReader(event) ? 'keyboard' : 'mouse');
+            this._mostRecentTarget = getTarget(event);
+        };
+        /**
+         * Handles touchstart events. Must be an arrow function in order to preserve the context when it
+         * gets bound.
+         */
+        this._onTouchstart = (event) => {
+            // Same scenario as mentioned in _onMousedown, but on touch screen devices, fake touchstart
+            // events are fired. Again, attribute to keyboard input modality.
+            if (isFakeTouchstartFromScreenReader(event)) {
+                this._modality.next('keyboard');
+                return;
+            }
+            // Store the timestamp of this touch event, as it's used to distinguish between mouse events
+            // triggered via mouse vs touch.
+            this._lastTouchMs = Date.now();
+            this._modality.next('touch');
+            this._mostRecentTarget = getTarget(event);
+        };
+        this._options = Object.assign(Object.assign({}, INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options);
+        // Skip the first emission as it's null.
+        this.modalityDetected = this._modality.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_13__.skip)(1));
+        this.modalityChanged = this.modalityDetected.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_14__.distinctUntilChanged)());
+        // If we're not in a browser, this service should do nothing, as there's no relevant input
+        // modality to detect.
+        if (!_platform.isBrowser) {
+            return;
+        }
+        // Add the event listeners used to detect the user's input modality.
+        ngZone.runOutsideAngular(() => {
+            document.addEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
+            document.addEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
+            document.addEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
+        });
+    }
+    /** The most recently detected input modality. */
+    get mostRecentModality() {
+        return this._modality.value;
+    }
+    ngOnDestroy() {
+        if (!this._platform.isBrowser) {
+            return;
+        }
+        document.removeEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
+        document.removeEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
+        document.removeEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
+    }
+}
+InputModalityDetector.ɵfac = function InputModalityDetector_Factory(t) { return new (t || InputModalityDetector)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](INPUT_MODALITY_DETECTOR_OPTIONS, 8)); };
+InputModalityDetector.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ factory: function InputModalityDetector_Factory() { return new InputModalityDetector(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](INPUT_MODALITY_DETECTOR_OPTIONS, 8)); }, token: InputModalityDetector, providedIn: "root" });
+InputModalityDetector.ctorParameters = () => [
+    { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone },
+    { type: Document, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT,] }] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [INPUT_MODALITY_DETECTOR_OPTIONS,] }] }
+];
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](InputModalityDetector, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable,
+        args: [{ providedIn: 'root' }]
+    }], function () { return [{ type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }, { type: Document, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
+                args: [_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT]
+            }] }, { type: undefined, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional
+            }, {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
+                args: [INPUT_MODALITY_DETECTOR_OPTIONS]
+            }] }]; }, null); })();
+/** Gets the target of an event, accounting for Shadow DOM. */
+function getTarget(event) {
+    // If an event is bound outside the Shadow DOM, the `event.target` will
+    // point to the shadow root so we have to use `composedPath` instead.
+    return (event.composedPath ? event.composedPath()[0] : event.target);
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 const LIVE_ANNOUNCER_ELEMENT_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectionToken('liveAnnouncerElement', {
     providedIn: 'root',
     factory: LIVE_ANNOUNCER_ELEMENT_TOKEN_FACTORY,
@@ -7738,12 +7950,12 @@ class CdkAriaLive {
         }
     }
 }
-CdkAriaLive.ɵfac = function CdkAriaLive_Factory(t) { return new (t || CdkAriaLive)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](LiveAnnouncer), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_cdk_observers__WEBPACK_IMPORTED_MODULE_12__.ContentObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone)); };
+CdkAriaLive.ɵfac = function CdkAriaLive_Factory(t) { return new (t || CdkAriaLive)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](LiveAnnouncer), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_cdk_observers__WEBPACK_IMPORTED_MODULE_15__.ContentObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone)); };
 CdkAriaLive.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: CdkAriaLive, selectors: [["", "cdkAriaLive", ""]], inputs: { politeness: ["cdkAriaLive", "politeness"] }, exportAs: ["cdkAriaLive"] });
 CdkAriaLive.ctorParameters = () => [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef },
     { type: LiveAnnouncer },
-    { type: _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_12__.ContentObserver },
+    { type: _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_15__.ContentObserver },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }
 ];
 CdkAriaLive.propDecorators = {
@@ -7755,7 +7967,7 @@ CdkAriaLive.propDecorators = {
                 selector: '[cdkAriaLive]',
                 exportAs: 'cdkAriaLive'
             }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef }, { type: LiveAnnouncer }, { type: _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_12__.ContentObserver }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }]; }, { politeness: [{
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef }, { type: LiveAnnouncer }, { type: _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_15__.ContentObserver }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }]; }, { politeness: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input,
             args: ['cdkAriaLive']
         }] }); })();
@@ -7767,36 +7979,6 @@ CdkAriaLive.propDecorators = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Gets whether an event could be a faked `mousedown` event dispatched by a screen reader. */
-function isFakeMousedownFromScreenReader(event) {
-    // We can typically distinguish between these faked mousedown events and real mousedown events
-    // using the "buttons" property. While real mousedowns will indicate the mouse button that was
-    // pressed (e.g. "1" for the left mouse button), faked mousedowns will usually set the property
-    // value to 0.
-    return event.buttons === 0;
-}
-/** Gets whether an event could be a faked `touchstart` event dispatched by a screen reader. */
-function isFakeTouchstartFromScreenReader(event) {
-    const touch = (event.touches && event.touches[0]) ||
-        (event.changedTouches && event.changedTouches[0]);
-    // A fake `touchstart` can be distinguished from a real one by looking at the `identifier`
-    // which is typically >= 0 on a real device versus -1 from a screen reader. Just to be safe,
-    // we can also look at `radiusX` and `radiusY`. This behavior was observed against a Windows 10
-    // device with a touch screen running NVDA v2020.4 and Firefox 85 or Chrome 88.
-    return !!touch && touch.identifier === -1 && (touch.radiusX == null || touch.radiusX === 1) &&
-        (touch.radiusY == null || touch.radiusY === 1);
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// This is the value used by AngularJS Material. Through trial and error (on iPhone 6S) they found
-// that a value of around 650ms seems appropriate.
-const TOUCH_BUFFER_MS = 650;
 /** InjectionToken for FocusMonitorOptions. */
 const FOCUS_MONITOR_DEFAULT_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectionToken('cdk-focus-monitor-default-options');
 /**
@@ -7809,15 +7991,21 @@ const captureEventListenerOptions = (0,_angular_cdk_platform__WEBPACK_IMPORTED_M
 });
 /** Monitors mouse and keyboard events to determine the cause of focus events. */
 class FocusMonitor {
-    constructor(_ngZone, _platform, 
+    constructor(_ngZone, _platform, _inputModalityDetector, 
     /** @breaking-change 11.0.0 make document required */
     document, options) {
         this._ngZone = _ngZone;
         this._platform = _platform;
+        this._inputModalityDetector = _inputModalityDetector;
         /** The focus origin that the next focus event is a result of. */
         this._origin = null;
         /** Whether the window has just been focused. */
         this._windowFocused = false;
+        /**
+         * Whether the origin was determined via a touch interaction. Necessary as properly attributing
+         * focus events to touch interactions requires special logic.
+         */
+        this._originFromTouchInteraction = false;
         /** Map of elements being monitored to their info. */
         this._elementInfo = new Map();
         /** The number of elements currently being monitored. */
@@ -7830,50 +8018,6 @@ class FocusMonitor {
          */
         this._rootNodeFocusListenerCount = new Map();
         /**
-         * Event listener for `keydown` events on the document.
-         * Needs to be an arrow function in order to preserve the context when it gets bound.
-         */
-        this._documentKeydownListener = () => {
-            // On keydown record the origin and clear any touch event that may be in progress.
-            this._lastTouchTarget = null;
-            this._setOriginForCurrentEventQueue('keyboard');
-        };
-        /**
-         * Event listener for `mousedown` events on the document.
-         * Needs to be an arrow function in order to preserve the context when it gets bound.
-         */
-        this._documentMousedownListener = (event) => {
-            // On mousedown record the origin only if there is not touch
-            // target, since a mousedown can happen as a result of a touch event.
-            if (!this._lastTouchTarget) {
-                // In some cases screen readers fire fake `mousedown` events instead of `keydown`.
-                // Resolve the focus source to `keyboard` if we detect one of them.
-                const source = isFakeMousedownFromScreenReader(event) ? 'keyboard' : 'mouse';
-                this._setOriginForCurrentEventQueue(source);
-            }
-        };
-        /**
-         * Event listener for `touchstart` events on the document.
-         * Needs to be an arrow function in order to preserve the context when it gets bound.
-         */
-        this._documentTouchstartListener = (event) => {
-            // Some screen readers will fire a fake `touchstart` event if an element is activated using
-            // the keyboard while on a device with a touchsreen. Consider such events as keyboard focus.
-            if (!isFakeTouchstartFromScreenReader(event)) {
-                // When the touchstart event fires the focus event is not yet in the event queue. This means
-                // we can't rely on the trick used above (setting timeout of 1ms). Instead we wait 650ms to
-                // see if a focus happens.
-                if (this._touchTimeoutId != null) {
-                    clearTimeout(this._touchTimeoutId);
-                }
-                this._lastTouchTarget = getTarget(event);
-                this._touchTimeoutId = setTimeout(() => this._lastTouchTarget = null, TOUCH_BUFFER_MS);
-            }
-            else if (!this._lastTouchTarget) {
-                this._setOriginForCurrentEventQueue('keyboard');
-            }
-        };
-        /**
          * Event listener for `focus` events on the window.
          * Needs to be an arrow function in order to preserve the context when it gets bound.
          */
@@ -7883,6 +8027,8 @@ class FocusMonitor {
             this._windowFocused = true;
             this._windowFocusTimeoutId = setTimeout(() => this._windowFocused = false);
         };
+        /** Subject for stopping our InputModalityDetector subscription. */
+        this._stopInputModalityDetector = new rxjs__WEBPACK_IMPORTED_MODULE_2__.Subject();
         /**
          * Event listener for `focus` and 'blur' events on the document.
          * Needs to be an arrow function in order to preserve the context when it gets bound.
@@ -7902,7 +8048,7 @@ class FocusMonitor {
         const nativeElement = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_11__.coerceElement)(element);
         // Do nothing if we're not on the browser platform or the passed in node isn't an element.
         if (!this._platform.isBrowser || nativeElement.nodeType !== 1) {
-            return (0,rxjs__WEBPACK_IMPORTED_MODULE_13__.of)(null);
+            return (0,rxjs__WEBPACK_IMPORTED_MODULE_16__.of)(null);
         }
         // If the element is inside the shadow DOM, we need to bind our focus/blur listeners to
         // the shadow root, rather than the `document`, because the browser won't emit focus events
@@ -7950,7 +8096,7 @@ class FocusMonitor {
                 .forEach(([currentElement, info]) => this._originChanged(currentElement, origin, info));
         }
         else {
-            this._setOriginForCurrentEventQueue(origin);
+            this._setOrigin(origin);
             // `focus` isn't available on the server
             if (typeof nativeElement.focus === 'function') {
                 nativeElement.focus(options);
@@ -7977,25 +8123,49 @@ class FocusMonitor {
             element.classList.remove(className);
         }
     }
-    _getFocusOrigin(event) {
-        // If we couldn't detect a cause for the focus event, it's due to one of three reasons:
-        // 1) The window has just regained focus, in which case we want to restore the focused state of
-        //    the element from before the window blurred.
-        // 2) It was caused by a touch event, in which case we mark the origin as 'touch'.
-        // 3) The element was programmatically focused, in which case we should mark the origin as
-        //    'program'.
+    _getFocusOrigin(focusEventTarget) {
         if (this._origin) {
-            return this._origin;
+            // If the origin was realized via a touch interaction, we need to perform additional checks
+            // to determine whether the focus origin should be attributed to touch or program.
+            if (this._originFromTouchInteraction) {
+                return this._shouldBeAttributedToTouch(focusEventTarget) ? 'touch' : 'program';
+            }
+            else {
+                return this._origin;
+            }
         }
-        if (this._windowFocused && this._lastFocusOrigin) {
-            return this._lastFocusOrigin;
-        }
-        else if (this._wasCausedByTouch(event)) {
-            return 'touch';
-        }
-        else {
-            return 'program';
-        }
+        // If the window has just regained focus, we can restore the most recent origin from before the
+        // window blurred. Otherwise, we've reached the point where we can't identify the source of the
+        // focus. This typically means one of two things happened:
+        //
+        // 1) The element was programmatically focused, or
+        // 2) The element was focused via screen reader navigation (which generally doesn't fire
+        //    events).
+        //
+        // Because we can't distinguish between these two cases, we default to setting `program`.
+        return (this._windowFocused && this._lastFocusOrigin) ? this._lastFocusOrigin : 'program';
+    }
+    /**
+     * Returns whether the focus event should be attributed to touch. Recall that in IMMEDIATE mode, a
+     * touch origin isn't immediately reset at the next tick (see _setOrigin). This means that when we
+     * handle a focus event following a touch interaction, we need to determine whether (1) the focus
+     * event was directly caused by the touch interaction or (2) the focus event was caused by a
+     * subsequent programmatic focus call triggered by the touch interaction.
+     * @param focusEventTarget The target of the focus event under examination.
+     */
+    _shouldBeAttributedToTouch(focusEventTarget) {
+        // Please note that this check is not perfect. Consider the following edge case:
+        //
+        // <div #parent tabindex="0">
+        //   <div #child tabindex="0" (click)="#parent.focus()"></div>
+        // </div>
+        //
+        // Suppose there is a FocusMonitor in IMMEDIATE mode attached to #parent. When the user touches
+        // #child, #parent is programmatically focused. This code will attribute the focus to touch
+        // instead of program. This is a relatively minor edge-case that can be worked around by using
+        // focusVia(parent, 'program') to focus #parent.
+        return (this._detectionMode === 1 /* EVENTUAL */) ||
+            !!(focusEventTarget === null || focusEventTarget === void 0 ? void 0 : focusEventTarget.contains(this._inputModalityDetector._mostRecentTarget));
     }
     /**
      * Sets the focus classes on the element based on the given focus origin.
@@ -8010,47 +8180,27 @@ class FocusMonitor {
         this._toggleClass(element, 'cdk-program-focused', origin === 'program');
     }
     /**
-     * Sets the origin and schedules an async function to clear it at the end of the event queue.
-     * If the detection mode is 'eventual', the origin is never cleared.
+     * Updates the focus origin. If we're using immediate detection mode, we schedule an async
+     * function to clear the origin at the end of a timeout. The duration of the timeout depends on
+     * the origin being set.
      * @param origin The origin to set.
+     * @param isFromInteraction Whether we are setting the origin from an interaction event.
      */
-    _setOriginForCurrentEventQueue(origin) {
+    _setOrigin(origin, isFromInteraction = false) {
         this._ngZone.runOutsideAngular(() => {
             this._origin = origin;
+            this._originFromTouchInteraction = (origin === 'touch') && isFromInteraction;
+            // If we're in IMMEDIATE mode, reset the origin at the next tick (or in `TOUCH_BUFFER_MS` ms
+            // for a touch event). We reset the origin at the next tick because Firefox focuses one tick
+            // after the interaction event. We wait `TOUCH_BUFFER_MS` ms before resetting the origin for
+            // a touch event because when a touch event is fired, the associated focus event isn't yet in
+            // the event queue. Before doing so, clear any pending timeouts.
             if (this._detectionMode === 0 /* IMMEDIATE */) {
-                // Sometimes the focus origin won't be valid in Firefox because Firefox seems to focus *one*
-                // tick after the interaction event fired. To ensure the focus origin is always correct,
-                // the focus origin will be determined at the beginning of the next tick.
-                this._originTimeoutId = setTimeout(() => this._origin = null, 1);
+                clearTimeout(this._originTimeoutId);
+                const ms = this._originFromTouchInteraction ? TOUCH_BUFFER_MS : 1;
+                this._originTimeoutId = setTimeout(() => this._origin = null, ms);
             }
         });
-    }
-    /**
-     * Checks whether the given focus event was caused by a touchstart event.
-     * @param event The focus event to check.
-     * @returns Whether the event was caused by a touch.
-     */
-    _wasCausedByTouch(event) {
-        // Note(mmalerba): This implementation is not quite perfect, there is a small edge case.
-        // Consider the following dom structure:
-        //
-        // <div #parent tabindex="0" cdkFocusClasses>
-        //   <div #child (click)="#parent.focus()"></div>
-        // </div>
-        //
-        // If the user touches the #child element and the #parent is programmatically focused as a
-        // result, this code will still consider it to have been caused by the touch event and will
-        // apply the cdk-touch-focused class rather than the cdk-program-focused class. This is a
-        // relatively small edge-case that can be worked around by using
-        // focusVia(parentEl, 'program') to focus the parent element.
-        //
-        // If we decide that we absolutely must handle this case correctly, we can do so by listening
-        // for the first focus event after the touchstart, and then the first blur event after that
-        // focus event. When that blur event fires we know that whatever follows is not a result of the
-        // touchstart.
-        const focusTarget = getTarget(event);
-        return this._lastTouchTarget instanceof Node && focusTarget instanceof Node &&
-            (focusTarget === this._lastTouchTarget || focusTarget.contains(this._lastTouchTarget));
     }
     /**
      * Handles focus events on a registered element.
@@ -8065,10 +8215,11 @@ class FocusMonitor {
         // If we are not counting child-element-focus as focused, make sure that the event target is the
         // monitored element itself.
         const elementInfo = this._elementInfo.get(element);
-        if (!elementInfo || (!elementInfo.checkChildren && element !== getTarget(event))) {
+        const focusEventTarget = getTarget(event);
+        if (!elementInfo || (!elementInfo.checkChildren && element !== focusEventTarget)) {
             return;
         }
-        this._originChanged(element, this._getFocusOrigin(event), elementInfo);
+        this._originChanged(element, this._getFocusOrigin(focusEventTarget), elementInfo);
     }
     /**
      * Handles blur events on a registered element.
@@ -8107,13 +8258,13 @@ class FocusMonitor {
             // Note: we listen to events in the capture phase so we
             // can detect them even if the user stops propagation.
             this._ngZone.runOutsideAngular(() => {
-                const document = this._getDocument();
                 const window = this._getWindow();
-                document.addEventListener('keydown', this._documentKeydownListener, captureEventListenerOptions);
-                document.addEventListener('mousedown', this._documentMousedownListener, captureEventListenerOptions);
-                document.addEventListener('touchstart', this._documentTouchstartListener, captureEventListenerOptions);
                 window.addEventListener('focus', this._windowFocusListener);
             });
+            // The InputModalityDetector is also just a collection of global listeners.
+            this._inputModalityDetector.modalityDetected
+                .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.takeUntil)(this._stopInputModalityDetector))
+                .subscribe(modality => { this._setOrigin(modality, true /* isFromInteraction */); });
         }
     }
     _removeGlobalListeners(elementInfo) {
@@ -8131,15 +8282,12 @@ class FocusMonitor {
         }
         // Unregister global listeners when last element is unmonitored.
         if (!--this._monitoredElementCount) {
-            const document = this._getDocument();
             const window = this._getWindow();
-            document.removeEventListener('keydown', this._documentKeydownListener, captureEventListenerOptions);
-            document.removeEventListener('mousedown', this._documentMousedownListener, captureEventListenerOptions);
-            document.removeEventListener('touchstart', this._documentTouchstartListener, captureEventListenerOptions);
             window.removeEventListener('focus', this._windowFocusListener);
+            // Equivalently, stop our InputModalityDetector subscription.
+            this._stopInputModalityDetector.next();
             // Clear timeouts for all potentially pending timeouts to prevent the leaks.
             clearTimeout(this._windowFocusTimeoutId);
-            clearTimeout(this._touchTimeoutId);
             clearTimeout(this._originTimeoutId);
         }
     }
@@ -8164,18 +8312,19 @@ class FocusMonitor {
         return results;
     }
 }
-FocusMonitor.ɵfac = function FocusMonitor_Factory(t) { return new (t || FocusMonitor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](FOCUS_MONITOR_DEFAULT_OPTIONS, 8)); };
-FocusMonitor.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ factory: function FocusMonitor_Factory() { return new FocusMonitor(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](FOCUS_MONITOR_DEFAULT_OPTIONS, 8)); }, token: FocusMonitor, providedIn: "root" });
+FocusMonitor.ɵfac = function FocusMonitor_Factory(t) { return new (t || FocusMonitor)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](InputModalityDetector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](FOCUS_MONITOR_DEFAULT_OPTIONS, 8)); };
+FocusMonitor.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ factory: function FocusMonitor_Factory() { return new FocusMonitor(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](InputModalityDetector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](FOCUS_MONITOR_DEFAULT_OPTIONS, 8)); }, token: FocusMonitor, providedIn: "root" });
 FocusMonitor.ctorParameters = () => [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone },
     { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform },
+    { type: InputModalityDetector },
     { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT,] }] },
     { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [FOCUS_MONITOR_DEFAULT_OPTIONS,] }] }
 ];
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FocusMonitor, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable,
         args: [{ providedIn: 'root' }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }, { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform }, { type: undefined, decorators: [{
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }, { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform }, { type: InputModalityDetector }, { type: undefined, decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional
             }, {
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
@@ -8186,12 +8335,6 @@ FocusMonitor.ctorParameters = () => [
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
                 args: [FOCUS_MONITOR_DEFAULT_OPTIONS]
             }] }]; }, null); })();
-/** Gets the target of an event, accounting for Shadow DOM. */
-function getTarget(event) {
-    // If an event is bound outside the Shadow DOM, the `event.target` will
-    // point to the shadow root so we have to use `composedPath` instead.
-    return (event.composedPath ? event.composedPath()[0] : event.target);
-}
 /**
  * Directive that determines how a particular element was focused (via keyboard, mouse, touch, or
  * programmatically) and adds corresponding classes to the element.
@@ -8342,19 +8485,19 @@ class A11yModule {
 }
 A11yModule.ɵfac = function A11yModule_Factory(t) { return new (t || A11yModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](HighContrastModeDetector)); };
 A11yModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: A11yModule });
-A11yModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.PlatformModule, _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_12__.ObserversModule]] });
+A11yModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.PlatformModule, _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_15__.ObserversModule]] });
 A11yModule.ctorParameters = () => [
     { type: HighContrastModeDetector }
 ];
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](A11yModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
         args: [{
-                imports: [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.PlatformModule, _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_12__.ObserversModule],
+                imports: [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.PlatformModule, _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_15__.ObserversModule],
                 declarations: [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus],
                 exports: [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]
             }]
     }], function () { return [{ type: HighContrastModeDetector }]; }, null); })();
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](A11yModule, { declarations: function () { return [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]; }, imports: function () { return [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.PlatformModule, _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_12__.ObserversModule]; }, exports: function () { return [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]; } }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](A11yModule, { declarations: function () { return [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]; }, imports: function () { return [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.PlatformModule, _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_15__.ObserversModule]; }, exports: function () { return [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]; } }); })();
 
 /**
  * @license
@@ -9500,7 +9643,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
 
 /**
  * @license
@@ -49160,17 +49303,15 @@ const BUTTON_HOST_ATTRIBUTES = [
     'mat-fab',
 ];
 // Boilerplate for applying mixins to MatButton.
-/** @docs-private */
-class MatButtonBase {
+const _MatButtonBase = (0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinColor)((0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinDisabled)((0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinDisableRipple)(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatButtonMixinBase = (0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinColor)((0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinDisabled)((0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinDisableRipple)(MatButtonBase)));
+})));
 /**
  * Material design button.
  */
-class MatButton extends _MatButtonMixinBase {
+class MatButton extends _MatButtonBase {
     constructor(elementRef, _focusMonitor, _animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
@@ -49910,7 +50051,7 @@ function MatOption_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("(", ctx_r1.group.label, ")");
 } }
 const _c2 = ["*"];
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
 
 /**
  * @license
@@ -49944,7 +50085,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.0.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -50163,14 +50304,16 @@ function mixinErrorState(base) {
     return class extends base {
         constructor(...args) {
             super(...args);
+            // This class member exists as an interop with `MatFormFieldControl` which expects
+            // a public `stateChanges` observable to emit whenever the form field should be updated.
+            // The description is not specifically mentioning the error state, as classes using this
+            // mixin can/should emit an event in other cases too.
+            /** Emits whenever the component state changes. */
+            this.stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_6__.Subject();
             /** Whether the component is in an error state. */
             this.errorState = false;
-            /**
-             * Stream that emits whenever the state of the input changes such that the wrapping
-             * `MatFormField` needs to run change detection.
-             */
-            this.stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_6__.Subject();
         }
+        /** Updates the error state based on the provided error state matcher. */
         updateErrorState() {
             const oldState = this.errorState;
             const parent = this._parentFormGroup || this._parentForm;
@@ -51398,9 +51541,8 @@ const MAT_OPTION_PARENT_COMPONENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0
 //     doesn't read out the text at all. Furthermore, on
 // Boilerplate for applying mixins to MatOptgroup.
 /** @docs-private */
-class MatOptgroupBase {
-}
-const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+const _MatOptgroupMixinBase = mixinDisabled(class {
+});
 // Counter for unique group ids.
 let _uniqueOptgroupIdCounter = 0;
 class _MatOptgroupBase extends _MatOptgroupMixinBase {
@@ -51866,12 +52008,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const _c0 = ["*", [["mat-toolbar-row"]]];
 const _c1 = ["*", "mat-toolbar-row"];
-class MatToolbarBase {
+const _MatToolbarBase = (0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinColor)(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatToolbarMixinBase = (0,_angular_material_core__WEBPACK_IMPORTED_MODULE_0__.mixinColor)(MatToolbarBase);
+});
 class MatToolbarRow {
 }
 MatToolbarRow.ɵfac = function MatToolbarRow_Factory(t) { return new (t || MatToolbarRow)(); };
@@ -51884,7 +52025,7 @@ MatToolbarRow.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["
                 host: { 'class': 'mat-toolbar-row' }
             }]
     }], null, null); })();
-class MatToolbar extends _MatToolbarMixinBase {
+class MatToolbar extends _MatToolbarBase {
     constructor(elementRef, _platform, document) {
         super(elementRef);
         this._platform = _platform;
@@ -63461,6 +63602,46 @@ function delayWhen(delayDurationSelector, subscriptionDelay) {
 
 /***/ }),
 
+/***/ 42687:
+/*!********************************************************************************!*\
+  !*** ./node_modules/rxjs/dist/esm5/internal/operators/distinctUntilChanged.js ***!
+  \********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "distinctUntilChanged": function() { return /* binding */ distinctUntilChanged; }
+/* harmony export */ });
+/* harmony import */ var _util_identity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/identity */ 52738);
+/* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/lift */ 30424);
+/* harmony import */ var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OperatorSubscriber */ 95076);
+
+
+
+function distinctUntilChanged(comparator, keySelector) {
+    if (keySelector === void 0) { keySelector = _util_identity__WEBPACK_IMPORTED_MODULE_0__.identity; }
+    comparator = comparator !== null && comparator !== void 0 ? comparator : defaultCompare;
+    return (0,_util_lift__WEBPACK_IMPORTED_MODULE_1__.operate)(function (source, subscriber) {
+        var previousKey;
+        var first = true;
+        source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__.OperatorSubscriber(subscriber, function (value) {
+            var currentKey = keySelector(value);
+            if (first || !comparator(previousKey, currentKey)) {
+                first = false;
+                previousKey = currentKey;
+                subscriber.next(value);
+            }
+        }));
+    });
+}
+function defaultCompare(a, b) {
+    return a === b;
+}
+//# sourceMappingURL=distinctUntilChanged.js.map
+
+/***/ }),
+
 /***/ 34689:
 /*!******************************************************************!*\
   !*** ./node_modules/rxjs/dist/esm5/internal/operators/filter.js ***!
@@ -64036,6 +64217,26 @@ function handleReset(reset, on) {
 
 /***/ }),
 
+/***/ 21438:
+/*!****************************************************************!*\
+  !*** ./node_modules/rxjs/dist/esm5/internal/operators/skip.js ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "skip": function() { return /* binding */ skip; }
+/* harmony export */ });
+/* harmony import */ var _filter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filter */ 34689);
+
+function skip(count) {
+    return (0,_filter__WEBPACK_IMPORTED_MODULE_0__.filter)(function (_, index) { return count <= index; });
+}
+//# sourceMappingURL=skip.js.map
+
+/***/ }),
+
 /***/ 69978:
 /*!*********************************************************************!*\
   !*** ./node_modules/rxjs/dist/esm5/internal/operators/startWith.js ***!
@@ -64194,6 +64395,35 @@ function takeLast(count) {
         });
 }
 //# sourceMappingURL=takeLast.js.map
+
+/***/ }),
+
+/***/ 25755:
+/*!*********************************************************************!*\
+  !*** ./node_modules/rxjs/dist/esm5/internal/operators/takeUntil.js ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "takeUntil": function() { return /* binding */ takeUntil; }
+/* harmony export */ });
+/* harmony import */ var _util_lift__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/lift */ 30424);
+/* harmony import */ var _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OperatorSubscriber */ 95076);
+/* harmony import */ var _observable_from__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../observable/from */ 4416);
+/* harmony import */ var _util_noop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/noop */ 86186);
+
+
+
+
+function takeUntil(notifier) {
+    return (0,_util_lift__WEBPACK_IMPORTED_MODULE_0__.operate)(function (source, subscriber) {
+        (0,_observable_from__WEBPACK_IMPORTED_MODULE_1__.innerFrom)(notifier).subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__.OperatorSubscriber(subscriber, function () { return subscriber.complete(); }, _util_noop__WEBPACK_IMPORTED_MODULE_3__.noop));
+        !subscriber.closed && source.subscribe(subscriber);
+    });
+}
+//# sourceMappingURL=takeUntil.js.map
 
 /***/ }),
 

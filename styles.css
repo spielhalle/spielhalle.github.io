@@ -187,13 +187,8 @@ textarea.cdk-textarea-autosize-measuring-firefox{padding:2px 0 !important;box-si
 .mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0px 2px 4px -1px rgba(0, 0, 0, 0.2),0px 4px 5px 0px rgba(0, 0, 0, 0.14),0px 1px 10px 0px rgba(0, 0, 0, 0.12)}
 .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover){background:#424242}
 .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled){color:#fff}
-.mat-badge-content{color:#fff;background:#c2185b}
-.cdk-high-contrast-active .mat-badge-content{outline:solid 1px;border-radius:0}
-.mat-badge-accent .mat-badge-content{background:#b0bec5;color:rgba(0,0,0,.87)}
-.mat-badge-warn .mat-badge-content{color:#fff;background:#f44336}
 .mat-badge{position:relative}
 .mat-badge-hidden .mat-badge-content{display:none}
-.mat-badge-disabled .mat-badge-content{background:#6e6e6e;color:rgba(255,255,255,.5)}
 .mat-badge-content{position:absolute;text-align:center;display:inline-block;border-radius:50%;transition:transform 200ms ease-in-out;transform:scale(0.6);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;pointer-events:none}
 .ng-animate-disabled .mat-badge-content,.mat-badge-content._mat-animation-noopable{transition:none}
 .mat-badge-content.mat-badge-active{transform:none}
@@ -230,6 +225,11 @@ textarea.cdk-textarea-autosize-measuring-firefox{padding:2px 0 !important;box-si
 [dir=rtl] .mat-badge-large.mat-badge-overlap.mat-badge-before .mat-badge-content{left:auto;right:-14px}
 .mat-badge-large.mat-badge-overlap.mat-badge-after .mat-badge-content{right:-14px}
 [dir=rtl] .mat-badge-large.mat-badge-overlap.mat-badge-after .mat-badge-content{right:auto;left:-14px}
+.mat-badge-content{color:#fff;background:#c2185b}
+.cdk-high-contrast-active .mat-badge-content{outline:solid 1px;border-radius:0}
+.mat-badge-accent .mat-badge-content{background:#b0bec5;color:rgba(0,0,0,.87)}
+.mat-badge-warn .mat-badge-content{color:#fff;background:#f44336}
+.mat-badge-disabled .mat-badge-content{background:#6e6e6e;color:rgba(255,255,255,.5)}
 .mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2),0px 16px 24px 2px rgba(0, 0, 0, 0.14),0px 6px 30px 5px rgba(0, 0, 0, 0.12);background:#424242;color:#fff}
 .mat-button,.mat-icon-button,.mat-stroked-button{color:inherit;background:transparent}
 .mat-button.mat-primary,.mat-icon-button.mat-primary,.mat-stroked-button.mat-primary{color:#c2185b}
