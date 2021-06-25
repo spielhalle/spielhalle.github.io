@@ -189,6 +189,23 @@ addEventListener('message', (evt) => {
 /******/ 		};
 /******/ 	}();
 /******/ 	
+/******/ 	/* webpack/runtime/trusted types */
+/******/ 	!function() {
+/******/ 		var policy;
+/******/ 		__webpack_require__.tu = function(url) {
+/******/ 			// Create Trusted Type policy if Trusted Types are available and the policy doesn't exist yet.
+/******/ 			if (policy === undefined) {
+/******/ 				policy = {
+/******/ 					createScriptURL: function(url) { return url; }
+/******/ 				};
+/******/ 				if (typeof trustedTypes !== "undefined" && trustedTypes.createPolicy) {
+/******/ 					policy = trustedTypes.createPolicy("angular#bundler", policy);
+/******/ 				}
+/******/ 			}
+/******/ 			return policy.createScriptURL(url);
+/******/ 		};
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	!function() {
 /******/ 		__webpack_require__.p = "";
@@ -223,7 +240,7 @@ addEventListener('message', (evt) => {
 /******/ 			// "1" is the signal for "already loaded"
 /******/ 			if(!installedChunks[chunkId]) {
 /******/ 				if(true) { // all chunks have JS
-/******/ 					importScripts(__webpack_require__.p + __webpack_require__.u(chunkId));
+/******/ 					importScripts(__webpack_require__.tu(__webpack_require__.p + __webpack_require__.u(chunkId)));
 /******/ 				}
 /******/ 			}
 /******/ 		};

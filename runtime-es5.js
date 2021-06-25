@@ -151,7 +151,7 @@
 /******/ 					script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 				}
 /******/ 				script.setAttribute("data-webpack", dataWebpackPrefix + key);
-/******/ 				script.src = url;
+/******/ 				script.src = __webpack_require__.tu(url);
 /******/ 			}
 /******/ 			inProgress[url] = [done];
 /******/ 			var onScriptComplete = function(prev, event) {
@@ -189,6 +189,23 @@
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/trusted types */
+/******/ 	!function() {
+/******/ 		var policy;
+/******/ 		__webpack_require__.tu = function(url) {
+/******/ 			// Create Trusted Type policy if Trusted Types are available and the policy doesn't exist yet.
+/******/ 			if (policy === undefined) {
+/******/ 				policy = {
+/******/ 					createScriptURL: function(url) { return url; }
+/******/ 				};
+/******/ 				if (typeof trustedTypes !== "undefined" && trustedTypes.createPolicy) {
+/******/ 					policy = trustedTypes.createPolicy("angular#bundler", policy);
+/******/ 				}
+/******/ 			}
+/******/ 			return policy.createScriptURL(url);
 /******/ 		};
 /******/ 	}();
 /******/ 	

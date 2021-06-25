@@ -406,6 +406,53 @@
 
     /******/
 
+    /* webpack/runtime/trusted types */
+
+    /******/
+
+    !function () {
+      /******/
+      var policy;
+      /******/
+
+      __webpack_require__.tu = function (url) {
+        /******/
+        // Create Trusted Type policy if Trusted Types are available and the policy doesn't exist yet.
+
+        /******/
+        if (policy === undefined) {
+          /******/
+          policy = {
+            /******/
+            createScriptURL: function createScriptURL(url) {
+              return url;
+            }
+            /******/
+
+          };
+          /******/
+
+          if (typeof trustedTypes !== "undefined" && trustedTypes.createPolicy) {
+            /******/
+            policy = trustedTypes.createPolicy("angular#bundler", policy);
+            /******/
+          }
+          /******/
+
+        }
+        /******/
+
+
+        return policy.createScriptURL(url);
+        /******/
+      };
+      /******/
+
+    }();
+    /******/
+
+    /******/
+
     /* webpack/runtime/publicPath */
 
     /******/
@@ -500,7 +547,7 @@
             // all chunks have JS
 
             /******/
-            importScripts(__webpack_require__.p + __webpack_require__.u(chunkId));
+            importScripts(__webpack_require__.tu(__webpack_require__.p + __webpack_require__.u(chunkId)));
             /******/
           }
           /******/

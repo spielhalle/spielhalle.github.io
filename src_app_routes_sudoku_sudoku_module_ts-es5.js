@@ -93376,9 +93376,9 @@
 
             this.calculating = true;
             var obs = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Observable(function (sub) {
-              var worker = new Worker(new URL(
+              var worker = new Worker(__webpack_require__.tu(new URL(
               /* worker import */
-              __webpack_require__.p + __webpack_require__.u("benchmarkSudokuWorker"), __webpack_require__.b), {
+              __webpack_require__.p + __webpack_require__.u("benchmarkSudokuWorker"), __webpack_require__.b)), {
                 name: 'benchmarkSudokuWorker',
                 type: undefined
               });
@@ -94550,9 +94550,9 @@
             if (typeof Worker !== 'undefined') {
               // Create a new
               return new Promise(function (resolve) {
-                var worker = new Worker(new URL(
+                var worker = new Worker(__webpack_require__.tu(new URL(
                 /* worker import */
-                __webpack_require__.p + __webpack_require__.u("solveSudokuWorker"), __webpack_require__.b), {
+                __webpack_require__.p + __webpack_require__.u("solveSudokuWorker"), __webpack_require__.b)), {
                   name: 'solveSudokuWorker',
                   type: undefined
                 });

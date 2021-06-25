@@ -68164,7 +68164,7 @@ class SudokuBenchmarkComponent {
     startTest() {
         this.calculating = true;
         const obs = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Observable((sub) => {
-            const worker = new Worker(new URL(/* worker import */ __webpack_require__.p + __webpack_require__.u("benchmarkSudokuWorker"), __webpack_require__.b), { name: 'benchmarkSudokuWorker', type: undefined });
+            const worker = new Worker(__webpack_require__.tu(new URL(/* worker import */ __webpack_require__.p + __webpack_require__.u("benchmarkSudokuWorker"), __webpack_require__.b)), { name: 'benchmarkSudokuWorker', type: undefined });
             worker.onmessage = (evt) => {
                 sub.next(evt.data);
                 if (evt.data.type === _sudoku_benchmark_message__WEBPACK_IMPORTED_MODULE_1__.SudokuBenchmarkMessageType.RESULT) {
@@ -68761,7 +68761,7 @@ class SudokuSolverService {
         if (typeof Worker !== 'undefined') {
             // Create a new
             return new Promise((resolve) => {
-                const worker = new Worker(new URL(/* worker import */ __webpack_require__.p + __webpack_require__.u("solveSudokuWorker"), __webpack_require__.b), { name: 'solveSudokuWorker', type: undefined });
+                const worker = new Worker(__webpack_require__.tu(new URL(/* worker import */ __webpack_require__.p + __webpack_require__.u("solveSudokuWorker"), __webpack_require__.b)), { name: 'solveSudokuWorker', type: undefined });
                 worker.onmessage = (evt) => {
                     resolve(evt.data);
                 };
