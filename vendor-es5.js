@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1880,7 +1880,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16140,7 +16140,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23519,7 +23519,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27444,7 +27444,7 @@
       /*! rxjs/operators */
       88047);
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -53142,7 +53142,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.1.0');
+      var _VERSION3 = new _Version('12.1.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74335,7 +74335,7 @@
       /*! @angular/common */
       38583);
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75729,7 +75729,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -78374,16 +78374,20 @@
         }, {
           key: "_getOrCreateElement",
           value: function _getOrCreateElement(meta) {
+            var _this163 = this;
+
             var forceCreation = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
             if (!forceCreation) {
-              var selector = this._parseSelector(meta);
-
-              var elem = this.getTag(selector); // It's allowed to have multiple elements with the same name so it's not enough to
+              var selector = this._parseSelector(meta); // It's allowed to have multiple elements with the same name so it's not enough to
               // just check that element with the same name already present on the page. We also need to
               // check if element has tag attributes
 
-              if (elem && this._containsAttributes(meta, elem)) return elem;
+
+              var elem = this.getTags(selector).filter(function (elem) {
+                return _this163._containsAttributes(meta, elem);
+              })[0];
+              if (elem !== undefined) return elem;
             }
 
             var element = this._dom.createElement('meta');
@@ -78398,10 +78402,10 @@
         }, {
           key: "_setMetaElementAttributes",
           value: function _setMetaElementAttributes(tag, el) {
-            var _this163 = this;
+            var _this164 = this;
 
             Object.keys(tag).forEach(function (prop) {
-              return el.setAttribute(_this163._getMetaKeyMap(prop), tag[prop]);
+              return el.setAttribute(_this164._getMetaKeyMap(prop), tag[prop]);
             });
             return el;
           }
@@ -78414,10 +78418,10 @@
         }, {
           key: "_containsAttributes",
           value: function _containsAttributes(tag, elem) {
-            var _this164 = this;
+            var _this165 = this;
 
             return Object.keys(tag).every(function (key) {
-              return elem.getAttribute(_this164._getMetaKeyMap(key)) === tag[key];
+              return elem.getAttribute(_this165._getMetaKeyMap(key)) === tag[key];
             });
           }
         }, {
@@ -79033,7 +79037,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.0');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79796,7 +79800,7 @@
       /*! rxjs/operators */
       70023);
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79860,17 +79864,17 @@
         id,
         /** @docsNotRequired */
         url) {
-          var _this165;
+          var _this166;
 
           var navigationTrigger = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'imperative';
           var restoredState = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
           _classCallCheck(this, _NavigationStart);
 
-          _this165 = _super62.call(this, id, url);
-          _this165.navigationTrigger = navigationTrigger;
-          _this165.restoredState = restoredState;
-          return _this165;
+          _this166 = _super62.call(this, id, url);
+          _this166.navigationTrigger = navigationTrigger;
+          _this166.restoredState = restoredState;
+          return _this166;
         }
         /** @docsNotRequired */
 
@@ -79907,13 +79911,13 @@
         url,
         /** @docsNotRequired */
         urlAfterRedirects) {
-          var _this166;
+          var _this167;
 
           _classCallCheck(this, _NavigationEnd);
 
-          _this166 = _super63.call(this, id, url);
-          _this166.urlAfterRedirects = urlAfterRedirects;
-          return _this166;
+          _this167 = _super63.call(this, id, url);
+          _this167.urlAfterRedirects = urlAfterRedirects;
+          return _this167;
         }
         /** @docsNotRequired */
 
@@ -79952,13 +79956,13 @@
         url,
         /** @docsNotRequired */
         reason) {
-          var _this167;
+          var _this168;
 
           _classCallCheck(this, _NavigationCancel);
 
-          _this167 = _super64.call(this, id, url);
-          _this167.reason = reason;
-          return _this167;
+          _this168 = _super64.call(this, id, url);
+          _this168.reason = reason;
+          return _this168;
         }
         /** @docsNotRequired */
 
@@ -79995,13 +79999,13 @@
         url,
         /** @docsNotRequired */
         error) {
-          var _this168;
+          var _this169;
 
           _classCallCheck(this, _NavigationError);
 
-          _this168 = _super65.call(this, id, url);
-          _this168.error = error;
-          return _this168;
+          _this169 = _super65.call(this, id, url);
+          _this169.error = error;
+          return _this169;
         }
         /** @docsNotRequired */
 
@@ -80036,14 +80040,14 @@
         urlAfterRedirects,
         /** @docsNotRequired */
         state) {
-          var _this169;
+          var _this170;
 
           _classCallCheck(this, _RoutesRecognized);
 
-          _this169 = _super66.call(this, id, url);
-          _this169.urlAfterRedirects = urlAfterRedirects;
-          _this169.state = state;
-          return _this169;
+          _this170 = _super66.call(this, id, url);
+          _this170.urlAfterRedirects = urlAfterRedirects;
+          _this170.state = state;
+          return _this170;
         }
         /** @docsNotRequired */
 
@@ -80080,14 +80084,14 @@
         urlAfterRedirects,
         /** @docsNotRequired */
         state) {
-          var _this170;
+          var _this171;
 
           _classCallCheck(this, _GuardsCheckStart);
 
-          _this170 = _super67.call(this, id, url);
-          _this170.urlAfterRedirects = urlAfterRedirects;
-          _this170.state = state;
-          return _this170;
+          _this171 = _super67.call(this, id, url);
+          _this171.urlAfterRedirects = urlAfterRedirects;
+          _this171.state = state;
+          return _this171;
         }
 
         _createClass2(_GuardsCheckStart, [{
@@ -80124,15 +80128,15 @@
         state,
         /** @docsNotRequired */
         shouldActivate) {
-          var _this171;
+          var _this172;
 
           _classCallCheck(this, _GuardsCheckEnd);
 
-          _this171 = _super68.call(this, id, url);
-          _this171.urlAfterRedirects = urlAfterRedirects;
-          _this171.state = state;
-          _this171.shouldActivate = shouldActivate;
-          return _this171;
+          _this172 = _super68.call(this, id, url);
+          _this172.urlAfterRedirects = urlAfterRedirects;
+          _this172.state = state;
+          _this172.shouldActivate = shouldActivate;
+          return _this172;
         }
 
         _createClass2(_GuardsCheckEnd, [{
@@ -80170,14 +80174,14 @@
         urlAfterRedirects,
         /** @docsNotRequired */
         state) {
-          var _this172;
+          var _this173;
 
           _classCallCheck(this, _ResolveStart);
 
-          _this172 = _super69.call(this, id, url);
-          _this172.urlAfterRedirects = urlAfterRedirects;
-          _this172.state = state;
-          return _this172;
+          _this173 = _super69.call(this, id, url);
+          _this173.urlAfterRedirects = urlAfterRedirects;
+          _this173.state = state;
+          return _this173;
         }
 
         _createClass2(_ResolveStart, [{
@@ -80211,14 +80215,14 @@
         urlAfterRedirects,
         /** @docsNotRequired */
         state) {
-          var _this173;
+          var _this174;
 
           _classCallCheck(this, _ResolveEnd);
 
-          _this173 = _super70.call(this, id, url);
-          _this173.urlAfterRedirects = urlAfterRedirects;
-          _this173.state = state;
-          return _this173;
+          _this174 = _super70.call(this, id, url);
+          _this174.urlAfterRedirects = urlAfterRedirects;
+          _this174.state = state;
+          return _this174;
         }
 
         _createClass2(_ResolveEnd, [{
@@ -80840,7 +80844,7 @@
         segments,
         /** The list of children of this group */
         children) {
-          var _this174 = this;
+          var _this175 = this;
 
           _classCallCheck(this, _UrlSegmentGroup);
 
@@ -80850,7 +80854,7 @@
 
           this.parent = null;
           forEach(children, function (v, k) {
-            return v.parent = _this174;
+            return v.parent = _this175;
           });
         }
         /** Whether the segment has child segments */
@@ -81609,14 +81613,14 @@
         function _RouterState(root,
         /** The current snapshot of the router state */
         snapshot) {
-          var _this175;
+          var _this176;
 
           _classCallCheck(this, _RouterState);
 
-          _this175 = _super71.call(this, root);
-          _this175.snapshot = snapshot;
-          setRouterState(_assertThisInitialized(_this175), root);
-          return _this175;
+          _this176 = _super71.call(this, root);
+          _this176.snapshot = snapshot;
+          setRouterState(_assertThisInitialized(_this176), root);
+          return _this176;
         }
 
         _createClass2(_RouterState, [{
@@ -82013,14 +82017,14 @@
         function _RouterStateSnapshot(
         /** The url from which this snapshot was created */
         url, root) {
-          var _this176;
+          var _this177;
 
           _classCallCheck(this, _RouterStateSnapshot);
 
-          _this176 = _super72.call(this, root);
-          _this176.url = url;
-          setRouterState(_assertThisInitialized(_this176), root);
-          return _this176;
+          _this177 = _super72.call(this, root);
+          _this177.url = url;
+          setRouterState(_assertThisInitialized(_this177), root);
+          return _this177;
         }
 
         _createClass2(_RouterStateSnapshot, [{
@@ -82567,20 +82571,20 @@
         }, {
           key: "deactivateChildRoutes",
           value: function deactivateChildRoutes(futureNode, currNode, contexts) {
-            var _this177 = this;
+            var _this178 = this;
 
             var children = nodeChildrenAsMap(currNode); // Recurse on the routes active in the future state to de-activate deeper children
 
             futureNode.children.forEach(function (futureChild) {
               var childOutletName = futureChild.value.outlet;
 
-              _this177.deactivateRoutes(futureChild, children[childOutletName], contexts);
+              _this178.deactivateRoutes(futureChild, children[childOutletName], contexts);
 
               delete children[childOutletName];
             }); // De-activate the routes that will not be re-used
 
             forEach(children, function (v, childName) {
-              _this177.deactivateRouteAndItsChildren(v, contexts);
+              _this178.deactivateRouteAndItsChildren(v, contexts);
             });
           }
         }, {
@@ -82662,13 +82666,13 @@
         }, {
           key: "activateChildRoutes",
           value: function activateChildRoutes(futureNode, currNode, contexts) {
-            var _this178 = this;
+            var _this179 = this;
 
             var children = nodeChildrenAsMap(currNode);
             futureNode.children.forEach(function (c) {
-              _this178.activateRoutes(c, children[c.value.outlet], contexts);
+              _this179.activateRoutes(c, children[c.value.outlet], contexts);
 
-              _this178.forwardEvent(new _ActivationEnd(c.value.snapshot));
+              _this179.forwardEvent(new _ActivationEnd(c.value.snapshot));
             });
 
             if (futureNode.children.length) {
@@ -83320,7 +83324,7 @@
         _createClass2(ApplyRedirects, [{
           key: "apply",
           value: function apply() {
-            var _this179 = this;
+            var _this180 = this;
 
             var splitGroup = split(this.urlTree.root, [], [], this.config).segmentGroup; // TODO(atscott): creating a new segment removes the _sourceSegment _segmentIndexShift, which is
             // only necessary to prevent failures in tests which assert exact object matches. The `split` is
@@ -83332,19 +83336,19 @@
             var rootSegmentGroup = new _UrlSegmentGroup(splitGroup.segments, splitGroup.children);
             var expanded$ = this.expandSegmentGroup(this.ngModule, this.config, rootSegmentGroup, _PRIMARY_OUTLET);
             var urlTrees$ = expanded$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (rootSegmentGroup) {
-              return _this179.createUrlTree(squashSegmentGroup(rootSegmentGroup), _this179.urlTree.queryParams, _this179.urlTree.fragment);
+              return _this180.createUrlTree(squashSegmentGroup(rootSegmentGroup), _this180.urlTree.queryParams, _this180.urlTree.fragment);
             }));
             return urlTrees$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.catchError)(function (e) {
               if (e instanceof AbsoluteRedirect) {
                 // After an absolute redirect we do not apply any more redirects!
                 // If this implementation changes, update the documentation note in `redirectTo`.
-                _this179.allowRedirects = false; // we need to run matching, so we can fetch all lazy-loaded modules
+                _this180.allowRedirects = false; // we need to run matching, so we can fetch all lazy-loaded modules
 
-                return _this179.match(e.urlTree);
+                return _this180.match(e.urlTree);
               }
 
               if (e instanceof NoMatch) {
-                throw _this179.noMatchError(e);
+                throw _this180.noMatchError(e);
               }
 
               throw e;
@@ -83353,15 +83357,15 @@
         }, {
           key: "match",
           value: function match(tree) {
-            var _this180 = this;
+            var _this181 = this;
 
             var expanded$ = this.expandSegmentGroup(this.ngModule, this.config, tree.root, _PRIMARY_OUTLET);
             var mapped$ = expanded$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (rootSegmentGroup) {
-              return _this180.createUrlTree(squashSegmentGroup(rootSegmentGroup), tree.queryParams, tree.fragment);
+              return _this181.createUrlTree(squashSegmentGroup(rootSegmentGroup), tree.queryParams, tree.fragment);
             }));
             return mapped$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.catchError)(function (e) {
               if (e instanceof NoMatch) {
-                throw _this180.noMatchError(e);
+                throw _this181.noMatchError(e);
               }
 
               throw e;
@@ -83393,7 +83397,7 @@
         }, {
           key: "expandChildren",
           value: function expandChildren(ngModule, routes, segmentGroup) {
-            var _this181 = this;
+            var _this182 = this;
 
             // Expand outlets one at a time, starting with the primary outlet. We need to do it this way
             // because an absolute redirect from the primary outlet takes precedence.
@@ -83415,7 +83419,7 @@
               // empty path.
 
               var sortedRoutes = sortByMatchingOutlets(routes, childOutlet);
-              return _this181.expandSegmentGroup(ngModule, sortedRoutes, child, childOutlet).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (s) {
+              return _this182.expandSegmentGroup(ngModule, sortedRoutes, child, childOutlet).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (s) {
                 return {
                   segment: s,
                   outlet: childOutlet
@@ -83429,10 +83433,10 @@
         }, {
           key: "expandSegment",
           value: function expandSegment(ngModule, segmentGroup, routes, segments, outlet, allowRedirects) {
-            var _this182 = this;
+            var _this183 = this;
 
             return (0, rxjs__WEBPACK_IMPORTED_MODULE_1__.from)(routes).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_13__.concatMap)(function (r) {
-              var expanded$ = _this182.expandSegmentAgainstRoute(ngModule, segmentGroup, routes, r, segments, outlet, allowRedirects);
+              var expanded$ = _this183.expandSegmentAgainstRoute(ngModule, segmentGroup, routes, r, segments, outlet, allowRedirects);
 
               return expanded$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.catchError)(function (e) {
                 if (e instanceof NoMatch) {
@@ -83484,7 +83488,7 @@
         }, {
           key: "expandWildCardWithParamsAgainstRouteUsingRedirect",
           value: function expandWildCardWithParamsAgainstRouteUsingRedirect(ngModule, routes, route, outlet) {
-            var _this183 = this;
+            var _this184 = this;
 
             var newTree = this.applyRedirectCommands([], route.redirectTo, {});
 
@@ -83494,13 +83498,13 @@
 
             return this.lineralizeSegments(route, newTree).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.mergeMap)(function (newSegments) {
               var group = new _UrlSegmentGroup(newSegments, {});
-              return _this183.expandSegment(ngModule, group, routes, newSegments, outlet, false);
+              return _this184.expandSegment(ngModule, group, routes, newSegments, outlet, false);
             }));
           }
         }, {
           key: "expandRegularSegmentAgainstRouteUsingRedirect",
           value: function expandRegularSegmentAgainstRouteUsingRedirect(ngModule, segmentGroup, routes, route, segments, outlet) {
-            var _this184 = this;
+            var _this185 = this;
 
             var _match = match(segmentGroup, route, segments),
                 matched = _match.matched,
@@ -83516,13 +83520,13 @@
             }
 
             return this.lineralizeSegments(route, newTree).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.mergeMap)(function (newSegments) {
-              return _this184.expandSegment(ngModule, segmentGroup, routes, newSegments.concat(segments.slice(lastChild)), outlet, false);
+              return _this185.expandSegment(ngModule, segmentGroup, routes, newSegments.concat(segments.slice(lastChild)), outlet, false);
             }));
           }
         }, {
           key: "matchSegmentAgainstRoute",
           value: function matchSegmentAgainstRoute(ngModule, rawSegmentGroup, route, segments, outlet) {
-            var _this185 = this;
+            var _this186 = this;
 
             if (route.path === '**') {
               if (route.loadChildren) {
@@ -83556,7 +83560,7 @@
               var segmentGroup = new _UrlSegmentGroup(splitSegmentGroup.segments, splitSegmentGroup.children);
 
               if (slicedSegments.length === 0 && segmentGroup.hasChildren()) {
-                var _expanded$ = _this185.expandChildren(childModule, childConfig, segmentGroup);
+                var _expanded$ = _this186.expandChildren(childModule, childConfig, segmentGroup);
 
                 return _expanded$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (children) {
                   return new _UrlSegmentGroup(consumedSegments, children);
@@ -83569,7 +83573,7 @@
 
               var matchedOnOutlet = getOutlet(route) === outlet;
 
-              var expanded$ = _this185.expandSegment(childModule, segmentGroup, childConfig, slicedSegments, matchedOnOutlet ? _PRIMARY_OUTLET : outlet, true);
+              var expanded$ = _this186.expandSegment(childModule, segmentGroup, childConfig, slicedSegments, matchedOnOutlet ? _PRIMARY_OUTLET : outlet, true);
 
               return expanded$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (cs) {
                 return new _UrlSegmentGroup(consumedSegments.concat(cs.segments), cs.children);
@@ -83579,7 +83583,7 @@
         }, {
           key: "getChildConfig",
           value: function getChildConfig(ngModule, route, segments) {
-            var _this186 = this;
+            var _this187 = this;
 
             if (route.children) {
               // The children belong to the same module
@@ -83594,7 +83598,7 @@
 
               return this.runCanLoadGuards(ngModule.injector, route, segments).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.mergeMap)(function (shouldLoadResult) {
                 if (shouldLoadResult) {
-                  return _this186.configLoader.load(ngModule.injector, route).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (cfg) {
+                  return _this187.configLoader.load(ngModule.injector, route).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (cfg) {
                     route._loadedConfig = cfg;
                     return cfg;
                   }));
@@ -83609,7 +83613,7 @@
         }, {
           key: "runCanLoadGuards",
           value: function runCanLoadGuards(moduleInjector, route, segments) {
-            var _this187 = this;
+            var _this188 = this;
 
             var canLoad = route.canLoad;
             if (!canLoad || canLoad.length === 0) return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(true);
@@ -83629,7 +83633,7 @@
             });
             return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(canLoadObservables).pipe(prioritizedGuardValue(), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (result) {
               if (!isUrlTree(result)) return;
-              var error = navigationCancelingError("Redirecting to \"".concat(_this187.urlSerializer.serialize(result), "\""));
+              var error = navigationCancelingError("Redirecting to \"".concat(_this188.urlSerializer.serialize(result), "\""));
               error.url = result;
               throw error;
             }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (result) {
@@ -83686,22 +83690,22 @@
         }, {
           key: "createSegmentGroup",
           value: function createSegmentGroup(redirectTo, group, segments, posParams) {
-            var _this188 = this;
+            var _this189 = this;
 
             var updatedSegments = this.createSegments(redirectTo, group.segments, segments, posParams);
             var children = {};
             forEach(group.children, function (child, name) {
-              children[name] = _this188.createSegmentGroup(redirectTo, child, segments, posParams);
+              children[name] = _this189.createSegmentGroup(redirectTo, child, segments, posParams);
             });
             return new _UrlSegmentGroup(updatedSegments, children);
           }
         }, {
           key: "createSegments",
           value: function createSegments(redirectTo, redirectToSegments, actualSegments, posParams) {
-            var _this189 = this;
+            var _this190 = this;
 
             return redirectToSegments.map(function (s) {
-              return s.path.startsWith(':') ? _this189.findPosParam(redirectTo, s, posParams) : _this189.findOrReturn(s, actualSegments);
+              return s.path.startsWith(':') ? _this190.findPosParam(redirectTo, s, posParams) : _this190.findOrReturn(s, actualSegments);
             });
           }
         }, {
@@ -84193,14 +84197,14 @@
         }, {
           key: "inheritParamsAndData",
           value: function inheritParamsAndData(routeNode) {
-            var _this190 = this;
+            var _this191 = this;
 
             var route = routeNode.value;
             var i = inheritedParamsDataResolve(route, this.paramsInheritanceStrategy);
             route.params = Object.freeze(i.params);
             route.data = Object.freeze(i.data);
             routeNode.children.forEach(function (n) {
-              return _this190.inheritParamsAndData(n);
+              return _this191.inheritParamsAndData(n);
             });
           }
         }, {
@@ -84751,7 +84755,7 @@
         _createClass2(RouterConfigLoader, [{
           key: "load",
           value: function load(parentInjector, route) {
-            var _this191 = this;
+            var _this192 = this;
 
             if (route._loader$) {
               return route._loader$;
@@ -84763,8 +84767,8 @@
 
             var moduleFactory$ = this.loadModuleFactory(route.loadChildren);
             var loadRunner = moduleFactory$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (factory) {
-              if (_this191.onLoadEndListener) {
-                _this191.onLoadEndListener(route);
+              if (_this192.onLoadEndListener) {
+                _this192.onLoadEndListener(route);
               }
 
               var module = factory.create(parentInjector); // When loading a module that doesn't provide `RouterModule.forChild()` preloader
@@ -84786,7 +84790,7 @@
         }, {
           key: "loadModuleFactory",
           value: function loadModuleFactory(loadChildren) {
-            var _this192 = this;
+            var _this193 = this;
 
             if (typeof loadChildren === 'string') {
               return (0, rxjs__WEBPACK_IMPORTED_MODULE_1__.from)(this.loader.load(loadChildren));
@@ -84795,7 +84799,7 @@
                 if (t instanceof _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModuleFactory) {
                   return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t);
                 } else {
-                  return (0, rxjs__WEBPACK_IMPORTED_MODULE_1__.from)(_this192.compiler.compileModuleAsync(t));
+                  return (0, rxjs__WEBPACK_IMPORTED_MODULE_1__.from)(_this193.compiler.compileModuleAsync(t));
                 }
               }));
             }
@@ -85020,7 +85024,7 @@
          */
         // TODO: vsavkin make internal after the final is out.
         function _Router(rootComponentType, urlSerializer, rootContexts, location, injector, loader, compiler, config) {
-          var _this193 = this;
+          var _this194 = this;
 
           _classCallCheck(this, _Router);
 
@@ -85156,11 +85160,11 @@
           this.canceledNavigationResolution = 'replace';
 
           var onLoadStart = function onLoadStart(r) {
-            return _this193.triggerEvent(new _RouteConfigLoadStart(r));
+            return _this194.triggerEvent(new _RouteConfigLoadStart(r));
           };
 
           var onLoadEnd = function onLoadEnd(r) {
-            return _this193.triggerEvent(new _RouteConfigLoadEnd(r));
+            return _this194.triggerEvent(new _RouteConfigLoadEnd(r));
           };
 
           this.ngModule = injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModuleRef);
@@ -85204,7 +85208,7 @@
         _createClass2(_Router, [{
           key: "setupNavigations",
           value: function setupNavigations(transitions) {
-            var _this194 = this;
+            var _this195 = this;
 
             var eventsSubject = this.events;
             return transitions.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(function (t) {
@@ -85212,7 +85216,7 @@
             }), // Extract URL
             (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (t) {
               return Object.assign(Object.assign({}, t), {
-                extractedUrl: _this194.urlHandlingStrategy.extract(t.rawUrl)
+                extractedUrl: _this195.urlHandlingStrategy.extract(t.rawUrl)
               });
             }), // Using switchMap so we cancel executing navigations when a new one comes in
             (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(function (t) {
@@ -85220,29 +85224,29 @@
               var errored = false;
               return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe( // Store the Navigation object
               (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
-                _this194.currentNavigation = {
+                _this195.currentNavigation = {
                   id: t.id,
                   initialUrl: t.currentRawUrl,
                   extractedUrl: t.extractedUrl,
                   trigger: t.source,
                   extras: t.extras,
-                  previousNavigation: _this194.lastSuccessfulNavigation ? Object.assign(Object.assign({}, _this194.lastSuccessfulNavigation), {
+                  previousNavigation: _this195.lastSuccessfulNavigation ? Object.assign(Object.assign({}, _this195.lastSuccessfulNavigation), {
                     previousNavigation: null
                   }) : null
                 };
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(function (t) {
-                var urlTransition = !_this194.navigated || t.extractedUrl.toString() !== _this194.browserUrlTree.toString();
+                var urlTransition = !_this195.navigated || t.extractedUrl.toString() !== _this195.browserUrlTree.toString();
 
-                var processCurrentUrl = (_this194.onSameUrlNavigation === 'reload' ? true : urlTransition) && _this194.urlHandlingStrategy.shouldProcessUrl(t.rawUrl);
+                var processCurrentUrl = (_this195.onSameUrlNavigation === 'reload' ? true : urlTransition) && _this195.urlHandlingStrategy.shouldProcessUrl(t.rawUrl);
 
                 if (processCurrentUrl) {
                   return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe( // Fire NavigationStart event
                   (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(function (t) {
-                    var transition = _this194.transitions.getValue();
+                    var transition = _this195.transitions.getValue();
 
-                    eventsSubject.next(new _NavigationStart(t.id, _this194.serializeUrl(t.extractedUrl), t.source, t.restoredState));
+                    eventsSubject.next(new _NavigationStart(t.id, _this195.serializeUrl(t.extractedUrl), t.source, t.restoredState));
 
-                    if (transition !== _this194.transitions.getValue()) {
+                    if (transition !== _this195.transitions.getValue()) {
                       return rxjs__WEBPACK_IMPORTED_MODULE_22__.EMPTY;
                     } // This delay is required to match old behavior that forced
                     // navigation to always be async
@@ -85250,30 +85254,30 @@
 
                     return Promise.resolve(t);
                   }), // ApplyRedirects
-                  applyRedirects$1(_this194.ngModule.injector, _this194.configLoader, _this194.urlSerializer, _this194.config), // Update the currentNavigation
+                  applyRedirects$1(_this195.ngModule.injector, _this195.configLoader, _this195.urlSerializer, _this195.config), // Update the currentNavigation
                   (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
-                    _this194.currentNavigation = Object.assign(Object.assign({}, _this194.currentNavigation), {
+                    _this195.currentNavigation = Object.assign(Object.assign({}, _this195.currentNavigation), {
                       finalUrl: t.urlAfterRedirects
                     });
                   }), // Recognize
-                  recognize$1(_this194.rootComponentType, _this194.config, function (url) {
-                    return _this194.serializeUrl(url);
-                  }, _this194.paramsInheritanceStrategy, _this194.relativeLinkResolution), // Update URL if in `eager` update mode
+                  recognize$1(_this195.rootComponentType, _this195.config, function (url) {
+                    return _this195.serializeUrl(url);
+                  }, _this195.paramsInheritanceStrategy, _this195.relativeLinkResolution), // Update URL if in `eager` update mode
                   (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
-                    if (_this194.urlUpdateStrategy === 'eager') {
+                    if (_this195.urlUpdateStrategy === 'eager') {
                       if (!t.extras.skipLocationChange) {
-                        _this194.setBrowserUrl(t.urlAfterRedirects, t);
+                        _this195.setBrowserUrl(t.urlAfterRedirects, t);
                       }
 
-                      _this194.browserUrlTree = t.urlAfterRedirects;
+                      _this195.browserUrlTree = t.urlAfterRedirects;
                     } // Fire RoutesRecognized
 
 
-                    var routesRecognized = new _RoutesRecognized(t.id, _this194.serializeUrl(t.extractedUrl), _this194.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
+                    var routesRecognized = new _RoutesRecognized(t.id, _this195.serializeUrl(t.extractedUrl), _this195.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
                     eventsSubject.next(routesRecognized);
                   }));
                 } else {
-                  var processPreviousUrl = urlTransition && _this194.rawUrlTree && _this194.urlHandlingStrategy.shouldProcessUrl(_this194.rawUrlTree);
+                  var processPreviousUrl = urlTransition && _this195.rawUrlTree && _this195.urlHandlingStrategy.shouldProcessUrl(_this195.rawUrlTree);
                   /* When the current URL shouldn't be processed, but the previous one was,
                    * we handle this "error condition" by navigating to the previously
                    * successful URL, but leaving the URL intact.*/
@@ -85285,9 +85289,9 @@
                         source = t.source,
                         restoredState = t.restoredState,
                         extras = t.extras;
-                    var navStart = new _NavigationStart(id, _this194.serializeUrl(extractedUrl), source, restoredState);
+                    var navStart = new _NavigationStart(id, _this195.serializeUrl(extractedUrl), source, restoredState);
                     eventsSubject.next(navStart);
-                    var targetSnapshot = createEmptyState(extractedUrl, _this194.rootComponentType).snapshot;
+                    var targetSnapshot = createEmptyState(extractedUrl, _this195.rootComponentType).snapshot;
                     return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(Object.assign(Object.assign({}, t), {
                       targetSnapshot: targetSnapshot,
                       urlAfterRedirects: extractedUrl,
@@ -85302,8 +85306,8 @@
                      * URL. This way the next navigation will be coming from the current URL
                      * in the browser.
                      */
-                    _this194.rawUrlTree = t.rawUrl;
-                    _this194.browserUrlTree = t.urlAfterRedirects;
+                    _this195.rawUrlTree = t.rawUrl;
+                    _this195.browserUrlTree = t.urlAfterRedirects;
                     t.resolve(null);
                     return rxjs__WEBPACK_IMPORTED_MODULE_22__.EMPTY;
                   }
@@ -85317,7 +85321,7 @@
                     _t$extras = t.extras,
                     skipLocationChange = _t$extras.skipLocationChange,
                     replaceUrl = _t$extras.replaceUrl;
-                return _this194.hooks.beforePreactivation(targetSnapshot, {
+                return _this195.hooks.beforePreactivation(targetSnapshot, {
                   navigationId: navigationId,
                   appliedUrlTree: appliedUrlTree,
                   rawUrlTree: rawUrlTree,
@@ -85326,28 +85330,28 @@
                 });
               }), // --- GUARDS ---
               (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
-                var guardsStart = new _GuardsCheckStart(t.id, _this194.serializeUrl(t.extractedUrl), _this194.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
+                var guardsStart = new _GuardsCheckStart(t.id, _this195.serializeUrl(t.extractedUrl), _this195.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
 
-                _this194.triggerEvent(guardsStart);
+                _this195.triggerEvent(guardsStart);
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (t) {
                 return Object.assign(Object.assign({}, t), {
-                  guards: getAllRouteGuards(t.targetSnapshot, t.currentSnapshot, _this194.rootContexts)
+                  guards: getAllRouteGuards(t.targetSnapshot, t.currentSnapshot, _this195.rootContexts)
                 });
-              }), checkGuards(_this194.ngModule.injector, function (evt) {
-                return _this194.triggerEvent(evt);
+              }), checkGuards(_this195.ngModule.injector, function (evt) {
+                return _this195.triggerEvent(evt);
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
                 if (isUrlTree(t.guardsResult)) {
-                  var error = navigationCancelingError("Redirecting to \"".concat(_this194.serializeUrl(t.guardsResult), "\""));
+                  var error = navigationCancelingError("Redirecting to \"".concat(_this195.serializeUrl(t.guardsResult), "\""));
                   error.url = t.guardsResult;
                   throw error;
                 }
 
-                var guardsEnd = new _GuardsCheckEnd(t.id, _this194.serializeUrl(t.extractedUrl), _this194.serializeUrl(t.urlAfterRedirects), t.targetSnapshot, !!t.guardsResult);
+                var guardsEnd = new _GuardsCheckEnd(t.id, _this195.serializeUrl(t.extractedUrl), _this195.serializeUrl(t.urlAfterRedirects), t.targetSnapshot, !!t.guardsResult);
 
-                _this194.triggerEvent(guardsEnd);
+                _this195.triggerEvent(guardsEnd);
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(function (t) {
                 if (!t.guardsResult) {
-                  _this194.cancelNavigationTransition(t, '');
+                  _this195.cancelNavigationTransition(t, '');
 
                   return false;
                 }
@@ -85357,25 +85361,25 @@
               switchTap(function (t) {
                 if (t.guards.canActivateChecks.length) {
                   return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
-                    var resolveStart = new _ResolveStart(t.id, _this194.serializeUrl(t.extractedUrl), _this194.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
+                    var resolveStart = new _ResolveStart(t.id, _this195.serializeUrl(t.extractedUrl), _this195.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
 
-                    _this194.triggerEvent(resolveStart);
+                    _this195.triggerEvent(resolveStart);
                   }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(function (t) {
                     var dataResolved = false;
-                    return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe(resolveData(_this194.paramsInheritanceStrategy, _this194.ngModule.injector), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)({
+                    return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe(resolveData(_this195.paramsInheritanceStrategy, _this195.ngModule.injector), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)({
                       next: function next() {
                         return dataResolved = true;
                       },
                       complete: function complete() {
                         if (!dataResolved) {
-                          _this194.cancelNavigationTransition(t, "At least one route resolver didn't emit any value.");
+                          _this195.cancelNavigationTransition(t, "At least one route resolver didn't emit any value.");
                         }
                       }
                     }));
                   }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
-                    var resolveEnd = new _ResolveEnd(t.id, _this194.serializeUrl(t.extractedUrl), _this194.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
+                    var resolveEnd = new _ResolveEnd(t.id, _this195.serializeUrl(t.extractedUrl), _this195.serializeUrl(t.urlAfterRedirects), t.targetSnapshot);
 
-                    _this194.triggerEvent(resolveEnd);
+                    _this195.triggerEvent(resolveEnd);
                   }));
                 }
 
@@ -85389,7 +85393,7 @@
                     _t$extras2 = t.extras,
                     skipLocationChange = _t$extras2.skipLocationChange,
                     replaceUrl = _t$extras2.replaceUrl;
-                return _this194.hooks.afterPreactivation(targetSnapshot, {
+                return _this195.hooks.afterPreactivation(targetSnapshot, {
                   navigationId: navigationId,
                   appliedUrlTree: appliedUrlTree,
                   rawUrlTree: rawUrlTree,
@@ -85397,7 +85401,7 @@
                   replaceUrl: !!replaceUrl
                 });
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.map)(function (t) {
-                var targetRouterState = createRouterState(_this194.routeReuseStrategy, t.targetSnapshot, t.currentRouterState);
+                var targetRouterState = createRouterState(_this195.routeReuseStrategy, t.targetSnapshot, t.currentRouterState);
                 return Object.assign(Object.assign({}, t), {
                   targetRouterState: targetRouterState
                 });
@@ -85408,19 +85412,19 @@
                  URL and the RouterState, as well as updated the browser URL. All this should
                  happen *before* activating. */
               (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
-                _this194.currentUrlTree = t.urlAfterRedirects;
-                _this194.rawUrlTree = _this194.urlHandlingStrategy.merge(_this194.currentUrlTree, t.rawUrl);
-                _this194.routerState = t.targetRouterState;
+                _this195.currentUrlTree = t.urlAfterRedirects;
+                _this195.rawUrlTree = _this195.urlHandlingStrategy.merge(_this195.currentUrlTree, t.rawUrl);
+                _this195.routerState = t.targetRouterState;
 
-                if (_this194.urlUpdateStrategy === 'deferred') {
+                if (_this195.urlUpdateStrategy === 'deferred') {
                   if (!t.extras.skipLocationChange) {
-                    _this194.setBrowserUrl(_this194.rawUrlTree, t);
+                    _this195.setBrowserUrl(_this195.rawUrlTree, t);
                   }
 
-                  _this194.browserUrlTree = t.urlAfterRedirects;
+                  _this195.browserUrlTree = t.urlAfterRedirects;
                 }
-              }), activateRoutes(_this194.rootContexts, _this194.routeReuseStrategy, function (evt) {
-                return _this194.triggerEvent(evt);
+              }), activateRoutes(_this195.rootContexts, _this195.routeReuseStrategy, function (evt) {
+                return _this195.triggerEvent(evt);
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)({
                 next: function next() {
                   completed = true;
@@ -85444,13 +85448,13 @@
                   // sync code which looks for a value here in order to determine whether or
                   // not to handle a given popstate event or to leave it to the Angular
                   // router.
-                  _this194.cancelNavigationTransition(t, "Navigation ID ".concat(t.id, " is not equal to the current navigation id ").concat(_this194.navigationId));
+                  _this195.cancelNavigationTransition(t, "Navigation ID ".concat(t.id, " is not equal to the current navigation id ").concat(_this195.navigationId));
                 } // currentNavigation should always be reset to null here. If navigation was
                 // successful, lastSuccessfulTransition will have already been set. Therefore
                 // we can safely set currentNavigation to null here.
 
 
-                _this194.currentNavigation = null;
+                _this195.currentNavigation = null;
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.catchError)(function (e) {
                 errored = true;
                 /* This error type is issued during Redirect, and is handled as a
@@ -85465,12 +85469,12 @@
                     // isn't a change from the default currentUrlTree and won't navigate.
                     // This is only applicable with initial navigation, so setting
                     // `navigated` only when not redirecting resolves this scenario.
-                    _this194.navigated = true;
+                    _this195.navigated = true;
 
-                    _this194.resetStateAndUrl(t.currentRouterState, t.currentUrlTree, t.rawUrl);
+                    _this195.resetStateAndUrl(t.currentRouterState, t.currentUrlTree, t.rawUrl);
                   }
 
-                  var navCancel = new _NavigationCancel(t.id, _this194.serializeUrl(t.extractedUrl), e.message);
+                  var navCancel = new _NavigationCancel(t.id, _this195.serializeUrl(t.extractedUrl), e.message);
                   eventsSubject.next(navCancel); // When redirecting, we need to delay resolving the navigation
                   // promise and push it to the redirect navigation
 
@@ -85482,14 +85486,14 @@
                     // processing, there can be multiple navigations to the same
                     // URL.
                     setTimeout(function () {
-                      var mergedTree = _this194.urlHandlingStrategy.merge(e.url, _this194.rawUrlTree);
+                      var mergedTree = _this195.urlHandlingStrategy.merge(e.url, _this195.rawUrlTree);
 
                       var extras = {
                         skipLocationChange: t.extras.skipLocationChange,
-                        replaceUrl: _this194.urlUpdateStrategy === 'eager'
+                        replaceUrl: _this195.urlUpdateStrategy === 'eager'
                       };
 
-                      _this194.scheduleNavigation(mergedTree, 'imperative', null, extras, {
+                      _this195.scheduleNavigation(mergedTree, 'imperative', null, extras, {
                         resolve: t.resolve,
                         reject: t.reject,
                         promise: t.promise
@@ -85500,13 +85504,13 @@
                    * the pre-error state. */
 
                 } else {
-                  _this194.resetStateAndUrl(t.currentRouterState, t.currentUrlTree, t.rawUrl);
+                  _this195.resetStateAndUrl(t.currentRouterState, t.currentUrlTree, t.rawUrl);
 
-                  var navError = new _NavigationError(t.id, _this194.serializeUrl(t.extractedUrl), e);
+                  var navError = new _NavigationError(t.id, _this195.serializeUrl(t.extractedUrl), e);
                   eventsSubject.next(navError);
 
                   try {
-                    t.resolve(_this194.errorHandler(e));
+                    t.resolve(_this195.errorHandler(e));
                   } catch (ee) {
                     t.reject(ee);
                   }
@@ -85568,16 +85572,16 @@
         }, {
           key: "setUpLocationChangeListener",
           value: function setUpLocationChangeListener() {
-            var _this195 = this;
+            var _this196 = this;
 
             // Don't need to use Zone.wrap any more, because zone.js
             // already patch onPopState, so location change callback will
             // run into ngZone
             if (!this.locationSubscription) {
               this.locationSubscription = this.location.subscribe(function (event) {
-                var currentChange = _this195.extractLocationChangeInfoFromEvent(event);
+                var currentChange = _this196.extractLocationChangeInfoFromEvent(event);
 
-                if (_this195.shouldScheduleNavigation(_this195.lastLocationChangeInfo, currentChange)) {
+                if (_this196.shouldScheduleNavigation(_this196.lastLocationChangeInfo, currentChange)) {
                   // The `setTimeout` was added in #12160 and is likely to support Angular/AngularJS
                   // hybrid apps.
                   setTimeout(function () {
@@ -85598,11 +85602,11 @@
                       }
                     }
 
-                    _this195.scheduleNavigation(urlTree, source, state, extras);
+                    _this196.scheduleNavigation(urlTree, source, state, extras);
                   }, 0);
                 }
 
-                _this195.lastLocationChangeInfo = currentChange;
+                _this196.lastLocationChangeInfo = currentChange;
               });
             }
           }
@@ -85945,19 +85949,19 @@
         }, {
           key: "processNavigations",
           value: function processNavigations() {
-            var _this196 = this;
+            var _this197 = this;
 
             this.navigations.subscribe(function (t) {
-              _this196.navigated = true;
-              _this196.lastSuccessfulId = t.id;
-              _this196.currentPageId = t.targetPageId;
+              _this197.navigated = true;
+              _this197.lastSuccessfulId = t.id;
+              _this197.currentPageId = t.targetPageId;
 
-              _this196.events.next(new _NavigationEnd(t.id, _this196.serializeUrl(t.extractedUrl), _this196.serializeUrl(_this196.currentUrlTree)));
+              _this197.events.next(new _NavigationEnd(t.id, _this197.serializeUrl(t.extractedUrl), _this197.serializeUrl(_this197.currentUrlTree)));
 
-              _this196.lastSuccessfulNavigation = _this196.currentNavigation;
+              _this197.lastSuccessfulNavigation = _this197.currentNavigation;
               t.resolve(true);
             }, function (e) {
-              _this196.console.warn("Unhandled Navigation Error: ");
+              _this197.console.warn("Unhandled Navigation Error: ");
             });
           }
         }, {
@@ -86512,7 +86516,7 @@
 
       var _RouterLinkWithHref = /*#__PURE__*/function () {
         function _RouterLinkWithHref(router, route, locationStrategy) {
-          var _this197 = this;
+          var _this198 = this;
 
           _classCallCheck(this, _RouterLinkWithHref);
 
@@ -86525,7 +86529,7 @@
           this.onChanges = new rxjs__WEBPACK_IMPORTED_MODULE_24__.Subject();
           this.subscription = router.events.subscribe(function (s) {
             if (s instanceof _NavigationEnd) {
-              _this197.updateTargetUrlAndHref();
+              _this198.updateTargetUrlAndHref();
             }
           });
         }
@@ -86829,7 +86833,7 @@
 
       var _RouterLinkActive = /*#__PURE__*/function () {
         function _RouterLinkActive(router, element, renderer, cdr, link, linkWithHref) {
-          var _this198 = this;
+          var _this199 = this;
 
           _classCallCheck(this, _RouterLinkActive);
 
@@ -86854,7 +86858,7 @@
           };
           this.routerEventsSubscription = router.events.subscribe(function (s) {
             if (s instanceof _NavigationEnd) {
-              _this198.update();
+              _this199.update();
             }
           });
         }
@@ -86864,19 +86868,19 @@
         _createClass2(_RouterLinkActive, [{
           key: "ngAfterContentInit",
           value: function ngAfterContentInit() {
-            var _this199 = this;
+            var _this200 = this;
 
             // `of(null)` is used to force subscribe body to execute once immediately (like `startWith`).
             (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(this.links.changes, this.linksWithHrefs.changes, (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(null)).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_28__.mergeAll)()).subscribe(function (_) {
-              _this199.update();
+              _this200.update();
 
-              _this199.subscribeToEachLinkOnChanges();
+              _this200.subscribeToEachLinkOnChanges();
             });
           }
         }, {
           key: "subscribeToEachLinkOnChanges",
           value: function subscribeToEachLinkOnChanges() {
-            var _this200 = this;
+            var _this201 = this;
 
             var _a;
 
@@ -86887,8 +86891,8 @@
               return link.onChanges;
             });
             this.linkInputChangesSubscription = (0, rxjs__WEBPACK_IMPORTED_MODULE_1__.from)(allLinkChanges).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_28__.mergeAll)()).subscribe(function (link) {
-              if (_this200.isActive !== _this200.isLinkActive(_this200.router)(link)) {
-                _this200.update();
+              if (_this201.isActive !== _this201.isLinkActive(_this201.router)(link)) {
+                _this201.update();
               }
             });
           }
@@ -86920,22 +86924,22 @@
         }, {
           key: "update",
           value: function update() {
-            var _this201 = this;
+            var _this202 = this;
 
             if (!this.links || !this.linksWithHrefs || !this.router.navigated) return;
             Promise.resolve().then(function () {
-              var hasActiveLinks = _this201.hasActiveLinks();
+              var hasActiveLinks = _this202.hasActiveLinks();
 
-              if (_this201.isActive !== hasActiveLinks) {
-                _this201.isActive = hasActiveLinks;
+              if (_this202.isActive !== hasActiveLinks) {
+                _this202.isActive = hasActiveLinks;
 
-                _this201.cdr.markForCheck();
+                _this202.cdr.markForCheck();
 
-                _this201.classes.forEach(function (c) {
+                _this202.classes.forEach(function (c) {
                   if (hasActiveLinks) {
-                    _this201.renderer.addClass(_this201.element.nativeElement, c);
+                    _this202.renderer.addClass(_this202.element.nativeElement, c);
                   } else {
-                    _this201.renderer.removeClass(_this201.element.nativeElement, c);
+                    _this202.renderer.removeClass(_this202.element.nativeElement, c);
                   }
                 });
               }
@@ -87487,12 +87491,12 @@
         _createClass2(_RouterPreloader, [{
           key: "setUpPreloading",
           value: function setUpPreloading() {
-            var _this202 = this;
+            var _this203 = this;
 
             this.subscription = this.router.events.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(function (e) {
               return e instanceof _NavigationEnd;
             }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_13__.concatMap)(function () {
-              return _this202.preload();
+              return _this203.preload();
             })).subscribe(function () {});
           }
         }, {
@@ -87545,13 +87549,13 @@
         }, {
           key: "preloadConfig",
           value: function preloadConfig(ngModule, route) {
-            var _this203 = this;
+            var _this204 = this;
 
             return this.preloadingStrategy.preload(route, function () {
-              var loaded$ = route._loadedConfig ? (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(route._loadedConfig) : _this203.loader.load(ngModule.injector, route);
+              var loaded$ = route._loadedConfig ? (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(route._loadedConfig) : _this204.loader.load(ngModule.injector, route);
               return loaded$.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_17__.mergeMap)(function (config) {
                 route._loadedConfig = config;
-                return _this203.processRoutes(config.module, config.routes);
+                return _this204.processRoutes(config.module, config.routes);
               }));
             });
           }
@@ -87645,41 +87649,41 @@
         }, {
           key: "createScrollEvents",
           value: function createScrollEvents() {
-            var _this204 = this;
+            var _this205 = this;
 
             return this.router.events.subscribe(function (e) {
               if (e instanceof _NavigationStart) {
                 // store the scroll position of the current stable navigations.
-                _this204.store[_this204.lastId] = _this204.viewportScroller.getScrollPosition();
-                _this204.lastSource = e.navigationTrigger;
-                _this204.restoredId = e.restoredState ? e.restoredState.navigationId : 0;
+                _this205.store[_this205.lastId] = _this205.viewportScroller.getScrollPosition();
+                _this205.lastSource = e.navigationTrigger;
+                _this205.restoredId = e.restoredState ? e.restoredState.navigationId : 0;
               } else if (e instanceof _NavigationEnd) {
-                _this204.lastId = e.id;
+                _this205.lastId = e.id;
 
-                _this204.scheduleScrollEvent(e, _this204.router.parseUrl(e.urlAfterRedirects).fragment);
+                _this205.scheduleScrollEvent(e, _this205.router.parseUrl(e.urlAfterRedirects).fragment);
               }
             });
           }
         }, {
           key: "consumeScrollEvents",
           value: function consumeScrollEvents() {
-            var _this205 = this;
+            var _this206 = this;
 
             return this.router.events.subscribe(function (e) {
               if (!(e instanceof _Scroll)) return; // a popstate event. The pop state event will always ignore anchor scrolling.
 
               if (e.position) {
-                if (_this205.options.scrollPositionRestoration === 'top') {
-                  _this205.viewportScroller.scrollToPosition([0, 0]);
-                } else if (_this205.options.scrollPositionRestoration === 'enabled') {
-                  _this205.viewportScroller.scrollToPosition(e.position);
+                if (_this206.options.scrollPositionRestoration === 'top') {
+                  _this206.viewportScroller.scrollToPosition([0, 0]);
+                } else if (_this206.options.scrollPositionRestoration === 'enabled') {
+                  _this206.viewportScroller.scrollToPosition(e.position);
                 } // imperative navigation "forward"
 
               } else {
-                if (e.anchor && _this205.options.anchorScrolling === 'enabled') {
-                  _this205.viewportScroller.scrollToAnchor(e.anchor);
-                } else if (_this205.options.scrollPositionRestoration !== 'disabled') {
-                  _this205.viewportScroller.scrollToPosition([0, 0]);
+                if (e.anchor && _this206.options.anchorScrolling === 'enabled') {
+                  _this206.viewportScroller.scrollToAnchor(e.anchor);
+                } else if (_this206.options.scrollPositionRestoration !== 'disabled') {
+                  _this206.viewportScroller.scrollToPosition([0, 0]);
                 }
               }
             });
@@ -88094,12 +88098,12 @@
         _createClass2(RouterInitializer, [{
           key: "appInitializer",
           value: function appInitializer() {
-            var _this206 = this;
+            var _this207 = this;
 
             var p = this.injector.get(_angular_common__WEBPACK_IMPORTED_MODULE_27__.LOCATION_INITIALIZED, Promise.resolve(null));
             return p.then(function () {
               // If the injector was destroyed, the DI lookups below will fail.
-              if (_this206.destroyed) {
+              if (_this207.destroyed) {
                 return Promise.resolve(true);
               }
 
@@ -88108,9 +88112,9 @@
                 return resolve = r;
               });
 
-              var router = _this206.injector.get(_Router);
+              var router = _this207.injector.get(_Router);
 
-              var opts = _this206.injector.get(_ROUTER_CONFIGURATION);
+              var opts = _this207.injector.get(_ROUTER_CONFIGURATION);
 
               if (opts.initialNavigation === 'disabled') {
                 router.setUpLocationChangeListener();
@@ -88119,10 +88123,10 @@
               opts.initialNavigation === 'enabled' || opts.initialNavigation === 'enabledBlocking') {
                 router.hooks.afterPreactivation = function () {
                   // only the initial navigation should be delayed
-                  if (!_this206.initNavigation) {
-                    _this206.initNavigation = true;
+                  if (!_this207.initNavigation) {
+                    _this207.initNavigation = true;
                     resolve(true);
-                    return _this206.resultOfPreactivationDone; // subsequent navigations should not be delayed
+                    return _this207.resultOfPreactivationDone; // subsequent navigations should not be delayed
                   } else {
                     return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(null);
                   }
@@ -88241,7 +88245,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.0');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88468,7 +88472,7 @@
       /*! rxjs/operators */
       58252);
       /**
-       * @license Angular v12.1.0
+       * @license Angular v12.1.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -88730,7 +88734,7 @@
         }, {
           key: "requestSubscription",
           value: function requestSubscription(options) {
-            var _this207 = this;
+            var _this208 = this;
 
             if (!this.sw.isEnabled) {
               return Promise.reject(new Error(ERR_SW_NOT_SUPPORTED));
@@ -88750,7 +88754,7 @@
             return this.pushManager.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.switchMap)(function (pm) {
               return pm.subscribe(pushOptions);
             }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_9__.take)(1)).toPromise().then(function (sub) {
-              _this207.subscriptionChanges.next(sub);
+              _this208.subscriptionChanges.next(sub);
 
               return sub;
             });
@@ -88765,7 +88769,7 @@
         }, {
           key: "unsubscribe",
           value: function unsubscribe() {
-            var _this208 = this;
+            var _this209 = this;
 
             if (!this.sw.isEnabled) {
               return Promise.reject(new Error(ERR_SW_NOT_SUPPORTED));
@@ -88781,7 +88785,7 @@
                   throw new Error('Unsubscribe failed!');
                 }
 
-                _this208.subscriptionChanges.next(null);
+                _this209.subscriptionChanges.next(null);
               });
             };
 
