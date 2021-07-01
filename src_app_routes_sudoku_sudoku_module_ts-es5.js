@@ -2274,14 +2274,15 @@
        * found in the LICENSE file at https://angular.io/license
        */
 
+
+      var globalsForTest = typeof window !== 'undefined' ? window : {};
       /**
        * Whether we're in a testing environment.
        * TODO(crisbeto): remove this once we have an overlay testing module or Angular starts tearing
        * down the testing `NgModule` (see https://github.com/angular/angular/issues/18831).
        */
 
-
-      var isTestEnvironment = typeof __karma__ !== 'undefined' && !!__karma__ || typeof jasmine !== 'undefined' && !!jasmine || typeof jest !== 'undefined' && !!jest || typeof Mocha !== 'undefined' && !!Mocha;
+      var isTestEnvironment = typeof globalsForTest.__karma__ !== 'undefined' && !!globalsForTest.__karma__ || typeof globalsForTest.jasmine !== 'undefined' && !!globalsForTest.jasmine || typeof globalsForTest.jest !== 'undefined' && !!globalsForTest.jest || typeof globalsForTest.Mocha !== 'undefined' && !!globalsForTest.Mocha;
       /** Container inside which all overlays will render. */
 
       var _OverlayContainer = /*#__PURE__*/function () {
@@ -33255,7 +33256,7 @@
 
         var _super62 = _createSuper(_MatProgressBar);
 
-        function _MatProgressBar(_elementRef, _ngZone, _animationMode,
+        function _MatProgressBar(elementRef, _ngZone, _animationMode,
         /**
          * @deprecated `location` parameter to be made required.
          * @breaking-change 8.0.0
@@ -33265,8 +33266,7 @@
 
           _classCallCheck2(this, _MatProgressBar);
 
-          _this146 = _super62.call(this, _elementRef);
-          _this146._elementRef = _elementRef;
+          _this146 = _super62.call(this, elementRef);
           _this146._ngZone = _ngZone;
           _this146._animationMode = _animationMode;
           /** Flag that indicates whether NoopAnimations mode is set to true. */
