@@ -61846,11 +61846,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Observable": function() { return /* binding */ Observable; }
 /* harmony export */ });
 /* harmony import */ var _Subscriber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Subscriber */ 65498);
-/* harmony import */ var _Subscription__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Subscription */ 46665);
+/* harmony import */ var _Subscription__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Subscription */ 46665);
 /* harmony import */ var _symbol_observable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./symbol/observable */ 98794);
 /* harmony import */ var _util_pipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/pipe */ 50487);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config */ 26806);
-/* harmony import */ var _util_isFunction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/isFunction */ 98853);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./config */ 26806);
+/* harmony import */ var _util_isFunction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/isFunction */ 98853);
+/* harmony import */ var _util_errorContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/errorContext */ 24112);
+
 
 
 
@@ -61870,51 +61872,20 @@ var Observable = (function () {
         return observable;
     };
     Observable.prototype.subscribe = function (observerOrNext, error, complete) {
+        var _this = this;
         var subscriber = isSubscriber(observerOrNext) ? observerOrNext : new _Subscriber__WEBPACK_IMPORTED_MODULE_0__.SafeSubscriber(observerOrNext, error, complete);
-        if (_config__WEBPACK_IMPORTED_MODULE_1__.config.useDeprecatedSynchronousErrorHandling) {
-            this._deprecatedSyncErrorSubscribe(subscriber);
-        }
-        else {
-            var _a = this, operator = _a.operator, source = _a.source;
+        (0,_util_errorContext__WEBPACK_IMPORTED_MODULE_1__.errorContext)(function () {
+            var _a = _this, operator = _a.operator, source = _a.source;
             subscriber.add(operator
                 ?
                     operator.call(subscriber, source)
                 : source
                     ?
-                        this._subscribe(subscriber)
+                        _this._subscribe(subscriber)
                     :
-                        this._trySubscribe(subscriber));
-        }
+                        _this._trySubscribe(subscriber));
+        });
         return subscriber;
-    };
-    Observable.prototype._deprecatedSyncErrorSubscribe = function (subscriber) {
-        var localSubscriber = subscriber;
-        localSubscriber._syncErrorHack_isSubscribing = true;
-        var operator = this.operator;
-        if (operator) {
-            subscriber.add(operator.call(subscriber, this.source));
-        }
-        else {
-            try {
-                subscriber.add(this._subscribe(subscriber));
-            }
-            catch (err) {
-                localSubscriber.__syncError = err;
-            }
-        }
-        var dest = localSubscriber;
-        while (dest) {
-            if ('__syncError' in dest) {
-                try {
-                    throw dest.__syncError;
-                }
-                finally {
-                    subscriber.unsubscribe();
-                }
-            }
-            dest = dest.destination;
-        }
-        localSubscriber._syncErrorHack_isSubscribing = false;
     };
     Observable.prototype._trySubscribe = function (sink) {
         try {
@@ -61970,13 +61941,13 @@ var Observable = (function () {
 
 function getPromiseCtor(promiseCtor) {
     var _a;
-    return (_a = promiseCtor !== null && promiseCtor !== void 0 ? promiseCtor : _config__WEBPACK_IMPORTED_MODULE_1__.config.Promise) !== null && _a !== void 0 ? _a : Promise;
+    return (_a = promiseCtor !== null && promiseCtor !== void 0 ? promiseCtor : _config__WEBPACK_IMPORTED_MODULE_4__.config.Promise) !== null && _a !== void 0 ? _a : Promise;
 }
 function isObserver(value) {
-    return value && (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_4__.isFunction)(value.next) && (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_4__.isFunction)(value.error) && (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_4__.isFunction)(value.complete);
+    return value && (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_5__.isFunction)(value.next) && (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_5__.isFunction)(value.error) && (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_5__.isFunction)(value.complete);
 }
 function isSubscriber(value) {
-    return (value && value instanceof _Subscriber__WEBPACK_IMPORTED_MODULE_0__.Subscriber) || (isObserver(value) && (0,_Subscription__WEBPACK_IMPORTED_MODULE_5__.isSubscription)(value));
+    return (value && value instanceof _Subscriber__WEBPACK_IMPORTED_MODULE_0__.Subscriber) || (isObserver(value) && (0,_Subscription__WEBPACK_IMPORTED_MODULE_6__.isSubscription)(value));
 }
 //# sourceMappingURL=Observable.js.map
 
@@ -62026,10 +61997,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "AnonymousSubject": function() { return /* binding */ AnonymousSubject; }
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ 19162);
-/* harmony import */ var _Observable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Observable */ 872);
-/* harmony import */ var _Subscription__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Subscription */ 46665);
+/* harmony import */ var _Observable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Observable */ 872);
+/* harmony import */ var _Subscription__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Subscription */ 46665);
 /* harmony import */ var _util_ObjectUnsubscribedError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/ObjectUnsubscribedError */ 94362);
-/* harmony import */ var _util_arrRemove__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/arrRemove */ 85850);
+/* harmony import */ var _util_arrRemove__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/arrRemove */ 85850);
+/* harmony import */ var _util_errorContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util/errorContext */ 24112);
+
 
 
 
@@ -62057,45 +62030,54 @@ var Subject = (function (_super) {
         }
     };
     Subject.prototype.next = function (value) {
-        var e_1, _a;
-        this._throwIfClosed();
-        if (!this.isStopped) {
-            var copy = this.observers.slice();
-            try {
-                for (var copy_1 = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__values)(copy), copy_1_1 = copy_1.next(); !copy_1_1.done; copy_1_1 = copy_1.next()) {
-                    var observer = copy_1_1.value;
-                    observer.next(value);
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
+        var _this = this;
+        (0,_util_errorContext__WEBPACK_IMPORTED_MODULE_2__.errorContext)(function () {
+            var e_1, _a;
+            _this._throwIfClosed();
+            if (!_this.isStopped) {
+                var copy = _this.observers.slice();
                 try {
-                    if (copy_1_1 && !copy_1_1.done && (_a = copy_1.return)) _a.call(copy_1);
+                    for (var copy_1 = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__values)(copy), copy_1_1 = copy_1.next(); !copy_1_1.done; copy_1_1 = copy_1.next()) {
+                        var observer = copy_1_1.value;
+                        observer.next(value);
+                    }
                 }
-                finally { if (e_1) throw e_1.error; }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (copy_1_1 && !copy_1_1.done && (_a = copy_1.return)) _a.call(copy_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
             }
-        }
+        });
     };
     Subject.prototype.error = function (err) {
-        this._throwIfClosed();
-        if (!this.isStopped) {
-            this.hasError = this.isStopped = true;
-            this.thrownError = err;
-            var observers = this.observers;
-            while (observers.length) {
-                observers.shift().error(err);
+        var _this = this;
+        (0,_util_errorContext__WEBPACK_IMPORTED_MODULE_2__.errorContext)(function () {
+            _this._throwIfClosed();
+            if (!_this.isStopped) {
+                _this.hasError = _this.isStopped = true;
+                _this.thrownError = err;
+                var observers = _this.observers;
+                while (observers.length) {
+                    observers.shift().error(err);
+                }
             }
-        }
+        });
     };
     Subject.prototype.complete = function () {
-        this._throwIfClosed();
-        if (!this.isStopped) {
-            this.isStopped = true;
-            var observers = this.observers;
-            while (observers.length) {
-                observers.shift().complete();
+        var _this = this;
+        (0,_util_errorContext__WEBPACK_IMPORTED_MODULE_2__.errorContext)(function () {
+            _this._throwIfClosed();
+            if (!_this.isStopped) {
+                _this.isStopped = true;
+                var observers = _this.observers;
+                while (observers.length) {
+                    observers.shift().complete();
+                }
             }
-        }
+        });
     };
     Subject.prototype.unsubscribe = function () {
         this.isStopped = this.closed = true;
@@ -62121,8 +62103,8 @@ var Subject = (function (_super) {
     Subject.prototype._innerSubscribe = function (subscriber) {
         var _a = this, hasError = _a.hasError, isStopped = _a.isStopped, observers = _a.observers;
         return hasError || isStopped
-            ? _Subscription__WEBPACK_IMPORTED_MODULE_2__.EMPTY_SUBSCRIPTION
-            : (observers.push(subscriber), new _Subscription__WEBPACK_IMPORTED_MODULE_2__.Subscription(function () { return (0,_util_arrRemove__WEBPACK_IMPORTED_MODULE_3__.arrRemove)(observers, subscriber); }));
+            ? _Subscription__WEBPACK_IMPORTED_MODULE_3__.EMPTY_SUBSCRIPTION
+            : (observers.push(subscriber), new _Subscription__WEBPACK_IMPORTED_MODULE_3__.Subscription(function () { return (0,_util_arrRemove__WEBPACK_IMPORTED_MODULE_4__.arrRemove)(observers, subscriber); }));
     };
     Subject.prototype._checkFinalizedStatuses = function (subscriber) {
         var _a = this, hasError = _a.hasError, thrownError = _a.thrownError, isStopped = _a.isStopped;
@@ -62134,7 +62116,7 @@ var Subject = (function (_super) {
         }
     };
     Subject.prototype.asObservable = function () {
-        var observable = new _Observable__WEBPACK_IMPORTED_MODULE_4__.Observable();
+        var observable = new _Observable__WEBPACK_IMPORTED_MODULE_5__.Observable();
         observable.source = this;
         return observable;
     };
@@ -62142,7 +62124,7 @@ var Subject = (function (_super) {
         return new AnonymousSubject(destination, source);
     };
     return Subject;
-}(_Observable__WEBPACK_IMPORTED_MODULE_4__.Observable));
+}(_Observable__WEBPACK_IMPORTED_MODULE_5__.Observable));
 
 var AnonymousSubject = (function (_super) {
     (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__extends)(AnonymousSubject, _super);
@@ -62166,7 +62148,7 @@ var AnonymousSubject = (function (_super) {
     };
     AnonymousSubject.prototype._subscribe = function (subscriber) {
         var _a, _b;
-        return (_b = (_a = this.source) === null || _a === void 0 ? void 0 : _a.subscribe(subscriber)) !== null && _b !== void 0 ? _b : _Subscription__WEBPACK_IMPORTED_MODULE_2__.EMPTY_SUBSCRIPTION;
+        return (_b = (_a = this.source) === null || _a === void 0 ? void 0 : _a.subscribe(subscriber)) !== null && _b !== void 0 ? _b : _Subscription__WEBPACK_IMPORTED_MODULE_3__.EMPTY_SUBSCRIPTION;
     };
     return AnonymousSubject;
 }(Subject));
@@ -62192,10 +62174,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_isFunction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/isFunction */ 98853);
 /* harmony import */ var _Subscription__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Subscription */ 46665);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./config */ 26806);
-/* harmony import */ var _util_reportUnhandledError__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/reportUnhandledError */ 8550);
+/* harmony import */ var _util_reportUnhandledError__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/reportUnhandledError */ 8550);
 /* harmony import */ var _util_noop__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/noop */ 86186);
 /* harmony import */ var _NotificationFactories__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NotificationFactories */ 93705);
-/* harmony import */ var _scheduler_timeoutProvider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./scheduler/timeoutProvider */ 69385);
+/* harmony import */ var _scheduler_timeoutProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./scheduler/timeoutProvider */ 69385);
+/* harmony import */ var _util_errorContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/errorContext */ 24112);
+
 
 
 
@@ -62321,15 +62305,10 @@ function wrapForErrorHandling(handler, instance) {
         }
         catch (err) {
             if (_config__WEBPACK_IMPORTED_MODULE_4__.config.useDeprecatedSynchronousErrorHandling) {
-                if (instance._syncErrorHack_isSubscribing) {
-                    instance.__syncError = err;
-                }
-                else {
-                    throw err;
-                }
+                (0,_util_errorContext__WEBPACK_IMPORTED_MODULE_6__.captureError)(err);
             }
             else {
-                (0,_util_reportUnhandledError__WEBPACK_IMPORTED_MODULE_6__.reportUnhandledError)(err);
+                (0,_util_reportUnhandledError__WEBPACK_IMPORTED_MODULE_7__.reportUnhandledError)(err);
             }
         }
     };
@@ -62339,7 +62318,7 @@ function defaultErrorHandler(err) {
 }
 function handleStoppedNotification(notification, subscriber) {
     var onStoppedNotification = _config__WEBPACK_IMPORTED_MODULE_4__.config.onStoppedNotification;
-    onStoppedNotification && _scheduler_timeoutProvider__WEBPACK_IMPORTED_MODULE_7__.timeoutProvider.setTimeout(function () { return onStoppedNotification(notification, subscriber); });
+    onStoppedNotification && _scheduler_timeoutProvider__WEBPACK_IMPORTED_MODULE_8__.timeoutProvider.setTimeout(function () { return onStoppedNotification(notification, subscriber); });
 }
 var EMPTY_OBSERVER = {
     closed: true,
@@ -63488,6 +63467,7 @@ function debounceTime(dueTime, scheduler) {
             var now = scheduler.now();
             if (now < targetTime) {
                 activeTask = this.schedule(undefined, targetTime - now);
+                subscriber.add(activeTask);
                 return;
             }
             emit();
@@ -63497,6 +63477,7 @@ function debounceTime(dueTime, scheduler) {
             lastTime = scheduler.now();
             if (!activeTask) {
                 activeTask = scheduler.schedule(emitWhenIdle, dueTime);
+                subscriber.add(activeTask);
             }
         }, function () {
             emit();
@@ -65341,6 +65322,50 @@ function createObject(keys, values) {
     return keys.reduce(function (result, key, i) { return ((result[key] = values[i]), result); }, {});
 }
 //# sourceMappingURL=createObject.js.map
+
+/***/ }),
+
+/***/ 24112:
+/*!*******************************************************************!*\
+  !*** ./node_modules/rxjs/dist/esm5/internal/util/errorContext.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "errorContext": function() { return /* binding */ errorContext; },
+/* harmony export */   "captureError": function() { return /* binding */ captureError; }
+/* harmony export */ });
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../config */ 26806);
+
+var context = null;
+function errorContext(cb) {
+    if (_config__WEBPACK_IMPORTED_MODULE_0__.config.useDeprecatedSynchronousErrorHandling) {
+        var isRoot = !context;
+        if (isRoot) {
+            context = { errorThrown: false, error: null };
+        }
+        cb();
+        if (isRoot) {
+            var _a = context, errorThrown = _a.errorThrown, error = _a.error;
+            context = null;
+            if (errorThrown) {
+                throw error;
+            }
+        }
+    }
+    else {
+        cb();
+    }
+}
+function captureError(err) {
+    if (_config__WEBPACK_IMPORTED_MODULE_0__.config.useDeprecatedSynchronousErrorHandling && context) {
+        context.errorThrown = true;
+        context.error = err;
+    }
+}
+//# sourceMappingURL=errorContext.js.map
 
 /***/ }),
 
