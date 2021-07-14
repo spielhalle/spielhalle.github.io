@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1880,7 +1880,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -4408,7 +4408,6 @@
           _classCallCheck(this, SubTimelineBuilder);
 
           _this19 = _super2.call(this, driver, element, timings.delay);
-          _this19.element = element;
           _this19.keyframes = keyframes;
           _this19.preStyleProps = preStyleProps;
           _this19.postStyleProps = postStyleProps;
@@ -16140,7 +16139,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -22761,6 +22760,7 @@
 
           this.differs = differs;
           this.keyValues = [];
+          this.compareFn = defaultComparator;
         }
 
         _createClass2(_KeyValuePipe, [{
@@ -22780,13 +22780,18 @@
             }
 
             var differChanges = this.differ.diff(input);
+            var compareFnChanged = compareFn !== this.compareFn;
 
             if (differChanges) {
               this.keyValues = [];
               differChanges.forEachItem(function (r) {
                 _this87.keyValues.push(makeKeyValuePair(r.key, r.currentValue));
               });
+            }
+
+            if (differChanges || compareFnChanged) {
               this.keyValues.sort(compareFn);
+              this.compareFn = compareFn;
             }
 
             return this.keyValues;
@@ -23519,7 +23524,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27444,7 +27449,7 @@
       /*! rxjs/operators */
       88047);
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -35350,11 +35355,7 @@
         }, {
           key: "_findContext",
           value: function _findContext(error) {
-            if (error) {
-              return getDebugContext(error) ? getDebugContext(error) : this._findContext(getOriginalError(error));
-            }
-
-            return null;
+            return error ? getDebugContext(error) || this._findContext(getOriginalError(error)) : null;
           }
           /** @internal */
 
@@ -53142,7 +53143,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.1.1');
+      var _VERSION3 = new _Version('12.1.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -61500,11 +61501,11 @@
        * through DI.
        *
        * ```
-       *  function initializeApp(httpClient: HttpClient): Observable<any> {
-       *   return httpClient.get("https://someUrl.com/api/user")
+       *  function initializeAppFactory(httpClient: HttpClient): () => Observable<any> {
+       *   return () => httpClient.get("https://someUrl.com/api/user")
        *     .pipe(
        *        tap(user => { ... })
-       *     )
+       *     );
        *  }
        *
        *  @NgModule({
@@ -61513,7 +61514,7 @@
        *    bootstrap: [AppComponent],
        *    providers: [{
        *      provide: APP_INITIALIZER,
-       *      useFactory: initializeApp,
+       *      useFactory: initializeAppFactory,
        *      deps: [HttpClient],
        *      multi: true
        *    }]
@@ -74335,7 +74336,7 @@
       /*! @angular/common */
       38583);
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75729,7 +75730,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79037,7 +79038,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.1');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79800,7 +79801,7 @@
       /*! rxjs/operators */
       70023);
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -85046,6 +85047,10 @@
           /**
            * The id of the currently active page in the router.
            * Updated to the transition's target id on a successful navigation.
+           *
+           * This is used to track what page the router last activated. When an attempted navigation fails,
+           * the router can then use this to compute how to restore the state back to the previously active
+           * page.
            */
 
           this.currentPageId = 0;
@@ -85204,8 +85209,21 @@
           this.navigations = this.setupNavigations(this.transitions);
           this.processNavigations();
         }
+        /**
+         * The ɵrouterPageId of whatever page is currently active in the browser history. This is
+         * important for computing the target page id for new navigations because we need to ensure each
+         * page id in the browser history is 1 more than the previous entry.
+         */
+
 
         _createClass2(_Router, [{
+          key: "browserPageId",
+          get: function get() {
+            var _a;
+
+            return (_a = this.location.getState()) === null || _a === void 0 ? void 0 : _a.ɵrouterPageId;
+          }
+        }, {
           key: "setupNavigations",
           value: function setupNavigations(transitions) {
             var _this195 = this;
@@ -85351,7 +85369,7 @@
                 _this195.triggerEvent(guardsEnd);
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(function (t) {
                 if (!t.guardsResult) {
-                  _this195.cancelNavigationTransition(t, '');
+                  _this195.cancelNavigationTransitionRestoreHistory(t, '');
 
                   return false;
                 }
@@ -85372,7 +85390,7 @@
                       },
                       complete: function complete() {
                         if (!dataResolved) {
-                          _this195.cancelNavigationTransition(t, "At least one route resolver didn't emit any value.");
+                          _this195.cancelNavigationTransitionRestoreHistory(t, "At least one route resolver didn't emit any value.");
                         }
                       }
                     }));
@@ -85441,14 +85459,28 @@
                  * event is fired when a navigation gets cancelled but not caught by other
                  * means. */
                 if (!completed && !errored) {
-                  // Must reset to current URL tree here to ensure history.state is set. On a
-                  // fresh page load, if a new navigation comes in before a successful
-                  // navigation completes, there will be nothing in
-                  // history.state.navigationId. This can cause sync problems with AngularJS
-                  // sync code which looks for a value here in order to determine whether or
-                  // not to handle a given popstate event or to leave it to the Angular
-                  // router.
-                  _this195.cancelNavigationTransition(t, "Navigation ID ".concat(t.id, " is not equal to the current navigation id ").concat(_this195.navigationId));
+                  var cancelationReason = "Navigation ID ".concat(t.id, " is not equal to the current navigation id ").concat(_this195.navigationId);
+
+                  if (_this195.canceledNavigationResolution === 'replace') {
+                    // Must reset to current URL tree here to ensure history.state is set. On
+                    // a fresh page load, if a new navigation comes in before a successful
+                    // navigation completes, there will be nothing in
+                    // history.state.navigationId. This can cause sync problems with
+                    // AngularJS sync code which looks for a value here in order to determine
+                    // whether or not to handle a given popstate event or to leave it to the
+                    // Angular router.
+                    _this195.cancelNavigationTransitionRestoreHistory(t, cancelationReason);
+                  } else {
+                    // We cannot trigger a `location.historyGo` if the
+                    // cancellation was due to a new navigation before the previous could
+                    // complete. This is because `location.historyGo` triggers a `popstate`
+                    // which would also trigger another navigation. Instead, treat this as a
+                    // redirect and do not reset the state.
+                    _this195.cancelNavigationTransition(t, cancelationReason); // TODO(atscott): The same problem happens here with a fresh page load
+                    // and a new navigation before that completes where we won't set a page
+                    // id.
+
+                  }
                 } // currentNavigation should always be reset to null here. If navigation was
                 // successful, lastSuccessfulTransition will have already been set. Therefore
                 // we can safely set currentNavigation to null here.
@@ -85579,11 +85611,11 @@
             // run into ngZone
             if (!this.locationSubscription) {
               this.locationSubscription = this.location.subscribe(function (event) {
-                var currentChange = _this196.extractLocationChangeInfoFromEvent(event);
+                var currentChange = _this196.extractLocationChangeInfoFromEvent(event); // The `setTimeout` was added in #12160 and is likely to support Angular/AngularJS
+                // hybrid apps.
+
 
                 if (_this196.shouldScheduleNavigation(_this196.lastLocationChangeInfo, currentChange)) {
-                  // The `setTimeout` was added in #12160 and is likely to support Angular/AngularJS
-                  // hybrid apps.
                   setTimeout(function () {
                     var source = currentChange.source,
                         state = currentChange.state,
@@ -85839,17 +85871,7 @@
 
             var urlTree = isUrlTree(url) ? url : this.parseUrl(url);
             var mergedTree = this.urlHandlingStrategy.merge(urlTree, this.rawUrlTree);
-            var restoredState = null;
-
-            if (this.canceledNavigationResolution === 'computed') {
-              var isInitialPage = this.currentPageId === 0;
-
-              if (isInitialPage || extras.skipLocationChange || extras.replaceUrl) {
-                restoredState = this.location.getState();
-              }
-            }
-
-            return this.scheduleNavigation(mergedTree, 'imperative', restoredState, extras);
+            return this.scheduleNavigation(mergedTree, 'imperative', null, extras);
           }
           /**
            * Navigate based on the provided array of commands and a starting point.
@@ -85967,6 +85989,8 @@
         }, {
           key: "scheduleNavigation",
           value: function scheduleNavigation(rawUrl, source, restoredState, extras, priorPromise) {
+            var _a, _b;
+
             if (this.disposed) {
               return Promise.resolve(false);
             } // * Imperative navigations (router.navigate) might trigger additional navigations to the same
@@ -86013,12 +86037,25 @@
             var targetPageId;
 
             if (this.canceledNavigationResolution === 'computed') {
-              // If the `ɵrouterPageId` exist in the state then `targetpageId` should have the value of
-              // `ɵrouterPageId`
+              var isInitialPage = this.currentPageId === 0;
+
+              if (isInitialPage) {
+                restoredState = this.location.getState();
+              } // If the `ɵrouterPageId` exist in the state then `targetpageId` should have the value of
+              // `ɵrouterPageId`. This is the case for something like a page refresh where we assign the
+              // target id to the previously set value for that page.
+
+
               if (restoredState && restoredState.ɵrouterPageId) {
                 targetPageId = restoredState.ɵrouterPageId;
               } else {
-                targetPageId = this.currentPageId + 1;
+                // If we're replacing the URL or doing a silent navigation, we do not want to increment the
+                // page id because we aren't pushing a new entry to history.
+                if (extras.replaceUrl || extras.skipLocationChange) {
+                  targetPageId = (_a = this.browserPageId) !== null && _a !== void 0 ? _a : 0;
+                } else {
+                  targetPageId = ((_b = this.browserPageId) !== null && _b !== void 0 ? _b : 0) + 1;
+                }
               }
             } else {
               // This is unused when `canceledNavigationResolution` is not computed.
@@ -86080,8 +86117,8 @@
            */
 
         }, {
-          key: "cancelNavigationTransition",
-          value: function cancelNavigationTransition(t, reason) {
+          key: "cancelNavigationTransitionRestoreHistory",
+          value: function cancelNavigationTransitionRestoreHistory(t, reason) {
             if (this.canceledNavigationResolution === 'computed') {
               // The navigator change the location before triggered the browser event,
               // so we need to go back to the current url if the navigation is canceled.
@@ -86098,6 +86135,11 @@
               this.resetUrlToCurrentUrlTree();
             }
 
+            this.cancelNavigationTransition(t, reason);
+          }
+        }, {
+          key: "cancelNavigationTransition",
+          value: function cancelNavigationTransition(t, reason) {
             var navCancel = new _NavigationCancel(t.id, this.serializeUrl(t.extractedUrl), reason);
             this.triggerEvent(navCancel);
             t.resolve(false);
@@ -88245,7 +88287,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88472,7 +88514,7 @@
       /*! rxjs/operators */
       58252);
       /**
-       * @license Angular v12.1.1
+       * @license Angular v12.1.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -88635,7 +88677,7 @@
        * {
        *   "notification": {
        *     "actions": NotificationAction[],
-       *     "badge": USVString
+       *     "badge": USVString,
        *     "body": DOMString,
        *     "data": any,
        *     "dir": "auto"|"ltr"|"rtl",

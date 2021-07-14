@@ -8528,7 +8528,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 34689);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.1.1
+ * @license Angular v12.1.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10933,7 +10933,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 62052);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 5207);
 /**
- * @license Angular v12.1.1
+ * @license Angular v12.1.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -13914,7 +13914,9 @@ class FormGroup extends AbstractControl {
     /**
      * Add a control to this group.
      *
-     * This method also updates the value and validity of the control.
+     * If a control with a given name already exists, it would *not* be replaced with a new one.
+     * If you want to replace an existing control, use the {@link FormGroup#setControl setControl}
+     * method instead. This method also updates the value and validity of the control.
      *
      * @param name The control name to add to the collection
      * @param control Provides the control for the given name
@@ -13950,6 +13952,8 @@ class FormGroup extends AbstractControl {
     }
     /**
      * Replace an existing control.
+     *
+     * If a control with a given name does not exist in this `FormGroup`, it will be added.
      *
      * @param name The control name to replace in the collection
      * @param control Provides the control for the given name
@@ -18180,7 +18184,7 @@ FormBuilder.ɵprov = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
 
 /**
  * @license
