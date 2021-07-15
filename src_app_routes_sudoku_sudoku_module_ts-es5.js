@@ -2140,8 +2140,7 @@
           /** Click event listener that will be attached to the body propagate phase. */
 
           _this16._clickListener = function (event) {
-            // Get the target through the `composedPath` if possible to account for shadow DOM.
-            var target = event.composedPath ? event.composedPath()[0] : event.target; // We copy the array because the original may be modified asynchronously if the
+            var target = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._getEventTarget)(event); // We copy the array because the original may be modified asynchronously if the
             // outsidePointerEvents listener decides to detach overlays resulting in index errors inside
             // the for loop.
 
@@ -8362,12 +8361,12 @@
               _window.addEventListener('resize', _this43._changeListener);
 
               _window.addEventListener('orientationchange', _this43._changeListener);
-            } // We don't need to keep track of the subscription,
-            // because we complete the `change` stream on destroy.
+            } // Clear the cached position so that the viewport is re-measured next time it is required.
+            // We don't need to keep track of the subscription, because it is completed on destroy.
 
 
             _this43.change().subscribe(function () {
-              return _this43._updateViewportSize();
+              return _this43._viewportSize = null;
             });
           });
         }
@@ -10735,9 +10734,22 @@
         var _super20 = _createSuper(_CdkFooterCell);
 
         function _CdkFooterCell(columnDef, elementRef) {
+          var _this57;
+
           _classCallCheck2(this, _CdkFooterCell);
 
-          return _super20.call(this, columnDef, elementRef);
+          var _a;
+
+          _this57 = _super20.call(this, columnDef, elementRef);
+
+          if (((_a = columnDef._table) === null || _a === void 0 ? void 0 : _a._elementRef.nativeElement.nodeType) === 1) {
+            var tableRole = columnDef._table._elementRef.nativeElement.getAttribute('role');
+
+            var role = tableRole === 'grid' || tableRole === 'treegrid' ? 'gridcell' : 'cell';
+            elementRef.nativeElement.setAttribute('role', role);
+          }
+
+          return _this57;
         }
 
         return _CdkFooterCell;
@@ -10750,7 +10762,7 @@
       _CdkFooterCell.ɵdir = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({
         type: _CdkFooterCell,
         selectors: [["cdk-footer-cell"], ["td", "cdk-footer-cell", ""]],
-        hostAttrs: ["role", "gridcell", 1, "cdk-footer-cell"],
+        hostAttrs: [1, "cdk-footer-cell"],
         features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]]
       });
 
@@ -10768,8 +10780,7 @@
           args: [{
             selector: 'cdk-footer-cell, td[cdk-footer-cell]',
             host: {
-              'class': 'cdk-footer-cell',
-              'role': 'gridcell'
+              'class': 'cdk-footer-cell'
             }
           }]
         }], function () {
@@ -10789,9 +10800,22 @@
         var _super21 = _createSuper(_CdkCell);
 
         function _CdkCell(columnDef, elementRef) {
+          var _this58;
+
           _classCallCheck2(this, _CdkCell);
 
-          return _super21.call(this, columnDef, elementRef);
+          var _a;
+
+          _this58 = _super21.call(this, columnDef, elementRef);
+
+          if (((_a = columnDef._table) === null || _a === void 0 ? void 0 : _a._elementRef.nativeElement.nodeType) === 1) {
+            var tableRole = columnDef._table._elementRef.nativeElement.getAttribute('role');
+
+            var role = tableRole === 'grid' || tableRole === 'treegrid' ? 'gridcell' : 'cell';
+            elementRef.nativeElement.setAttribute('role', role);
+          }
+
+          return _this58;
         }
 
         return _CdkCell;
@@ -10804,7 +10828,7 @@
       _CdkCell.ɵdir = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({
         type: _CdkCell,
         selectors: [["cdk-cell"], ["td", "cdk-cell", ""]],
-        hostAttrs: ["role", "gridcell", 1, "cdk-cell"],
+        hostAttrs: [1, "cdk-cell"],
         features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]]
       });
 
@@ -10822,8 +10846,7 @@
           args: [{
             selector: 'cdk-cell, td[cdk-cell]',
             host: {
-              'class': 'cdk-cell',
-              'role': 'gridcell'
+              'class': 'cdk-cell'
             }
           }]
         }], function () {
@@ -10910,7 +10933,7 @@
         }, {
           key: "_createScheduleIfNeeded",
           value: function _createScheduleIfNeeded() {
-            var _this57 = this;
+            var _this59 = this;
 
             if (this._currentSchedule) {
               return;
@@ -10919,10 +10942,10 @@
             this._currentSchedule = new _Schedule2();
 
             this._getScheduleObservable().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.takeUntil)(this._destroyed)).subscribe(function () {
-              while (_this57._currentSchedule.tasks.length || _this57._currentSchedule.endTasks.length) {
-                var schedule = _this57._currentSchedule; // Capture new tasks scheduled by the current set of tasks.
+              while (_this59._currentSchedule.tasks.length || _this59._currentSchedule.endTasks.length) {
+                var schedule = _this59._currentSchedule; // Capture new tasks scheduled by the current set of tasks.
 
-                _this57._currentSchedule = new _Schedule2();
+                _this59._currentSchedule = new _Schedule2();
 
                 var _iterator7 = _createForOfIteratorHelper(schedule.tasks),
                     _step7;
@@ -10954,7 +10977,7 @@
                 }
               }
 
-              _this57._currentSchedule = null;
+              _this59._currentSchedule = null;
             });
           }
         }, {
@@ -11124,13 +11147,13 @@
         var _super23 = _createSuper(_CdkHeaderRowDef);
 
         function _CdkHeaderRowDef(template, _differs, _table) {
-          var _this58;
+          var _this60;
 
           _classCallCheck2(this, _CdkHeaderRowDef);
 
-          _this58 = _super23.call(this, template, _differs);
-          _this58._table = _table;
-          return _this58;
+          _this60 = _super23.call(this, template, _differs);
+          _this60._table = _table;
+          return _this60;
         } // Prerender fails to recognize that ngOnChanges in a part of this class through inheritance.
         // Explicitly define it so that the method is called as part of the Angular lifecycle.
 
@@ -11229,13 +11252,13 @@
         var _super25 = _createSuper(_CdkFooterRowDef);
 
         function _CdkFooterRowDef(template, _differs, _table) {
-          var _this59;
+          var _this61;
 
           _classCallCheck2(this, _CdkFooterRowDef);
 
-          _this59 = _super25.call(this, template, _differs);
-          _this59._table = _table;
-          return _this59;
+          _this61 = _super25.call(this, template, _differs);
+          _this61._table = _table;
+          return _this61;
         } // Prerender fails to recognize that ngOnChanges in a part of this class through inheritance.
         // Explicitly define it so that the method is called as part of the Angular lifecycle.
 
@@ -11318,13 +11341,13 @@
         // TODO(andrewseguin): Add an input for providing a switch function to determine
         //   if this template should be used.
         function _CdkRowDef(template, _differs, _table) {
-          var _this60;
+          var _this62;
 
           _classCallCheck2(this, _CdkRowDef);
 
-          _this60 = _super26.call(this, template, _differs);
-          _this60._table = _table;
-          return _this60;
+          _this62 = _super26.call(this, template, _differs);
+          _this62._table = _table;
+          return _this62;
         }
 
         return _CdkRowDef;
@@ -11685,7 +11708,7 @@
         _createClass2(_StickyStyler, [{
           key: "clearStickyPositioning",
           value: function clearStickyPositioning(rows, stickyDirections) {
-            var _this61 = this;
+            var _this63 = this;
 
             var elementsToClear = [];
 
@@ -11723,7 +11746,7 @@
                 for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
                   var element = _step10.value;
 
-                  _this61._removeStickyStyle(element, stickyDirections);
+                  _this63._removeStickyStyle(element, stickyDirections);
                 }
               } catch (err) {
                 _iterator10.e(err);
@@ -11747,7 +11770,7 @@
         }, {
           key: "updateStickyColumns",
           value: function updateStickyColumns(rows, stickyStartStates, stickyEndStates) {
-            var _this62 = this;
+            var _this64 = this;
 
             var recalculateCellWidths = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
@@ -11782,7 +11805,7 @@
             var firstStickyEnd = stickyEndStates.indexOf(true); // Coalesce with sticky row updates (and potentially other changes like column resize).
 
             this._coalescedStyleScheduler.schedule(function () {
-              var isRtl = _this62.direction === 'rtl';
+              var isRtl = _this64.direction === 'rtl';
               var start = isRtl ? 'right' : 'left';
               var end = isRtl ? 'left' : 'right';
 
@@ -11797,11 +11820,11 @@
                     var cell = row.children[i];
 
                     if (stickyStartStates[i]) {
-                      _this62._addStickyStyle(cell, start, startPositions[i], i === lastStickyStart);
+                      _this64._addStickyStyle(cell, start, startPositions[i], i === lastStickyStart);
                     }
 
                     if (stickyEndStates[i]) {
-                      _this62._addStickyStyle(cell, end, endPositions[i], i === firstStickyEnd);
+                      _this64._addStickyStyle(cell, end, endPositions[i], i === firstStickyEnd);
                     }
                   }
                 }
@@ -11811,14 +11834,14 @@
                 _iterator11.f();
               }
 
-              if (_this62._positionListener) {
-                _this62._positionListener.stickyColumnsUpdated({
+              if (_this64._positionListener) {
+                _this64._positionListener.stickyColumnsUpdated({
                   sizes: lastStickyStart === -1 ? [] : cellWidths.slice(0, lastStickyStart + 1).map(function (width, index) {
                     return stickyStartStates[index] ? width : null;
                   })
                 });
 
-                _this62._positionListener.stickyEndColumnsUpdated({
+                _this64._positionListener.stickyEndColumnsUpdated({
                   sizes: firstStickyEnd === -1 ? [] : cellWidths.slice(firstStickyEnd).map(function (width, index) {
                     return stickyEndStates[index + firstStickyEnd] ? width : null;
                   }).reverse()
@@ -11841,7 +11864,7 @@
         }, {
           key: "stickRows",
           value: function stickRows(rowsToStick, stickyStates, position) {
-            var _this63 = this;
+            var _this65 = this;
 
             // Since we can't measure the rows on the server, we can't stick the rows properly.
             if (!this._isBrowser) {
@@ -11892,7 +11915,7 @@
                   for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
                     var element = _step12.value;
 
-                    _this63._addStickyStyle(element, position, offset, isBorderedRowIndex);
+                    _this65._addStickyStyle(element, position, offset, isBorderedRowIndex);
                   }
                 } catch (err) {
                   _iterator12.e(err);
@@ -11902,13 +11925,13 @@
               }
 
               if (position === 'top') {
-                (_a = _this63._positionListener) === null || _a === void 0 ? void 0 : _a.stickyHeaderRowsUpdated({
+                (_a = _this65._positionListener) === null || _a === void 0 ? void 0 : _a.stickyHeaderRowsUpdated({
                   sizes: stickyCellHeights,
                   offsets: stickyOffsets,
                   elements: elementsToStick
                 });
               } else {
-                (_b = _this63._positionListener) === null || _b === void 0 ? void 0 : _b.stickyFooterRowsUpdated({
+                (_b = _this65._positionListener) === null || _b === void 0 ? void 0 : _b.stickyFooterRowsUpdated({
                   sizes: stickyCellHeights,
                   offsets: stickyOffsets,
                   elements: elementsToStick
@@ -11926,7 +11949,7 @@
         }, {
           key: "updateStickyFooterContainer",
           value: function updateStickyFooterContainer(tableElement, stickyStates) {
-            var _this64 = this;
+            var _this66 = this;
 
             if (!this._isNativeHtmlTable) {
               return;
@@ -11938,9 +11961,9 @@
               if (stickyStates.some(function (state) {
                 return !state;
               })) {
-                _this64._removeStickyStyle(tfoot, ['bottom']);
+                _this66._removeStickyStyle(tfoot, ['bottom']);
               } else {
-                _this64._addStickyStyle(tfoot, 'bottom', 0, false);
+                _this66._addStickyStyle(tfoot, 'bottom', 0, false);
               }
             });
           }
@@ -12601,7 +12624,7 @@
           });
 
           if (!role) {
-            this._elementRef.nativeElement.setAttribute('role', 'grid');
+            this._elementRef.nativeElement.setAttribute('role', 'table');
           }
 
           this._document = _document;
@@ -12699,7 +12722,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this65 = this;
+            var _this67 = this;
 
             this._setupStickyStyler();
 
@@ -12711,11 +12734,11 @@
 
 
             this._dataDiffer = this._differs.find([]).create(function (_i, dataRow) {
-              return _this65.trackBy ? _this65.trackBy(dataRow.dataIndex, dataRow.data) : dataRow;
+              return _this67.trackBy ? _this67.trackBy(dataRow.dataIndex, dataRow.data) : dataRow;
             });
 
             this._viewportRuler.change().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.takeUntil)(this._onDestroy)).subscribe(function () {
-              _this65._forceRecalculateCellWidths = true;
+              _this67._forceRecalculateCellWidths = true;
             });
           }
         }, {
@@ -12799,7 +12822,7 @@
         }, {
           key: "renderRows",
           value: function renderRows() {
-            var _this66 = this;
+            var _this68 = this;
 
             this._renderRows = this._getAllRenderRows();
 
@@ -12814,14 +12837,14 @@
             var viewContainer = this._rowOutlet.viewContainer;
 
             this._viewRepeater.applyChanges(changes, viewContainer, function (record, _adjustedPreviousIndex, currentIndex) {
-              return _this66._getEmbeddedViewArgs(record.item, currentIndex);
+              return _this68._getEmbeddedViewArgs(record.item, currentIndex);
             }, function (record) {
               return record.item.data;
             }, function (change) {
               if (change.operation === 1
               /* INSERTED */
               && change.context) {
-                _this66._renderCellTemplateForItem(change.record.item.rowDef, change.context);
+                _this68._renderCellTemplateForItem(change.record.item.rowDef, change.context);
               }
             }); // Update the meta context of a row's context data (index, count, first, last, ...)
 
@@ -12995,7 +13018,7 @@
         }, {
           key: "updateStickyColumnStyles",
           value: function updateStickyColumnStyles() {
-            var _this67 = this;
+            var _this69 = this;
 
             var headerRows = this._getRenderedRows(this._headerRowOutlet);
 
@@ -13017,7 +13040,7 @@
 
 
             headerRows.forEach(function (headerRow, i) {
-              _this67._addStickyColumnStyles([headerRow], _this67._headerRowDefs[i]);
+              _this69._addStickyColumnStyles([headerRow], _this69._headerRowDefs[i]);
             }); // Update the sticky styles for each data row depending on its def's sticky state
 
             this._rowDefs.forEach(function (rowDef) {
@@ -13025,17 +13048,17 @@
               var rows = [];
 
               for (var i = 0; i < dataRows.length; i++) {
-                if (_this67._renderRows[i].rowDef === rowDef) {
+                if (_this69._renderRows[i].rowDef === rowDef) {
                   rows.push(dataRows[i]);
                 }
               }
 
-              _this67._addStickyColumnStyles(rows, rowDef);
+              _this69._addStickyColumnStyles(rows, rowDef);
             }); // Update the sticky styles for each footer row depending on the def's sticky state
 
 
             footerRows.forEach(function (footerRow, i) {
-              _this67._addStickyColumnStyles([footerRow], _this67._footerRowDefs[i]);
+              _this69._addStickyColumnStyles([footerRow], _this69._footerRowDefs[i]);
             }); // Reset the dirty state of the sticky input change since it has been used.
 
             Array.from(this._columnDefsByName.values()).forEach(function (def) {
@@ -13116,17 +13139,17 @@
         }, {
           key: "_cacheColumnDefs",
           value: function _cacheColumnDefs() {
-            var _this68 = this;
+            var _this70 = this;
 
             this._columnDefsByName.clear();
 
             var columnDefs = mergeArrayAndSet(this._getOwnDefs(this._contentColumnDefs), this._customColumnDefs);
             columnDefs.forEach(function (columnDef) {
-              if (_this68._columnDefsByName.has(columnDef.name) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+              if (_this70._columnDefsByName.has(columnDef.name) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getTableDuplicateColumnNameError(columnDef.name);
               }
 
-              _this68._columnDefsByName.set(columnDef.name, columnDef);
+              _this70._columnDefsByName.set(columnDef.name, columnDef);
             });
           }
           /** Update the list of all available row definitions that can be used. */
@@ -13220,7 +13243,7 @@
         }, {
           key: "_observeRenderChanges",
           value: function _observeRenderChanges() {
-            var _this69 = this;
+            var _this71 = this;
 
             // If no data source has been set, there is nothing to observe for changes.
             if (!this.dataSource) {
@@ -13242,9 +13265,9 @@
             }
 
             this._renderChangeSubscription = dataStream.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.takeUntil)(this._onDestroy)).subscribe(function (data) {
-              _this69._data = data || [];
+              _this71._data = data || [];
 
-              _this69.renderRows();
+              _this71.renderRows();
             });
           }
           /**
@@ -13255,7 +13278,7 @@
         }, {
           key: "_forceRenderHeaderRows",
           value: function _forceRenderHeaderRows() {
-            var _this70 = this;
+            var _this72 = this;
 
             // Clear the header row outlet if any content exists.
             if (this._headerRowOutlet.viewContainer.length > 0) {
@@ -13263,7 +13286,7 @@
             }
 
             this._headerRowDefs.forEach(function (def, i) {
-              return _this70._renderRow(_this70._headerRowOutlet, def, i);
+              return _this72._renderRow(_this72._headerRowOutlet, def, i);
             });
 
             this.updateStickyHeaderRowStyles();
@@ -13276,7 +13299,7 @@
         }, {
           key: "_forceRenderFooterRows",
           value: function _forceRenderFooterRows() {
-            var _this71 = this;
+            var _this73 = this;
 
             // Clear the footer row outlet if any content exists.
             if (this._footerRowOutlet.viewContainer.length > 0) {
@@ -13284,7 +13307,7 @@
             }
 
             this._footerRowDefs.forEach(function (def, i) {
-              return _this71._renderRow(_this71._footerRowOutlet, def, i);
+              return _this73._renderRow(_this73._footerRowOutlet, def, i);
             });
 
             this.updateStickyFooterRowStyles();
@@ -13294,10 +13317,10 @@
         }, {
           key: "_addStickyColumnStyles",
           value: function _addStickyColumnStyles(rows, rowDef) {
-            var _this72 = this;
+            var _this74 = this;
 
             var columnDefs = Array.from(rowDef.columns || []).map(function (columnName) {
-              var columnDef = _this72._columnDefsByName.get(columnName);
+              var columnDef = _this74._columnDefsByName.get(columnName);
 
               if (!columnDef && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getTableUnknownColumnError(columnName);
@@ -13448,14 +13471,14 @@
         }, {
           key: "_getCellTemplates",
           value: function _getCellTemplates(rowDef) {
-            var _this73 = this;
+            var _this75 = this;
 
             if (!rowDef || !rowDef.columns) {
               return [];
             }
 
             return Array.from(rowDef.columns, function (columnId) {
-              var column = _this73._columnDefsByName.get(columnId);
+              var column = _this75._columnDefsByName.get(columnId);
 
               if (!column && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getTableUnknownColumnError(columnId);
@@ -13562,14 +13585,14 @@
         }, {
           key: "_setupStickyStyler",
           value: function _setupStickyStyler() {
-            var _this74 = this;
+            var _this76 = this;
 
             var direction = this._dir ? this._dir.value : 'ltr';
             this._stickyStyler = new _StickyStyler(this._isNativeHtmlTable, this.stickyCssClass, direction, this._coalescedStyleScheduler, this._platform.isBrowser, this.needsPositionStickyOnElement, this._stickyPositioningListener);
             (this._dir ? this._dir.change : (0, rxjs__WEBPACK_IMPORTED_MODULE_9__.of)()).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.takeUntil)(this._onDestroy)).subscribe(function (value) {
-              _this74._stickyStyler.direction = value;
+              _this76._stickyStyler.direction = value;
 
-              _this74.updateStickyColumnStyles();
+              _this76.updateStickyColumnStyles();
             });
           }
           /** Filters definitions that belong to this table from a QueryList. */
@@ -13577,10 +13600,10 @@
         }, {
           key: "_getOwnDefs",
           value: function _getOwnDefs(items) {
-            var _this75 = this;
+            var _this77 = this;
 
             return items.filter(function (item) {
-              return !item._table || item._table === _this75;
+              return !item._table || item._table === _this77;
             });
           }
           /** Creates or removes the no data row, depending on whether any data is being shown. */
@@ -14702,7 +14725,7 @@
       var _HttpHeaders = /*#__PURE__*/function () {
         /**  Constructs a new HTTP header object with the given values.*/
         function _HttpHeaders(headers) {
-          var _this76 = this;
+          var _this78 = this;
 
           _classCallCheck2(this, _HttpHeaders);
 
@@ -14721,7 +14744,7 @@
             this.headers = new Map();
           } else if (typeof headers === 'string') {
             this.lazyInit = function () {
-              _this76.headers = new Map();
+              _this78.headers = new Map();
               headers.split('\n').forEach(function (line) {
                 var index = line.indexOf(':');
 
@@ -14730,19 +14753,19 @@
                   var key = name.toLowerCase();
                   var value = line.slice(index + 1).trim();
 
-                  _this76.maybeSetNormalizedName(name, key);
+                  _this78.maybeSetNormalizedName(name, key);
 
-                  if (_this76.headers.has(key)) {
-                    _this76.headers.get(key).push(value);
+                  if (_this78.headers.has(key)) {
+                    _this78.headers.get(key).push(value);
                   } else {
-                    _this76.headers.set(key, [value]);
+                    _this78.headers.set(key, [value]);
                   }
                 }
               });
             };
           } else {
             this.lazyInit = function () {
-              _this76.headers = new Map();
+              _this78.headers = new Map();
               Object.keys(headers).forEach(function (name) {
                 var values = headers[name];
                 var key = name.toLowerCase();
@@ -14752,9 +14775,9 @@
                 }
 
                 if (values.length > 0) {
-                  _this76.headers.set(key, values);
+                  _this78.headers.set(key, values);
 
-                  _this76.maybeSetNormalizedName(name, key);
+                  _this78.maybeSetNormalizedName(name, key);
                 }
               });
             };
@@ -14883,7 +14906,7 @@
         }, {
           key: "init",
           value: function init() {
-            var _this77 = this;
+            var _this79 = this;
 
             if (!!this.lazyInit) {
               if (this.lazyInit instanceof _HttpHeaders) {
@@ -14896,7 +14919,7 @@
 
               if (!!this.lazyUpdate) {
                 this.lazyUpdate.forEach(function (update) {
-                  return _this77.applyUpdate(update);
+                  return _this79.applyUpdate(update);
                 });
                 this.lazyUpdate = null;
               }
@@ -14905,13 +14928,13 @@
         }, {
           key: "copyFrom",
           value: function copyFrom(other) {
-            var _this78 = this;
+            var _this80 = this;
 
             other.init();
             Array.from(other.headers.keys()).forEach(function (key) {
-              _this78.headers.set(key, other.headers.get(key));
+              _this80.headers.set(key, other.headers.get(key));
 
-              _this78.normalizedNames.set(key, other.normalizedNames.get(key));
+              _this80.normalizedNames.set(key, other.normalizedNames.get(key));
             });
           }
         }, {
@@ -14981,11 +15004,11 @@
         }, {
           key: "forEach",
           value: function forEach(fn) {
-            var _this79 = this;
+            var _this81 = this;
 
             this.init();
             Array.from(this.normalizedNames.keys()).forEach(function (key) {
-              return fn(_this79.normalizedNames.get(key), _this79.headers.get(key));
+              return fn(_this81.normalizedNames.get(key), _this81.headers.get(key));
             });
           }
         }]);
@@ -15110,7 +15133,7 @@
 
       var _HttpParams = /*#__PURE__*/function () {
         function _HttpParams() {
-          var _this80 = this;
+          var _this82 = this;
 
           var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -15131,7 +15154,7 @@
             Object.keys(options.fromObject).forEach(function (key) {
               var value = options.fromObject[key];
 
-              _this80.map.set(key, Array.isArray(value) ? value : [value]);
+              _this82.map.set(key, Array.isArray(value) ? value : [value]);
             });
           } else {
             this.map = null;
@@ -15277,17 +15300,17 @@
         }, {
           key: "toString",
           value: function toString() {
-            var _this81 = this;
+            var _this83 = this;
 
             this.init();
             return this.keys().map(function (key) {
-              var eKey = _this81.encoder.encodeKey(key); // `a: ['1']` produces `'a=1'`
+              var eKey = _this83.encoder.encodeKey(key); // `a: ['1']` produces `'a=1'`
               // `b: []` produces `''`
               // `c: ['1', '2']` produces `'c=1&c=2'`
 
 
-              return _this81.map.get(key).map(function (value) {
-                return eKey + '=' + _this81.encoder.encodeValue(value);
+              return _this83.map.get(key).map(function (value) {
+                return eKey + '=' + _this83.encoder.encodeValue(value);
               }).join('&');
             }) // filter out empty values because `b: []` produces `''`
             // which results in `a=1&&c=1&c=2` instead of `a=1&c=1&c=2` if we don't
@@ -15308,7 +15331,7 @@
         }, {
           key: "init",
           value: function init() {
-            var _this82 = this;
+            var _this84 = this;
 
             if (this.map === null) {
               this.map = new Map();
@@ -15317,22 +15340,22 @@
             if (this.cloneFrom !== null) {
               this.cloneFrom.init();
               this.cloneFrom.keys().forEach(function (key) {
-                return _this82.map.set(key, _this82.cloneFrom.map.get(key));
+                return _this84.map.set(key, _this84.cloneFrom.map.get(key));
               });
               this.updates.forEach(function (update) {
                 switch (update.op) {
                   case 'a':
                   case 's':
-                    var base = (update.op === 'a' ? _this82.map.get(update.param) : undefined) || [];
+                    var base = (update.op === 'a' ? _this84.map.get(update.param) : undefined) || [];
                     base.push(valueToString(update.value));
 
-                    _this82.map.set(update.param, base);
+                    _this84.map.set(update.param, base);
 
                     break;
 
                   case 'd':
                     if (update.value !== undefined) {
-                      var _base2 = _this82.map.get(update.param) || [];
+                      var _base2 = _this84.map.get(update.param) || [];
 
                       var idx = _base2.indexOf(valueToString(update.value));
 
@@ -15341,12 +15364,12 @@
                       }
 
                       if (_base2.length > 0) {
-                        _this82.map.set(update.param, _base2);
+                        _this84.map.set(update.param, _base2);
                       } else {
-                        _this82.map["delete"](update.param);
+                        _this84.map["delete"](update.param);
                       }
                     } else {
-                      _this82.map["delete"](update.param);
+                      _this84.map["delete"](update.param);
 
                       break;
                     }
@@ -15906,15 +15929,15 @@
          * Create a new `HttpHeaderResponse` with the given parameters.
          */
         function _HttpHeaderResponse() {
-          var _this83;
+          var _this85;
 
           var init = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
           _classCallCheck2(this, _HttpHeaderResponse);
 
-          _this83 = _super28.call(this, init);
-          _this83.type = _HttpEventType.ResponseHeader;
-          return _this83;
+          _this85 = _super28.call(this, init);
+          _this85.type = _HttpEventType.ResponseHeader;
+          return _this85;
         }
         /**
          * Copy this `HttpHeaderResponse`, overriding its contents with the
@@ -15959,16 +15982,16 @@
          * Construct a new `HttpResponse`.
          */
         function _HttpResponse() {
-          var _this84;
+          var _this86;
 
           var init = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
           _classCallCheck2(this, _HttpResponse);
 
-          _this84 = _super29.call(this, init);
-          _this84.type = _HttpEventType.Response;
-          _this84.body = init.body !== undefined ? init.body : null;
-          return _this84;
+          _this86 = _super29.call(this, init);
+          _this86.type = _HttpEventType.Response;
+          _this86.body = init.body !== undefined ? init.body : null;
+          return _this86;
         }
 
         _createClass2(_HttpResponse, [{
@@ -16008,29 +16031,29 @@
         var _super30 = _createSuper(_HttpErrorResponse);
 
         function _HttpErrorResponse(init) {
-          var _this85;
+          var _this87;
 
           _classCallCheck2(this, _HttpErrorResponse);
 
           // Initialize with a default status of 0 / Unknown Error.
-          _this85 = _super30.call(this, init, 0, 'Unknown Error');
-          _this85.name = 'HttpErrorResponse';
+          _this87 = _super30.call(this, init, 0, 'Unknown Error');
+          _this87.name = 'HttpErrorResponse';
           /**
            * Errors are never okay, even when the status code is in the 2xx success range.
            */
 
-          _this85.ok = false; // If the response was successful, then this was a parse error. Otherwise, it was
+          _this87.ok = false; // If the response was successful, then this was a parse error. Otherwise, it was
           // a protocol-level failure of some sort. Either the request failed in transit
           // or the server returned an unsuccessful status code.
 
-          if (_this85.status >= 200 && _this85.status < 300) {
-            _this85.message = "Http failure during parsing for ".concat(init.url || '(unknown url)');
+          if (_this87.status >= 200 && _this87.status < 300) {
+            _this87.message = "Http failure during parsing for ".concat(init.url || '(unknown url)');
           } else {
-            _this85.message = "Http failure response for ".concat(init.url || '(unknown url)', ": ").concat(init.status, " ").concat(init.statusText);
+            _this87.message = "Http failure response for ".concat(init.url || '(unknown url)', ": ").concat(init.status, " ").concat(init.statusText);
           }
 
-          _this85.error = init.error || null;
-          return _this85;
+          _this87.error = init.error || null;
+          return _this87;
         }
 
         return _HttpErrorResponse;
@@ -16161,7 +16184,7 @@
         _createClass2(_HttpClient, [{
           key: "request",
           value: function request(first, url) {
-            var _this86 = this;
+            var _this88 = this;
 
             var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
             var req; // First, check whether the primary argument is an instance of `HttpRequest`.
@@ -16213,7 +16236,7 @@
 
 
             var events$ = (0, rxjs__WEBPACK_IMPORTED_MODULE_0__.of)(req).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_1__.concatMap)(function (req) {
-              return _this86.handler.handle(req);
+              return _this88.handler.handle(req);
             })); // If coming via the API signature which accepts a previously constructed HttpRequest,
             // the only option is to get the event stream. Otherwise, return the event stream if
             // that is what was requested.
@@ -16581,7 +16604,7 @@
         }, {
           key: "handle",
           value: function handle(req) {
-            var _this87 = this;
+            var _this89 = this;
 
             // Firstly, check both the method and response type. If either doesn't match
             // then the request was improperly routed here and cannot be handled.
@@ -16596,11 +16619,11 @@
               // The first step to make a request is to generate the callback name, and replace the
               // callback placeholder in the URL with the name. Care has to be taken here to ensure
               // a trailing &, if matched, gets inserted back into the URL in the correct place.
-              var callback = _this87.nextCallback();
+              var callback = _this89.nextCallback();
 
               var url = req.urlWithParams.replace(/=JSONP_CALLBACK(&|$)/, "=".concat(callback, "$1")); // Construct the <script> tag and point it at the URL.
 
-              var node = _this87.document.createElement('script');
+              var node = _this89.document.createElement('script');
 
               node.src = url; // A JSONP request requires waiting for multiple callbacks. These variables
               // are closed over and track state across those callbacks.
@@ -16615,9 +16638,9 @@
               // object in the browser. The script being loaded via the <script> tag will
               // eventually call this callback.
 
-              _this87.callbackMap[callback] = function (data) {
+              _this89.callbackMap[callback] = function (data) {
                 // Data has been received from the JSONP script. Firstly, delete this callback.
-                delete _this87.callbackMap[callback]; // Next, make sure the request wasn't cancelled in the meantime.
+                delete _this89.callbackMap[callback]; // Next, make sure the request wasn't cancelled in the meantime.
 
                 if (cancelled) {
                   return;
@@ -16639,7 +16662,7 @@
                 // browser).
 
 
-                delete _this87.callbackMap[callback];
+                delete _this89.callbackMap[callback];
               }; // onLoad() is the success callback which runs after the response callback
               // if the JSONP script loads successfully. The event itself is unimportant.
               // If something went wrong, onLoad() may run without the response callback
@@ -16655,7 +16678,7 @@
                 // which is not guaranteed in Internet Explorer and EdgeHTML. See issue #39496
 
 
-                _this87.resolvedPromise.then(function () {
+                _this89.resolvedPromise.then(function () {
                   // Cleanup the page.
                   cleanup(); // Check whether the response callback has run.
 
@@ -16710,7 +16733,7 @@
               node.addEventListener('load', onLoad);
               node.addEventListener('error', onError);
 
-              _this87.document.body.appendChild(node); // The request has now been successfully sent.
+              _this89.document.body.appendChild(node); // The request has now been successfully sent.
 
 
               observer.next({
@@ -16884,7 +16907,7 @@
         _createClass2(_HttpXhrBackend, [{
           key: "handle",
           value: function handle(req) {
-            var _this88 = this;
+            var _this90 = this;
 
             // Quick check to give a better error message when a user attempts to use
             // HttpClient.jsonp() without installing the HttpClientJsonpModule
@@ -16895,7 +16918,7 @@
 
             return new rxjs__WEBPACK_IMPORTED_MODULE_5__.Observable(function (observer) {
               // Start by setting up the XHR object with request method, URL, and withCredentials flag.
-              var xhr = _this88.xhrFactory.build();
+              var xhr = _this90.xhrFactory.build();
 
               xhr.open(req.method, req.urlWithParams);
 
@@ -18897,21 +18920,21 @@
         var _super33 = _createSuper(_DefaultValueAccessor);
 
         function _DefaultValueAccessor(renderer, elementRef, _compositionMode) {
-          var _this89;
+          var _this91;
 
           _classCallCheck2(this, _DefaultValueAccessor);
 
-          _this89 = _super33.call(this, renderer, elementRef);
-          _this89._compositionMode = _compositionMode;
+          _this91 = _super33.call(this, renderer, elementRef);
+          _this91._compositionMode = _compositionMode;
           /** Whether the user is creating a composition string (IME events). */
 
-          _this89._composing = false;
+          _this91._composing = false;
 
-          if (_this89._compositionMode == null) {
-            _this89._compositionMode = !_isAndroid();
+          if (_this91._compositionMode == null) {
+            _this91._compositionMode = !_isAndroid();
           }
 
-          return _this89;
+          return _this91;
         }
         /**
          * Sets the "value" property on the input element.
@@ -20194,11 +20217,11 @@
         var _super35 = _createSuper(_NgControl);
 
         function _NgControl() {
-          var _this90;
+          var _this92;
 
           _classCallCheck2(this, _NgControl);
 
-          _this90 = _super35.apply(this, arguments);
+          _this92 = _super35.apply(this, arguments);
           /**
            * @description
            * The parent form for the control.
@@ -20206,20 +20229,20 @@
            * @internal
            */
 
-          _this90._parent = null;
+          _this92._parent = null;
           /**
            * @description
            * The name for the control
            */
 
-          _this90.name = null;
+          _this92.name = null;
           /**
            * @description
            * The value accessor for the control
            */
 
-          _this90.valueAccessor = null;
-          return _this90;
+          _this92.valueAccessor = null;
+          return _this92;
         }
 
         return _NgControl;
@@ -21582,18 +21605,18 @@
         }, {
           key: "_runAsyncValidator",
           value: function _runAsyncValidator(emitEvent) {
-            var _this91 = this;
+            var _this93 = this;
 
             if (this.asyncValidator) {
               this.status = PENDING;
               this._hasOwnPendingAsyncValidator = true;
               var obs = toObservable(this.asyncValidator(this));
               this._asyncValidationSubscription = obs.subscribe(function (errors) {
-                _this91._hasOwnPendingAsyncValidator = false; // This will trigger the recalculation of the validation status, which depends on
+                _this93._hasOwnPendingAsyncValidator = false; // This will trigger the recalculation of the validation status, which depends on
                 // the state of the asynchronous validation (whether it is in progress or not). So, it is
                 // necessary that we have updated the `_hasOwnPendingAsyncValidator` boolean flag first.
 
-                _this91.setErrors(errors, {
+                _this93.setErrors(errors, {
                   emitEvent: emitEvent
                 });
               });
@@ -21999,7 +22022,7 @@
          *
          */
         function _FormControl() {
-          var _this92;
+          var _this94;
 
           var formState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
           var validatorOrOpts = arguments.length > 1 ? arguments[1] : undefined;
@@ -22007,27 +22030,27 @@
 
           _classCallCheck2(this, _FormControl);
 
-          _this92 = _super38.call(this, pickValidators(validatorOrOpts), pickAsyncValidators(asyncValidator, validatorOrOpts));
+          _this94 = _super38.call(this, pickValidators(validatorOrOpts), pickAsyncValidators(asyncValidator, validatorOrOpts));
           /** @internal */
 
-          _this92._onChange = [];
+          _this94._onChange = [];
 
-          _this92._applyFormState(formState);
+          _this94._applyFormState(formState);
 
-          _this92._setUpdateStrategy(validatorOrOpts);
+          _this94._setUpdateStrategy(validatorOrOpts);
 
-          _this92._initObservables();
+          _this94._initObservables();
 
-          _this92.updateValueAndValidity({
+          _this94.updateValueAndValidity({
             onlySelf: true,
             // If `asyncValidator` is present, it will trigger control status change from `PENDING` to
             // `VALID` or `INVALID`.
             // The status should be broadcasted via the `statusChanges` observable, so we set `emitEvent`
             // to `true` to allow that during the control creation process.
-            emitEvent: !!_this92.asyncValidator
+            emitEvent: !!_this94.asyncValidator
           });
 
-          return _this92;
+          return _this94;
         }
         /**
          * Sets a new value for the form control.
@@ -22057,14 +22080,14 @@
         _createClass2(_FormControl, [{
           key: "setValue",
           value: function setValue(value) {
-            var _this93 = this;
+            var _this95 = this;
 
             var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
             this.value = this._pendingValue = value;
 
             if (this._onChange.length && options.emitModelToViewChange !== false) {
               this._onChange.forEach(function (changeFn) {
-                return changeFn(_this93.value, options.emitViewToModelChange !== false);
+                return changeFn(_this95.value, options.emitViewToModelChange !== false);
               });
             }
 
@@ -22325,28 +22348,28 @@
          *
          */
         function _FormGroup(controls, validatorOrOpts, asyncValidator) {
-          var _this94;
+          var _this96;
 
           _classCallCheck2(this, _FormGroup);
 
-          _this94 = _super39.call(this, pickValidators(validatorOrOpts), pickAsyncValidators(asyncValidator, validatorOrOpts));
-          _this94.controls = controls;
+          _this96 = _super39.call(this, pickValidators(validatorOrOpts), pickAsyncValidators(asyncValidator, validatorOrOpts));
+          _this96.controls = controls;
 
-          _this94._initObservables();
+          _this96._initObservables();
 
-          _this94._setUpdateStrategy(validatorOrOpts);
+          _this96._setUpdateStrategy(validatorOrOpts);
 
-          _this94._setUpControls();
+          _this96._setUpControls();
 
-          _this94.updateValueAndValidity({
+          _this96.updateValueAndValidity({
             onlySelf: true,
             // If `asyncValidator` is present, it will trigger control status change from `PENDING` to
             // `VALID` or `INVALID`. The status should be broadcasted via the `statusChanges` observable,
             // so we set `emitEvent` to `true` to allow that during the control creation process.
-            emitEvent: !!_this94.asyncValidator
+            emitEvent: !!_this96.asyncValidator
           });
 
-          return _this94;
+          return _this96;
         }
         /**
          * Registers a control with the group's list of controls.
@@ -22504,16 +22527,16 @@
         }, {
           key: "setValue",
           value: function setValue(value) {
-            var _this95 = this;
+            var _this97 = this;
 
             var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
             this._checkAllValuesPresent(value);
 
             Object.keys(value).forEach(function (name) {
-              _this95._throwIfControlMissing(name);
+              _this97._throwIfControlMissing(name);
 
-              _this95.controls[name].setValue(value[name], {
+              _this97.controls[name].setValue(value[name], {
                 onlySelf: true,
                 emitEvent: options.emitEvent
               });
@@ -22555,7 +22578,7 @@
         }, {
           key: "patchValue",
           value: function patchValue(value) {
-            var _this96 = this;
+            var _this98 = this;
 
             var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
             // Even though the `value` argument type doesn't allow `null` and `undefined` values, the
@@ -22566,8 +22589,8 @@
             /* both `null` and `undefined` */
             ) return;
             Object.keys(value).forEach(function (name) {
-              if (_this96.controls[name]) {
-                _this96.controls[name].patchValue(value[name], {
+              if (_this98.controls[name]) {
+                _this98.controls[name].patchValue(value[name], {
                   onlySelf: true,
                   emitEvent: options.emitEvent
                 });
@@ -22700,13 +22723,13 @@
         }, {
           key: "_forEachChild",
           value: function _forEachChild(cb) {
-            var _this97 = this;
+            var _this99 = this;
 
             Object.keys(this.controls).forEach(function (key) {
               // The list of controls can change (for ex. controls might be removed) while the loop
               // is running (as a result of invoking Forms API in `valueChanges` subscription), so we
               // have to null check before invoking the callback.
-              var control = _this97.controls[key];
+              var control = _this99.controls[key];
               control && cb(control, key);
             });
           }
@@ -22715,12 +22738,12 @@
         }, {
           key: "_setUpControls",
           value: function _setUpControls() {
-            var _this98 = this;
+            var _this100 = this;
 
             this._forEachChild(function (control) {
-              control.setParent(_this98);
+              control.setParent(_this100);
 
-              control._registerOnCollectionChange(_this98._onCollectionChange);
+              control._registerOnCollectionChange(_this100._onCollectionChange);
             });
           }
           /** @internal */
@@ -22751,10 +22774,10 @@
         }, {
           key: "_reduceValue",
           value: function _reduceValue() {
-            var _this99 = this;
+            var _this101 = this;
 
             return this._reduceChildren({}, function (acc, control, name) {
-              if (control.enabled || _this99.disabled) {
+              if (control.enabled || _this101.disabled) {
                 acc[name] = control.value;
               }
 
@@ -22889,29 +22912,29 @@
          *
          */
         function _FormArray(controls, validatorOrOpts, asyncValidator) {
-          var _this100;
+          var _this102;
 
           _classCallCheck2(this, _FormArray);
 
-          _this100 = _super40.call(this, pickValidators(validatorOrOpts), pickAsyncValidators(asyncValidator, validatorOrOpts));
-          _this100.controls = controls;
+          _this102 = _super40.call(this, pickValidators(validatorOrOpts), pickAsyncValidators(asyncValidator, validatorOrOpts));
+          _this102.controls = controls;
 
-          _this100._initObservables();
+          _this102._initObservables();
 
-          _this100._setUpdateStrategy(validatorOrOpts);
+          _this102._setUpdateStrategy(validatorOrOpts);
 
-          _this100._setUpControls();
+          _this102._setUpControls();
 
-          _this100.updateValueAndValidity({
+          _this102.updateValueAndValidity({
             onlySelf: true,
             // If `asyncValidator` is present, it will trigger control status change from `PENDING` to
             // `VALID` or `INVALID`.
             // The status should be broadcasted via the `statusChanges` observable, so we set `emitEvent`
             // to `true` to allow that during the control creation process.
-            emitEvent: !!_this100.asyncValidator
+            emitEvent: !!_this102.asyncValidator
           });
 
-          return _this100;
+          return _this102;
         }
         /**
          * Get the `AbstractControl` at the given `index` in the array.
@@ -23074,16 +23097,16 @@
         }, {
           key: "setValue",
           value: function setValue(value) {
-            var _this101 = this;
+            var _this103 = this;
 
             var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
             this._checkAllValuesPresent(value);
 
             value.forEach(function (newValue, index) {
-              _this101._throwIfControlMissing(index);
+              _this103._throwIfControlMissing(index);
 
-              _this101.at(index).setValue(newValue, {
+              _this103.at(index).setValue(newValue, {
                 onlySelf: true,
                 emitEvent: options.emitEvent
               });
@@ -23126,7 +23149,7 @@
         }, {
           key: "patchValue",
           value: function patchValue(value) {
-            var _this102 = this;
+            var _this104 = this;
 
             var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
             // Even though the `value` argument type doesn't allow `null` and `undefined` values, the
@@ -23137,8 +23160,8 @@
             /* both `null` and `undefined` */
             ) return;
             value.forEach(function (newValue, index) {
-              if (_this102.at(index)) {
-                _this102.at(index).patchValue(newValue, {
+              if (_this104.at(index)) {
+                _this104.at(index).patchValue(newValue, {
                   onlySelf: true,
                   emitEvent: options.emitEvent
                 });
@@ -23318,10 +23341,10 @@
         }, {
           key: "_updateValue",
           value: function _updateValue() {
-            var _this103 = this;
+            var _this105 = this;
 
             this.value = this.controls.filter(function (control) {
-              return control.enabled || _this103.disabled;
+              return control.enabled || _this105.disabled;
             }).map(function (control) {
               return control.value;
             });
@@ -23340,10 +23363,10 @@
         }, {
           key: "_setUpControls",
           value: function _setUpControls() {
-            var _this104 = this;
+            var _this106 = this;
 
             this._forEachChild(function (control) {
-              return _this104._registerControl(control);
+              return _this106._registerControl(control);
             });
           }
           /** @internal */
@@ -23481,26 +23504,26 @@
         var _super41 = _createSuper(_NgForm);
 
         function _NgForm(validators, asyncValidators) {
-          var _this105;
+          var _this107;
 
           _classCallCheck2(this, _NgForm);
 
-          _this105 = _super41.call(this);
+          _this107 = _super41.call(this);
           /**
            * @description
            * Returns whether the form submission has been triggered.
            */
 
-          _this105.submitted = false;
-          _this105._directives = [];
+          _this107.submitted = false;
+          _this107._directives = [];
           /**
            * @description
            * Event emitter for the "ngSubmit" event
            */
 
-          _this105.ngSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
-          _this105.form = new _FormGroup({}, composeValidators(validators), composeAsyncValidators(asyncValidators));
-          return _this105;
+          _this107.ngSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+          _this107.form = new _FormGroup({}, composeValidators(validators), composeAsyncValidators(asyncValidators));
+          return _this107;
         }
         /** @nodoc */
 
@@ -23562,10 +23585,10 @@
         }, {
           key: "addControl",
           value: function addControl(dir) {
-            var _this106 = this;
+            var _this108 = this;
 
             resolvedPromise.then(function () {
-              var container = _this106._findContainer(dir.path);
+              var container = _this108._findContainer(dir.path);
 
               dir.control = container.registerControl(dir.name, dir.control);
               setUpControl(dir.control, dir);
@@ -23573,7 +23596,7 @@
                 emitEvent: false
               });
 
-              _this106._directives.push(dir);
+              _this108._directives.push(dir);
             });
           }
           /**
@@ -23598,16 +23621,16 @@
         }, {
           key: "removeControl",
           value: function removeControl(dir) {
-            var _this107 = this;
+            var _this109 = this;
 
             resolvedPromise.then(function () {
-              var container = _this107._findContainer(dir.path);
+              var container = _this109._findContainer(dir.path);
 
               if (container) {
                 container.removeControl(dir.name);
               }
 
-              removeListItem(_this107._directives, dir);
+              removeListItem(_this109._directives, dir);
             });
           }
           /**
@@ -23620,10 +23643,10 @@
         }, {
           key: "addFormGroup",
           value: function addFormGroup(dir) {
-            var _this108 = this;
+            var _this110 = this;
 
             resolvedPromise.then(function () {
-              var container = _this108._findContainer(dir.path);
+              var container = _this110._findContainer(dir.path);
 
               var group = new _FormGroup({});
               setUpFormContainer(group, dir);
@@ -23643,10 +23666,10 @@
         }, {
           key: "removeFormGroup",
           value: function removeFormGroup(dir) {
-            var _this109 = this;
+            var _this111 = this;
 
             resolvedPromise.then(function () {
-              var container = _this109._findContainer(dir.path);
+              var container = _this111._findContainer(dir.path);
 
               if (container) {
                 container.removeControl(dir.name);
@@ -23675,10 +23698,10 @@
         }, {
           key: "updateModel",
           value: function updateModel(dir, value) {
-            var _this110 = this;
+            var _this112 = this;
 
             resolvedPromise.then(function () {
-              var ctrl = _this110.form.get(dir.path);
+              var ctrl = _this112.form.get(dir.path);
 
               ctrl.setValue(value);
             });
@@ -24044,18 +24067,18 @@
         var _super43 = _createSuper(_NgModelGroup);
 
         function _NgModelGroup(parent, validators, asyncValidators) {
-          var _this111;
+          var _this113;
 
           _classCallCheck2(this, _NgModelGroup);
 
-          _this111 = _super43.call(this);
-          _this111._parent = parent;
+          _this113 = _super43.call(this);
+          _this113._parent = parent;
 
-          _this111._setValidators(validators);
+          _this113._setValidators(validators);
 
-          _this111._setAsyncValidators(asyncValidators);
+          _this113._setAsyncValidators(asyncValidators);
 
-          return _this111;
+          return _this113;
         }
         /** @internal */
 
@@ -24299,30 +24322,30 @@
         var _super44 = _createSuper(_NgModel);
 
         function _NgModel(parent, validators, asyncValidators, valueAccessors) {
-          var _this112;
+          var _this114;
 
           _classCallCheck2(this, _NgModel);
 
-          _this112 = _super44.call(this);
-          _this112.control = new _FormControl();
+          _this114 = _super44.call(this);
+          _this114.control = new _FormControl();
           /** @internal */
 
-          _this112._registered = false;
+          _this114._registered = false;
           /**
            * @description
            * Event emitter for producing the `ngModelChange` event after
            * the view model updates.
            */
 
-          _this112.update = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
-          _this112._parent = parent;
+          _this114.update = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+          _this114._parent = parent;
 
-          _this112._setValidators(validators);
+          _this114._setValidators(validators);
 
-          _this112._setAsyncValidators(asyncValidators);
+          _this114._setAsyncValidators(asyncValidators);
 
-          _this112.valueAccessor = selectValueAccessor(_assertThisInitialized(_this112), valueAccessors);
-          return _this112;
+          _this114.valueAccessor = selectValueAccessor(_assertThisInitialized(_this114), valueAccessors);
+          return _this114;
         }
         /** @nodoc */
 
@@ -24445,10 +24468,10 @@
         }, {
           key: "_updateValue",
           value: function _updateValue(value) {
-            var _this113 = this;
+            var _this115 = this;
 
             resolvedPromise$1.then(function () {
-              _this113.control.setValue(value, {
+              _this115.control.setValue(value, {
                 emitViewToModelChange: false
               });
             });
@@ -24456,15 +24479,15 @@
         }, {
           key: "_updateDisabled",
           value: function _updateDisabled(changes) {
-            var _this114 = this;
+            var _this116 = this;
 
             var disabledValue = changes['isDisabled'].currentValue;
             var isDisabled = disabledValue === '' || disabledValue && disabledValue !== 'false';
             resolvedPromise$1.then(function () {
-              if (isDisabled && !_this114.control.disabled) {
-                _this114.control.disable();
-              } else if (!isDisabled && _this114.control.disabled) {
-                _this114.control.enable();
+              if (isDisabled && !_this116.control.disabled) {
+                _this116.control.disable();
+              } else if (!isDisabled && _this116.control.disabled) {
+                _this116.control.enable();
               }
             });
           }
@@ -24886,10 +24909,10 @@
         }, {
           key: "select",
           value: function select(accessor) {
-            var _this115 = this;
+            var _this117 = this;
 
             this._accessors.forEach(function (c) {
-              if (_this115._isSameGroup(c, accessor) && c[1] !== accessor) {
+              if (_this117._isSameGroup(c, accessor) && c[1] !== accessor) {
                 c[1].fireUncheck(accessor.value);
               }
             });
@@ -24955,13 +24978,13 @@
         var _super46 = _createSuper(_RadioControlValueAccessor);
 
         function _RadioControlValueAccessor(renderer, elementRef, _registry, _injector) {
-          var _this116;
+          var _this118;
 
           _classCallCheck2(this, _RadioControlValueAccessor);
 
-          _this116 = _super46.call(this, renderer, elementRef);
-          _this116._registry = _registry;
-          _this116._injector = _injector;
+          _this118 = _super46.call(this, renderer, elementRef);
+          _this118._registry = _registry;
+          _this118._injector = _injector;
           /**
            * The registered callback function called when a change event occurs on the input element.
            * Note: we declare `onChange` here (also used as host listener) as a function with no arguments
@@ -24970,9 +24993,9 @@
            * @nodoc
            */
 
-          _this116.onChange = function () {};
+          _this118.onChange = function () {};
 
-          return _this116;
+          return _this118;
         }
         /** @nodoc */
 
@@ -25012,14 +25035,14 @@
         }, {
           key: "registerOnChange",
           value: function registerOnChange(fn) {
-            var _this117 = this;
+            var _this119 = this;
 
             this._fn = fn;
 
             this.onChange = function () {
-              fn(_this117.value);
+              fn(_this119.value);
 
-              _this117._registry.select(_this117);
+              _this119._registry.select(_this119);
             };
           }
           /**
@@ -25294,15 +25317,15 @@
         var _super48 = _createSuper(_FormControlDirective);
 
         function _FormControlDirective(validators, asyncValidators, valueAccessors, _ngModelWarningConfig) {
-          var _this118;
+          var _this120;
 
           _classCallCheck2(this, _FormControlDirective);
 
-          _this118 = _super48.call(this);
-          _this118._ngModelWarningConfig = _ngModelWarningConfig;
+          _this120 = _super48.call(this);
+          _this120._ngModelWarningConfig = _ngModelWarningConfig;
           /** @deprecated as of v6 */
 
-          _this118.update = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+          _this120.update = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
           /**
            * @description
            * Instance property used to track whether an ngModel warning has been sent out for this
@@ -25311,14 +25334,14 @@
            * @internal
            */
 
-          _this118._ngModelWarningSent = false;
+          _this120._ngModelWarningSent = false;
 
-          _this118._setValidators(validators);
+          _this120._setValidators(validators);
 
-          _this118._setAsyncValidators(asyncValidators);
+          _this120._setAsyncValidators(asyncValidators);
 
-          _this118.valueAccessor = selectValueAccessor(_assertThisInitialized(_this118), valueAccessors);
-          return _this118;
+          _this120.valueAccessor = selectValueAccessor(_assertThisInitialized(_this120), valueAccessors);
+          return _this120;
         }
         /**
          * @description
@@ -25624,26 +25647,26 @@
         var _super49 = _createSuper(_FormGroupDirective);
 
         function _FormGroupDirective(validators, asyncValidators) {
-          var _this119;
+          var _this121;
 
           _classCallCheck2(this, _FormGroupDirective);
 
-          _this119 = _super49.call(this);
-          _this119.validators = validators;
-          _this119.asyncValidators = asyncValidators;
+          _this121 = _super49.call(this);
+          _this121.validators = validators;
+          _this121.asyncValidators = asyncValidators;
           /**
            * @description
            * Reports whether the form submission has been triggered.
            */
 
-          _this119.submitted = false;
+          _this121.submitted = false;
           /**
            * Callback that should be invoked when controls in FormGroup or FormArray collection change
            * (added or removed). This callback triggers corresponding DOM updates.
            */
 
-          _this119._onCollectionChange = function () {
-            return _this119._updateDomValue();
+          _this121._onCollectionChange = function () {
+            return _this121._updateDomValue();
           };
           /**
            * @description
@@ -25651,25 +25674,25 @@
            */
 
 
-          _this119.directives = [];
+          _this121.directives = [];
           /**
            * @description
            * Tracks the `FormGroup` bound to this directive.
            */
 
-          _this119.form = null;
+          _this121.form = null;
           /**
            * @description
            * Emits an event when the form submission has been triggered.
            */
 
-          _this119.ngSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+          _this121.ngSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
 
-          _this119._setValidators(validators);
+          _this121._setValidators(validators);
 
-          _this119._setAsyncValidators(asyncValidators);
+          _this121._setAsyncValidators(asyncValidators);
 
-          return _this119;
+          return _this121;
         }
         /** @nodoc */
 
@@ -25912,12 +25935,12 @@
         }, {
           key: "_updateDomValue",
           value: function _updateDomValue() {
-            var _this120 = this;
+            var _this122 = this;
 
             this.directives.forEach(function (dir) {
               var oldCtrl = dir.control;
 
-              var newCtrl = _this120.form.get(dir.path);
+              var newCtrl = _this122.form.get(dir.path);
 
               if (oldCtrl !== newCtrl) {
                 // Note: the value of the `dir.control` may not be defined, for example when it's a first
@@ -26173,18 +26196,18 @@
         var _super50 = _createSuper(_FormGroupName);
 
         function _FormGroupName(parent, validators, asyncValidators) {
-          var _this121;
+          var _this123;
 
           _classCallCheck2(this, _FormGroupName);
 
-          _this121 = _super50.call(this);
-          _this121._parent = parent;
+          _this123 = _super50.call(this);
+          _this123._parent = parent;
 
-          _this121._setValidators(validators);
+          _this123._setValidators(validators);
 
-          _this121._setAsyncValidators(asyncValidators);
+          _this123._setAsyncValidators(asyncValidators);
 
-          return _this121;
+          return _this123;
         }
         /** @internal */
 
@@ -26337,18 +26360,18 @@
         var _super51 = _createSuper(_FormArrayName);
 
         function _FormArrayName(parent, validators, asyncValidators) {
-          var _this122;
+          var _this124;
 
           _classCallCheck2(this, _FormArrayName);
 
-          _this122 = _super51.call(this);
-          _this122._parent = parent;
+          _this124 = _super51.call(this);
+          _this124._parent = parent;
 
-          _this122._setValidators(validators);
+          _this124._setValidators(validators);
 
-          _this122._setAsyncValidators(asyncValidators);
+          _this124._setAsyncValidators(asyncValidators);
 
-          return _this122;
+          return _this124;
         }
         /**
          * A lifecycle method called when the directive's inputs are initialized. For internal use only.
@@ -26577,16 +26600,16 @@
         var _super52 = _createSuper(_FormControlName);
 
         function _FormControlName(parent, validators, asyncValidators, valueAccessors, _ngModelWarningConfig) {
-          var _this123;
+          var _this125;
 
           _classCallCheck2(this, _FormControlName);
 
-          _this123 = _super52.call(this);
-          _this123._ngModelWarningConfig = _ngModelWarningConfig;
-          _this123._added = false;
+          _this125 = _super52.call(this);
+          _this125._ngModelWarningConfig = _ngModelWarningConfig;
+          _this125._added = false;
           /** @deprecated as of v6 */
 
-          _this123.update = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
+          _this125.update = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
           /**
            * @description
            * Instance property used to track whether an ngModel warning has been sent out for this
@@ -26595,15 +26618,15 @@
            * @internal
            */
 
-          _this123._ngModelWarningSent = false;
-          _this123._parent = parent;
+          _this125._ngModelWarningSent = false;
+          _this125._parent = parent;
 
-          _this123._setValidators(validators);
+          _this125._setValidators(validators);
 
-          _this123._setAsyncValidators(asyncValidators);
+          _this125._setAsyncValidators(asyncValidators);
 
-          _this123.valueAccessor = selectValueAccessor(_assertThisInitialized(_this123), valueAccessors);
-          return _this123;
+          _this125.valueAccessor = selectValueAccessor(_assertThisInitialized(_this125), valueAccessors);
+          return _this125;
         }
         /**
          * @description
@@ -26968,19 +26991,19 @@
         var _super53 = _createSuper(_SelectControlValueAccessor);
 
         function _SelectControlValueAccessor() {
-          var _this124;
+          var _this126;
 
           _classCallCheck2(this, _SelectControlValueAccessor);
 
-          _this124 = _super53.apply(this, arguments);
+          _this126 = _super53.apply(this, arguments);
           /** @internal */
 
-          _this124._optionMap = new Map();
+          _this126._optionMap = new Map();
           /** @internal */
 
-          _this124._idCounter = 0;
-          _this124._compareWith = Object.is;
-          return _this124;
+          _this126._idCounter = 0;
+          _this126._compareWith = Object.is;
+          return _this126;
         }
         /**
          * @description
@@ -27027,11 +27050,11 @@
         }, {
           key: "registerOnChange",
           value: function registerOnChange(fn) {
-            var _this125 = this;
+            var _this127 = this;
 
             this.onChange = function (valueString) {
-              _this125.value = _this125._getOptionValue(valueString);
-              fn(_this125.value);
+              _this127.value = _this127._getOptionValue(valueString);
+              fn(_this127.value);
             };
           }
           /** @internal */
@@ -27334,19 +27357,19 @@
         var _super54 = _createSuper(_SelectMultipleControlValueAccessor);
 
         function _SelectMultipleControlValueAccessor() {
-          var _this126;
+          var _this128;
 
           _classCallCheck2(this, _SelectMultipleControlValueAccessor);
 
-          _this126 = _super54.apply(this, arguments);
+          _this128 = _super54.apply(this, arguments);
           /** @internal */
 
-          _this126._optionMap = new Map();
+          _this128._optionMap = new Map();
           /** @internal */
 
-          _this126._idCounter = 0;
-          _this126._compareWith = Object.is;
-          return _this126;
+          _this128._idCounter = 0;
+          _this128._compareWith = Object.is;
+          return _this128;
         }
         /**
          * @description
@@ -27372,7 +27395,7 @@
         }, {
           key: "writeValue",
           value: function writeValue(value) {
-            var _this127 = this;
+            var _this129 = this;
 
             this.value = value;
             var optionSelectedStateSetter;
@@ -27380,7 +27403,7 @@
             if (Array.isArray(value)) {
               // convert values to ids
               var ids = value.map(function (v) {
-                return _this127._getOptionId(v);
+                return _this129._getOptionId(v);
               });
 
               optionSelectedStateSetter = function optionSelectedStateSetter(opt, o) {
@@ -27403,7 +27426,7 @@
         }, {
           key: "registerOnChange",
           value: function registerOnChange(fn) {
-            var _this128 = this;
+            var _this130 = this;
 
             this.onChange = function (_) {
               var selected = [];
@@ -27414,7 +27437,7 @@
                 for (var i = 0; i < options.length; i++) {
                   var opt = options.item(i);
 
-                  var val = _this128._getOptionValue(opt.value);
+                  var val = _this130._getOptionValue(opt.value);
 
                   selected.push(val);
                 }
@@ -27426,14 +27449,14 @@
                     var _opt = _options3.item(_i10);
 
                     if (_opt.selected) {
-                      var _val = _this128._getOptionValue(_opt.value);
+                      var _val = _this130._getOptionValue(_opt.value);
 
                       selected.push(_val);
                     }
                   }
                 }
 
-              _this128.value = selected;
+              _this130.value = selected;
               fn(selected);
             };
           }
@@ -27795,27 +27818,27 @@
         var _super55 = _createSuper(_MaxValidator);
 
         function _MaxValidator() {
-          var _this129;
+          var _this131;
 
           _classCallCheck2(this, _MaxValidator);
 
-          _this129 = _super55.apply(this, arguments);
+          _this131 = _super55.apply(this, arguments);
           /** @internal */
 
-          _this129.inputName = 'max';
+          _this131.inputName = 'max';
           /** @internal */
 
-          _this129.normalizeInput = function (input) {
+          _this131.normalizeInput = function (input) {
             return parseFloat(input);
           };
           /** @internal */
 
 
-          _this129.createValidator = function (max) {
+          _this131.createValidator = function (max) {
             return maxValidator(max);
           };
 
-          return _this129;
+          return _this131;
         }
         /**
          * Declare `ngOnChanges` lifecycle hook at the main directive level (vs keeping it in base class)
@@ -27921,27 +27944,27 @@
         var _super56 = _createSuper(_MinValidator);
 
         function _MinValidator() {
-          var _this130;
+          var _this132;
 
           _classCallCheck2(this, _MinValidator);
 
-          _this130 = _super56.apply(this, arguments);
+          _this132 = _super56.apply(this, arguments);
           /** @internal */
 
-          _this130.inputName = 'min';
+          _this132.inputName = 'min';
           /** @internal */
 
-          _this130.normalizeInput = function (input) {
+          _this132.normalizeInput = function (input) {
             return parseFloat(input);
           };
           /** @internal */
 
 
-          _this130.createValidator = function (min) {
+          _this132.createValidator = function (min) {
             return minValidator(min);
           };
 
-          return _this130;
+          return _this132;
         }
         /**
          * Declare `ngOnChanges` lifecycle hook at the main directive level (vs keeping it in base class)
@@ -28995,10 +29018,10 @@
         }, {
           key: "array",
           value: function array(controlsConfig, validatorOrOpts, asyncValidator) {
-            var _this131 = this;
+            var _this133 = this;
 
             var controls = controlsConfig.map(function (c) {
-              return _this131._createControl(c);
+              return _this133._createControl(c);
             });
             return new _FormArray(controls, validatorOrOpts, asyncValidator);
           }
@@ -29007,11 +29030,11 @@
         }, {
           key: "_reduceControls",
           value: function _reduceControls(controlsConfig) {
-            var _this132 = this;
+            var _this134 = this;
 
             var controls = {};
             Object.keys(controlsConfig).forEach(function (controlName) {
-              controls[controlName] = _this132._createControl(controlsConfig[controlName]);
+              controls[controlName] = _this134._createControl(controlsConfig[controlName]);
             });
             return controls;
           }
@@ -29509,29 +29532,29 @@
         function _MatDialogContainerBase2(_elementRef, _focusTrapFactory, _changeDetectorRef, _document,
         /** The dialog configuration. */
         _config, _focusMonitor) {
-          var _this133;
+          var _this135;
 
           _classCallCheck2(this, _MatDialogContainerBase2);
 
-          _this133 = _super58.call(this);
-          _this133._elementRef = _elementRef;
-          _this133._focusTrapFactory = _focusTrapFactory;
-          _this133._changeDetectorRef = _changeDetectorRef;
-          _this133._config = _config;
-          _this133._focusMonitor = _focusMonitor;
+          _this135 = _super58.call(this);
+          _this135._elementRef = _elementRef;
+          _this135._focusTrapFactory = _focusTrapFactory;
+          _this135._changeDetectorRef = _changeDetectorRef;
+          _this135._config = _config;
+          _this135._focusMonitor = _focusMonitor;
           /** Emits when an animation state changes. */
 
-          _this133._animationStateChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this135._animationStateChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
           /** Element that was focused before the dialog was opened. Save this to restore upon close. */
 
-          _this133._elementFocusedBeforeDialogWasOpened = null;
+          _this135._elementFocusedBeforeDialogWasOpened = null;
           /**
            * Type of interaction that led to the dialog being closed. This is used to determine
            * whether the focus style will be applied when returning focus to its original location
            * after the dialog is closed.
            */
 
-          _this133._closeInteractionType = null;
+          _this135._closeInteractionType = null;
           /**
            * Attaches a DOM portal to the dialog container.
            * @param portal Portal to be attached.
@@ -29539,17 +29562,17 @@
            * @breaking-change 10.0.0
            */
 
-          _this133.attachDomPortal = function (portal) {
-            if (_this133._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+          _this135.attachDomPortal = function (portal) {
+            if (_this135._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
               _throwMatDialogContentAlreadyAttachedError();
             }
 
-            return _this133._portalOutlet.attachDomPortal(portal);
+            return _this135._portalOutlet.attachDomPortal(portal);
           };
 
-          _this133._ariaLabelledBy = _config.ariaLabelledBy || null;
-          _this133._document = _document;
-          return _this133;
+          _this135._ariaLabelledBy = _config.ariaLabelledBy || null;
+          _this135._document = _document;
+          return _this135;
         }
         /** Initializes the dialog container with the attached content. */
 
@@ -29792,15 +29815,15 @@
         var _super59 = _createSuper(_MatDialogContainer);
 
         function _MatDialogContainer() {
-          var _this134;
+          var _this136;
 
           _classCallCheck2(this, _MatDialogContainer);
 
-          _this134 = _super59.apply(this, arguments);
+          _this136 = _super59.apply(this, arguments);
           /** State of the dialog animation. */
 
-          _this134._state = 'enter';
-          return _this134;
+          _this136._state = 'enter';
+          return _this136;
         }
         /** Callback, invoked whenever an animation on the host completes. */
 
@@ -29954,7 +29977,7 @@
 
       var _MatDialogRef = /*#__PURE__*/function () {
         function _MatDialogRef(_overlayRef, _containerInstance) {
-          var _this135 = this;
+          var _this137 = this;
 
           var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "mat-dialog-".concat(uniqueId++);
 
@@ -29986,47 +30009,47 @@
           _containerInstance._animationStateChanged.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.filter)(function (event) {
             return event.state === 'opened';
           }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.take)(1)).subscribe(function () {
-            _this135._afterOpened.next();
+            _this137._afterOpened.next();
 
-            _this135._afterOpened.complete();
+            _this137._afterOpened.complete();
           }); // Dispose overlay when closing animation is complete
 
 
           _containerInstance._animationStateChanged.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.filter)(function (event) {
             return event.state === 'closed';
           }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.take)(1)).subscribe(function () {
-            clearTimeout(_this135._closeFallbackTimeout);
+            clearTimeout(_this137._closeFallbackTimeout);
 
-            _this135._finishDialogClose();
+            _this137._finishDialogClose();
           });
 
           _overlayRef.detachments().subscribe(function () {
-            _this135._beforeClosed.next(_this135._result);
+            _this137._beforeClosed.next(_this137._result);
 
-            _this135._beforeClosed.complete();
+            _this137._beforeClosed.complete();
 
-            _this135._afterClosed.next(_this135._result);
+            _this137._afterClosed.next(_this137._result);
 
-            _this135._afterClosed.complete();
+            _this137._afterClosed.complete();
 
-            _this135.componentInstance = null;
+            _this137.componentInstance = null;
 
-            _this135._overlayRef.dispose();
+            _this137._overlayRef.dispose();
           });
 
           _overlayRef.keydownEvents().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.filter)(function (event) {
-            return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_9__.ESCAPE && !_this135.disableClose && !(0, _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_9__.hasModifierKey)(event);
+            return event.keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_9__.ESCAPE && !_this137.disableClose && !(0, _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_9__.hasModifierKey)(event);
           })).subscribe(function (event) {
             event.preventDefault();
 
-            _closeDialogVia2(_this135, 'keyboard');
+            _closeDialogVia2(_this137, 'keyboard');
           });
 
           _overlayRef.backdropClick().subscribe(function () {
-            if (_this135.disableClose) {
-              _this135._containerInstance._recaptureFocus();
+            if (_this137.disableClose) {
+              _this137._containerInstance._recaptureFocus();
             } else {
-              _closeDialogVia2(_this135, 'mouse');
+              _closeDialogVia2(_this137, 'mouse');
             }
           });
         }
@@ -30039,26 +30062,26 @@
         _createClass2(_MatDialogRef, [{
           key: "close",
           value: function close(dialogResult) {
-            var _this136 = this;
+            var _this138 = this;
 
             this._result = dialogResult; // Transition the backdrop in parallel to the dialog.
 
             this._containerInstance._animationStateChanged.pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.filter)(function (event) {
               return event.state === 'closing';
             }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.take)(1)).subscribe(function (event) {
-              _this136._beforeClosed.next(dialogResult);
+              _this138._beforeClosed.next(dialogResult);
 
-              _this136._beforeClosed.complete();
+              _this138._beforeClosed.complete();
 
-              _this136._overlayRef.detachBackdrop(); // The logic that disposes of the overlay depends on the exit animation completing, however
+              _this138._overlayRef.detachBackdrop(); // The logic that disposes of the overlay depends on the exit animation completing, however
               // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
               // timeout which will clean everything up if the animation hasn't fired within the specified
               // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
               // vast majority of cases the timeout will have been cleared before it has the chance to fire.
 
 
-              _this136._closeFallbackTimeout = setTimeout(function () {
-                return _this136._finishDialogClose();
+              _this138._closeFallbackTimeout = setTimeout(function () {
+                return _this138._finishDialogClose();
               }, event.totalTime + 100);
             });
 
@@ -30278,7 +30301,7 @@
 
       var _MatDialogBase2 = /*#__PURE__*/function () {
         function _MatDialogBase2(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken) {
-          var _this137 = this;
+          var _this139 = this;
 
           _classCallCheck2(this, _MatDialogBase2);
 
@@ -30301,7 +30324,7 @@
            */
 
           this.afterAllClosed = (0, rxjs__WEBPACK_IMPORTED_MODULE_11__.defer)(function () {
-            return _this137.openDialogs.length ? _this137._getAfterAllClosed() : _this137._getAfterAllClosed().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.startWith)(undefined));
+            return _this139.openDialogs.length ? _this139._getAfterAllClosed() : _this139._getAfterAllClosed().pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.startWith)(undefined));
           });
           this._scrollStrategy = scrollStrategy;
         }
@@ -30329,7 +30352,7 @@
         }, {
           key: "open",
           value: function open(componentOrTemplateRef, config) {
-            var _this138 = this;
+            var _this140 = this;
 
             config = _applyConfigDefaults(config, this._defaultOptions || new _MatDialogConfig());
 
@@ -30350,7 +30373,7 @@
 
             this.openDialogs.push(dialogRef);
             dialogRef.afterClosed().subscribe(function () {
-              return _this138._removeOpenDialog(dialogRef);
+              return _this140._removeOpenDialog(dialogRef);
             });
             this.afterOpened.next(dialogRef); // Notify the dialog container that the content has been attached.
 
@@ -30971,7 +30994,7 @@
         _createClass2(_MatDialogTitle, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this139 = this;
+            var _this141 = this;
 
             if (!this._dialogRef) {
               this._dialogRef = getClosestDialog(this._elementRef, this._dialog.openDialogs);
@@ -30979,10 +31002,10 @@
 
             if (this._dialogRef) {
               Promise.resolve().then(function () {
-                var container = _this139._dialogRef._containerInstance;
+                var container = _this141._dialogRef._containerInstance;
 
                 if (container && !container._ariaLabelledBy) {
-                  container._ariaLabelledBy = _this139.id;
+                  container._ariaLabelledBy = _this141.id;
                 }
               });
             }
@@ -31930,7 +31953,7 @@
         }, {
           key: "getSvgIconFromUrl",
           value: function getSvgIconFromUrl(safeUrl) {
-            var _this140 = this;
+            var _this142 = this;
 
             var url = this._sanitizer.sanitize(_angular_core__WEBPACK_IMPORTED_MODULE_0__.SecurityContext.RESOURCE_URL, safeUrl);
 
@@ -31945,7 +31968,7 @@
             }
 
             return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl, null)).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.tap)(function (svg) {
-              return _this140._cachedIconsByUrl.set(url, svg);
+              return _this142._cachedIconsByUrl.set(url, svg);
             }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)(function (svg) {
               return cloneSvg(svg);
             }));
@@ -32030,7 +32053,7 @@
         }, {
           key: "_getSvgFromIconSetConfigs",
           value: function _getSvgFromIconSetConfigs(name, iconSetConfigs) {
-            var _this141 = this;
+            var _this143 = this;
 
             // For all the icon set SVG elements we've fetched, see if any contain an icon with the
             // requested name.
@@ -32048,14 +32071,14 @@
             var iconSetFetchRequests = iconSetConfigs.filter(function (iconSetConfig) {
               return !iconSetConfig.svgText;
             }).map(function (iconSetConfig) {
-              return _this141._loadSvgIconSetFromConfig(iconSetConfig).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.catchError)(function (err) {
-                var url = _this141._sanitizer.sanitize(_angular_core__WEBPACK_IMPORTED_MODULE_0__.SecurityContext.RESOURCE_URL, iconSetConfig.url); // Swallow errors fetching individual URLs so the
+              return _this143._loadSvgIconSetFromConfig(iconSetConfig).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.catchError)(function (err) {
+                var url = _this143._sanitizer.sanitize(_angular_core__WEBPACK_IMPORTED_MODULE_0__.SecurityContext.RESOURCE_URL, iconSetConfig.url); // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
 
 
                 var errorMessage = "Loading icon set URL: ".concat(url, " failed: ").concat(err.message);
 
-                _this141._errorHandler.handleError(new Error(errorMessage));
+                _this143._errorHandler.handleError(new Error(errorMessage));
 
                 return (0, rxjs__WEBPACK_IMPORTED_MODULE_1__.of)(null);
               }));
@@ -32063,7 +32086,7 @@
             // cached SVG element (unless the request failed), and we can check again for the icon.
 
             return (0, rxjs__WEBPACK_IMPORTED_MODULE_6__.forkJoin)(iconSetFetchRequests).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)(function () {
-              var foundIcon = _this141._extractIconWithNameFromAnySet(name, iconSetConfigs); // TODO: add an ngDevMode check
+              var foundIcon = _this143._extractIconWithNameFromAnySet(name, iconSetConfigs); // TODO: add an ngDevMode check
 
 
               if (!foundIcon) {
@@ -32110,12 +32133,12 @@
         }, {
           key: "_loadSvgIconFromConfig",
           value: function _loadSvgIconFromConfig(config) {
-            var _this142 = this;
+            var _this144 = this;
 
             return this._fetchIcon(config).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.tap)(function (svgText) {
               return config.svgText = svgText;
             }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)(function () {
-              return _this142._svgElementFromConfig(config);
+              return _this144._svgElementFromConfig(config);
             }));
           }
           /**
@@ -32253,7 +32276,7 @@
         }, {
           key: "_fetchIcon",
           value: function _fetchIcon(iconConfig) {
-            var _this143 = this;
+            var _this145 = this;
 
             var _a;
 
@@ -32290,7 +32313,7 @@
               responseType: 'text',
               withCredentials: withCredentials
             }).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_7__.finalize)(function () {
-              return _this143._inProgressUrlFetches["delete"](url);
+              return _this145._inProgressUrlFetches["delete"](url);
             }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_8__.share)());
 
             this._inProgressUrlFetches.set(url, req);
@@ -32552,25 +32575,25 @@
         var _super61 = _createSuper(_MatIcon);
 
         function _MatIcon(elementRef, _iconRegistry, ariaHidden, _location, _errorHandler) {
-          var _this144;
+          var _this146;
 
           _classCallCheck2(this, _MatIcon);
 
-          _this144 = _super61.call(this, elementRef);
-          _this144._iconRegistry = _iconRegistry;
-          _this144._location = _location;
-          _this144._errorHandler = _errorHandler;
-          _this144._inline = false;
+          _this146 = _super61.call(this, elementRef);
+          _this146._iconRegistry = _iconRegistry;
+          _this146._location = _location;
+          _this146._errorHandler = _errorHandler;
+          _this146._inline = false;
           /** Subscription to the current in-progress SVG icon request. */
 
-          _this144._currentIconFetch = rxjs__WEBPACK_IMPORTED_MODULE_13__.Subscription.EMPTY; // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
+          _this146._currentIconFetch = rxjs__WEBPACK_IMPORTED_MODULE_13__.Subscription.EMPTY; // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
           // the right thing to do for the majority of icon use-cases.
 
           if (!ariaHidden) {
             elementRef.nativeElement.setAttribute('aria-hidden', 'true');
           }
 
-          return _this144;
+          return _this146;
         }
         /**
          * Whether the icon should be inlined, automatically sizing the icon to match the font size of
@@ -32867,7 +32890,7 @@
         }, {
           key: "_updateSvgIcon",
           value: function _updateSvgIcon(rawName) {
-            var _this145 = this;
+            var _this147 = this;
 
             this._svgNamespace = null;
             this._svgName = null;
@@ -32889,11 +32912,11 @@
               }
 
               this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_15__.take)(1)).subscribe(function (svg) {
-                return _this145._setSvgElement(svg);
+                return _this147._setSvgElement(svg);
               }, function (err) {
                 var errorMessage = "Error retrieving icon ".concat(namespace, ":").concat(iconName, "! ").concat(err.message);
 
-                _this145._errorHandler.handleError(new Error(errorMessage));
+                _this147._errorHandler.handleError(new Error(errorMessage));
               });
             }
           }
@@ -33266,28 +33289,28 @@
          * @breaking-change 8.0.0
          */
         location) {
-          var _this146;
+          var _this148;
 
           _classCallCheck2(this, _MatProgressBar);
 
-          _this146 = _super62.call(this, elementRef);
-          _this146._ngZone = _ngZone;
-          _this146._animationMode = _animationMode;
+          _this148 = _super62.call(this, elementRef);
+          _this148._ngZone = _ngZone;
+          _this148._animationMode = _animationMode;
           /** Flag that indicates whether NoopAnimations mode is set to true. */
 
-          _this146._isNoopAnimation = false;
-          _this146._value = 0;
-          _this146._bufferValue = 0;
+          _this148._isNoopAnimation = false;
+          _this148._value = 0;
+          _this148._bufferValue = 0;
           /**
            * Event emitted when animation of the primary progress bar completes. This event will not
            * be emitted when animations are disabled, nor will it be emitted for modes with continuous
            * animations (indeterminate and query).
            */
 
-          _this146.animationEnd = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.EventEmitter();
+          _this148.animationEnd = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.EventEmitter();
           /** Reference to animation end subscription to be unsubscribed on destroy. */
 
-          _this146._animationEndSubscription = rxjs__WEBPACK_IMPORTED_MODULE_3__.Subscription.EMPTY;
+          _this148._animationEndSubscription = rxjs__WEBPACK_IMPORTED_MODULE_3__.Subscription.EMPTY;
           /**
            * Mode of the progress bar.
            *
@@ -33296,10 +33319,10 @@
            * Mirrored to mode attribute.
            */
 
-          _this146.mode = 'determinate';
+          _this148.mode = 'determinate';
           /** ID of the progress bar. */
 
-          _this146.progressbarId = "mat-progress-bar-".concat(progressbarId++); // We need to prefix the SVG reference with the current path, otherwise they won't work
+          _this148.progressbarId = "mat-progress-bar-".concat(progressbarId++); // We need to prefix the SVG reference with the current path, otherwise they won't work
           // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
           // because named route URLs can contain parentheses (see #12338). Also we don't use since
           // we can't tell the difference between whether
@@ -33307,9 +33330,9 @@
           // both `/#/foo/bar` and `/foo/bar` to the same thing.
 
           var path = location ? location.getPathname().split('#')[0] : '';
-          _this146._rectangleFillValue = "url('".concat(path, "#").concat(_this146.progressbarId, "')");
-          _this146._isNoopAnimation = _animationMode === 'NoopAnimations';
-          return _this146;
+          _this148._rectangleFillValue = "url('".concat(path, "#").concat(_this148.progressbarId, "')");
+          _this148._isNoopAnimation = _animationMode === 'NoopAnimations';
+          return _this148;
         }
         /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
 
@@ -33364,19 +33387,19 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this147 = this;
+            var _this149 = this;
 
             // Run outside angular so change detection didn't get triggered on every transition end
             // instead only on the animation that we care about (primary value bar's transitionend)
             this._ngZone.runOutsideAngular(function () {
-              var element = _this147._primaryValueBar.nativeElement;
-              _this147._animationEndSubscription = (0, rxjs__WEBPACK_IMPORTED_MODULE_5__.fromEvent)(element, 'transitionend').pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.filter)(function (e) {
+              var element = _this149._primaryValueBar.nativeElement;
+              _this149._animationEndSubscription = (0, rxjs__WEBPACK_IMPORTED_MODULE_5__.fromEvent)(element, 'transitionend').pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.filter)(function (e) {
                 return e.target === element;
               })).subscribe(function () {
-                if (_this147.mode === 'determinate' || _this147.mode === 'buffer') {
-                  _this147._ngZone.run(function () {
-                    return _this147.animationEnd.next({
-                      value: _this147.value
+                if (_this149.mode === 'determinate' || _this149.mode === 'buffer') {
+                  _this149._ngZone.run(function () {
+                    return _this149.animationEnd.next({
+                      value: _this149.value
                     });
                   });
                 }
@@ -33858,100 +33881,100 @@
         var _super63 = _createSuper(_MatSlider);
 
         function _MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
-          var _this148;
+          var _this150;
 
           _classCallCheck2(this, _MatSlider);
 
-          _this148 = _super63.call(this, elementRef);
-          _this148._focusMonitor = _focusMonitor;
-          _this148._changeDetectorRef = _changeDetectorRef;
-          _this148._dir = _dir;
-          _this148._ngZone = _ngZone;
-          _this148._animationMode = _animationMode;
-          _this148._invert = false;
-          _this148._max = 100;
-          _this148._min = 0;
-          _this148._step = 1;
-          _this148._thumbLabel = false;
-          _this148._tickInterval = 0;
-          _this148._value = null;
-          _this148._vertical = false;
+          _this150 = _super63.call(this, elementRef);
+          _this150._focusMonitor = _focusMonitor;
+          _this150._changeDetectorRef = _changeDetectorRef;
+          _this150._dir = _dir;
+          _this150._ngZone = _ngZone;
+          _this150._animationMode = _animationMode;
+          _this150._invert = false;
+          _this150._max = 100;
+          _this150._min = 0;
+          _this150._step = 1;
+          _this150._thumbLabel = false;
+          _this150._tickInterval = 0;
+          _this150._value = null;
+          _this150._vertical = false;
           /** Event emitted when the slider value has changed. */
 
-          _this148.change = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this150.change = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
           /** Event emitted when the slider thumb moves. */
 
-          _this148.input = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this150.input = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
           /**
            * Emits when the raw value of the slider changes. This is here primarily
            * to facilitate the two-way binding for the `value` input.
            * @docs-private
            */
 
-          _this148.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
+          _this150.valueChange = new _angular_core__WEBPACK_IMPORTED_MODULE_2__.EventEmitter();
           /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
 
-          _this148.onTouched = function () {};
+          _this150.onTouched = function () {};
 
-          _this148._percent = 0;
+          _this150._percent = 0;
           /**
            * Whether or not the thumb is sliding and what the user is using to slide it with.
            * Used to determine if there should be a transition for the thumb and fill track.
            */
 
-          _this148._isSliding = null;
+          _this150._isSliding = null;
           /**
            * Whether or not the slider is active (clicked or sliding).
            * Used to shrink and grow the thumb as according to the Material Design spec.
            */
 
-          _this148._isActive = false;
+          _this150._isActive = false;
           /** The size of a tick interval as a percentage of the size of the track. */
 
-          _this148._tickIntervalPercent = 0;
+          _this150._tickIntervalPercent = 0;
           /** The dimensions of the slider. */
 
-          _this148._sliderDimensions = null;
+          _this150._sliderDimensions = null;
 
-          _this148._controlValueAccessorChangeFn = function () {};
+          _this150._controlValueAccessorChangeFn = function () {};
           /** Subscription to the Directionality change EventEmitter. */
 
 
-          _this148._dirChangeSubscription = rxjs__WEBPACK_IMPORTED_MODULE_4__.Subscription.EMPTY;
+          _this150._dirChangeSubscription = rxjs__WEBPACK_IMPORTED_MODULE_4__.Subscription.EMPTY;
           /** Called when the user has put their pointer down on the slider. */
 
-          _this148._pointerDown = function (event) {
+          _this150._pointerDown = function (event) {
             // Don't do anything if the slider is disabled or the
             // user is using anything other than the main mouse button.
-            if (_this148.disabled || _this148._isSliding || !isTouchEvent(event) && event.button !== 0) {
+            if (_this150.disabled || _this150._isSliding || !isTouchEvent(event) && event.button !== 0) {
               return;
             }
 
-            _this148._ngZone.run(function () {
-              _this148._touchId = isTouchEvent(event) ? getTouchIdForSlider(event, _this148._elementRef.nativeElement) : undefined;
-              var pointerPosition = getPointerPositionOnPage(event, _this148._touchId);
+            _this150._ngZone.run(function () {
+              _this150._touchId = isTouchEvent(event) ? getTouchIdForSlider(event, _this150._elementRef.nativeElement) : undefined;
+              var pointerPosition = getPointerPositionOnPage(event, _this150._touchId);
 
               if (pointerPosition) {
-                var oldValue = _this148.value;
-                _this148._isSliding = 'pointer';
-                _this148._lastPointerEvent = event;
+                var oldValue = _this150.value;
+                _this150._isSliding = 'pointer';
+                _this150._lastPointerEvent = event;
                 event.preventDefault();
 
-                _this148._focusHostElement();
+                _this150._focusHostElement();
 
-                _this148._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
+                _this150._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
 
 
-                _this148._bindGlobalEvents(event);
+                _this150._bindGlobalEvents(event);
 
-                _this148._focusHostElement();
+                _this150._focusHostElement();
 
-                _this148._updateValueFromPosition(pointerPosition);
+                _this150._updateValueFromPosition(pointerPosition);
 
-                _this148._valueOnSlideStart = oldValue; // Emit a change and input event if the value changed.
+                _this150._valueOnSlideStart = oldValue; // Emit a change and input event if the value changed.
 
-                if (oldValue != _this148.value) {
-                  _this148._emitInputEvent();
+                if (oldValue != _this150.value) {
+                  _this150._emitInputEvent();
                 }
               }
             });
@@ -33962,21 +33985,21 @@
            */
 
 
-          _this148._pointerMove = function (event) {
-            if (_this148._isSliding === 'pointer') {
-              var pointerPosition = getPointerPositionOnPage(event, _this148._touchId);
+          _this150._pointerMove = function (event) {
+            if (_this150._isSliding === 'pointer') {
+              var pointerPosition = getPointerPositionOnPage(event, _this150._touchId);
 
               if (pointerPosition) {
                 // Prevent the slide from selecting anything else.
                 event.preventDefault();
-                var oldValue = _this148.value;
-                _this148._lastPointerEvent = event;
+                var oldValue = _this150.value;
+                _this150._lastPointerEvent = event;
 
-                _this148._updateValueFromPosition(pointerPosition); // Native range elements always emit `input` events when the value changed while sliding.
+                _this150._updateValueFromPosition(pointerPosition); // Native range elements always emit `input` events when the value changed while sliding.
 
 
-                if (oldValue != _this148.value) {
-                  _this148._emitInputEvent();
+                if (oldValue != _this150.value) {
+                  _this150._emitInputEvent();
                 }
               }
             }
@@ -33984,47 +34007,47 @@
           /** Called when the user has lifted their pointer. Bound on the document level. */
 
 
-          _this148._pointerUp = function (event) {
-            if (_this148._isSliding === 'pointer') {
-              if (!isTouchEvent(event) || typeof _this148._touchId !== 'number' || // Note that we use `changedTouches`, rather than `touches` because it
+          _this150._pointerUp = function (event) {
+            if (_this150._isSliding === 'pointer') {
+              if (!isTouchEvent(event) || typeof _this150._touchId !== 'number' || // Note that we use `changedTouches`, rather than `touches` because it
               // seems like in most cases `touches` is empty for `touchend` events.
-              findMatchingTouch(event.changedTouches, _this148._touchId)) {
+              findMatchingTouch(event.changedTouches, _this150._touchId)) {
                 event.preventDefault();
 
-                _this148._removeGlobalEvents();
+                _this150._removeGlobalEvents();
 
-                _this148._isSliding = null;
-                _this148._touchId = undefined;
+                _this150._isSliding = null;
+                _this150._touchId = undefined;
 
-                if (_this148._valueOnSlideStart != _this148.value && !_this148.disabled) {
-                  _this148._emitChangeEvent();
+                if (_this150._valueOnSlideStart != _this150.value && !_this150.disabled) {
+                  _this150._emitChangeEvent();
                 }
 
-                _this148._valueOnSlideStart = _this148._lastPointerEvent = null;
+                _this150._valueOnSlideStart = _this150._lastPointerEvent = null;
               }
             }
           };
           /** Called when the window has lost focus. */
 
 
-          _this148._windowBlur = function () {
+          _this150._windowBlur = function () {
             // If the window is blurred while dragging we need to stop dragging because the
             // browser won't dispatch the `mouseup` and `touchend` events anymore.
-            if (_this148._lastPointerEvent) {
-              _this148._pointerUp(_this148._lastPointerEvent);
+            if (_this150._lastPointerEvent) {
+              _this150._pointerUp(_this150._lastPointerEvent);
             }
           };
 
-          _this148._document = _document;
-          _this148.tabIndex = parseInt(tabIndex) || 0;
+          _this150._document = _document;
+          _this150.tabIndex = parseInt(tabIndex) || 0;
 
           _ngZone.runOutsideAngular(function () {
             var element = elementRef.nativeElement;
-            element.addEventListener('mousedown', _this148._pointerDown, activeEventOptions);
-            element.addEventListener('touchstart', _this148._pointerDown, activeEventOptions);
+            element.addEventListener('mousedown', _this150._pointerDown, activeEventOptions);
+            element.addEventListener('touchstart', _this150._pointerDown, activeEventOptions);
           });
 
-          return _this148;
+          return _this150;
         }
         /** Whether the slider is inverted. */
 
@@ -34341,17 +34364,17 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this149 = this;
+            var _this151 = this;
 
             this._focusMonitor.monitor(this._elementRef, true).subscribe(function (origin) {
-              _this149._isActive = !!origin && origin !== 'keyboard';
+              _this151._isActive = !!origin && origin !== 'keyboard';
 
-              _this149._changeDetectorRef.detectChanges();
+              _this151._changeDetectorRef.detectChanges();
             });
 
             if (this._dir) {
               this._dirChangeSubscription = this._dir.change.subscribe(function () {
-                _this149._changeDetectorRef.markForCheck();
+                _this151._changeDetectorRef.markForCheck();
               });
             }
           }
@@ -35539,18 +35562,18 @@
         var _super64 = _createSuper(_MatTable);
 
         function _MatTable() {
-          var _this150;
+          var _this152;
 
           _classCallCheck2(this, _MatTable);
 
-          _this150 = _super64.apply(this, arguments);
+          _this152 = _super64.apply(this, arguments);
           /** Overrides the sticky CSS class set by the `CdkTable`. */
 
-          _this150.stickyCssClass = 'mat-table-sticky';
+          _this152.stickyCssClass = 'mat-table-sticky';
           /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */
 
-          _this150.needsPositionStickyOnElement = false;
-          return _this150;
+          _this152.needsPositionStickyOnElement = false;
+          return _this152;
         }
 
         return _MatTable;
@@ -35615,7 +35638,7 @@
           }
         },
         directives: [_angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__.HeaderRowOutlet, _angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__.DataRowOutlet, _angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__.NoDataRowOutlet, _angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__.FooterRowOutlet],
-        styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row,mat-footer-row{min-height:48px}mat-row,mat-header-row,mat-footer-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-row::after,mat-header-row::after,mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}mat-cell:first-of-type,mat-header-cell:first-of-type,mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] mat-cell:first-of-type:not(:only-of-type),[dir=rtl] mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}mat-cell:last-of-type,mat-header-cell:last-of-type,mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] mat-cell:last-of-type:not(:only-of-type),[dir=rtl] mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}mat-cell,mat-header-cell,mat-footer-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}.mat-table-sticky{position:-webkit-sticky !important;position:sticky !important}.mat-table-fixed-layout{table-layout:fixed}\n"],
+        styles: [".mat-table:not(table){display:block}.mat-table:not(table) .mat-cell,.mat-table:not(table) .mat-header-cell,.mat-table:not(table) .mat-footer-cell{display:flex}.mat-table:not(table) .mat-row,.mat-table:not(table) .mat-header-row,.mat-table:not(table) .mat-footer-row{display:flex}.mat-table:not(table) .mat-row::after,.mat-table:not(table) .mat-header-row::after,.mat-table:not(table) .mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}.mat-header-row{min-height:56px}.mat-row,.mat-footer-row{min-height:48px}.mat-row,.mat-header-row,.mat-footer-row{border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}.mat-cell,.mat-header-cell,.mat-footer-cell{flex:1;overflow:hidden;word-wrap:break-word;min-height:inherit;align-items:center}.mat-cell:first-of-type,.mat-header-cell:first-of-type,.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] .mat-cell:first-of-type:not(:only-of-type),[dir=rtl] .mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] .mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}.mat-cell:last-of-type,.mat-header-cell:last-of-type,.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] .mat-cell:last-of-type:not(:only-of-type),[dir=rtl] .mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] .mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}.mat-table-sticky{position:-webkit-sticky !important;position:sticky !important}.mat-table-fixed-layout{table-layout:fixed}\n"],
         encapsulation: 2
       });
 
@@ -35653,7 +35676,7 @@
             // See note on CdkTable for explanation on why this uses the default change detection strategy.
             // tslint:disable-next-line:validate-decorators
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ChangeDetectionStrategy.Default,
-            styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row,mat-footer-row{min-height:48px}mat-row,mat-header-row,mat-footer-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-row::after,mat-header-row::after,mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}mat-cell:first-of-type,mat-header-cell:first-of-type,mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] mat-cell:first-of-type:not(:only-of-type),[dir=rtl] mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}mat-cell:last-of-type,mat-header-cell:last-of-type,mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] mat-cell:last-of-type:not(:only-of-type),[dir=rtl] mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}mat-cell,mat-header-cell,mat-footer-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}.mat-table-sticky{position:-webkit-sticky !important;position:sticky !important}.mat-table-fixed-layout{table-layout:fixed}\n"]
+            styles: [".mat-table:not(table){display:block}.mat-table:not(table) .mat-cell,.mat-table:not(table) .mat-header-cell,.mat-table:not(table) .mat-footer-cell{display:flex}.mat-table:not(table) .mat-row,.mat-table:not(table) .mat-header-row,.mat-table:not(table) .mat-footer-row{display:flex}.mat-table:not(table) .mat-row::after,.mat-table:not(table) .mat-header-row::after,.mat-table:not(table) .mat-footer-row::after{display:inline-block;min-height:inherit;content:\"\"}.mat-header-row{min-height:56px}.mat-row,.mat-footer-row{min-height:48px}.mat-row,.mat-header-row,.mat-footer-row{border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}.mat-cell,.mat-header-cell,.mat-footer-cell{flex:1;overflow:hidden;word-wrap:break-word;min-height:inherit;align-items:center}.mat-cell:first-of-type,.mat-header-cell:first-of-type,.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] .mat-cell:first-of-type:not(:only-of-type),[dir=rtl] .mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] .mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}.mat-cell:last-of-type,.mat-header-cell:last-of-type,.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] .mat-cell:last-of-type:not(:only-of-type),[dir=rtl] .mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] .mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row,tr.mat-footer-row{height:48px}th.mat-header-cell{text-align:left}[dir=rtl] th.mat-header-cell{text-align:right}th.mat-header-cell,td.mat-cell,td.mat-footer-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}th.mat-header-cell:first-of-type,td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type{padding-left:24px}[dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:first-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type){padding-left:0;padding-right:24px}th.mat-header-cell:last-of-type,td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type{padding-right:24px}[dir=rtl] th.mat-header-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-cell:last-of-type:not(:only-of-type),[dir=rtl] td.mat-footer-cell:last-of-type:not(:only-of-type){padding-right:0;padding-left:24px}.mat-table-sticky{position:-webkit-sticky !important;position:sticky !important}.mat-table-fixed-layout{table-layout:fixed}\n"]
           }]
         }], null, null);
       })();
@@ -36604,28 +36627,28 @@
         var _super80 = _createSuper(_MatTableDataSource3);
 
         function _MatTableDataSource3() {
-          var _this151;
+          var _this153;
 
           var initialData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
           _classCallCheck2(this, _MatTableDataSource3);
 
-          _this151 = _super80.call(this);
+          _this153 = _super80.call(this);
           /** Stream emitting render data to the table (depends on ordered data changes). */
 
-          _this151._renderData = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject([]);
+          _this153._renderData = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject([]);
           /** Stream that emits when a new filter string is set on the data source. */
 
-          _this151._filter = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject('');
+          _this153._filter = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject('');
           /** Used to react to internal changes of the paginator that are made by the data source itself. */
 
-          _this151._internalPageChanges = new rxjs__WEBPACK_IMPORTED_MODULE_5__.Subject();
+          _this153._internalPageChanges = new rxjs__WEBPACK_IMPORTED_MODULE_5__.Subject();
           /**
            * Subscription to the changes that should trigger an update to the table's rendered rows, such
            * as filtering, sorting, pagination, or base data changes.
            */
 
-          _this151._renderChangesSubscription = null;
+          _this153._renderChangesSubscription = null;
           /**
            * Data accessor function that is used for accessing data properties for sorting through
            * the default sortData function.
@@ -36636,7 +36659,7 @@
            * @param sortHeaderId The name of the column that represents the data.
            */
 
-          _this151.sortingDataAccessor = function (data, sortHeaderId) {
+          _this153.sortingDataAccessor = function (data, sortHeaderId) {
             var value = data[sortHeaderId];
 
             if ((0, _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__._isNumberValue)(value)) {
@@ -36659,7 +36682,7 @@
            */
 
 
-          _this151.sortData = function (data, sort) {
+          _this153.sortData = function (data, sort) {
             var active = sort.active;
             var direction = sort.direction;
 
@@ -36668,9 +36691,9 @@
             }
 
             return data.sort(function (a, b) {
-              var valueA = _this151.sortingDataAccessor(a, active);
+              var valueA = _this153.sortingDataAccessor(a, active);
 
-              var valueB = _this151.sortingDataAccessor(b, active); // If there are data in the column that can be converted to a number,
+              var valueB = _this153.sortingDataAccessor(b, active); // If there are data in the column that can be converted to a number,
               // it must be ensured that the rest of the data
               // is of the same type so as not to order incorrectly.
 
@@ -36722,7 +36745,7 @@
            */
 
 
-          _this151.filterPredicate = function (data, filter) {
+          _this153.filterPredicate = function (data, filter) {
             // Transform the data into a lowercase string of all property values.
             var dataStr = Object.keys(data).reduce(function (currentTerm, key) {
               // Use an obscure Unicode character to delimit the words in the concatenated string.
@@ -36738,11 +36761,11 @@
             return dataStr.indexOf(transformedFilter) != -1;
           };
 
-          _this151._data = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(initialData);
+          _this153._data = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(initialData);
 
-          _this151._updateChangeSubscription();
+          _this153._updateChangeSubscription();
 
-          return _this151;
+          return _this153;
         }
         /** Array of data that should be rendered by the table, where each object represents one row. */
 
@@ -36825,7 +36848,7 @@
         }, {
           key: "_updateChangeSubscription",
           value: function _updateChangeSubscription() {
-            var _this152 = this;
+            var _this154 = this;
 
             var _a; // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
             // The events should emit whenever the component emits a change or initializes, or if no
@@ -36843,26 +36866,26 @@
               var _ref8 = _slicedToArray(_ref7, 1),
                   data = _ref8[0];
 
-              return _this152._filterData(data);
+              return _this154._filterData(data);
             })); // Watch for filtered data or sort changes to provide an ordered set of data.
 
             var orderedData = (0, rxjs__WEBPACK_IMPORTED_MODULE_9__.combineLatest)([filteredData, sortChange]).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.map)(function (_ref9) {
               var _ref10 = _slicedToArray(_ref9, 1),
                   data = _ref10[0];
 
-              return _this152._orderData(data);
+              return _this154._orderData(data);
             })); // Watch for ordered data or page changes to provide a paged set of data.
 
             var paginatedData = (0, rxjs__WEBPACK_IMPORTED_MODULE_9__.combineLatest)([orderedData, pageChange]).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.map)(function (_ref11) {
               var _ref12 = _slicedToArray(_ref11, 1),
                   data = _ref12[0];
 
-              return _this152._pageData(data);
+              return _this154._pageData(data);
             })); // Watched for paged data changes and send the result to the table to render.
 
             (_a = this._renderChangesSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
             this._renderChangesSubscription = paginatedData.subscribe(function (data) {
-              return _this152._renderData.next(data);
+              return _this154._renderData.next(data);
             });
           }
           /**
@@ -36874,13 +36897,13 @@
         }, {
           key: "_filterData",
           value: function _filterData(data) {
-            var _this153 = this;
+            var _this155 = this;
 
             // If there is a filter string, filter out data that does not contain it.
             // Each data object is converted to a string using the function defined by filterTermAccessor.
             // May be overridden for customization.
             this.filteredData = this.filter == null || this.filter === '' ? data : data.filter(function (obj) {
-              return _this153.filterPredicate(obj, _this153.filter);
+              return _this155.filterPredicate(obj, _this155.filter);
             });
 
             if (this.paginator) {
@@ -36929,10 +36952,10 @@
         }, {
           key: "_updatePaginator",
           value: function _updatePaginator(filteredDataLength) {
-            var _this154 = this;
+            var _this156 = this;
 
             Promise.resolve().then(function () {
-              var paginator = _this154.paginator;
+              var paginator = _this156.paginator;
 
               if (!paginator) {
                 return;
@@ -36948,7 +36971,7 @@
                   paginator.pageIndex = newPageIndex; // Since the paginator only emits after user-generated changes,
                   // we need our own stream so we know to should re-render the data.
 
-                  _this154._internalPageChanges.next();
+                  _this156._internalPageChanges.next();
                 }
               }
             });
@@ -92961,7 +92984,7 @@
 
       var _SolveComponent = /*#__PURE__*/function () {
         function _SolveComponent(solverService, activatedRoute) {
-          var _this155 = this;
+          var _this157 = this;
 
           _classCallCheck2(this, _SolveComponent);
 
@@ -92969,8 +92992,8 @@
           this.activatedRoute = activatedRoute;
           this.boxSize = 3;
           this.activatedRoute.params.subscribe(function (params) {
-            _this155.boxSize = Math.sqrt(parseInt(params.sudokuSize, 10));
-            console.log('new board size', _this155.boxSize);
+            _this157.boxSize = Math.sqrt(parseInt(params.sudokuSize, 10));
+            console.log('new board size', _this157.boxSize);
           });
         }
 
@@ -93380,7 +93403,7 @@
         _createClass2(_SudokuBenchmarkComponent, [{
           key: "startTest",
           value: function startTest() {
-            var _this156 = this;
+            var _this158 = this;
 
             this.calculating = true;
             var obs = new rxjs__WEBPACK_IMPORTED_MODULE_4__.Observable(function (sub) {
@@ -93400,25 +93423,25 @@
                 }
               };
 
-              worker.postMessage(_this156.sudokuBoardSize);
+              worker.postMessage(_this158.sudokuBoardSize);
               return function () {
                 worker.terminate();
               };
             });
             this.subscription = obs.subscribe(function (msg) {
               if (msg.type === _sudoku_benchmark_message__WEBPACK_IMPORTED_MODULE_1__.SudokuBenchmarkMessageType.PROGRESS) {
-                _this156.sudokuBoard.field = msg.board; // tslint:disable-next-line:no-console
+                _this158.sudokuBoard.field = msg.board; // tslint:disable-next-line:no-console
 
                 console.log(msg.results);
               } else if (msg.type === _sudoku_benchmark_message__WEBPACK_IMPORTED_MODULE_1__.SudokuBenchmarkMessageType.RESULT) {
-                _this156.zone.run(function () {
-                  _this156.results.push(msg);
+                _this158.zone.run(function () {
+                  _this158.results.push(msg);
 
-                  _this156.resultTable.renderRows();
+                  _this158.resultTable.renderRows();
                 });
               }
             }, function () {}, function () {
-              _this156.calculating = false;
+              _this158.calculating = false;
             });
           }
         }, {
@@ -94167,12 +94190,12 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this157 = this;
+            var _this159 = this;
 
             this.zone.runOutsideAngular(function () {
-              _this157.gameBoard = new _sudoku_board_game__WEBPACK_IMPORTED_MODULE_0__.SudokuBoardGame(_this157.elementRef.nativeElement, true);
+              _this159.gameBoard = new _sudoku_board_game__WEBPACK_IMPORTED_MODULE_0__.SudokuBoardGame(_this159.elementRef.nativeElement, true);
 
-              _this157.gameBoard.start();
+              _this159.gameBoard.start();
             });
           }
         }, {
@@ -94278,12 +94301,12 @@
         }, {
           key: "setBoxSize",
           value: function setBoxSize(size) {
-            var _this158 = this;
+            var _this160 = this;
 
             this.mboxSize = size;
             this.boardSize = Math.pow(size, 2);
             this.field = new Array(this.boardSize).fill(0).map(function () {
-              return new Array(_this158.boardSize).fill(0);
+              return new Array(_this160.boardSize).fill(0);
             });
           }
         }, {
@@ -94295,10 +94318,10 @@
         }, {
           key: "clear",
           value: function clear() {
-            var _this159 = this;
+            var _this161 = this;
 
             this.field = new Array(this.boardSize).fill(0).map(function () {
-              return new Array(_this159.boardSize).fill(0);
+              return new Array(_this161.boardSize).fill(0);
             });
           }
         }]);

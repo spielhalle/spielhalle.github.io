@@ -7575,11 +7575,12 @@ ConfigurableFocusTrapFactory.ctorParameters = () => [
  */
 /** Gets whether an event could be a faked `mousedown` event dispatched by a screen reader. */
 function isFakeMousedownFromScreenReader(event) {
-    // We can typically distinguish between these faked mousedown events and real mousedown events
-    // using the "buttons" property. While real mousedowns will indicate the mouse button that was
-    // pressed (e.g. "1" for the left mouse button), faked mousedowns will usually set the property
-    // value to 0.
-    return event.buttons === 0;
+    // Some screen readers will dispatch a fake `mousedown` event when pressing enter or space on
+    // a clickable element. We can distinguish these events when both `offsetX` and `offsetY` are
+    // zero. Note that there's an edge case where the user could click the 0x0 spot of the screen
+    // themselves, but that is unlikely to contain interaction elements. Historially we used to check
+    // `event.buttons === 0`, however that no longer works on recent versions of NVDA.
+    return event.offsetX === 0 && event.offsetY === 0;
 }
 /** Gets whether an event could be a faked `touchstart` event dispatched by a screen reader. */
 function isFakeTouchstartFromScreenReader(event) {
@@ -7681,7 +7682,7 @@ class InputModalityDetector {
                 return;
             }
             this._modality.next('keyboard');
-            this._mostRecentTarget = getTarget(event);
+            this._mostRecentTarget = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
         };
         /**
          * Handles mousedown events. Must be an arrow function in order to preserve the context when it
@@ -7697,7 +7698,7 @@ class InputModalityDetector {
             // Fake mousedown events are fired by some screen readers when controls are activated by the
             // screen reader. Attribute them to keyboard input modality.
             this._modality.next(isFakeMousedownFromScreenReader(event) ? 'keyboard' : 'mouse');
-            this._mostRecentTarget = getTarget(event);
+            this._mostRecentTarget = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
         };
         /**
          * Handles touchstart events. Must be an arrow function in order to preserve the context when it
@@ -7714,7 +7715,7 @@ class InputModalityDetector {
             // triggered via mouse vs touch.
             this._lastTouchMs = Date.now();
             this._modality.next('touch');
-            this._mostRecentTarget = getTarget(event);
+            this._mostRecentTarget = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
         };
         this._options = Object.assign(Object.assign({}, INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options);
         // Skip the first emission as it's null.
@@ -7765,12 +7766,6 @@ InputModalityDetector.ctorParameters = () => [
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
                 args: [INPUT_MODALITY_DETECTOR_OPTIONS]
             }] }]; }, null); })();
-/** Gets the target of an event, accounting for Shadow DOM. */
-function getTarget(event) {
-    // If an event is bound outside the Shadow DOM, the `event.target` will
-    // point to the shadow root so we have to use `composedPath` instead.
-    return (event.composedPath ? event.composedPath()[0] : event.target);
-}
 
 /**
  * @license
@@ -8033,7 +8028,7 @@ class FocusMonitor {
          * Needs to be an arrow function in order to preserve the context when it gets bound.
          */
         this._rootNodeFocusAndBlurListener = (event) => {
-            const target = getTarget(event);
+            const target = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
             const handler = event.type === 'focus' ? this._onFocus : this._onBlur;
             // We need to walk up the ancestor chain in order to support `checkChildren`.
             for (let element = target; element; element = element.parentElement) {
@@ -8214,7 +8209,7 @@ class FocusMonitor {
         // If we are not counting child-element-focus as focused, make sure that the event target is the
         // monitored element itself.
         const elementInfo = this._elementInfo.get(element);
-        const focusEventTarget = getTarget(event);
+        const focusEventTarget = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
         if (!elementInfo || (!elementInfo.checkChildren && element !== focusEventTarget)) {
             return;
         }
@@ -9263,6 +9258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Platform": function() { return /* binding */ Platform; },
 /* harmony export */   "PlatformModule": function() { return /* binding */ PlatformModule; },
+/* harmony export */   "_getEventTarget": function() { return /* binding */ _getEventTarget; },
 /* harmony export */   "_getFocusedElementPierceShadowDom": function() { return /* binding */ _getFocusedElementPierceShadowDom; },
 /* harmony export */   "_getShadowRoot": function() { return /* binding */ _getShadowRoot; },
 /* harmony export */   "_supportsShadowDom": function() { return /* binding */ _supportsShadowDom; },
@@ -9601,6 +9597,12 @@ function _getFocusedElementPierceShadowDom() {
     }
     return activeElement;
 }
+/** Gets the target of an event while accounting for Shadow DOM. */
+function _getEventTarget(event) {
+    // If an event is bound outside the Shadow DOM, the `event.target` will
+    // point to the shadow root so we have to use `composedPath` instead.
+    return (event.composedPath ? event.composedPath()[0] : event.target);
+}
 
 /**
  * @license
@@ -9642,7 +9644,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
 
 /**
  * @license
@@ -50051,7 +50053,7 @@ function MatOption_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("(", ctx_r1.group.label, ")");
 } }
 const _c2 = ["*"];
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
 
 /**
  * @license
@@ -50085,7 +50087,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -50974,13 +50976,14 @@ class RippleRef {
     }
 }
 
+// TODO: import these values from `@material/ripple` eventually.
 /**
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
  */
 const defaultRippleAnimationConfig = {
-    enterDuration: 450,
-    exitDuration: 400
+    enterDuration: 225,
+    exitDuration: 150
 };
 /**
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch

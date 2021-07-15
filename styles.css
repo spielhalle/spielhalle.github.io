@@ -312,11 +312,11 @@ textarea.cdk-textarea-autosize-measuring-firefox{padding:2px 0 !important;box-si
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-accent .mat-chip-remove{color:rgba(0,0,0,.87);opacity:.4}
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-accent .mat-ripple-element{background-color:rgba(0,0,0,.1)}
 .mat-table{background:#424242}
-.mat-table thead,.mat-table tbody,.mat-table tfoot,mat-header-row,mat-row,mat-footer-row,[mat-header-row],[mat-row],[mat-footer-row],.mat-table-sticky{background:inherit}
-mat-row,mat-header-row,mat-footer-row,th.mat-header-cell,td.mat-cell,td.mat-footer-cell{border-bottom-color:rgba(255,255,255,.12)}
+.mat-table thead,.mat-table tbody,.mat-table tfoot,.mat-header-row,.mat-row,.mat-footer-row,[mat-header-row],[mat-row],[mat-footer-row],.mat-table-sticky{background:inherit}
+.mat-row,.mat-header-row,.mat-footer-row,th.mat-header-cell,td.mat-cell,td.mat-footer-cell{border-bottom-color:rgba(255,255,255,.12)}
 .mat-header-cell{color:rgba(255,255,255,.7)}
 .mat-cell,.mat-footer-cell{color:#fff}
-.mat-calendar-arrow{border-top-color:#fff}
+.mat-calendar-arrow{fill:#fff}
 .mat-datepicker-toggle,.mat-datepicker-content .mat-calendar-next-button,.mat-datepicker-content .mat-calendar-previous-button{color:#fff}
 .mat-calendar-table-header{color:rgba(255,255,255,.5)}
 .mat-calendar-table-header-divider::after{background:rgba(255,255,255,.12)}

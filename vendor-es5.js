@@ -11038,11 +11038,12 @@
 
 
       function _isFakeMousedownFromScreenReader(event) {
-        // We can typically distinguish between these faked mousedown events and real mousedown events
-        // using the "buttons" property. While real mousedowns will indicate the mouse button that was
-        // pressed (e.g. "1" for the left mouse button), faked mousedowns will usually set the property
-        // value to 0.
-        return event.buttons === 0;
+        // Some screen readers will dispatch a fake `mousedown` event when pressing enter or space on
+        // a clickable element. We can distinguish these events when both `offsetX` and `offsetY` are
+        // zero. Note that there's an edge case where the user could click the 0x0 spot of the screen
+        // themselves, but that is unlikely to contain interaction elements. Historially we used to check
+        // `event.buttons === 0`, however that no longer works on recent versions of NVDA.
+        return event.offsetX === 0 && event.offsetY === 0;
       }
       /** Gets whether an event could be a faked `touchstart` event dispatched by a screen reader. */
 
@@ -11164,7 +11165,7 @@
 
             _this61._modality.next('keyboard');
 
-            _this61._mostRecentTarget = getTarget(event);
+            _this61._mostRecentTarget = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
           };
           /**
            * Handles mousedown events. Must be an arrow function in order to preserve the context when it
@@ -11184,7 +11185,7 @@
 
             _this61._modality.next(_isFakeMousedownFromScreenReader(event) ? 'keyboard' : 'mouse');
 
-            _this61._mostRecentTarget = getTarget(event);
+            _this61._mostRecentTarget = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
           };
           /**
            * Handles touchstart events. Must be an arrow function in order to preserve the context when it
@@ -11207,7 +11208,7 @@
 
             _this61._modality.next('touch');
 
-            _this61._mostRecentTarget = getTarget(event);
+            _this61._mostRecentTarget = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
           };
 
           this._options = Object.assign(Object.assign({}, _INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options); // Skip the first emission as it's null.
@@ -11313,14 +11314,6 @@
           }];
         }, null);
       })();
-      /** Gets the target of an event, accounting for Shadow DOM. */
-
-
-      function getTarget(event) {
-        // If an event is bound outside the Shadow DOM, the `event.target` will
-        // point to the shadow root so we have to use `composedPath` instead.
-        return event.composedPath ? event.composedPath()[0] : event.target;
-      }
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -11750,7 +11743,7 @@
            */
 
           this._rootNodeFocusAndBlurListener = function (event) {
-            var target = getTarget(event);
+            var target = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
             var handler = event.type === 'focus' ? _this64._onFocus : _this64._onBlur; // We need to walk up the ancestor chain in order to support `checkChildren`.
 
             for (var element = target; element; element = element.parentElement) {
@@ -12006,7 +11999,7 @@
             // monitored element itself.
             var elementInfo = this._elementInfo.get(element);
 
-            var focusEventTarget = getTarget(event);
+            var focusEventTarget = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__._getEventTarget)(event);
 
             if (!elementInfo || !elementInfo.checkChildren && element !== focusEventTarget) {
               return;
@@ -14588,6 +14581,14 @@
         },
 
         /* harmony export */
+        "_getEventTarget": function _getEventTarget() {
+          return (
+            /* binding */
+            _getEventTarget2
+          );
+        },
+
+        /* harmony export */
         "_getFocusedElementPierceShadowDom": function _getFocusedElementPierceShadowDom() {
           return (
             /* binding */
@@ -15049,6 +15050,14 @@
 
         return activeElement;
       }
+      /** Gets the target of an event while accounting for Shadow DOM. */
+
+
+      function _getEventTarget2(event) {
+        // If an event is bound outside the Shadow DOM, the `event.target` will
+        // point to the shadow root so we have to use `composedPath` instead.
+        return event.composedPath ? event.composedPath()[0] : event.target;
+      }
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -15108,7 +15117,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70576,7 +70585,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70616,7 +70625,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.1');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -72088,7 +72097,8 @@
         }]);
 
         return _RippleRef;
-      }();
+      }(); // TODO: import these values from `@material/ripple` eventually.
+
       /**
        * Default ripple animation configuration for ripples without an explicit
        * animation config specified.
@@ -72096,8 +72106,8 @@
 
 
       var _defaultRippleAnimationConfig = {
-        enterDuration: 450,
-        exitDuration: 400
+        enterDuration: 225,
+        exitDuration: 150
       };
       /**
        * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
