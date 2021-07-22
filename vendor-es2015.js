@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1268,7 +1268,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 17238);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -3371,9 +3371,10 @@ function oneOrMoreTransitionsMatch(matchFns, currentState, nextState, element, p
     return matchFns.some(fn => fn(currentState, nextState, element, params));
 }
 class AnimationStateStyles {
-    constructor(styles, defaultParams) {
+    constructor(styles, defaultParams, normalizer) {
         this.styles = styles;
         this.defaultParams = defaultParams;
+        this.normalizer = normalizer;
     }
     buildStyles(params, errors) {
         const finalStyles = {};
@@ -3392,7 +3393,9 @@ class AnimationStateStyles {
                     if (val.length > 1) {
                         val = interpolateParams(val, combinedParams, errors);
                     }
-                    finalStyles[prop] = val;
+                    const normalizedProp = this.normalizer.normalizePropertyName(prop, errors);
+                    val = this.normalizer.normalizeStyleValue(prop, normalizedProp, val, errors);
+                    finalStyles[normalizedProp] = val;
                 });
             }
         });
@@ -3400,31 +3403,26 @@ class AnimationStateStyles {
     }
 }
 
-/**
- * @publicApi
- */
-function buildTrigger(name, ast) {
-    return new AnimationTrigger(name, ast);
+function buildTrigger(name, ast, normalizer) {
+    return new AnimationTrigger(name, ast, normalizer);
 }
-/**
- * @publicApi
- */
 class AnimationTrigger {
-    constructor(name, ast) {
+    constructor(name, ast, _normalizer) {
         this.name = name;
         this.ast = ast;
+        this._normalizer = _normalizer;
         this.transitionFactories = [];
         this.states = {};
         ast.states.forEach(ast => {
             const defaultParams = (ast.options && ast.options.params) || {};
-            this.states[ast.name] = new AnimationStateStyles(ast.style, defaultParams);
+            this.states[ast.name] = new AnimationStateStyles(ast.style, defaultParams, _normalizer);
         });
         balanceProperties(this.states, 'true', '1');
         balanceProperties(this.states, 'false', '0');
         ast.transitions.forEach(ast => {
             this.transitionFactories.push(new AnimationTransitionFactory(name, ast, this.states));
         });
-        this.fallbackTransition = createFallbackTransition(name, this.states);
+        this.fallbackTransition = createFallbackTransition(name, this.states, this._normalizer);
     }
     get containsQueries() {
         return this.ast.queryCount > 0;
@@ -3437,7 +3435,7 @@ class AnimationTrigger {
         return this.fallbackTransition.buildStyles(currentState, params, errors);
     }
 }
-function createFallbackTransition(triggerName, states) {
+function createFallbackTransition(triggerName, states, normalizer) {
     const matchers = [(fromState, toState) => true];
     const animation = { type: 2 /* Sequence */, steps: [], options: null };
     const transition = {
@@ -5113,14 +5111,15 @@ function replacePostStylesAsPre(element, allPreStyleElements, allPostStyleElemen
 }
 
 class AnimationEngine {
-    constructor(bodyNode, _driver, normalizer) {
+    constructor(bodyNode, _driver, _normalizer) {
         this.bodyNode = bodyNode;
         this._driver = _driver;
+        this._normalizer = _normalizer;
         this._triggerCache = {};
         // this method is designed to be overridden by the code that uses this engine
         this.onRemovalComplete = (element, context) => { };
-        this._transitionEngine = new TransitionAnimationEngine(bodyNode, _driver, normalizer);
-        this._timelineEngine = new TimelineAnimationEngine(bodyNode, _driver, normalizer);
+        this._transitionEngine = new TransitionAnimationEngine(bodyNode, _driver, _normalizer);
+        this._timelineEngine = new TimelineAnimationEngine(bodyNode, _driver, _normalizer);
         this._transitionEngine.onRemovalComplete = (element, context) => this.onRemovalComplete(element, context);
     }
     registerTrigger(componentId, namespaceId, hostElement, name, metadata) {
@@ -5132,7 +5131,7 @@ class AnimationEngine {
             if (errors.length) {
                 throw new Error(`The animation trigger "${name}" has failed to build due to the following errors:\n - ${errors.join('\n - ')}`);
             }
-            trigger = buildTrigger(name, ast);
+            trigger = buildTrigger(name, ast, this._normalizer);
             this._triggerCache[cacheKey] = trigger;
         }
         this._transitionEngine.registerTrigger(namespaceId, name, trigger);
@@ -9927,7 +9926,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15341,7 +15340,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.3');
 
 /**
  * @license
@@ -16071,7 +16070,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 33763);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 88047);
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -20097,15 +20096,38 @@ var ViewEncapsulation$1;
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-function getCompilerFacade() {
+function getCompilerFacade(request) {
     const globalNg = _global['ng'];
-    if (!globalNg || !globalNg.ɵcompilerFacade) {
-        throw new Error(`Angular JIT compilation failed: '@angular/compiler' not loaded!\n` +
-            `  - JIT compilation is discouraged for production use-cases! Consider AOT mode instead.\n` +
-            `  - Did you bootstrap using '@angular/platform-browser-dynamic' or '@angular/platform-server'?\n` +
-            `  - Alternatively provide the compiler with 'import "@angular/compiler";' before bootstrapping.`);
+    if (globalNg && globalNg.ɵcompilerFacade) {
+        return globalNg.ɵcompilerFacade;
     }
-    return globalNg.ɵcompilerFacade;
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+        // Log the type as an error so that a developer can easily navigate to the type from the
+        // console.
+        console.error(`JIT compilation failed for ${request.kind}`, request.type);
+        let message = `The ${request.kind} '${request
+            .type.name}' needs to be compiled using the JIT compiler, but '@angular/compiler' is not available.\n\n`;
+        if (request.usage === 1 /* PartialDeclaration */) {
+            message += `The ${request.kind} is part of a library that has been partially compiled.\n`;
+            message +=
+                `However, the Angular Linker has not processed the library such that JIT compilation is used as fallback.\n`;
+            message += '\n';
+            message +=
+                `Ideally, the library is processed using the Angular Linker to become fully AOT compiled.\n`;
+        }
+        else {
+            message +=
+                `JIT compilation is discouraged for production use-cases! Consider using AOT mode instead.\n`;
+        }
+        message +=
+            `Alternatively, the JIT compiler should be loaded by bootstrapping using '@angular/platform-browser-dynamic' or '@angular/platform-server',\n`;
+        message +=
+            `or manually provide the compiler with 'import "@angular/compiler";' before bootstrapping.`;
+        throw new Error(message);
+    }
+    else {
+        throw new Error('JIT compiler unavailable');
+    }
 }
 
 /**
@@ -27280,6 +27302,7 @@ class R3Injector {
         this.assertNotDestroyed();
         // Set the injection context.
         const previousInjector = setCurrentInjector(this);
+        const previousInjectImplementation = setInjectImplementation(undefined);
         try {
             // Check for the SkipSelf flag.
             if (!(flags & InjectFlags.SkipSelf)) {
@@ -27332,7 +27355,8 @@ class R3Injector {
             }
         }
         finally {
-            // Lastly, clean up the state by restoring the previous injector.
+            // Lastly, restore the previous injection context.
+            setInjectImplementation(previousInjectImplementation);
             setCurrentInjector(previousInjector);
         }
     }
@@ -29741,7 +29765,8 @@ function compileInjectable(type, meta) {
         Object.defineProperty(type, NG_PROV_DEF, {
             get: () => {
                 if (ngInjectableDef === null) {
-                    ngInjectableDef = getCompilerFacade().compileInjectable(angularCoreDiEnv, `ng:///${type.name}/ɵprov.js`, getInjectableMetadata(type, meta));
+                    const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'injectable', type });
+                    ngInjectableDef = compiler.compileInjectable(angularCoreDiEnv, `ng:///${type.name}/ɵprov.js`, getInjectableMetadata(type, meta));
                 }
                 return ngInjectableDef;
             },
@@ -29752,7 +29777,7 @@ function compileInjectable(type, meta) {
         Object.defineProperty(type, NG_FACTORY_DEF, {
             get: () => {
                 if (ngFactoryDef === null) {
-                    const compiler = getCompilerFacade();
+                    const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'injectable', type });
                     ngFactoryDef = compiler.compileFactory(angularCoreDiEnv, `ng:///${type.name}/ɵfac.js`, {
                         name: type.name,
                         type,
@@ -37537,7 +37562,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.1.2');
+const VERSION = new Version('12.1.3');
 
 /**
  * @license
@@ -42996,7 +43021,8 @@ function compileNgModuleDefs(moduleType, ngModule, allowDuplicateDeclarationsInR
                     // go into an infinite loop before we've reached the point where we throw all the errors.
                     throw new Error(`'${stringifyForError(moduleType)}' module can't import itself`);
                 }
-                ngModuleDef = getCompilerFacade().compileNgModule(angularCoreEnv, `ng:///${moduleType.name}/ɵmod.js`, {
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'NgModule', type: moduleType });
+                ngModuleDef = compiler.compileNgModule(angularCoreEnv, `ng:///${moduleType.name}/ɵmod.js`, {
                     type: moduleType,
                     bootstrap: flatten(ngModule.bootstrap || EMPTY_ARRAY).map(resolveForwardRef),
                     declarations: declarations.map(resolveForwardRef),
@@ -43024,7 +43050,7 @@ function compileNgModuleDefs(moduleType, ngModule, allowDuplicateDeclarationsInR
     Object.defineProperty(moduleType, NG_FACTORY_DEF, {
         get: () => {
             if (ngFactoryDef === null) {
-                const compiler = getCompilerFacade();
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'NgModule', type: moduleType });
                 ngFactoryDef = compiler.compileFactory(angularCoreEnv, `ng:///${moduleType.name}/ɵfac.js`, {
                     name: moduleType.name,
                     type: moduleType,
@@ -43053,7 +43079,9 @@ function compileNgModuleDefs(moduleType, ngModule, allowDuplicateDeclarationsInR
                         (ngModule.exports || EMPTY_ARRAY).map(resolveForwardRef),
                     ],
                 };
-                ngInjectorDef = getCompilerFacade().compileInjector(angularCoreEnv, `ng:///${moduleType.name}/ɵinj.js`, meta);
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'NgModule', type: moduleType });
+                ngInjectorDef =
+                    compiler.compileInjector(angularCoreEnv, `ng:///${moduleType.name}/ɵinj.js`, meta);
             }
             return ngInjectorDef;
         },
@@ -43419,7 +43447,7 @@ function compileComponent(type, metadata) {
     Object.defineProperty(type, NG_COMP_DEF, {
         get: () => {
             if (ngComponentDef === null) {
-                const compiler = getCompilerFacade();
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'component', type: type });
                 if (componentNeedsResolution(metadata)) {
                     const error = [`Component '${type.name}' is not resolved:`];
                     if (metadata.templateUrl) {
@@ -43510,8 +43538,9 @@ function compileDirective(type, directive) {
                 // that use `@Directive()` with no selector. In that case, pass empty object to the
                 // `directiveMetadata` function instead of null.
                 const meta = getDirectiveMetadata$1(type, directive || {});
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'directive', type });
                 ngDirectiveDef =
-                    getCompilerFacade().compileDirective(angularCoreEnv, meta.sourceMapUrl, meta.metadata);
+                    compiler.compileDirective(angularCoreEnv, meta.sourceMapUrl, meta.metadata);
             }
             return ngDirectiveDef;
         },
@@ -43522,7 +43551,7 @@ function compileDirective(type, directive) {
 function getDirectiveMetadata$1(type, metadata) {
     const name = type && type.name;
     const sourceMapUrl = `ng:///${name}/ɵdir.js`;
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'directive', type });
     const facade = directiveMetadata(type, metadata);
     facade.typeSourceSpan = compiler.createParseSourceSpan('Directive', name, sourceMapUrl);
     if (facade.usesInheritance) {
@@ -43536,7 +43565,7 @@ function addDirectiveFactoryDef(type, metadata) {
         get: () => {
             if (ngFactoryDef === null) {
                 const meta = getDirectiveMetadata$1(type, metadata);
-                const compiler = getCompilerFacade();
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'directive', type });
                 ngFactoryDef = compiler.compileFactory(angularCoreEnv, `ng:///${type.name}/ɵfac.js`, {
                     name: meta.metadata.name,
                     type: meta.metadata.type,
@@ -43687,7 +43716,7 @@ function compilePipe(type, meta) {
         get: () => {
             if (ngFactoryDef === null) {
                 const metadata = getPipeMetadata(type, meta);
-                const compiler = getCompilerFacade();
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'pipe', type: metadata.type });
                 ngFactoryDef = compiler.compileFactory(angularCoreEnv, `ng:///${metadata.name}/ɵfac.js`, {
                     name: metadata.name,
                     type: metadata.type,
@@ -43705,7 +43734,9 @@ function compilePipe(type, meta) {
         get: () => {
             if (ngPipeDef === null) {
                 const metadata = getPipeMetadata(type, meta);
-                ngPipeDef = getCompilerFacade().compilePipe(angularCoreEnv, `ng:///${metadata.name}/ɵpipe.js`, metadata);
+                const compiler = getCompilerFacade({ usage: 0 /* Decorator */, kind: 'pipe', type: metadata.type });
+                ngPipeDef =
+                    compiler.compilePipe(angularCoreEnv, `ng:///${metadata.name}/ɵpipe.js`, metadata);
             }
             return ngPipeDef;
         },
@@ -45168,7 +45199,11 @@ function compileNgModuleFactory__POST_R3__(injector, options, moduleType) {
     if (compilerProviders.length === 0) {
         return Promise.resolve(moduleFactory);
     }
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({
+        usage: 0 /* Decorator */,
+        kind: 'NgModule',
+        type: moduleType,
+    });
     const compilerInjector = Injector.create({ providers: compilerProviders });
     const resourceLoader = compilerInjector.get(compiler.ResourceLoader);
     // The resource loader can also return a string while the "resolveComponentResources"
@@ -49122,7 +49157,7 @@ class NgModuleFactory_ extends NgModuleFactory {
  * @codeGenApi
  */
 function ɵɵngDeclareDirective(decl) {
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({ usage: 1 /* PartialDeclaration */, kind: 'directive', type: decl.type });
     return compiler.compileDirectiveDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵfac.js`, decl);
 }
 /**
@@ -49140,7 +49175,7 @@ function ɵɵngDeclareClassMetadata(decl) {
  * @codeGenApi
  */
 function ɵɵngDeclareComponent(decl) {
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({ usage: 1 /* PartialDeclaration */, kind: 'component', type: decl.type });
     return compiler.compileComponentDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵcmp.js`, decl);
 }
 /**
@@ -49149,8 +49184,26 @@ function ɵɵngDeclareComponent(decl) {
  * @codeGenApi
  */
 function ɵɵngDeclareFactory(decl) {
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({
+        usage: 1 /* PartialDeclaration */,
+        kind: getFactoryKind(decl.target),
+        type: decl.type
+    });
     return compiler.compileFactoryDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵfac.js`, decl);
+}
+function getFactoryKind(target) {
+    switch (target) {
+        case FactoryTarget.Directive:
+            return 'directive';
+        case FactoryTarget.Component:
+            return 'component';
+        case FactoryTarget.Injectable:
+            return 'injectable';
+        case FactoryTarget.Pipe:
+            return 'pipe';
+        case FactoryTarget.NgModule:
+            return 'NgModule';
+    }
 }
 /**
  * Compiles a partial injectable declaration object into a full injectable definition object.
@@ -49158,7 +49211,7 @@ function ɵɵngDeclareFactory(decl) {
  * @codeGenApi
  */
 function ɵɵngDeclareInjectable(decl) {
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({ usage: 1 /* PartialDeclaration */, kind: 'injectable', type: decl.type });
     return compiler.compileInjectableDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵprov.js`, decl);
 }
 /**
@@ -49167,7 +49220,7 @@ function ɵɵngDeclareInjectable(decl) {
  * @codeGenApi
  */
 function ɵɵngDeclareInjector(decl) {
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({ usage: 1 /* PartialDeclaration */, kind: 'NgModule', type: decl.type });
     return compiler.compileInjectorDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵinj.js`, decl);
 }
 /**
@@ -49176,7 +49229,7 @@ function ɵɵngDeclareInjector(decl) {
  * @codeGenApi
  */
 function ɵɵngDeclareNgModule(decl) {
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({ usage: 1 /* PartialDeclaration */, kind: 'NgModule', type: decl.type });
     return compiler.compileNgModuleDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵmod.js`, decl);
 }
 /**
@@ -49185,7 +49238,7 @@ function ɵɵngDeclareNgModule(decl) {
  * @codeGenApi
  */
 function ɵɵngDeclarePipe(decl) {
-    const compiler = getCompilerFacade();
+    const compiler = getCompilerFacade({ usage: 1 /* PartialDeclaration */, kind: 'pipe', type: decl.type });
     return compiler.compilePipeDeclaration(angularCoreEnv, `ng:///${decl.type.name}/ɵpipe.js`, decl);
 }
 
@@ -52182,7 +52235,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 93154);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 38583);
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52796,7 +52849,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54938,7 +54991,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.2');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.3');
 
 /**
  * @license
@@ -55082,7 +55135,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 3050);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 70023);
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -61239,7 +61292,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.2');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.3');
 
 /**
  * @license
@@ -61320,7 +61373,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 99922);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 58252);
 /**
- * @license Angular v12.1.2
+ * @license Angular v12.1.3
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
