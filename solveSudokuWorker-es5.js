@@ -9,13 +9,7 @@
 
     var __webpack_modules__ = {
       /***/
-      46022:
-      /*!****************************************************************!*\
-        !*** ./src/app/routes/sudoku/services/sudoku-solver.worker.ts ***!
-        \****************************************************************/
-
-      /***/
-      function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      46022: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
         __webpack_require__.r(__webpack_exports__);
         /* harmony import */
 

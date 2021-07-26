@@ -1,13 +1,7 @@
 (function () {
   (self["webpackChunk_spielhalle_client"] = self["webpackChunk_spielhalle_client"] || []).push([["common"], {
     /***/
-    45839:
-    /*!**********************************************************************************************!*\
-      !*** ./src/app/routes/sudoku/modules/sudoku-benchmark/component/sudoku-benchmark-message.ts ***!
-      \**********************************************************************************************/
-
-    /***/
-    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+    45839: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
       __webpack_require__.r(__webpack_exports__);
