@@ -220,7 +220,7 @@
 
       });
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1868,7 +1868,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16088,7 +16088,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23473,7 +23473,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.3');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27392,7 +27392,7 @@
       /*! rxjs/operators */
       88047);
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -35225,7 +35225,7 @@
       }
 
       function getErrorLogger(error) {
-        return error[ERROR_LOGGER] || defaultErrorLogger;
+        return error && error[ERROR_LOGGER] || defaultErrorLogger;
       }
 
       function defaultErrorLogger(console) {
@@ -35312,13 +35312,13 @@
         }, {
           key: "_findOriginalError",
           value: function _findOriginalError(error) {
-            var e = getOriginalError(error);
+            var e = error && getOriginalError(error);
 
             while (e && getOriginalError(e)) {
               e = getOriginalError(e);
             }
 
-            return e;
+            return e || null;
           }
         }]);
 
@@ -53108,7 +53108,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.1.3');
+      var _VERSION3 = new _Version('12.1.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74397,7 +74397,7 @@
       /*! @angular/common */
       38583);
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75785,7 +75785,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79093,7 +79093,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.3');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.1.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79850,7 +79850,7 @@
       /*! rxjs/operators */
       70023);
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79870,12 +79870,14 @@
        * The following code shows how a class subscribes to router events.
        *
        * ```ts
+       * import {Event, RouterEvent, Router} from '@angular/router';
+       *
        * class MyService {
-       *   constructor(public router: Router, logger: Logger) {
+       *   constructor(public router: Router) {
        *     router.events.pipe(
        *        filter((e: Event): e is RouterEvent => e instanceof RouterEvent)
        *     ).subscribe((e: RouterEvent) => {
-       *       logger.log(e.id, e.url);
+       *       // Do something
        *     });
        *   }
        * }
@@ -85418,7 +85420,9 @@
                 _this196.triggerEvent(guardsEnd);
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.filter)(function (t) {
                 if (!t.guardsResult) {
-                  _this196.cancelNavigationTransitionRestoreHistory(t, '');
+                  _this196.restoreHistory(t);
+
+                  _this196.cancelNavigationTransition(t, '');
 
                   return false;
                 }
@@ -85439,7 +85443,9 @@
                       },
                       complete: function complete() {
                         if (!dataResolved) {
-                          _this196.cancelNavigationTransitionRestoreHistory(t, "At least one route resolver didn't emit any value.");
+                          _this196.restoreHistory(t);
+
+                          _this196.cancelNavigationTransition(t, "At least one route resolver didn't emit any value.");
                         }
                       }
                     }));
@@ -85518,7 +85524,9 @@
                     // AngularJS sync code which looks for a value here in order to determine
                     // whether or not to handle a given popstate event or to leave it to the
                     // Angular router.
-                    _this196.cancelNavigationTransitionRestoreHistory(t, cancelationReason);
+                    _this196.restoreHistory(t);
+
+                    _this196.cancelNavigationTransition(t, cancelationReason);
                   } else {
                     // We cannot trigger a `location.historyGo` if the
                     // cancellation was due to a new navigation before the previous could
@@ -85537,6 +85545,17 @@
 
                 _this196.currentNavigation = null;
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.catchError)(function (e) {
+                // TODO(atscott): The NavigationTransition `t` used here does not accurately
+                // reflect the current state of the whole transition because some operations
+                // return a new object rather than modifying the one in the outermost
+                // `switchMap`.
+                //  The fix can likely be to:
+                //  1. Rename the outer `t` variable so it's not shadowed all the time and
+                //  confusing
+                //  2. Keep reassigning to the outer variable after each stage to ensure it
+                //  gets updated. Or change the implementations to not return a copy.
+                // Not changed yet because it affects existing code and would need to be
+                // tested more thoroughly.
                 errored = true;
                 /* This error type is issued during Redirect, and is handled as a
                  * cancellation rather than an error. */
@@ -85552,7 +85571,7 @@
                     // `navigated` only when not redirecting resolves this scenario.
                     _this196.navigated = true;
 
-                    _this196.resetStateAndUrl(t.currentRouterState, t.currentUrlTree, t.rawUrl);
+                    _this196.restoreHistory(t, true);
                   }
 
                   var navCancel = new _NavigationCancel(t.id, _this196.serializeUrl(t.extractedUrl), e.message);
@@ -85585,7 +85604,7 @@
                    * the pre-error state. */
 
                 } else {
-                  _this196.resetStateAndUrl(t.currentRouterState, t.currentUrlTree, t.rawUrl);
+                  _this196.restoreHistory(t, true);
 
                   var navError = new _NavigationError(t.id, _this196.serializeUrl(t.extractedUrl), e);
                   eventsSubject.next(navError);
@@ -86144,47 +86163,64 @@
               this.location.go(path, '', state);
             }
           }
+          /**
+           * Performs the necessary rollback action to restore the browser URL to the
+           * state before the transition.
+           */
+
         }, {
-          key: "resetStateAndUrl",
-          value: function resetStateAndUrl(storedState, storedUrl, rawUrl) {
-            this.routerState = storedState;
-            this.currentUrlTree = storedUrl;
-            this.rawUrlTree = this.urlHandlingStrategy.merge(this.currentUrlTree, rawUrl);
-            this.resetUrlToCurrentUrlTree();
+          key: "restoreHistory",
+          value: function restoreHistory(t) {
+            var restoringFromCaughtError = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+            var _a, _b;
+
+            if (this.canceledNavigationResolution === 'computed') {
+              var targetPagePosition = this.currentPageId - t.targetPageId; // The navigator change the location before triggered the browser event,
+              // so we need to go back to the current url if the navigation is canceled.
+              // Also, when navigation gets cancelled while using url update strategy eager, then we need to
+              // go back. Because, when `urlUpdateSrategy` is `eager`; `setBrowserUrl` method is called
+              // before any verification.
+
+              var browserUrlUpdateOccurred = t.source === 'popstate' || this.urlUpdateStrategy === 'eager' || this.currentUrlTree === ((_a = this.currentNavigation) === null || _a === void 0 ? void 0 : _a.finalUrl);
+
+              if (browserUrlUpdateOccurred && targetPagePosition !== 0) {
+                this.location.historyGo(targetPagePosition);
+              } else if (this.currentUrlTree === ((_b = this.currentNavigation) === null || _b === void 0 ? void 0 : _b.finalUrl) && targetPagePosition === 0) {
+                // We got to the activation stage (where currentUrlTree is set to the navigation's
+                // finalUrl), but we weren't moving anywhere in history (skipLocationChange or replaceUrl).
+                // We still need to reset the router state back to what it was when the navigation started.
+                this.resetState(t); // TODO(atscott): resetting the `browserUrlTree` should really be done in `resetState`.
+                // Investigate if this can be done by running TGP.
+
+                this.browserUrlTree = t.currentUrlTree;
+                this.resetUrlToCurrentUrlTree();
+              } else {// The browser URL and router state was not updated before the navigation cancelled so
+                // there's no restoration needed.
+              }
+            } else if (this.canceledNavigationResolution === 'replace') {
+              // TODO(atscott): It seems like we should _always_ reset the state here. It would be a no-op
+              // for `deferred` navigations that haven't change the internal state yet because guards
+              // reject. For 'eager' navigations, it seems like we also really should reset the state
+              // because the navigation was cancelled. Investigate if this can be done by running TGP.
+              if (restoringFromCaughtError) {
+                this.resetState(t);
+              }
+
+              this.resetUrlToCurrentUrlTree();
+            }
+          }
+        }, {
+          key: "resetState",
+          value: function resetState(t) {
+            this.routerState = t.currentRouterState;
+            this.currentUrlTree = t.currentUrlTree;
+            this.rawUrlTree = this.urlHandlingStrategy.merge(this.currentUrlTree, t.rawUrl);
           }
         }, {
           key: "resetUrlToCurrentUrlTree",
           value: function resetUrlToCurrentUrlTree() {
             this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree), '', this.generateNgRouterState(this.lastSuccessfulId, this.currentPageId));
-          }
-          /**
-           * Responsible for handling the cancellation of a navigation:
-           * - performs the necessary rollback action to restore the browser URL to the
-           * state before the transition
-           * - triggers the `NavigationCancel` event
-           * - resolves the transition promise with `false`
-           */
-
-        }, {
-          key: "cancelNavigationTransitionRestoreHistory",
-          value: function cancelNavigationTransitionRestoreHistory(t, reason) {
-            if (this.canceledNavigationResolution === 'computed') {
-              // The navigator change the location before triggered the browser event,
-              // so we need to go back to the current url if the navigation is canceled.
-              // Also, when navigation gets cancelled while using url update strategy eager, then we need to
-              // go back. Because, when `urlUpdateSrategy` is `eager`; `setBrowserUrl` method is called
-              // before any verification.
-              if (t.source === 'popstate' || this.urlUpdateStrategy === 'eager') {
-                var targetPagePosition = this.currentPageId - t.targetPageId;
-                this.location.historyGo(targetPagePosition);
-              } else {// If update is not 'eager' and the transition navigation source isn't 'popstate', then the
-                // navigation was cancelled before any browser url change so nothing needs to be restored.
-              }
-            } else {
-              this.resetUrlToCurrentUrlTree();
-            }
-
-            this.cancelNavigationTransition(t, reason);
           }
         }, {
           key: "cancelNavigationTransition",
@@ -88335,7 +88371,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.3');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88556,7 +88592,7 @@
       /*! rxjs/operators */
       58252);
       /**
-       * @license Angular v12.1.3
+       * @license Angular v12.1.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
