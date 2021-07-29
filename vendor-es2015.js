@@ -62046,7 +62046,7 @@ var Observable = (function () {
         for (var _i = 0; _i < arguments.length; _i++) {
             operations[_i] = arguments[_i];
         }
-        return operations.length ? (0,_util_pipe__WEBPACK_IMPORTED_MODULE_3__.pipeFromArray)(operations)(this) : this;
+        return (0,_util_pipe__WEBPACK_IMPORTED_MODULE_3__.pipeFromArray)(operations)(this);
     };
     Observable.prototype.toPromise = function (promiseCtor) {
         var _this = this;
@@ -64551,21 +64551,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function tap(observerOrNext, error, complete) {
-    var tapObserver = (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_0__.isFunction)(observerOrNext) || error || complete ? { next: observerOrNext, error: error, complete: complete } : observerOrNext;
+    var tapObserver = (0,_util_isFunction__WEBPACK_IMPORTED_MODULE_0__.isFunction)(observerOrNext) || error || complete
+        ?
+            { next: observerOrNext, error: error, complete: complete }
+        : observerOrNext;
     return tapObserver
         ? (0,_util_lift__WEBPACK_IMPORTED_MODULE_1__.operate)(function (source, subscriber) {
+            var _a;
+            (_a = tapObserver.subscribe) === null || _a === void 0 ? void 0 : _a.call(tapObserver);
+            var isUnsub = true;
             source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__.OperatorSubscriber(subscriber, function (value) {
                 var _a;
                 (_a = tapObserver.next) === null || _a === void 0 ? void 0 : _a.call(tapObserver, value);
                 subscriber.next(value);
             }, function () {
                 var _a;
+                isUnsub = false;
                 (_a = tapObserver.complete) === null || _a === void 0 ? void 0 : _a.call(tapObserver);
                 subscriber.complete();
             }, function (err) {
                 var _a;
+                isUnsub = false;
                 (_a = tapObserver.error) === null || _a === void 0 ? void 0 : _a.call(tapObserver, err);
                 subscriber.error(err);
+            }, function () {
+                var _a, _b;
+                if (isUnsub) {
+                    (_a = tapObserver.unsubscribe) === null || _a === void 0 ? void 0 : _a.call(tapObserver);
+                }
+                (_b = tapObserver.finalize) === null || _b === void 0 ? void 0 : _b.call(tapObserver);
             }));
         })
         :

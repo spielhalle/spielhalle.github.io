@@ -89531,7 +89531,7 @@
             operations[_i] = arguments[_i];
           }
 
-          return operations.length ? (0, _util_pipe__WEBPACK_IMPORTED_MODULE_3__.pipeFromArray)(operations)(this) : this;
+          return (0, _util_pipe__WEBPACK_IMPORTED_MODULE_3__.pipeFromArray)(operations)(this);
         };
 
         Observable.prototype.toPromise = function (promiseCtor) {
@@ -93697,6 +93697,10 @@
           complete: complete
         } : observerOrNext;
         return tapObserver ? (0, _util_lift__WEBPACK_IMPORTED_MODULE_1__.operate)(function (source, subscriber) {
+          var _a;
+
+          (_a = tapObserver.subscribe) === null || _a === void 0 ? void 0 : _a.call(tapObserver);
+          var isUnsub = true;
           source.subscribe(new _OperatorSubscriber__WEBPACK_IMPORTED_MODULE_2__.OperatorSubscriber(subscriber, function (value) {
             var _a;
 
@@ -93705,13 +93709,23 @@
           }, function () {
             var _a;
 
+            isUnsub = false;
             (_a = tapObserver.complete) === null || _a === void 0 ? void 0 : _a.call(tapObserver);
             subscriber.complete();
           }, function (err) {
             var _a;
 
+            isUnsub = false;
             (_a = tapObserver.error) === null || _a === void 0 ? void 0 : _a.call(tapObserver, err);
             subscriber.error(err);
+          }, function () {
+            var _a, _b;
+
+            if (isUnsub) {
+              (_a = tapObserver.unsubscribe) === null || _a === void 0 ? void 0 : _a.call(tapObserver);
+            }
+
+            (_b = tapObserver.finalize) === null || _b === void 0 ? void 0 : _b.call(tapObserver);
           }));
         }) : _util_identity__WEBPACK_IMPORTED_MODULE_3__.identity;
       } //# sourceMappingURL=tap.js.map
