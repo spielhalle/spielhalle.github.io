@@ -1,3 +1,4 @@
+"use strict";
 (self["webpackChunk_spielhalle_client"] = self["webpackChunk_spielhalle_client"] || []).push([["common"],{
 
 /***/ 45839:
@@ -6,7 +7,6 @@
   \**********************************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SudokuBenchmarkMessageType": function() { return /* binding */ SudokuBenchmarkMessageType; }
