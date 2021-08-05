@@ -15055,7 +15055,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.4');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70622,7 +70622,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.4');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70662,7 +70662,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.4');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {

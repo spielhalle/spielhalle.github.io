@@ -8575,7 +8575,8 @@
           /** Emits when the rendered range changes. */
 
           _this44._renderedRangeSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__.Subject();
-          _this44._orientation = 'vertical'; // Note: we don't use the typical EventEmitter here because we need to subscribe to the scroll
+          _this44._orientation = 'vertical';
+          _this44._appendOnly = false; // Note: we don't use the typical EventEmitter here because we need to subscribe to the scroll
           // strategy lazily (i.e. only if the user is actually listening to the events). We do this because
           // depending on how the strategy calculates the scrolled index, it may come at a cost to
           // performance.
@@ -8659,6 +8660,19 @@
 
               this._calculateSpacerSize();
             }
+          }
+          /**
+           * Whether rendered items should persist in the DOM after scrolling out of view. By default, items
+           * will be removed.
+           */
+
+        }, {
+          key: "appendOnly",
+          get: function get() {
+            return this._appendOnly;
+          },
+          set: function set(value) {
+            this._appendOnly = (0, _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__.coerceBooleanProperty)(value);
           }
         }, {
           key: "ngOnInit",
@@ -8793,6 +8807,13 @@
             var _this47 = this;
 
             if (!rangesEqual(this._renderedRange, range)) {
+              if (this.appendOnly) {
+                range = {
+                  start: 0,
+                  end: Math.max(this._renderedRange.end, range.end)
+                };
+              }
+
               this._renderedRangeSubject.next(this._renderedRange = range);
 
               this._markChangeDetectionNeeded(function () {
@@ -9039,7 +9060,8 @@
           }
         },
         inputs: {
-          orientation: "orientation"
+          orientation: "orientation",
+          appendOnly: "appendOnly"
         },
         outputs: {
           scrolledIndexChange: "scrolledIndexChange"
@@ -9107,6 +9129,9 @@
         orientation: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
         }],
+        appendOnly: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+        }],
         scrolledIndexChange: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output
         }],
@@ -9167,6 +9192,9 @@
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output
           }],
           orientation: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+          }],
+          appendOnly: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
           }],
           _contentWrapper: [{
@@ -12578,7 +12606,13 @@
 
           this._isShowingNoDataRow = false;
           this._multiTemplateDataRows = false;
-          this._fixedLayout = false; // TODO(andrewseguin): Remove max value as the end index
+          this._fixedLayout = false;
+          /**
+           * Emits when the table completes rendering a set of data rows based on the latest data from the
+           * data source, even if the set of rows is empty.
+           */
+
+          this.contentChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter(); // TODO(andrewseguin): Remove max value as the end index
           //   and instead calculate the view on init and scroll.
 
           /**
@@ -12801,6 +12835,7 @@
             if (!changes) {
               this._updateNoDataRow();
 
+              this.contentChanged.next();
               return;
             }
 
@@ -12831,6 +12866,7 @@
             this._updateNoDataRow();
 
             this.updateStickyColumnStyles();
+            this.contentChanged.next();
           }
           /** Adds a column definition that was not included as part of the content children. */
 
@@ -13661,6 +13697,9 @@
           multiTemplateDataRows: "multiTemplateDataRows",
           fixedLayout: "fixedLayout"
         },
+        outputs: {
+          contentChanged: "contentChanged"
+        },
         exportAs: ["cdkTable"],
         features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([{
           provide: _CDK_TABLE,
@@ -13767,6 +13806,9 @@
         }],
         fixedLayout: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
+        }],
+        contentChanged: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output
         }],
         _rowOutlet: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewChild,
@@ -13907,6 +13949,9 @@
             }]
           }];
         }, {
+          contentChanged: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Output
+          }],
           trackBy: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
           }],
