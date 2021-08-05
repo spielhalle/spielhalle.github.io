@@ -14624,7 +14624,7 @@
       /*! rxjs/operators */
       5207);
       /**
-       * @license Angular v12.1.4
+       * @license Angular v12.2.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -18531,7 +18531,7 @@
       /*! rxjs/operators */
       5207);
       /**
-       * @license Angular v12.1.4
+       * @license Angular v12.2.0
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -19718,6 +19718,60 @@
 
       function getControlAsyncValidators(control) {
         return control._rawAsyncValidators;
+      }
+      /**
+       * Accepts a singleton validator, an array, or null, and returns an array type with the provided
+       * validators.
+       *
+       * @param validators A validator, validators, or null.
+       * @returns A validators array.
+       */
+
+
+      function makeValidatorsArray(validators) {
+        if (!validators) return [];
+        return Array.isArray(validators) ? validators : [validators];
+      }
+      /**
+       * Determines whether a validator or validators array has a given validator.
+       *
+       * @param validators The validator or validators to compare against.
+       * @param validator The validator to check.
+       * @returns Whether the validator is present.
+       */
+
+
+      function _hasValidator(validators, validator) {
+        return Array.isArray(validators) ? validators.includes(validator) : validators === validator;
+      }
+      /**
+       * Combines two arrays of validators into one. If duplicates are provided, only one will be added.
+       *
+       * @param validators The new validators.
+       * @param currentValidators The base array of currrent validators.
+       * @returns An array of validators.
+       */
+
+
+      function _addValidators(validators, currentValidators) {
+        var current = makeValidatorsArray(currentValidators);
+        var validatorsToAdd = makeValidatorsArray(validators);
+        validatorsToAdd.forEach(function (v) {
+          // Note: if there are duplicate entries in the new validators array,
+          // only the first one would be added to the current list of validarors.
+          // Duplicate ones would be ignored since `hasValidator` would detect
+          // the presence of a validator function and we update the current list in place.
+          if (!_hasValidator(current, v)) {
+            current.push(v);
+          }
+        });
+        return current;
+      }
+
+      function _removeValidators(validators, currentValidators) {
+        return makeValidatorsArray(currentValidators).filter(function (v) {
+          return !_hasValidator(validators, v);
+        });
       }
       /**
        * @license
@@ -21004,7 +21058,9 @@
           this._composedAsyncValidatorFn = coerceToAsyncValidator(this._rawAsyncValidators);
         }
         /**
-         * The function that is used to determine the validity of this control synchronously.
+         * Returns the function that is used to determine the validity of this control synchronously.
+         * If multiple validators have been added, this will be a single composed function.
+         * See `Validators.compose()` for additional information.
          */
 
 
@@ -21017,7 +21073,9 @@
             this._rawValidators = this._composedValidatorFn = validatorFn;
           }
           /**
-           * The function that is used to determine the validity of this control asynchronously.
+           * Returns the function that is used to determine the validity of this control asynchronously.
+           * If multiple validators have been added, this will be a single composed function.
+           * See `Validators.compose()` for additional information.
            */
 
         }, {
@@ -21150,36 +21208,136 @@
           }
           /**
            * Sets the synchronous validators that are active on this control.  Calling
-           * this overwrites any existing sync validators.
+           * this overwrites any existing synchronous validators.
            *
            * When you add or remove a validator at run time, you must call
            * `updateValueAndValidity()` for the new validation to take effect.
            *
+           * If you want to add a new validator without affecting existing ones, consider
+           * using `addValidators()` method instead.
            */
 
         }, {
           key: "setValidators",
-          value: function setValidators(newValidator) {
-            this._rawValidators = newValidator;
-            this._composedValidatorFn = coerceToValidator(newValidator);
+          value: function setValidators(validators) {
+            this._rawValidators = validators;
+            this._composedValidatorFn = coerceToValidator(validators);
           }
           /**
-           * Sets the async validators that are active on this control. Calling this
-           * overwrites any existing async validators.
+           * Sets the asynchronous validators that are active on this control. Calling this
+           * overwrites any existing asynchronous validators.
            *
            * When you add or remove a validator at run time, you must call
            * `updateValueAndValidity()` for the new validation to take effect.
            *
+           * If you want to add a new validator without affecting existing ones, consider
+           * using `addAsyncValidators()` method instead.
            */
 
         }, {
           key: "setAsyncValidators",
-          value: function setAsyncValidators(newValidator) {
-            this._rawAsyncValidators = newValidator;
-            this._composedAsyncValidatorFn = coerceToAsyncValidator(newValidator);
+          value: function setAsyncValidators(validators) {
+            this._rawAsyncValidators = validators;
+            this._composedAsyncValidatorFn = coerceToAsyncValidator(validators);
           }
           /**
-           * Empties out the sync validator list.
+           * Add a synchronous validator or validators to this control, without affecting other validators.
+           *
+           * When you add or remove a validator at run time, you must call
+           * `updateValueAndValidity()` for the new validation to take effect.
+           *
+           * Adding a validator that already exists will have no effect. If duplicate validator functions
+           * are present in the `validators` array, only the first instance would be added to a form
+           * control.
+           *
+           * @param validators The new validator function or functions to add to this control.
+           */
+
+        }, {
+          key: "addValidators",
+          value: function addValidators(validators) {
+            this.setValidators(_addValidators(validators, this._rawValidators));
+          }
+          /**
+           * Add an asynchronous validator or validators to this control, without affecting other
+           * validators.
+           *
+           * When you add or remove a validator at run time, you must call
+           * `updateValueAndValidity()` for the new validation to take effect.
+           *
+           * Adding a validator that already exists will have no effect.
+           *
+           * @param validators The new asynchronous validator function or functions to add to this control.
+           */
+
+        }, {
+          key: "addAsyncValidators",
+          value: function addAsyncValidators(validators) {
+            this.setAsyncValidators(_addValidators(validators, this._rawAsyncValidators));
+          }
+          /**
+           * Remove a synchronous validator from this control, without affecting other validators.
+           * Validators are compared by function reference; you must pass a reference to the exact same
+           * validator function as the one that was originally set. If a provided validator is not found,
+           * it is ignored.
+           *
+           * When you add or remove a validator at run time, you must call
+           * `updateValueAndValidity()` for the new validation to take effect.
+           *
+           * @param validators The validator or validators to remove.
+           */
+
+        }, {
+          key: "removeValidators",
+          value: function removeValidators(validators) {
+            this.setValidators(_removeValidators(validators, this._rawValidators));
+          }
+          /**
+           * Remove an asynchronous validator from this control, without affecting other validators.
+           * Validators are compared by function reference; you must pass a reference to the exact same
+           * validator function as the one that was originally set. If a provided validator is not found, it
+           * is ignored.
+           *
+           * When you add or remove a validator at run time, you must call
+           * `updateValueAndValidity()` for the new validation to take effect.
+           *
+           * @param validators The asynchronous validator or validators to remove.
+           */
+
+        }, {
+          key: "removeAsyncValidators",
+          value: function removeAsyncValidators(validators) {
+            this.setAsyncValidators(_removeValidators(validators, this._rawAsyncValidators));
+          }
+          /**
+           * Check whether a synchronous validator function is present on this control. The provided
+           * validator must be a reference to the exact same function that was provided.
+           *
+           * @param validator The validator to check for presence. Compared by function reference.
+           * @returns Whether the provided validator was found on this control.
+           */
+
+        }, {
+          key: "hasValidator",
+          value: function hasValidator(validator) {
+            return _hasValidator(this._rawValidators, validator);
+          }
+          /**
+           * Check whether an asynchronous validator function is present on this control. The provided
+           * validator must be a reference to the exact same function that was provided.
+           *
+           * @param validator The asynchronous validator to check for presence. Compared by function
+           *     reference.
+           * @returns Whether the provided asynchronous validator was found on this control.
+           */
+
+        }, {
+          key: "hasAsyncValidator",
+          value: function hasAsyncValidator(validator) {
+            return _hasValidator(this._rawAsyncValidators, validator);
+          }
+          /**
+           * Empties out the synchronous validator list.
            *
            * When you add or remove a validator at run time, you must call
            * `updateValueAndValidity()` for the new validation to take effect.
@@ -21894,7 +22052,7 @@
        * console.log(control.status);    // 'DISABLED'
        * ```
        *
-       * The following example initializes the control with a sync validator.
+       * The following example initializes the control with a synchronous validator.
        *
        * ```ts
        * const control = new FormControl('', Validators.required);
@@ -27670,6 +27828,18 @@
        */
 
       /**
+       * @description
+       * Method that updates string to integer if not alread a number
+       *
+       * @param value The value to convert to integer
+       * @returns value of parameter in number or integer.
+       */
+
+
+      function toNumber(value) {
+        return typeof value === 'number' ? value : parseInt(value, 10);
+      }
+      /**
        * A base class for Validator-based Directives. The class contains common logic shared across such
        * Directives.
        *
@@ -28378,7 +28548,7 @@
         }, {
           key: "validate",
           value: function validate(control) {
-            return this.minlength == null ? null : this._validator(control);
+            return this.enabled() ? this._validator(control) : null;
           }
           /**
            * Registers a callback function to call when the validator inputs change.
@@ -28393,7 +28563,16 @@
         }, {
           key: "_createValidator",
           value: function _createValidator() {
-            this._validator = minLengthValidator(typeof this.minlength === 'number' ? this.minlength : parseInt(this.minlength, 10));
+            this._validator = this.enabled() ? minLengthValidator(toNumber(this.minlength)) : _nullValidator;
+          }
+          /** @nodoc */
+
+        }, {
+          key: "enabled",
+          value: function enabled() {
+            return this.minlength != null
+            /* both `null` and `undefined` */
+            ;
           }
         }]);
 
@@ -28410,7 +28589,7 @@
         hostVars: 1,
         hostBindings: function MinLengthValidator_HostBindings(rf, ctx) {
           if (rf & 2) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("minlength", ctx.minlength ? ctx.minlength : null);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("minlength", ctx.enabled() ? ctx.minlength : null);
           }
         },
         inputs: {
@@ -28431,7 +28610,7 @@
             selector: '[minlength][formControlName],[minlength][formControl],[minlength][ngModel]',
             providers: [MIN_LENGTH_VALIDATOR],
             host: {
-              '[attr.minlength]': 'minlength ? minlength : null'
+              '[attr.minlength]': 'enabled() ? minlength : null'
             }
           }]
         }], function () {
@@ -28503,7 +28682,7 @@
         }, {
           key: "validate",
           value: function validate(control) {
-            return this.maxlength != null ? this._validator(control) : null;
+            return this.enabled() ? this._validator(control) : null;
           }
           /**
            * Registers a callback function to call when the validator inputs change.
@@ -28518,7 +28697,16 @@
         }, {
           key: "_createValidator",
           value: function _createValidator() {
-            this._validator = maxLengthValidator(typeof this.maxlength === 'number' ? this.maxlength : parseInt(this.maxlength, 10));
+            this._validator = this.enabled() ? maxLengthValidator(toNumber(this.maxlength)) : _nullValidator;
+          }
+          /** @nodoc */
+
+        }, {
+          key: "enabled",
+          value: function enabled() {
+            return this.maxlength != null
+            /* both `null` and `undefined` */
+            ;
           }
         }]);
 
@@ -28535,7 +28723,7 @@
         hostVars: 1,
         hostBindings: function MaxLengthValidator_HostBindings(rf, ctx) {
           if (rf & 2) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("maxlength", ctx.maxlength ? ctx.maxlength : null);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("maxlength", ctx.enabled() ? ctx.maxlength : null);
           }
         },
         inputs: {
@@ -28556,7 +28744,7 @@
             selector: '[maxlength][formControlName],[maxlength][formControl],[maxlength][ngModel]',
             providers: [MAX_LENGTH_VALIDATOR],
             host: {
-              '[attr.maxlength]': 'maxlength ? maxlength : null'
+              '[attr.maxlength]': 'enabled() ? maxlength : null'
             }
           }]
         }], function () {
@@ -29050,7 +29238,7 @@
        */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.1.4');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
