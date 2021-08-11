@@ -9,7 +9,7 @@
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _donmahallem_sudoku__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @donmahallem/sudoku */ 17670);
+/* harmony import */ var _donmahallem_sudoku__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @donmahallem/sudoku */ 18939);
 /* harmony import */ var _sudoku_benchmark_message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sudoku-benchmark-message */ 45839);
 /*!
  * Source https://github.com/spielhalle/spielhalle Package: @spielhalle/client

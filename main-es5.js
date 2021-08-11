@@ -48,7 +48,7 @@
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/router */
-      39895);
+      71258);
       /* harmony import */
 
 
@@ -66,7 +66,7 @@
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
 
       var appRoutes = [{
         component: _modules_home__WEBPACK_IMPORTED_MODULE_0__.HomeComponent,
@@ -140,19 +140,19 @@
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
       /* harmony import */
 
 
       var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/material/toolbar */
-      12522);
+      64106);
       /* harmony import */
 
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
-      39895);
+      71258);
 
       var _c0 = function _c0() {
         return ["/"];
@@ -233,25 +233,25 @@
 
       var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/material/toolbar */
-      12522);
+      64106);
       /* harmony import */
 
 
       var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/platform-browser */
-      39075);
+      71570);
       /* harmony import */
 
 
       var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @angular/platform-browser/animations */
-      75835);
+      20718);
       /* harmony import */
 
 
       var _angular_service_worker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/service-worker */
-      72249);
+      47334);
       /* harmony import */
 
 
@@ -287,7 +287,7 @@
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
 
       var _AppModule = function _AppModule() {
         _classCallCheck(this, _AppModule);
@@ -344,25 +344,25 @@
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
       /* harmony import */
 
 
       var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/common */
-      38583);
+      54364);
       /* harmony import */
 
 
       var _angular_material_card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/material/card */
-      93738);
+      42118);
       /* harmony import */
 
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/router */
-      39895);
+      71258);
 
       var _c0 = function _c0() {
         return ["sudoku"];
@@ -498,25 +498,25 @@
 
       var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/common */
-      38583);
+      54364);
       /* harmony import */
 
 
       var _angular_material_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/material/button */
-      51095);
+      70781);
       /* harmony import */
 
 
       var _angular_material_card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/material/card */
-      93738);
+      42118);
       /* harmony import */
 
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/router */
-      39895);
+      71258);
       /* harmony import */
 
 
@@ -528,7 +528,7 @@
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
       /*!
        * Source https://github.com/spielhalle/spielhalle Package: @spielhalle/client
        */
@@ -663,7 +663,7 @@
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
 
       var _NotFoundComponent = function _NotFoundComponent() {
         _classCallCheck(this, _NotFoundComponent);
@@ -763,19 +763,19 @@
 
       var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/common */
-      38583);
+      54364);
       /* harmony import */
 
 
       var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/material/button */
-      51095);
+      70781);
       /* harmony import */
 
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/router */
-      39895);
+      71258);
       /* harmony import */
 
 
@@ -787,7 +787,7 @@
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
       /*!
        * Source https://github.com/spielhalle/spielhalle Package: @spielhalle/client
        */
@@ -870,13 +870,13 @@
 
       var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/platform-browser */
-      39075);
+      71570);
       /* harmony import */
 
 
       var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/core */
-      37716);
+      2316);
       /* harmony import */
 
 

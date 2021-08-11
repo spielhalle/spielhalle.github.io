@@ -16,7 +16,7 @@
 
         var _donmahallem_sudoku__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
         /*! @donmahallem/sudoku */
-        17670);
+        18939);
         /*!
          * Source https://github.com/spielhalle/spielhalle Package: @spielhalle/client
          */

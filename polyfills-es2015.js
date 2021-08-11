@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk_spielhalle_client"] = self["webpackChunk_spielhalle_client"] || []).push([["polyfills"],{
 
-/***/ 7277:
+/***/ 47761:
 /*!***********************************************!*\
   !*** ./node_modules/zone.js/fesm2015/zone.js ***!
   \***********************************************/
@@ -2974,7 +2974,7 @@ Zone.__load_patch('PromiseRejectionEvent', (global, Zone) => {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zone.js */ 7277);
+/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zone.js */ 47761);
 /* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(zone_js__WEBPACK_IMPORTED_MODULE_0__);
 /*!
  * Source https://github.com/spielhalle/spielhalle Package: @spielhalle/client
