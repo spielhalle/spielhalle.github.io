@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1267,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 17238);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9917,7 +9917,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15192,7 +15192,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
 
 /**
  * @license
@@ -15921,7 +15921,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 33763);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 88047);
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37380,7 +37380,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.0');
+const VERSION = new Version('12.2.1');
 
 /**
  * @license
@@ -46572,16 +46572,16 @@ function _localeFactory(locale) {
 /**
  * Work out the locale from the potential global properties.
  *
- * * Closure Compiler: use `goog.LOCALE`.
+ * * Closure Compiler: use `goog.getLocale()`.
  * * Ivy enabled: use `$localize.locale`
  */
 function getGlobalLocale() {
     if (typeof ngI18nClosureMode !== 'undefined' && ngI18nClosureMode &&
-        typeof goog !== 'undefined' && goog.LOCALE !== 'en') {
-        // * The default `goog.LOCALE` value is `en`, while Angular used `en-US`.
+        typeof goog !== 'undefined' && goog.getLocale() !== 'en') {
+        // * The default `goog.getLocale()` value is `en`, while Angular used `en-US`.
         // * In order to preserve backwards compatibility, we use Angular default value over
         //   Closure Compiler's one.
-        return goog.LOCALE;
+        return goog.getLocale();
     }
     else {
         // KEEP `typeof $localize !== 'undefined' && $localize.locale` IN SYNC WITH THE LOCALIZE
@@ -52048,7 +52048,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 93154);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 38583);
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52661,7 +52661,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 37716);
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54803,7 +54803,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.1');
 
 /**
  * @license
@@ -54946,7 +54946,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 3050);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 70023);
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -60287,7 +60287,7 @@ class RouterLinkActive {
         });
     }
     isLinkActive(router) {
-        const options = 'paths' in this.routerLinkActiveOptions ?
+        const options = isActiveMatchOptions(this.routerLinkActiveOptions) ?
             this.routerLinkActiveOptions :
             // While the types should disallow `undefined` here, it's possible without strict inputs
             (this.routerLinkActiveOptions.exact || false);
@@ -60344,6 +60344,12 @@ RouterLinkActive.propDecorators = {
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ContentChildren,
             args: [RouterLinkWithHref, { descendants: true }]
         }] }); })();
+/**
+ * Use instead of `'paths' in options` to be compatible with property renaming
+ */
+function isActiveMatchOptions(options) {
+    return !!options.paths;
+}
 
 /**
  * @license
@@ -61134,7 +61140,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
 
 /**
  * @license
@@ -61214,7 +61220,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 99922);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 58252);
 /**
- * @license Angular v12.2.0
+ * @license Angular v12.2.1
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */

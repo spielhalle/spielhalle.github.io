@@ -220,7 +220,7 @@
 
       });
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1866,7 +1866,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16070,7 +16070,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23455,7 +23455,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27372,7 +27372,7 @@
       /*! rxjs/operators */
       88047);
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -53088,7 +53088,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.0');
+      var _VERSION3 = new _Version('12.2.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -65232,17 +65232,17 @@
       /**
        * Work out the locale from the potential global properties.
        *
-       * * Closure Compiler: use `goog.LOCALE`.
+       * * Closure Compiler: use `goog.getLocale()`.
        * * Ivy enabled: use `$localize.locale`
        */
 
 
       function getGlobalLocale() {
-        if (typeof ngI18nClosureMode !== 'undefined' && ngI18nClosureMode && typeof goog !== 'undefined' && goog.LOCALE !== 'en') {
-          // * The default `goog.LOCALE` value is `en`, while Angular used `en-US`.
+        if (typeof ngI18nClosureMode !== 'undefined' && ngI18nClosureMode && typeof goog !== 'undefined' && goog.getLocale() !== 'en') {
+          // * The default `goog.getLocale()` value is `en`, while Angular used `en-US`.
           // * In order to preserve backwards compatibility, we use Angular default value over
           //   Closure Compiler's one.
-          return goog.LOCALE;
+          return goog.getLocale();
         } else {
           // KEEP `typeof $localize !== 'undefined' && $localize.locale` IN SYNC WITH THE LOCALIZE
           // COMPILE-TIME INLINER.
@@ -74367,7 +74367,7 @@
       /*! @angular/common */
       38583);
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75753,7 +75753,7 @@
       /*! @angular/core */
       37716);
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79061,7 +79061,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.0');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79816,7 +79816,7 @@
       /*! rxjs/operators */
       70023);
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -87041,7 +87041,7 @@
         }, {
           key: "isLinkActive",
           value: function isLinkActive(router) {
-            var options = 'paths' in this.routerLinkActiveOptions ? this.routerLinkActiveOptions : this.routerLinkActiveOptions.exact || false;
+            var options = isActiveMatchOptions(this.routerLinkActiveOptions) ? this.routerLinkActiveOptions : this.routerLinkActiveOptions.exact || false;
             return function (link) {
               return router.isActive(link.urlTree, options);
             };
@@ -87177,6 +87177,14 @@
           }]
         });
       })();
+      /**
+       * Use instead of `'paths' in options` to be compatible with property renaming
+       */
+
+
+      function isActiveMatchOptions(options) {
+        return !!options.paths;
+      }
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88337,7 +88345,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88556,7 +88564,7 @@
       /*! rxjs/operators */
       58252);
       /**
-       * @license Angular v12.2.0
+       * @license Angular v12.2.1
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
