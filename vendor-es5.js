@@ -15048,7 +15048,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70609,7 +70609,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70649,7 +70649,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.0');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -70704,16 +70704,24 @@
             var win = this._document.defaultView || window;
             return typeof win === 'object' && win ? win : null;
           }
-          /** Whether any sanity checks are enabled. */
+          /** Gets whether a specific sanity check is enabled. */
 
         }, {
-          key: "_checksAreEnabled",
-          value: function _checksAreEnabled() {
+          key: "_checkIsEnabled",
+          value: function _checkIsEnabled(name) {
             // TODO(crisbeto): we can't use `ngDevMode` here yet, because ViewEngine apps might not support
             // it. Since these checks can have performance implications and they aren't tree shakeable
             // in their current form, we can leave the `isDevMode` check in for now.
             // tslint:disable-next-line:ban
-            return (0, _angular_core__WEBPACK_IMPORTED_MODULE_0__.isDevMode)() && !this._isTestEnv();
+            if (!(0, _angular_core__WEBPACK_IMPORTED_MODULE_0__.isDevMode)() || this._isTestEnv()) {
+              return false;
+            }
+
+            if (typeof this._sanityChecks === 'boolean') {
+              return this._sanityChecks;
+            }
+
+            return !!this._sanityChecks[name];
           }
           /** Whether the code is running in tests. */
 
@@ -70727,9 +70735,7 @@
         }, {
           key: "_checkDoctypeIsDefined",
           value: function _checkDoctypeIsDefined() {
-            var isEnabled = this._checksAreEnabled() && (this._sanityChecks === true || this._sanityChecks.doctype);
-
-            if (isEnabled && !this._document.doctype) {
+            if (this._checkIsEnabled('doctype') && !this._document.doctype) {
               console.warn('Current document does not have a doctype. This may cause ' + 'some Angular Material components not to behave as expected.');
             }
           }
@@ -70738,9 +70744,7 @@
           value: function _checkThemeIsPresent() {
             // We need to assert that the `body` is defined, because these checks run very early
             // and the `body` won't be defined if the consumer put their scripts in the `head`.
-            var isDisabled = !this._checksAreEnabled() || this._sanityChecks === false || !this._sanityChecks.theme;
-
-            if (isDisabled || !this._document.body || typeof getComputedStyle !== 'function') {
+            if (!this._checkIsEnabled('theme') || !this._document.body || typeof getComputedStyle !== 'function') {
               return;
             }
 
@@ -70765,9 +70769,7 @@
         }, {
           key: "_checkCdkVersionMatch",
           value: function _checkCdkVersionMatch() {
-            var isEnabled = this._checksAreEnabled() && (this._sanityChecks === true || this._sanityChecks.version);
-
-            if (isEnabled && VERSION.full !== _angular_cdk__WEBPACK_IMPORTED_MODULE_1__.VERSION.full) {
+            if (this._checkIsEnabled('version') && VERSION.full !== _angular_cdk__WEBPACK_IMPORTED_MODULE_1__.VERSION.full) {
               console.warn('The Angular Material version (' + VERSION.full + ') does not match ' + 'the Angular CDK version (' + _angular_cdk__WEBPACK_IMPORTED_MODULE_1__.VERSION.full + ').\n' + 'Please ensure the versions of these two packages exactly match.');
             }
           }
