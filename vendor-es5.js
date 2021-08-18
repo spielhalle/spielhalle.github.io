@@ -220,7 +220,7 @@
 
       });
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1865,7 +1865,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16061,7 +16061,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -19985,11 +19985,11 @@
        */
 
       /**
-       * Instantiates a single {@link Component} type and inserts its Host View into current View.
+       * Instantiates a {@link Component} type and inserts its Host View into the current View.
        * `NgComponentOutlet` provides a declarative approach for dynamic component creation.
        *
        * `NgComponentOutlet` requires a component type, if a falsy value is set the view will clear and
-       * any existing component will get destroyed.
+       * any existing component will be destroyed.
        *
        * @usageNotes
        *
@@ -20001,10 +20001,10 @@
        * the Component. Defaults to the injector of the current view container.
        *
        * * `ngComponentOutletContent`: Optional list of projectable nodes to insert into the content
-       * section of the component, if exists.
+       * section of the component, if it exists.
        *
-       * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow dynamically loading other
-       * module, then load a component from that module.
+       * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow loading another
+       * module dynamically, then loading a component from that module.
        *
        * ### Syntax
        *
@@ -23446,7 +23446,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27362,7 +27362,7 @@
       /*! rxjs/operators */
       31635);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -53078,7 +53078,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.1');
+      var _VERSION3 = new _Version('12.2.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74354,7 +74354,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75739,7 +75739,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75942,12 +75942,11 @@
           // the server.
           injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_1__.ApplicationInitStatus).donePromise.then(function () {
             var dom = (0, _angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"])();
-            var styles = Array.prototype.slice.apply(document.querySelectorAll("style[ng-transition]"));
-            styles.filter(function (el) {
-              return el.getAttribute('ng-transition') === transitionId;
-            }).forEach(function (el) {
-              return dom.remove(el);
-            });
+            var styles = document.querySelectorAll("style[ng-transition=\"".concat(transitionId, "\"]"));
+
+            for (var i = 0; i < styles.length; i++) {
+              dom.remove(styles[i]);
+            }
           });
         };
       }
@@ -79047,7 +79046,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.1');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79801,7 +79800,7 @@
       /*! rxjs/operators */
       87091);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -85257,7 +85256,13 @@
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(function (t) {
                 var urlTransition = !_this196.navigated || t.extractedUrl.toString() !== _this196.browserUrlTree.toString();
 
-                var processCurrentUrl = (_this196.onSameUrlNavigation === 'reload' ? true : urlTransition) && _this196.urlHandlingStrategy.shouldProcessUrl(t.rawUrl);
+                var processCurrentUrl = (_this196.onSameUrlNavigation === 'reload' ? true : urlTransition) && _this196.urlHandlingStrategy.shouldProcessUrl(t.rawUrl); // If the source of the navigation is from a browser event, the URL is
+                // already updated. We already need to sync the internal state.
+
+
+                if (isBrowserTriggeredNavigation(t.source)) {
+                  _this196.browserUrlTree = t.rawUrl;
+                }
 
                 if (processCurrentUrl) {
                   return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe( // Fire NavigationStart event
@@ -85541,7 +85546,11 @@
 
                       var extras = {
                         skipLocationChange: t.extras.skipLocationChange,
-                        replaceUrl: _this196.urlUpdateStrategy === 'eager'
+                        // The URL is already updated at this point if we have 'eager' URL
+                        // updates or if the navigation was triggered by the browser (back
+                        // button, URL bar, etc). We want to replace that item in history if
+                        // the navigation is rejected.
+                        replaceUrl: _this196.urlUpdateStrategy === 'eager' || isBrowserTriggeredNavigation(t.source)
                       };
 
                       _this196.scheduleNavigation(mergedTree, 'imperative', null, extras, {
@@ -86026,7 +86035,7 @@
             var lastNavigation = this.getTransition(); // We don't want to skip duplicate successful navs if they're imperative because
             // onSameUrlNavigation could be 'reload' (so the duplicate is intended).
 
-            var browserNavPrecededByRouterNav = source !== 'imperative' && (lastNavigation === null || lastNavigation === void 0 ? void 0 : lastNavigation.source) === 'imperative';
+            var browserNavPrecededByRouterNav = isBrowserTriggeredNavigation(source) && lastNavigation && !isBrowserTriggeredNavigation(lastNavigation.source);
             var lastNavigationSucceeded = this.lastSuccessfulId === lastNavigation.id; // If the last navigation succeeded or is in flight, we can use the rawUrl as the comparison.
             // However, if it failed, we should compare to the final result (urlAfterRedirects).
 
@@ -86260,6 +86269,10 @@
             throw new Error("The requested path contains ".concat(cmd, " segment at index ").concat(i));
           }
         }
+      }
+
+      function isBrowserTriggeredNavigation(source) {
+        return source !== 'imperative';
       }
       /**
        * @license
@@ -88330,7 +88343,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88548,7 +88561,7 @@
       /*! rxjs/operators */
       56913);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */

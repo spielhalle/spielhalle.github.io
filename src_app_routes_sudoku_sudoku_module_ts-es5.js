@@ -14664,7 +14664,7 @@
       /*! rxjs/operators */
       49005);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -15117,9 +15117,30 @@
 
         return map;
       }
+      /**
+       * Encode input string with standard encodeURIComponent and then un-encode specific characters.
+       */
+
+
+      var STANDARD_ENCODING_REGEX = /%(\d[a-f0-9])/gi;
+      var STANDARD_ENCODING_REPLACEMENTS = {
+        '40': '@',
+        '3A': ':',
+        '24': '$',
+        '2C': ',',
+        '3B': ';',
+        '2B': '+',
+        '3D': '=',
+        '3F': '?',
+        '2F': '/'
+      };
 
       function standardEncoding(v) {
-        return encodeURIComponent(v).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/gi, '$').replace(/%2C/gi, ',').replace(/%3B/gi, ';').replace(/%2B/gi, '+').replace(/%3D/gi, '=').replace(/%3F/gi, '?').replace(/%2F/gi, '/');
+        return encodeURIComponent(v).replace(STANDARD_ENCODING_REGEX, function (s, t) {
+          var _a;
+
+          return (_a = STANDARD_ENCODING_REPLACEMENTS[t]) !== null && _a !== void 0 ? _a : s;
+        });
       }
 
       function valueToString(value) {
@@ -18570,7 +18591,7 @@
       /*! rxjs/operators */
       49005);
       /**
-       * @license Angular v12.2.1
+       * @license Angular v12.2.2
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -29277,7 +29298,7 @@
        */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.2');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.

@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1267,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 97175);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9915,7 +9915,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12784,11 +12784,11 @@ NgClass.propDecorators = {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * Instantiates a single {@link Component} type and inserts its Host View into current View.
+ * Instantiates a {@link Component} type and inserts its Host View into the current View.
  * `NgComponentOutlet` provides a declarative approach for dynamic component creation.
  *
  * `NgComponentOutlet` requires a component type, if a falsy value is set the view will clear and
- * any existing component will get destroyed.
+ * any existing component will be destroyed.
  *
  * @usageNotes
  *
@@ -12800,10 +12800,10 @@ NgClass.propDecorators = {
  * the Component. Defaults to the injector of the current view container.
  *
  * * `ngComponentOutletContent`: Optional list of projectable nodes to insert into the content
- * section of the component, if exists.
+ * section of the component, if it exists.
  *
- * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow dynamically loading other
- * module, then load a component from that module.
+ * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow loading another
+ * module dynamically, then loading a component from that module.
  *
  * ### Syntax
  *
@@ -15190,7 +15190,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.2');
 
 /**
  * @license
@@ -15919,7 +15919,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 17159);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 31635);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37378,7 +37378,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.1');
+const VERSION = new Version('12.2.2');
 
 /**
  * @license
@@ -52047,7 +52047,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 32502);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 54364);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52660,7 +52660,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 54364);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52799,9 +52799,10 @@ function appInitializerFactory(transitionId, document, injector) {
         // the server.
         injector.get(_angular_core__WEBPACK_IMPORTED_MODULE_1__.ApplicationInitStatus).donePromise.then(() => {
             const dom = (0,_angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵgetDOM"])();
-            const styles = Array.prototype.slice.apply(document.querySelectorAll(`style[ng-transition]`));
-            styles.filter(el => el.getAttribute('ng-transition') === transitionId)
-                .forEach(el => dom.remove(el));
+            const styles = document.querySelectorAll(`style[ng-transition="${transitionId}"]`);
+            for (let i = 0; i < styles.length; i++) {
+                dom.remove(styles[i]);
+            }
         });
     };
 }
@@ -54802,7 +54803,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.2');
 
 /**
  * @license
@@ -54945,7 +54946,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 67465);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 87091);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -59005,6 +59006,11 @@ class Router {
                     t.extractedUrl.toString() !== this.browserUrlTree.toString();
                 const processCurrentUrl = (this.onSameUrlNavigation === 'reload' ? true : urlTransition) &&
                     this.urlHandlingStrategy.shouldProcessUrl(t.rawUrl);
+                // If the source of the navigation is from a browser event, the URL is
+                // already updated. We already need to sync the internal state.
+                if (isBrowserTriggeredNavigation(t.source)) {
+                    this.browserUrlTree = t.rawUrl;
+                }
                 if (processCurrentUrl) {
                     return (0,rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe(
                     // Fire NavigationStart event
@@ -59236,7 +59242,12 @@ class Router {
                             const mergedTree = this.urlHandlingStrategy.merge(e.url, this.rawUrlTree);
                             const extras = {
                                 skipLocationChange: t.extras.skipLocationChange,
-                                replaceUrl: this.urlUpdateStrategy === 'eager'
+                                // The URL is already updated at this point if we have 'eager' URL
+                                // updates or if the navigation was triggered by the browser (back
+                                // button, URL bar, etc). We want to replace that item in history if
+                                // the navigation is rejected.
+                                replaceUrl: this.urlUpdateStrategy === 'eager' ||
+                                    isBrowserTriggeredNavigation(t.source)
                             };
                             this.scheduleNavigation(mergedTree, 'imperative', null, extras, { resolve: t.resolve, reject: t.reject, promise: t.promise });
                         }, 0);
@@ -59613,7 +59624,8 @@ class Router {
         const lastNavigation = this.getTransition();
         // We don't want to skip duplicate successful navs if they're imperative because
         // onSameUrlNavigation could be 'reload' (so the duplicate is intended).
-        const browserNavPrecededByRouterNav = source !== 'imperative' && (lastNavigation === null || lastNavigation === void 0 ? void 0 : lastNavigation.source) === 'imperative';
+        const browserNavPrecededByRouterNav = isBrowserTriggeredNavigation(source) && lastNavigation &&
+            !isBrowserTriggeredNavigation(lastNavigation.source);
         const lastNavigationSucceeded = this.lastSuccessfulId === lastNavigation.id;
         // If the last navigation succeeded or is in flight, we can use the rawUrl as the comparison.
         // However, if it failed, we should compare to the final result (urlAfterRedirects).
@@ -59783,6 +59795,9 @@ function validateCommands(commands) {
             throw new Error(`The requested path contains ${cmd} segment at index ${i}`);
         }
     }
+}
+function isBrowserTriggeredNavigation(source) {
+    return source !== 'imperative';
 }
 
 /**
@@ -61139,7 +61154,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.2');
 
 /**
  * @license
@@ -61219,7 +61234,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 39349);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 56913);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */

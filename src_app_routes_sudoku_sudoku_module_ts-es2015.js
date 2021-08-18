@@ -8566,7 +8566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 76477);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 49005);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8911,17 +8911,23 @@ function paramParser(rawParams, codec) {
     }
     return map;
 }
+/**
+ * Encode input string with standard encodeURIComponent and then un-encode specific characters.
+ */
+const STANDARD_ENCODING_REGEX = /%(\d[a-f0-9])/gi;
+const STANDARD_ENCODING_REPLACEMENTS = {
+    '40': '@',
+    '3A': ':',
+    '24': '$',
+    '2C': ',',
+    '3B': ';',
+    '2B': '+',
+    '3D': '=',
+    '3F': '?',
+    '2F': '/',
+};
 function standardEncoding(v) {
-    return encodeURIComponent(v)
-        .replace(/%40/gi, '@')
-        .replace(/%3A/gi, ':')
-        .replace(/%24/gi, '$')
-        .replace(/%2C/gi, ',')
-        .replace(/%3B/gi, ';')
-        .replace(/%2B/gi, '+')
-        .replace(/%3D/gi, '=')
-        .replace(/%3F/gi, '?')
-        .replace(/%2F/gi, '/');
+    return encodeURIComponent(v).replace(STANDARD_ENCODING_REGEX, (s, t) => { var _a; return (_a = STANDARD_ENCODING_REPLACEMENTS[t]) !== null && _a !== void 0 ? _a : s; });
 }
 function valueToString(value) {
     return `${value}`;
@@ -10971,7 +10977,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 32185);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 49005);
 /**
- * @license Angular v12.2.1
+ * @license Angular v12.2.2
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -18374,7 +18380,7 @@ FormBuilder.ɵprov = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.1');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.2');
 
 /**
  * @license
