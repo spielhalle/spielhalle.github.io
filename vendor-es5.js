@@ -220,7 +220,7 @@
 
       });
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1865,7 +1865,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16061,7 +16061,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23446,7 +23446,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.3');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27362,7 +27362,7 @@
       /*! rxjs/operators */
       31635);
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -53078,7 +53078,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.3');
+      var _VERSION3 = new _Version('12.2.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74354,7 +74354,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75739,7 +75739,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79046,7 +79046,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.3');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79800,7 +79800,7 @@
       /*! rxjs/operators */
       87091);
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -84985,7 +84985,7 @@
         return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(null);
       }
       /**
-       * The equivalent `IsActiveUrlTreeOptions` options for `Router.isActive` is called with `true`
+       * The equivalent `IsActiveMatchOptions` options for `Router.isActive` is called with `true`
        * (exact = true).
        */
 
@@ -84997,7 +84997,7 @@
         queryParams: 'exact'
       };
       /**
-       * The equivalent `IsActiveUrlTreeOptions` options for `Router.isActive` is called with `false`
+       * The equivalent `IsActiveMatchOptions` options for `Router.isActive` is called with `false`
        * (exact = false).
        */
 
@@ -88343,7 +88343,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.3');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.4');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88561,7 +88561,7 @@
       /*! rxjs/operators */
       56913);
       /**
-       * @license Angular v12.2.3
+       * @license Angular v12.2.4
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
