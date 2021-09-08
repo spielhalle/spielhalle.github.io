@@ -220,7 +220,7 @@
 
       });
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1865,7 +1865,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16061,7 +16061,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23446,7 +23446,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.4');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -23554,10 +23554,7 @@
           value: function scrollToAnchor(target) {
             if (!this.supportsScrolling()) {
               return;
-            } // TODO(atscott): The correct behavior for `getElementsByName` would be to also verify that the
-            // element is an anchor. However, this could be considered a breaking change and should be
-            // done in a major version.
-
+            }
 
             var elSelected = findAnchorFromDocument(this.document, target);
 
@@ -27362,7 +27359,7 @@
       /*! rxjs/operators */
       31635);
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -53078,7 +53075,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.4');
+      var _VERSION3 = new _Version('12.2.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74354,7 +74351,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75739,7 +75736,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79046,7 +79043,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.4');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79800,7 +79797,7 @@
       /*! rxjs/operators */
       87091);
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -86011,7 +86008,7 @@
               _this198.lastSuccessfulNavigation = _this198.currentNavigation;
               t.resolve(true);
             }, function (e) {
-              _this198.console.warn("Unhandled Navigation Error: ");
+              _this198.console.warn("Unhandled Navigation Error: ".concat(e));
             });
           }
         }, {
@@ -88343,7 +88340,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.4');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88561,7 +88558,7 @@
       /*! rxjs/operators */
       56913);
       /**
-       * @license Angular v12.2.4
+       * @license Angular v12.2.5
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */

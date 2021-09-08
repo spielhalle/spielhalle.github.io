@@ -8566,7 +8566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 76477);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 49005);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9922,7 +9922,7 @@ class HttpClient {
     /**
      * Constructs an `Observable` that, when subscribed, causes the configured
      * `OPTIONS` request to execute on the server. This method allows the client
-     * to determine the supported HTTP methods and other capabilites of an endpoint,
+     * to determine the supported HTTP methods and other capabilities of an endpoint,
      * without implying a resource action. See the individual overloads for
      * details on the return type.
      */
@@ -10977,7 +10977,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 32185);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 49005);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -18371,7 +18371,7 @@ FormBuilder.ɵprov = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
 
 /**
  * @license

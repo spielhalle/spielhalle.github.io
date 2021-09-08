@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1267,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 97175);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9915,7 +9915,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15190,7 +15190,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
 
 /**
  * @license
@@ -15273,9 +15273,6 @@ class BrowserViewportScroller {
         if (!this.supportsScrolling()) {
             return;
         }
-        // TODO(atscott): The correct behavior for `getElementsByName` would be to also verify that the
-        // element is an anchor. However, this could be considered a breaking change and should be
-        // done in a major version.
         const elSelected = findAnchorFromDocument(this.document, target);
         if (elSelected) {
             this.scrollToElement(elSelected);
@@ -15919,7 +15916,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 17159);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 31635);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37378,7 +37375,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.4');
+const VERSION = new Version('12.2.5');
 
 /**
  * @license
@@ -52047,7 +52044,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 32502);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 54364);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52660,7 +52657,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 54364);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54803,7 +54800,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.5');
 
 /**
  * @license
@@ -54946,7 +54943,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 67465);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 87091);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -59604,7 +59601,7 @@ class Router {
             this.lastSuccessfulNavigation = this.currentNavigation;
             t.resolve(true);
         }, e => {
-            this.console.warn(`Unhandled Navigation Error: `);
+            this.console.warn(`Unhandled Navigation Error: ${e}`);
         });
     }
     scheduleNavigation(rawUrl, source, restoredState, extras, priorPromise) {
@@ -61154,7 +61151,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
 
 /**
  * @license
@@ -61234,7 +61231,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 39349);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 56913);
 /**
- * @license Angular v12.2.4
+ * @license Angular v12.2.5
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
