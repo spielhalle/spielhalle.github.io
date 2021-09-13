@@ -22886,8 +22886,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/display */ 52630);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /*!
- * @pixi/accessibility - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/accessibility - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/accessibility is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -23449,8 +23449,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/display */ 52630);
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/app - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/app - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/app is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -23745,8 +23745,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /* harmony import */ var _pixi_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pixi/constants */ 29878);
 /*!
- * @pixi/compressed-textures - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/compressed-textures - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/compressed-textures is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -25006,8 +25006,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "WRAP_MODES": function() { return /* binding */ WRAP_MODES; }
 /* harmony export */ });
 /*!
- * @pixi/constants - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/constants - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/constants is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -25617,8 +25617,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_ticker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/ticker */ 96385);
 /* harmony import */ var _pixi_math__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pixi/math */ 67947);
 /*!
- * @pixi/core - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/core - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/core is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -32282,6 +32282,11 @@ var FramebufferSystem = function () {
     } else if (fbo.msaaBuffer) {
       gl.deleteRenderbuffer(fbo.msaaBuffer);
       fbo.msaaBuffer = null;
+
+      if (fbo.blitFramebuffer) {
+        fbo.blitFramebuffer.dispose();
+        fbo.blitFramebuffer = null;
+      }
     }
 
     var activeTextures = [];
@@ -32409,14 +32414,31 @@ var FramebufferSystem = function () {
         return;
       }
 
+      var colorTexture = current.colorTextures[0];
+
+      if (!colorTexture) {
+        return;
+      }
+
       if (!fbo.blitFramebuffer) {
         fbo.blitFramebuffer = new Framebuffer(current.width, current.height);
-        fbo.blitFramebuffer.addColorTexture(0, current.colorTextures[0]);
+        fbo.blitFramebuffer.addColorTexture(0, colorTexture);
       }
 
       framebuffer = fbo.blitFramebuffer;
-      framebuffer.width = current.width;
-      framebuffer.height = current.height;
+
+      if (framebuffer.colorTextures[0] !== colorTexture) {
+        framebuffer.colorTextures[0] = colorTexture;
+        framebuffer.dirtyId++;
+        framebuffer.dirtyFormat++;
+      }
+
+      if (framebuffer.width !== current.width || framebuffer.height !== current.height) {
+        framebuffer.width = current.width;
+        framebuffer.height = current.height;
+        framebuffer.dirtyId++;
+        framebuffer.dirtySize++;
+      }
     }
 
     if (!sourcePixels) {
@@ -32468,6 +32490,10 @@ var FramebufferSystem = function () {
       if (fbo.stencil) {
         gl.deleteRenderbuffer(fbo.stencil);
       }
+    }
+
+    if (fbo.blitFramebuffer) {
+      fbo.blitFramebuffer.dispose();
     }
   };
   /**
@@ -33620,7 +33646,7 @@ var GLSL_TO_SINGLE_SETTERS_CACHED = {
   uvec2: 'gl.uniform2ui(location, v[0], v[1])',
   uvec3: 'gl.uniform3ui(location, v[0], v[1], v[2])',
   uvec4: 'gl.uniform4ui(location, v[0], v[1], v[2], v[3])',
-  bool: 'gl.uniform1i(location, v)',
+  bool: "\n    if(cv !== v)\n    {\n        cv.v = v;\n        gl.uniform1i(location, v)\n    }",
   bvec2: 'gl.uniform2i(location, v[0], v[1])',
   bvec3: 'gl.uniform3i(location, v[0], v[1], v[2])',
   bvec4: 'gl.uniform4i(location, v[0], v[1], v[2], v[3])',
@@ -34365,13 +34391,6 @@ var Filter = function (_super) {
      */
 
     _this.padding = 0;
-    /**
-     * The resolution of the filter. Setting this to be lower will lower the quality but
-     * increase the performance of the filter.
-     *
-     * @member {number}
-     */
-
     _this.resolution = _pixi_settings__WEBPACK_IMPORTED_MODULE_0__.settings.FILTER_RESOLUTION;
     /**
      * The samples of the filter.
@@ -34433,6 +34452,22 @@ var Filter = function (_super) {
     },
     set: function (value) {
       this.state.blendMode = value;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(Filter.prototype, "resolution", {
+    /**
+     * The resolution of the filter. Setting this to be lower will lower the quality but
+     * increase the performance of the filter.
+     *
+     * @member {number}
+     */
+    get: function () {
+      return this._resolution;
+    },
+    set: function (value) {
+      this._resolution = value;
     },
     enumerable: false,
     configurable: true
@@ -35232,7 +35267,7 @@ var StencilSystem = function (_super) {
     maskData._stencilCounter++; // Increment the reference stencil value where the new mask overlaps with the old ones.
 
     gl.colorMask(false, false, false, false);
-    gl.stencilFunc(gl.EQUAL, prevMaskCount, this._getBitwiseMask());
+    gl.stencilFunc(gl.EQUAL, prevMaskCount, 0xFFFFFFFF);
     gl.stencilOp(gl.KEEP, gl.KEEP, gl.INCR);
     maskObject.renderable = true;
     maskObject.render(this.renderer);
@@ -35254,8 +35289,8 @@ var StencilSystem = function (_super) {
     if (this.getStackLength() === 0) {
       // the stack is empty!
       gl.disable(gl.STENCIL_TEST);
-      gl.clear(gl.STENCIL_BUFFER_BIT);
       gl.clearStencil(0);
+      gl.clear(gl.STENCIL_BUFFER_BIT);
     } else {
       // Decrement the reference stencil value where the popped mask overlaps with the other ones
       gl.colorMask(false, false, false, false);
@@ -35277,18 +35312,8 @@ var StencilSystem = function (_super) {
   StencilSystem.prototype._useCurrent = function () {
     var gl = this.renderer.gl;
     gl.colorMask(true, true, true, true);
-    gl.stencilFunc(gl.EQUAL, this.getStackLength(), this._getBitwiseMask());
+    gl.stencilFunc(gl.EQUAL, this.getStackLength(), 0xFFFFFFFF);
     gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP);
-  };
-  /**
-   * Fill 1s equal to the number of acitve stencil masks.
-   * @private
-   * @return {number} The bitwise mask.
-   */
-
-
-  StencilSystem.prototype._getBitwiseMask = function () {
-    return (1 << this.getStackLength()) - 1;
   };
 
   return StencilSystem;
@@ -35940,7 +35965,7 @@ function getAttributeData(program, gl) {
   for (var i = 0; i < totalAttributes; i++) {
     var attribData = gl.getActiveAttrib(program, i);
 
-    if (attribData.name.startsWith('gl_')) {
+    if (attribData.name.indexOf('gl_') === 0) {
       continue;
     }
 
@@ -39735,8 +39760,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_math__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/math */ 67947);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /*!
- * @pixi/display - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/display - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/display is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -41721,8 +41746,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_math__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/math */ 67947);
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/extract - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/extract - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/extract is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -41949,8 +41974,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/filter-alpha - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/filter-alpha - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/filter-alpha is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -42055,8 +42080,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/core */ 38373);
 /* harmony import */ var _pixi_settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/settings */ 87703);
 /*!
- * @pixi/filter-blur - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/filter-blur - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/filter-blur is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -42155,8 +42180,8 @@ function generateBlurFragSource(kernelSize) {
 }
 
 /*!
- * @pixi/constants - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/constants - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/constants is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -42979,8 +43004,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/filter-color-matrix - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/filter-color-matrix - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/filter-color-matrix is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -43547,8 +43572,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/core */ 38373);
 /* harmony import */ var _pixi_math__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/math */ 67947);
 /*!
- * @pixi/filter-displacement - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/filter-displacement - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/filter-displacement is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -43697,8 +43722,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/filter-fxaa - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/filter-fxaa - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/filter-fxaa is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -43776,8 +43801,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/filter-noise - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/filter-noise - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/filter-noise is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -43906,8 +43931,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pixi/constants */ 29878);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/display */ 52630);
 /*!
- * @pixi/graphics - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/graphics - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/graphics is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -46982,8 +47007,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pixi/display */ 52630);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /*!
- * @pixi/interaction - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/interaction - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/interaction is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -49245,8 +49270,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/loaders - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/loaders - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/loaders is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -51688,8 +51713,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "groupD8": function() { return /* binding */ groupD8; }
 /* harmony export */ });
 /*!
- * @pixi/math - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/math - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/math is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -53592,8 +53617,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/constants */ 29878);
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pixi/core */ 38373);
 /*!
- * @pixi/mesh-extras - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/mesh-extras - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/mesh-extras is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -54357,8 +54382,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_settings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/settings */ 87703);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /*!
- * @pixi/mesh - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/mesh - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/mesh is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -55099,8 +55124,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /* harmony import */ var _pixi_settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pixi/settings */ 87703);
 /*!
- * @pixi/mixin-cache-as-bitmap - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/mixin-cache-as-bitmap - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/mixin-cache-as-bitmap is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -55113,8 +55138,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*!
- * @pixi/constants - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/constants - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/constants is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -56017,8 +56042,8 @@ _pixi_display__WEBPACK_IMPORTED_MODULE_2__.DisplayObject.prototype._cacheAsBitma
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/display */ 52630);
 /*!
- * @pixi/mixin-get-child-by-name - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/mixin-get-child-by-name - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/mixin-get-child-by-name is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -56078,8 +56103,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/display */ 52630);
 /* harmony import */ var _pixi_math__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/math */ 67947);
 /*!
- * @pixi/mixin-get-global-position - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/mixin-get-global-position - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/mixin-get-global-position is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -56132,8 +56157,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pixi/core */ 38373);
 /* harmony import */ var _pixi_math__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/math */ 67947);
 /*!
- * @pixi/particle-container - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/particle-container - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/particle-container is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -56956,8 +56981,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var object_assign__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! object-assign */ 23373);
 /* harmony import */ var object_assign__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(object_assign__WEBPACK_IMPORTED_MODULE_1__);
 /*!
- * @pixi/polyfill - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/polyfill - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/polyfill is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -57092,8 +57117,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/display */ 52630);
 /* harmony import */ var _pixi_text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pixi/text */ 44420);
 /*!
- * @pixi/prepare - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/prepare - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/prepare is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -57856,8 +57881,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Runner": function() { return /* binding */ Runner; }
 /* harmony export */ });
 /*!
- * @pixi/runner - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/runner - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/runner is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -58070,8 +58095,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var ismobilejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ismobilejs */ 50190);
 /*!
- * @pixi/settings - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/settings - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/settings is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -58134,8 +58159,8 @@ function canUploadSameBuffer() {
 }
 
 /*!
- * @pixi/constants - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/constants - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/constants is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -58893,8 +58918,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_sprite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pixi/sprite */ 35360);
 /* harmony import */ var _pixi_ticker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pixi/ticker */ 96385);
 /*!
- * @pixi/sprite-animated - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/sprite-animated - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/sprite-animated is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -59384,8 +59409,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pixi/constants */ 29878);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /*!
- * @pixi/sprite-tiling - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/sprite-tiling - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/sprite-tiling is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -59813,8 +59838,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_settings__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/settings */ 87703);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /*!
- * @pixi/sprite - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/sprite - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/sprite is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -60421,8 +60446,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /* harmony import */ var _pixi_loaders__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pixi/loaders */ 12777);
 /*!
- * @pixi/spritesheet - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/spritesheet - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/spritesheet is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -60825,7 +60850,8 @@ var SpritesheetLoader = function () {
           crossOrigin: resource.crossOrigin,
           loadType: _pixi_loaders__WEBPACK_IMPORTED_MODULE_3__.LoaderResource.LOAD_TYPE.XHR,
           xhrType: _pixi_loaders__WEBPACK_IMPORTED_MODULE_3__.LoaderResource.XHR_RESPONSE_TYPE.JSON,
-          parentResource: resource
+          parentResource: resource,
+          metadata: resource.metadata
         };
         loader.add(itemName, itemUrl, options);
       };
@@ -60904,8 +60930,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_display__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @pixi/display */ 52630);
 /* harmony import */ var _pixi_loaders__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @pixi/loaders */ 12777);
 /*!
- * @pixi/text-bitmap - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/text-bitmap - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/text-bitmap is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -62703,8 +62729,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_math__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @pixi/math */ 67947);
 /* harmony import */ var _pixi_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/utils */ 47300);
 /*!
- * @pixi/text - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/text - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/text is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -64813,8 +64839,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _pixi_settings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @pixi/settings */ 87703);
 /*!
- * @pixi/ticker - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/ticker - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/ticker is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -65617,8 +65643,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var url__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! url */ 55627);
 /* harmony import */ var _pixi_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @pixi/constants */ 29878);
 /*!
- * @pixi/utils - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * @pixi/utils - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * @pixi/utils is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -65682,7 +65708,7 @@ _pixi_settings__WEBPACK_IMPORTED_MODULE_0__.settings.RETINA_PREFIX = /@([0-9\.]+
 _pixi_settings__WEBPACK_IMPORTED_MODULE_0__.settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
 
 var saidHello = false;
-var VERSION = '6.1.2';
+var VERSION = '6.1.3';
 /**
  * Skips the hello message of renderers that are created after this is run.
  *
@@ -68339,8 +68365,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pixi_text__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @pixi/text */ 44420);
 /* harmony import */ var _pixi_settings__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @pixi/settings */ 87703);
 /*!
- * pixi.js - v6.1.2
- * Compiled Thu, 12 Aug 2021 17:11:19 UTC
+ * pixi.js - v6.1.3
+ * Compiled Mon, 13 Sep 2021 15:29:31 UTC
  *
  * pixi.js is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -68421,7 +68447,7 @@ _pixi_app__WEBPACK_IMPORTED_MODULE_4__.Application.registerPlugin(_pixi_loaders_
  * @name VERSION
  * @type {string}
  */
-var VERSION = '6.1.2';
+var VERSION = '6.1.3';
 /**
  * @namespace PIXI
  */
