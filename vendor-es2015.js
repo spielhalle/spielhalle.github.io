@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1267,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 97175);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1539,7 +1539,7 @@ NoopAnimationDriver.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODUL
  */
 class AnimationDriver {
 }
-AnimationDriver.NOOP = new NoopAnimationDriver();
+AnimationDriver.NOOP = ( /* @__PURE__ */new NoopAnimationDriver());
 
 /**
  * @license
@@ -5269,7 +5269,7 @@ class SpecialCasedStyles {
         }
     }
 }
-SpecialCasedStyles.initialStylesByElement = new WeakMap();
+SpecialCasedStyles.initialStylesByElement = ( /* @__PURE__ */new WeakMap());
 function filterNonAnimatableStyles(styles) {
     let result = null;
     const props = Object.keys(styles);
@@ -9913,7 +9913,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15188,7 +15188,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
 
 /**
  * @license
@@ -15914,7 +15914,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 17159);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 31635);
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -27538,7 +27538,7 @@ class Injector {
     }
 }
 Injector.THROW_IF_NOT_FOUND = THROW_IF_NOT_FOUND;
-Injector.NULL = new NullInjector();
+Injector.NULL = ( /* @__PURE__ */new NullInjector());
 /** @nocollapse */
 Injector.ɵprov = ɵɵdefineInjectable({
     token: Injector,
@@ -30607,7 +30607,7 @@ class ReflectiveInjector_ {
         return this.displayName;
     }
 }
-ReflectiveInjector_.INJECTOR_KEY = ReflectiveKey.get(Injector);
+ReflectiveInjector_.INJECTOR_KEY = ( /* @__PURE__ */ReflectiveKey.get(Injector));
 function _mapProviders(injector, fn) {
     const res = [];
     for (let i = 0; i < injector._providers.length; ++i) {
@@ -37159,7 +37159,7 @@ of the code in this cookbook
  */
 class ComponentFactoryResolver {
 }
-ComponentFactoryResolver.NULL = new _NullComponentFactoryResolver();
+ComponentFactoryResolver.NULL = ( /* @__PURE__ */new _NullComponentFactoryResolver());
 class CodegenComponentFactoryResolver {
     constructor(factories, _parent, _ngModule) {
         this._parent = _parent;
@@ -37373,7 +37373,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.5');
+const VERSION = new Version('12.2.6');
 
 /**
  * @license
@@ -52042,7 +52042,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 32502);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 54364);
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52655,7 +52655,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 54364);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54798,7 +54798,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.6');
 
 /**
  * @license
@@ -54941,7 +54941,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 67465);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 87091);
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -58997,16 +58997,22 @@ class Router {
                         null
                 };
             }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(t => {
+                const browserUrlTree = this.browserUrlTree.toString();
                 const urlTransition = !this.navigated ||
-                    t.extractedUrl.toString() !== this.browserUrlTree.toString();
+                    t.extractedUrl.toString() !== browserUrlTree ||
+                    // Navigations which succeed or ones which fail and are cleaned up
+                    // correctly should result in `browserUrlTree` and `currentUrlTree`
+                    // matching. If this is not the case, assume something went wrong and try
+                    // processing the URL again.
+                    browserUrlTree !== this.currentUrlTree.toString();
                 const processCurrentUrl = (this.onSameUrlNavigation === 'reload' ? true : urlTransition) &&
                     this.urlHandlingStrategy.shouldProcessUrl(t.rawUrl);
-                // If the source of the navigation is from a browser event, the URL is
-                // already updated. We already need to sync the internal state.
-                if (isBrowserTriggeredNavigation(t.source)) {
-                    this.browserUrlTree = t.rawUrl;
-                }
                 if (processCurrentUrl) {
+                    // If the source of the navigation is from a browser event, the URL is
+                    // already updated. We already need to sync the internal state.
+                    if (isBrowserTriggeredNavigation(t.source)) {
+                        this.browserUrlTree = t.extractedUrl;
+                    }
                     return (0,rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe(
                     // Fire NavigationStart event
                     (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(t => {
@@ -59032,6 +59038,13 @@ class Router {
                         if (this.urlUpdateStrategy === 'eager') {
                             if (!t.extras.skipLocationChange) {
                                 this.setBrowserUrl(t.urlAfterRedirects, t);
+                                // TODO(atscott): The above line is incorrect. It sets the url to
+                                // only the part that is handled by the router. It should merge
+                                // that with the rawUrl so the url includes segments not handled
+                                // by the router:
+                                //  const rawUrl = this.urlHandlingStrategy.merge(
+                                //      t.urlAfterRedirects, t.rawUrl);
+                                //  this.setBrowserUrl(rawUrl, t);
                             }
                             this.browserUrlTree = t.urlAfterRedirects;
                         }
@@ -59143,7 +59156,7 @@ class Router {
             (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)((t) => {
                 this.currentUrlTree = t.urlAfterRedirects;
                 this.rawUrlTree =
-                    this.urlHandlingStrategy.merge(this.currentUrlTree, t.rawUrl);
+                    this.urlHandlingStrategy.merge(t.urlAfterRedirects, t.rawUrl);
                 this.routerState = t.targetRouterState;
                 if (this.urlUpdateStrategy === 'deferred') {
                     if (!t.extras.skipLocationChange) {
@@ -59278,6 +59291,12 @@ class Router {
     }
     getTransition() {
         const transition = this.transitions.value;
+        // TODO(atscott): This comment doesn't make it clear why this value needs to be set. In the case
+        // described below (where we don't handle previous or current url), the `browserUrlTree` is set
+        // to the `urlAfterRedirects` value. However, these values *are already the same* because of the
+        // line below. So it seems that we should be able to remove the line below and the line where
+        // `browserUrlTree` is updated when we aren't handling any part of the navigation url.
+        // Run TGP to confirm that this can be done.
         // This value needs to be set. Other values such as extractedUrl are set on initial navigation
         // but the urlAfterRedirects may not get set if we aren't processing the new URL *and* not
         // processing the previous URL.
@@ -61149,7 +61168,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
 
 /**
  * @license
@@ -61229,7 +61248,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 39349);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 56913);
 /**
- * @license Angular v12.2.5
+ * @license Angular v12.2.6
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */

@@ -220,7 +220,7 @@
 
       });
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1865,7 +1865,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -2248,7 +2248,7 @@
         _classCallCheck(this, _AnimationDriver);
       };
 
-      _AnimationDriver.NOOP = new NoopAnimationDriver();
+      _AnimationDriver.NOOP = /* @__PURE__ */new NoopAnimationDriver();
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -7318,7 +7318,7 @@
         return SpecialCasedStyles;
       }();
 
-      SpecialCasedStyles.initialStylesByElement = new WeakMap();
+      SpecialCasedStyles.initialStylesByElement = /* @__PURE__ */new WeakMap();
 
       function filterNonAnimatableStyles(styles) {
         var result = null;
@@ -16058,7 +16058,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23443,7 +23443,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27356,7 +27356,7 @@
       /*! rxjs/operators */
       31635);
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -41589,7 +41589,7 @@
       }();
 
       _Injector.THROW_IF_NOT_FOUND = THROW_IF_NOT_FOUND;
-      _Injector.NULL = new NullInjector();
+      _Injector.NULL = /* @__PURE__ */new NullInjector();
       /** @nocollapse */
 
       _Injector.ɵprov = _ɵɵdefineInjectable({
@@ -45274,7 +45274,7 @@
         return ReflectiveInjector_;
       }();
 
-      ReflectiveInjector_.INJECTOR_KEY = _ReflectiveKey.get(_Injector);
+      ReflectiveInjector_.INJECTOR_KEY = /* @__PURE__ */_ReflectiveKey.get(_Injector);
 
       function _mapProviders(injector, fn) {
         var res = [];
@@ -52793,7 +52793,7 @@
         _classCallCheck(this, _ComponentFactoryResolver);
       };
 
-      _ComponentFactoryResolver.NULL = new _NullComponentFactoryResolver();
+      _ComponentFactoryResolver.NULL = /* @__PURE__ */new _NullComponentFactoryResolver();
 
       var CodegenComponentFactoryResolver = /*#__PURE__*/function () {
         function CodegenComponentFactoryResolver(factories, _parent, _ngModule) {
@@ -53072,7 +53072,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.5');
+      var _VERSION3 = new _Version('12.2.6');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74348,7 +74348,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75733,7 +75733,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79040,7 +79040,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.5');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.6');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79794,7 +79794,7 @@
       /*! rxjs/operators */
       87091);
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -85248,17 +85248,23 @@
                   }) : null
                 };
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(function (t) {
-                var urlTransition = !_this196.navigated || t.extractedUrl.toString() !== _this196.browserUrlTree.toString();
+                var browserUrlTree = _this196.browserUrlTree.toString();
 
-                var processCurrentUrl = (_this196.onSameUrlNavigation === 'reload' ? true : urlTransition) && _this196.urlHandlingStrategy.shouldProcessUrl(t.rawUrl); // If the source of the navigation is from a browser event, the URL is
-                // already updated. We already need to sync the internal state.
+                var urlTransition = !_this196.navigated || t.extractedUrl.toString() !== browserUrlTree || // Navigations which succeed or ones which fail and are cleaned up
+                // correctly should result in `browserUrlTree` and `currentUrlTree`
+                // matching. If this is not the case, assume something went wrong and try
+                // processing the URL again.
+                browserUrlTree !== _this196.currentUrlTree.toString();
 
-
-                if (isBrowserTriggeredNavigation(t.source)) {
-                  _this196.browserUrlTree = t.rawUrl;
-                }
+                var processCurrentUrl = (_this196.onSameUrlNavigation === 'reload' ? true : urlTransition) && _this196.urlHandlingStrategy.shouldProcessUrl(t.rawUrl);
 
                 if (processCurrentUrl) {
+                  // If the source of the navigation is from a browser event, the URL is
+                  // already updated. We already need to sync the internal state.
+                  if (isBrowserTriggeredNavigation(t.source)) {
+                    _this196.browserUrlTree = t.extractedUrl;
+                  }
+
                   return (0, rxjs__WEBPACK_IMPORTED_MODULE_2__.of)(t).pipe( // Fire NavigationStart event
                   (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.switchMap)(function (t) {
                     var transition = _this196.transitions.getValue();
@@ -85285,7 +85291,14 @@
                   (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
                     if (_this196.urlUpdateStrategy === 'eager') {
                       if (!t.extras.skipLocationChange) {
-                        _this196.setBrowserUrl(t.urlAfterRedirects, t);
+                        _this196.setBrowserUrl(t.urlAfterRedirects, t); // TODO(atscott): The above line is incorrect. It sets the url to
+                        // only the part that is handled by the router. It should merge
+                        // that with the rawUrl so the url includes segments not handled
+                        // by the router:
+                        //  const rawUrl = this.urlHandlingStrategy.merge(
+                        //      t.urlAfterRedirects, t.rawUrl);
+                        //  this.setBrowserUrl(rawUrl, t);
+
                       }
 
                       _this196.browserUrlTree = t.urlAfterRedirects;
@@ -85436,7 +85449,7 @@
                  happen *before* activating. */
               (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_18__.tap)(function (t) {
                 _this196.currentUrlTree = t.urlAfterRedirects;
-                _this196.rawUrlTree = _this196.urlHandlingStrategy.merge(_this196.currentUrlTree, t.rawUrl);
+                _this196.rawUrlTree = _this196.urlHandlingStrategy.merge(t.urlAfterRedirects, t.rawUrl);
                 _this196.routerState = t.targetRouterState;
 
                 if (_this196.urlUpdateStrategy === 'deferred') {
@@ -85590,7 +85603,13 @@
         }, {
           key: "getTransition",
           value: function getTransition() {
-            var transition = this.transitions.value; // This value needs to be set. Other values such as extractedUrl are set on initial navigation
+            var transition = this.transitions.value; // TODO(atscott): This comment doesn't make it clear why this value needs to be set. In the case
+            // described below (where we don't handle previous or current url), the `browserUrlTree` is set
+            // to the `urlAfterRedirects` value. However, these values *are already the same* because of the
+            // line below. So it seems that we should be able to remove the line below and the line where
+            // `browserUrlTree` is updated when we aren't handling any part of the navigation url.
+            // Run TGP to confirm that this can be done.
+            // This value needs to be set. Other values such as extractedUrl are set on initial navigation
             // but the urlAfterRedirects may not get set if we aren't processing the new URL *and* not
             // processing the previous URL.
 
@@ -88337,7 +88356,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88555,7 +88574,7 @@
       /*! rxjs/operators */
       56913);
       /**
-       * @license Angular v12.2.5
+       * @license Angular v12.2.6
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
