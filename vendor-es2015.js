@@ -7720,27 +7720,25 @@ class InputModalityDetector {
         this.modalityChanged = this.modalityDetected.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_14__.distinctUntilChanged)());
         // If we're not in a browser, this service should do nothing, as there's no relevant input
         // modality to detect.
-        if (!_platform.isBrowser) {
-            return;
+        if (_platform.isBrowser) {
+            ngZone.runOutsideAngular(() => {
+                document.addEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
+                document.addEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
+                document.addEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
+            });
         }
-        // Add the event listeners used to detect the user's input modality.
-        ngZone.runOutsideAngular(() => {
-            document.addEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
-            document.addEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
-            document.addEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
-        });
     }
     /** The most recently detected input modality. */
     get mostRecentModality() {
         return this._modality.value;
     }
     ngOnDestroy() {
-        if (!this._platform.isBrowser) {
-            return;
+        this._modality.complete();
+        if (this._platform.isBrowser) {
+            document.removeEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
+            document.removeEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
+            document.removeEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
         }
-        document.removeEventListener('keydown', this._onKeydown, modalityEventListenerOptions);
-        document.removeEventListener('mousedown', this._onMousedown, modalityEventListenerOptions);
-        document.removeEventListener('touchstart', this._onTouchstart, modalityEventListenerOptions);
     }
 }
 InputModalityDetector.ɵfac = function InputModalityDetector_Factory(t) { return new (t || InputModalityDetector)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_9__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_1__.DOCUMENT), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](INPUT_MODALITY_DETECTOR_OPTIONS, 8)); };
@@ -9636,7 +9634,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
 
 /**
  * @license
@@ -49916,7 +49914,7 @@ function MatOption_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("(", ctx_r1.group.label, ")");
 } }
 const _c2 = ["*"];
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
 
 /**
  * @license
@@ -49950,7 +49948,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.5');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
