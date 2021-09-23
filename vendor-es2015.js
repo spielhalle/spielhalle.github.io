@@ -9252,6 +9252,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "_getEventTarget": function() { return /* binding */ _getEventTarget; },
 /* harmony export */   "_getFocusedElementPierceShadowDom": function() { return /* binding */ _getFocusedElementPierceShadowDom; },
 /* harmony export */   "_getShadowRoot": function() { return /* binding */ _getShadowRoot; },
+/* harmony export */   "_isTestEnvironment": function() { return /* binding */ _isTestEnvironment; },
 /* harmony export */   "_supportsShadowDom": function() { return /* binding */ _supportsShadowDom; },
 /* harmony export */   "getRtlScrollAxisType": function() { return /* binding */ getRtlScrollAxisType; },
 /* harmony export */   "getSupportedInputTypes": function() { return /* binding */ getSupportedInputTypes; },
@@ -9602,6 +9603,22 @@ function _getEventTarget(event) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+const testGlobals = (typeof window !== 'undefined' ? window : {});
+/** Gets whether the code is currently running in a test environment. */
+function _isTestEnvironment() {
+    return (typeof testGlobals.__karma__ !== 'undefined' && !!testGlobals.__karma__) ||
+        (typeof testGlobals.jasmine !== 'undefined' && !!testGlobals.jasmine) ||
+        (typeof testGlobals.jest !== 'undefined' && !!testGlobals.jest) ||
+        (typeof testGlobals.Mocha !== 'undefined' && !!testGlobals.Mocha);
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
 /**
  * Generated bundle index. Do not edit.
@@ -9634,7 +9651,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.7');
 
 /**
  * @license
@@ -49859,14 +49876,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵangular_material_src_material_core_core_a": function() { return /* binding */ MATERIAL_SANITY_CHECKS_FACTORY; }
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
-/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/a11y */ 51606);
-/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/bidi */ 772);
-/* harmony import */ var _angular_cdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk */ 11643);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ 54364);
-/* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/coercion */ 20657);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 50931);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ 54926);
-/* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/cdk/platform */ 36145);
+/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/a11y */ 51606);
+/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/bidi */ 772);
+/* harmony import */ var _angular_cdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk */ 11643);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 54364);
+/* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/cdk/platform */ 36145);
+/* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/coercion */ 20657);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ 50931);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs */ 54926);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ 57993);
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/platform-browser/animations */ 20718);
 /* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/cdk/keycodes */ 90084);
@@ -49914,7 +49931,7 @@ function MatOption_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("(", ctx_r1.group.label, ")");
 } }
 const _c2 = ["*"];
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.7');
 
 /**
  * @license
@@ -49948,7 +49965,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.6');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.7');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -49982,29 +49999,19 @@ class MatCommonModule {
             this._hasDoneGlobalChecks = true;
         }
     }
-    /** Use defaultView of injected document if available or fallback to global window reference */
-    _getWindow() {
-        const win = this._document.defaultView || window;
-        return typeof win === 'object' && win ? win : null;
-    }
     /** Gets whether a specific sanity check is enabled. */
     _checkIsEnabled(name) {
         // TODO(crisbeto): we can't use `ngDevMode` here yet, because ViewEngine apps might not support
         // it. Since these checks can have performance implications and they aren't tree shakeable
         // in their current form, we can leave the `isDevMode` check in for now.
         // tslint:disable-next-line:ban
-        if (!(0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.isDevMode)() || this._isTestEnv()) {
+        if (!(0,_angular_core__WEBPACK_IMPORTED_MODULE_0__.isDevMode)() || (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._isTestEnvironment)()) {
             return false;
         }
         if (typeof this._sanityChecks === 'boolean') {
             return this._sanityChecks;
         }
         return !!this._sanityChecks[name];
-    }
-    /** Whether the code is running in tests. */
-    _isTestEnv() {
-        const window = this._getWindow();
-        return window && (window.__karma__ || window.jasmine);
     }
     _checkDoctypeIsDefined() {
         if (this._checkIsEnabled('doctype') && !this._document.doctype) {
@@ -50035,37 +50042,37 @@ class MatCommonModule {
     }
     /** Checks whether the material version matches the cdk version */
     _checkCdkVersionMatch() {
-        if (this._checkIsEnabled('version') && VERSION.full !== _angular_cdk__WEBPACK_IMPORTED_MODULE_1__.VERSION.full) {
+        if (this._checkIsEnabled('version') && VERSION.full !== _angular_cdk__WEBPACK_IMPORTED_MODULE_2__.VERSION.full) {
             console.warn('The Angular Material version (' + VERSION.full + ') does not match ' +
-                'the Angular CDK version (' + _angular_cdk__WEBPACK_IMPORTED_MODULE_1__.VERSION.full + ').\n' +
+                'the Angular CDK version (' + _angular_cdk__WEBPACK_IMPORTED_MODULE_2__.VERSION.full + ').\n' +
                 'Please ensure the versions of these two packages exactly match.');
         }
     }
 }
-MatCommonModule.ɵfac = function MatCommonModule_Factory(t) { return new (t || MatCommonModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.HighContrastModeDetector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](MATERIAL_SANITY_CHECKS, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_3__.DOCUMENT)); };
+MatCommonModule.ɵfac = function MatCommonModule_Factory(t) { return new (t || MatCommonModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.HighContrastModeDetector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](MATERIAL_SANITY_CHECKS, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_4__.DOCUMENT)); };
 MatCommonModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MatCommonModule });
-MatCommonModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule] });
+MatCommonModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule] });
 MatCommonModule.ctorParameters = () => [
-    { type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.HighContrastModeDetector },
+    { type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.HighContrastModeDetector },
     { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [MATERIAL_SANITY_CHECKS,] }] },
-    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.DOCUMENT,] }] }
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.DOCUMENT,] }] }
 ];
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MatCommonModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
         args: [{
-                imports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule],
-                exports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule]
+                imports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule],
+                exports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule]
             }]
-    }], function () { return [{ type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.HighContrastModeDetector }, { type: undefined, decorators: [{
+    }], function () { return [{ type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.HighContrastModeDetector }, { type: undefined, decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional
             }, {
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
                 args: [MATERIAL_SANITY_CHECKS]
             }] }, { type: undefined, decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
-                args: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.DOCUMENT]
+                args: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.DOCUMENT]
             }] }]; }, null); })();
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MatCommonModule, { imports: function () { return [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule]; }, exports: function () { return [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule]; } }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MatCommonModule, { imports: function () { return [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule]; }, exports: function () { return [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule]; } }); })();
 
 /**
  * @license
@@ -50081,7 +50088,7 @@ function mixinDisabled(base) {
             this._disabled = false;
         }
         get disabled() { return this._disabled; }
-        set disabled(value) { this._disabled = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceBooleanProperty)(value); }
+        set disabled(value) { this._disabled = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__.coerceBooleanProperty)(value); }
     };
 }
 
@@ -50131,7 +50138,7 @@ function mixinDisableRipple(base) {
         }
         /** Whether the ripple effect is disabled or not. */
         get disableRipple() { return this._disableRipple; }
-        set disableRipple(value) { this._disableRipple = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceBooleanProperty)(value); }
+        set disableRipple(value) { this._disableRipple = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__.coerceBooleanProperty)(value); }
     };
 }
 
@@ -50152,7 +50159,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
         get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
         set tabIndex(value) {
             // If the specified tabIndex value is null or undefined, fall back to the default value.
-            this._tabIndex = value != null ? (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceNumberProperty)(value) : this.defaultTabIndex;
+            this._tabIndex = value != null ? (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__.coerceNumberProperty)(value) : this.defaultTabIndex;
         }
     };
 }
@@ -50173,7 +50180,7 @@ function mixinErrorState(base) {
             // The description is not specifically mentioning the error state, as classes using this
             // mixin can/should emit an event in other cases too.
             /** Emits whenever the component state changes. */
-            this.stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_6__.Subject();
+            this.stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_7__.Subject();
             /** Whether the component is in an error state. */
             this.errorState = false;
         }
@@ -50216,7 +50223,7 @@ function mixinInitialized(base) {
              * Observable stream that emits when the directive initializes. If already initialized, the
              * subscriber is stored to be notified once _markInitialized is called.
              */
-            this.initialized = new rxjs__WEBPACK_IMPORTED_MODULE_7__.Observable(subscriber => {
+            this.initialized = new rxjs__WEBPACK_IMPORTED_MODULE_8__.Observable(subscriber => {
                 // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
                 // when _markInitialized is called.
                 if (this._isInitialized) {
@@ -50276,7 +50283,7 @@ function MAT_DATE_LOCALE_FACTORY() {
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
 class DateAdapter {
     constructor() {
-        this._localeChanges = new rxjs__WEBPACK_IMPORTED_MODULE_6__.Subject();
+        this._localeChanges = new rxjs__WEBPACK_IMPORTED_MODULE_7__.Subject();
         /** A stream that emits when the locale changes. */
         this.localeChanges = this._localeChanges;
     }
@@ -50644,11 +50651,11 @@ class NativeDateAdapter extends DateAdapter {
         return dtf.format(d);
     }
 }
-NativeDateAdapter.ɵfac = function NativeDateAdapter_Factory(t) { return new (t || NativeDateAdapter)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](MAT_DATE_LOCALE, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.Platform)); };
+NativeDateAdapter.ɵfac = function NativeDateAdapter_Factory(t) { return new (t || NativeDateAdapter)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](MAT_DATE_LOCALE, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.Platform)); };
 NativeDateAdapter.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: NativeDateAdapter, factory: NativeDateAdapter.ɵfac });
 NativeDateAdapter.ctorParameters = () => [
     { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [MAT_DATE_LOCALE,] }] },
-    { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.Platform }
+    { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.Platform }
 ];
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NativeDateAdapter, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable
@@ -50657,7 +50664,7 @@ NativeDateAdapter.ctorParameters = () => [
             }, {
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
                 args: [MAT_DATE_LOCALE]
-            }] }, { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.Platform }]; }, null); })();
+            }] }, { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.Platform }]; }, null); })();
 
 /**
  * @license
@@ -50691,17 +50698,17 @@ NativeDateModule.ɵfac = function NativeDateModule_Factory(t) { return new (t ||
 NativeDateModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: NativeDateModule });
 NativeDateModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ providers: [
         { provide: DateAdapter, useClass: NativeDateAdapter },
-    ], imports: [[_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.PlatformModule]] });
+    ], imports: [[_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.PlatformModule]] });
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NativeDateModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
         args: [{
-                imports: [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.PlatformModule],
+                imports: [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.PlatformModule],
                 providers: [
                     { provide: DateAdapter, useClass: NativeDateAdapter },
                 ]
             }]
     }], null, null); })();
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](NativeDateModule, { imports: function () { return [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.PlatformModule]; } }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](NativeDateModule, { imports: function () { return [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.PlatformModule]; } }); })();
 const ɵ0 = MAT_NATIVE_DATE_FORMATS;
 class MatNativeDateModule {
 }
@@ -50853,7 +50860,7 @@ const defaultRippleAnimationConfig = {
  */
 const ignoreMouseEventsTimeout = 800;
 /** Options that apply to all the event listeners that are bound by the ripple renderer. */
-const passiveEventOptions = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.normalizePassiveListenerOptions)({ passive: true });
+const passiveEventOptions = (0,_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.normalizePassiveListenerOptions)({ passive: true });
 /** Events that signal that the pointer is down. */
 const pointerDownEvents = ['mousedown', 'touchstart'];
 /** Events that signal that the pointer is up. */
@@ -50877,7 +50884,7 @@ class RippleRenderer {
         this._pointerUpEventsRegistered = false;
         // Only do anything if we're on the browser.
         if (platform.isBrowser) {
-            this._containerElement = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceElement)(elementOrElementRef);
+            this._containerElement = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__.coerceElement)(elementOrElementRef);
         }
     }
     /**
@@ -50977,7 +50984,7 @@ class RippleRenderer {
     }
     /** Sets up the trigger event listeners */
     setupTriggerEvents(elementOrElementRef) {
-        const element = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceElement)(elementOrElementRef);
+        const element = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__.coerceElement)(elementOrElementRef);
         if (!element || element === this._triggerElement) {
             return;
         }
@@ -51012,7 +51019,7 @@ class RippleRenderer {
     _onMousedown(event) {
         // Screen readers will fire fake mouse events for space/enter. Skip launching a
         // ripple in this case for consistency with the non-screen-reader experience.
-        const isFakeMousedown = (0,_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.isFakeMousedownFromScreenReader)(event);
+        const isFakeMousedown = (0,_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.isFakeMousedownFromScreenReader)(event);
         const isSyntheticEvent = this._lastTouchStartEvent &&
             Date.now() < this._lastTouchStartEvent + ignoreMouseEventsTimeout;
         if (!this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
@@ -51022,7 +51029,7 @@ class RippleRenderer {
     }
     /** Function being called whenever the trigger is being pressed using touch. */
     _onTouchStart(event) {
-        if (!this._target.rippleDisabled && !(0,_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.isFakeTouchstartFromScreenReader)(event)) {
+        if (!this._target.rippleDisabled && !(0,_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.isFakeTouchstartFromScreenReader)(event)) {
             // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
             // events will launch a second ripple if we don't ignore mouse events for a specific
             // time after a touchstart event.
@@ -51192,14 +51199,14 @@ class MatRipple {
         }
     }
 }
-MatRipple.ɵfac = function MatRipple_Factory(t) { return new (t || MatRipple)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](MAT_RIPPLE_GLOBAL_OPTIONS, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_10__.ANIMATION_MODULE_TYPE, 8)); };
+MatRipple.ɵfac = function MatRipple_Factory(t) { return new (t || MatRipple)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](MAT_RIPPLE_GLOBAL_OPTIONS, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_10__.ANIMATION_MODULE_TYPE, 8)); };
 MatRipple.ɵdir = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: MatRipple, selectors: [["", "mat-ripple", ""], ["", "matRipple", ""]], hostAttrs: [1, "mat-ripple"], hostVars: 2, hostBindings: function MatRipple_HostBindings(rf, ctx) { if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("mat-ripple-unbounded", ctx.unbounded);
     } }, inputs: { radius: ["matRippleRadius", "radius"], disabled: ["matRippleDisabled", "disabled"], trigger: ["matRippleTrigger", "trigger"], color: ["matRippleColor", "color"], unbounded: ["matRippleUnbounded", "unbounded"], centered: ["matRippleCentered", "centered"], animation: ["matRippleAnimation", "animation"] }, exportAs: ["matRipple"] });
 MatRipple.ctorParameters = () => [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone },
-    { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.Platform },
+    { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.Platform },
     { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
     { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_10__.ANIMATION_MODULE_TYPE,] }] }
 ];
@@ -51222,7 +51229,7 @@ MatRipple.propDecorators = {
                     '[class.mat-ripple-unbounded]': 'unbounded'
                 }
             }]
-    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }, { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.Platform }, { type: undefined, decorators: [{
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgZone }, { type: _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.Platform }, { type: undefined, decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Optional
             }, {
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
@@ -51266,16 +51273,16 @@ class MatRippleModule {
 }
 MatRippleModule.ɵfac = function MatRippleModule_Factory(t) { return new (t || MatRippleModule)(); };
 MatRippleModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MatRippleModule });
-MatRippleModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[MatCommonModule, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.PlatformModule], MatCommonModule] });
+MatRippleModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[MatCommonModule, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.PlatformModule], MatCommonModule] });
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MatRippleModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
         args: [{
-                imports: [MatCommonModule, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.PlatformModule],
+                imports: [MatCommonModule, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.PlatformModule],
                 exports: [MatRipple, MatCommonModule],
                 declarations: [MatRipple]
             }]
     }], null, null); })();
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MatRippleModule, { declarations: function () { return [MatRipple]; }, imports: function () { return [MatCommonModule, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_8__.PlatformModule]; }, exports: function () { return [MatRipple, MatCommonModule]; } }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MatRippleModule, { declarations: function () { return [MatRipple]; }, imports: function () { return [MatCommonModule, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__.PlatformModule]; }, exports: function () { return [MatRipple, MatCommonModule]; } }); })();
 
 /**
  * @license
@@ -51524,7 +51531,7 @@ class _MatOptionBase {
         // tslint:disable-next-line:no-output-on-prefix
         this.onSelectionChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
         /** Emits when the state of the option changes and any parents have to be notified. */
-        this._stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_6__.Subject();
+        this._stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_7__.Subject();
     }
     /** Whether the wrapping component is in multiple selection mode. */
     get multiple() { return this._parent && this._parent.multiple; }
@@ -51532,7 +51539,7 @@ class _MatOptionBase {
     get selected() { return this._selected; }
     /** Whether the option is disabled. */
     get disabled() { return (this.group && this.group.disabled) || this._disabled; }
-    set disabled(value) { this._disabled = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_5__.coerceBooleanProperty)(value); }
+    set disabled(value) { this._disabled = (0,_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__.coerceBooleanProperty)(value); }
     /** Whether ripples for the option are disabled. */
     get disableRipple() { return this._parent && this._parent.disableRipple; }
     /**
@@ -51715,7 +51722,7 @@ MatOption.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.group && ctx.group._inert);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("matRippleTrigger", ctx._getHostElement())("matRippleDisabled", ctx.disabled || ctx.disableRipple);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.NgIf, MatRipple, MatPseudoCheckbox], styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.cdk-high-contrast-active .mat-option[aria-disabled=true]{opacity:.5}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"], encapsulation: 2, changeDetection: 0 });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgIf, MatRipple, MatPseudoCheckbox], styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.cdk-high-contrast-active .mat-option[aria-disabled=true]{opacity:.5}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"], encapsulation: 2, changeDetection: 0 });
 MatOption.ctorParameters = () => [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ElementRef },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ChangeDetectorRef },
@@ -51807,16 +51814,16 @@ class MatOptionModule {
 }
 MatOptionModule.ɵfac = function MatOptionModule_Factory(t) { return new (t || MatOptionModule)(); };
 MatOptionModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MatOptionModule });
-MatOptionModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, MatCommonModule, MatPseudoCheckboxModule]] });
+MatOptionModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ imports: [[MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, MatCommonModule, MatPseudoCheckboxModule]] });
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MatOptionModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
         args: [{
-                imports: [MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, MatCommonModule, MatPseudoCheckboxModule],
+                imports: [MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, MatCommonModule, MatPseudoCheckboxModule],
                 exports: [MatOption, MatOptgroup],
                 declarations: [MatOption, MatOptgroup]
             }]
     }], null, null); })();
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MatOptionModule, { declarations: function () { return [MatOption, MatOptgroup]; }, imports: function () { return [MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, MatCommonModule, MatPseudoCheckboxModule]; }, exports: function () { return [MatOption, MatOptgroup]; } }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MatOptionModule, { declarations: function () { return [MatOption, MatOptgroup]; }, imports: function () { return [MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, MatCommonModule, MatPseudoCheckboxModule]; }, exports: function () { return [MatOption, MatOptgroup]; } }); })();
 
 /**
  * @license

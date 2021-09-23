@@ -2260,16 +2260,8 @@
        * found in the LICENSE file at https://angular.io/license
        */
 
-
-      var globalsForTest = typeof window !== 'undefined' ? window : {};
-      /**
-       * Whether we're in a testing environment.
-       * TODO(crisbeto): remove this once we have an overlay testing module or Angular starts tearing
-       * down the testing `NgModule` (see https://github.com/angular/angular/issues/18831).
-       */
-
-      var isTestEnvironment = typeof globalsForTest.__karma__ !== 'undefined' && !!globalsForTest.__karma__ || typeof globalsForTest.jasmine !== 'undefined' && !!globalsForTest.jasmine || typeof globalsForTest.jest !== 'undefined' && !!globalsForTest.jest || typeof globalsForTest.Mocha !== 'undefined' && !!globalsForTest.Mocha;
       /** Container inside which all overlays will render. */
+
 
       var _OverlayContainer = /*#__PURE__*/function () {
         function _OverlayContainer(document, _platform) {
@@ -2290,7 +2282,7 @@
           }
           /**
            * This method returns the overlay container element. It will lazily
-           * create the element the first time  it is called to facilitate using
+           * create the element the first time it is called to facilitate using
            * the container in non-browser environments.
            * @returns the container element
            */
@@ -2312,9 +2304,11 @@
         }, {
           key: "_createContainer",
           value: function _createContainer() {
-            var containerClass = 'cdk-overlay-container';
+            var containerClass = 'cdk-overlay-container'; // TODO(crisbeto): remove the testing check once we have an overlay testing
+            // module or Angular starts tearing down the testing `NgModule`. See:
+            // https://github.com/angular/angular/issues/18831
 
-            if (this._platform.isBrowser || isTestEnvironment) {
+            if (this._platform.isBrowser || (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._isTestEnvironment)()) {
               var oppositePlatformContainers = this._document.querySelectorAll(".".concat(containerClass, "[platform=\"server\"], ") + ".".concat(containerClass, "[platform=\"test\"]")); // Remove any old containers from the opposite platform.
               // This can happen when transitioning from the server to the client.
 
@@ -2336,7 +2330,7 @@
             // always clear the container. See #17006.
             // TODO(crisbeto): remove the test environment check once we have an overlay testing module.
 
-            if (isTestEnvironment) {
+            if ((0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._isTestEnvironment)()) {
               container.setAttribute('platform', 'test');
             } else if (!this._platform.isBrowser) {
               container.setAttribute('platform', 'server');
@@ -2601,7 +2595,7 @@
 
             this._disposeScrollStrategy();
 
-            this.detachBackdrop();
+            this._disposeBackdrop(this._backdropElement);
 
             this._locationChanges.unsubscribe();
 
@@ -2886,16 +2880,7 @@
                 backdropToDetach.removeEventListener('click', _this18._backdropClickHandler);
                 backdropToDetach.removeEventListener('transitionend', finishDetach);
 
-                if (backdropToDetach.parentNode) {
-                  backdropToDetach.parentNode.removeChild(backdropToDetach);
-                }
-              } // It is possible that a new portal has been attached to this overlay since we started
-              // removing the backdrop. If that is the case, only clear the backdrop reference if it
-              // is still the same instance that we started to remove.
-
-
-              if (_this18._backdropElement == backdropToDetach) {
-                _this18._backdropElement = null;
+                _this18._disposeBackdrop(backdropToDetach);
               }
 
               if (_this18._config.backdropClass) {
@@ -2980,6 +2965,24 @@
 
               if (scrollStrategy.detach) {
                 scrollStrategy.detach();
+              }
+            }
+          }
+          /** Removes a backdrop element from the DOM. */
+
+        }, {
+          key: "_disposeBackdrop",
+          value: function _disposeBackdrop(backdrop) {
+            if (backdrop) {
+              if (backdrop.parentNode) {
+                backdrop.parentNode.removeChild(backdrop);
+              } // It is possible that a new portal has been attached to this overlay since we started
+              // removing the backdrop. If that is the case, only clear the backdrop reference if it
+              // is still the same instance that we started to remove.
+
+
+              if (this._backdropElement === backdrop) {
+                this._backdropElement = null;
               }
             }
           }
