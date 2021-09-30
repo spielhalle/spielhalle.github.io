@@ -220,7 +220,7 @@
 
       });
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1865,7 +1865,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16081,7 +16081,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -17450,7 +17450,7 @@
       /**
        * Format styles that can be used to represent numbers.
        * @see `getLocaleNumberFormat()`.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17468,7 +17468,7 @@
        *
        * @see `NgPlural`
        * @see `NgPluralCase`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17489,7 +17489,7 @@
        * Typically the standalone version is for the nominative form of the word,
        * and the format version is used for the genitive case.
        * @see [CLDR website](http://cldr.unicode.org/translation/date-time-1/date-time#TOC-Standalone-vs.-Format-Styles)
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17533,7 +17533,7 @@
        * @see `getLocaleDateFormat()`
        * @see `getLocaleTimeFormat()`
        * @see `getLocaleDateTimeFormat()`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        * @publicApi
        */
 
@@ -17570,7 +17570,7 @@
        * Examples are based on `en-US` values.
        *
        * @see `getLocaleNumberSymbol()`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17688,7 +17688,7 @@
        * The loaded locale could be, for example, a global one rather than a regional one.
        * @param locale A locale code, such as `fr-FR`.
        * @returns The locale code. For example, `fr`.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17704,7 +17704,7 @@
        * @param formStyle The required grammatical form.
        * @param width The required character width.
        * @returns An array of localized period strings. For example, `[AM, PM]` for `en-US`.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17724,7 +17724,7 @@
        * @param width The required character width.
        * @returns An array of localized name strings.
        * For example,`[Sunday, Monday, ... Saturday]` for `en-US`.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17744,7 +17744,7 @@
        * @param width The required character width.
        * @returns An array of localized name strings.
        * For example,  `[January, February, ...]` for `en-US`.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17763,7 +17763,7 @@
       
        * @returns An array of localized era strings.
        * For example, `[AD, BC]` for `en-US`.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17781,7 +17781,7 @@
        * @returns A day index number, using the 0-based week-day index for `en-US`
        * (Sunday = 0, Monday = 1, ...).
        * For example, for `fr-FR`, returns 1 to indicate that the first day is Monday.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17796,7 +17796,7 @@
        *
        * @param locale A locale code for the locale format rules to use.
        * @returns The range of day values, `[startDay, endDay]`.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17813,7 +17813,7 @@
        * @param width The format type.
        * @returns The localized formating string.
        * @see `FormatWidth`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17830,7 +17830,7 @@
        * @param width The format type.
        * @returns The localized formatting string.
        * @see `FormatWidth`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
       
        * @publicApi
        */
@@ -17847,7 +17847,7 @@
        * @param width The format type.
        * @returns The localized formatting string.
        * @see `FormatWidth`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17864,7 +17864,7 @@
        * @param symbol The symbol to localize.
        * @returns The character for the localized symbol.
        * @see `NumberSymbol`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17915,7 +17915,7 @@
        * @returns The localized format string.
        * @see `NumberFormatStyle`
        * @see [CLDR website](http://cldr.unicode.org/translation/number-patterns)
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17932,7 +17932,7 @@
        * @param locale A locale code for the locale format rules to use.
        * @returns The localized symbol character,
        * or `null` if the main country cannot be determined.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17948,7 +17948,7 @@
        * @param locale A locale code for the locale format rules to use.
        * @returns The currency name,
        * or `null` if the main country cannot be determined.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -17977,7 +17977,7 @@
        * Retrieves the currency values for a given locale.
        * @param locale A locale code for the locale format rules to use.
        * @returns The currency values.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        */
 
 
@@ -18009,14 +18009,14 @@
        * A rule can specify a period as time range, or as a single time value.
        *
        * This functionality is only available when you have loaded the full locale data.
-       * See the ["I18n guide"](guide/i18n#i18n-pipes).
+       * See the ["I18n guide"](guide/i18n-common-format-data-locale).
        *
        * @param locale A locale code for the locale format rules to use.
        * @returns The rules for the locale, a single time value or array of *from-time, to-time*,
        * or null if no periods are available.
        *
        * @see `getLocaleExtraDayPeriods()`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -18042,14 +18042,14 @@
        * For example, for `en-US`, periods are morning, noon, afternoon, evening, and midnight.
        *
        * This functionality is only available when you have loaded the full locale data.
-       * See the ["I18n guide"](guide/i18n#i18n-pipes).
+       * See the ["I18n guide"](guide/i18n-common-format-data-locale).
        *
        * @param locale A locale code for the locale format rules to use.
        * @param formStyle The required grammatical form.
        * @param width The required character width.
        * @returns The translated day-period strings.
        * @see `getLocaleExtraDayPeriodRules()`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -18071,7 +18071,7 @@
        * @param locale A locale code for the locale format rules to use.
        * @publicApi
        * @returns 'rtl' or 'ltr'
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        */
 
 
@@ -18088,7 +18088,7 @@
        * @param data The data array to retrieve from.
        * @param index A 0-based index into the array to start from.
        * @returns The value immediately before the given index position.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -18130,7 +18130,7 @@
        * @param locale A locale code for the locale format rules to use.
        *
        * @returns The symbol, or the currency code if no symbol is available.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -18160,7 +18160,7 @@
        *
        * @param code The currency code.
        * @returns The number of decimal digits, typically 0 or 2.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -18237,7 +18237,7 @@
        * @returns The formatted date string.
        *
        * @see `DatePipe`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -19240,7 +19240,7 @@
        *
        * @see `formatNumber()`
        * @see `DecimalPipe`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -19275,7 +19275,7 @@
        *
        * @see `formatNumber()`
        * @see `DecimalPipe`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        * @publicApi
        *
        */
@@ -19301,7 +19301,7 @@
        * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. See `DecimalPipe` for more details.
        *
        * @returns The formatted text string.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        *
        * @publicApi
        */
@@ -19683,7 +19683,8 @@
 
       /**
        * Register global data to be used internally by Angular. See the
-       * ["I18n guide"](guide/i18n#i18n-pipes) to know how to import additional locale data.
+       * ["I18n guide"](guide/i18n-common-format-data-locale) to know how to import additional locale
+       * data.
        *
        * The signature registerLocaleData(data: any, extraData?: any) is deprecated since v5.1
        *
@@ -22227,7 +22228,7 @@
        *
        * Only the `en-US` locale data comes with Angular. To localize dates
        * in another language, you must import the corresponding locale data.
-       * See the [I18n guide](guide/i18n#i18n-pipes) for more information.
+       * See the [I18n guide](guide/i18n-common-format-data-locale) for more information.
        *
        * @see `formatDate()`
        *
@@ -22861,7 +22862,7 @@
        *
        * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
        *
-       * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
+       * See [Setting your app locale](guide/i18n-common-locale-id).
        *
        * ### Example
        *
@@ -22986,7 +22987,7 @@
          * Default is `0`.
          * @param locale A locale code for the locale format rules to use.
          * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
-         * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
+         * See [Setting your app locale](guide/i18n-common-locale-id).
          */
 
 
@@ -23060,7 +23061,7 @@
        * The default currency code is currently always `USD` but this is deprecated from v9.
        *
        * **In v11 the default currency code will be taken from the current locale identified by
-       * the `LOCALE_ID` token. See the [i18n guide](guide/i18n#setting-up-the-locale-of-your-app) for
+       * the `LOCALE_ID` token. See the [i18n guide](guide/i18n-common-locale-id) for
        * more information.**
        *
        * If you need the previous behavior then set it by creating a `DEFAULT_CURRENCY_CODE` provider in
@@ -23126,7 +23127,7 @@
          * For example, the Canadian dollar has 2 digits, whereas the Chilean peso has none.
          * @param locale A locale code for the locale format rules to use.
          * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
-         * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
+         * See [Setting your app locale](guide/i18n-common-locale-id).
          */
 
 
@@ -23466,7 +23467,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.7');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27379,7 +27380,7 @@
       /*! rxjs/operators */
       31635);
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -49916,7 +49917,8 @@
       var LOCALE_DATA = {};
       /**
        * Register locale data to be used internally by Angular. See the
-       * ["I18n guide"](guide/i18n#i18n-pipes) to know how to import additional locale data.
+       * ["I18n guide"](guide/i18n-common-format-data-locale) to know how to import additional locale
+       * data.
        *
        * The signature `registerLocaleData(data: any, extraData?: any)` is deprecated since v5.1
        */
@@ -49939,7 +49941,7 @@
        *
        * @param locale The locale code.
        * @returns The locale data.
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        */
 
 
@@ -49986,7 +49988,7 @@
        * @param locale A locale code for the locale format rules to use.
        * @returns The plural function for the locale.
        * @see `NgPlural`
-       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
+       * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n-overview)
        */
 
 
@@ -53095,7 +53097,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.7');
+      var _VERSION3 = new _Version('12.2.8');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -61789,7 +61791,7 @@
        * It is used for i18n extraction, by i18n pipes (DatePipe, I18nPluralPipe, CurrencyPipe,
        * DecimalPipe and PercentPipe) and by ICU expressions.
        *
-       * See the [i18n guide](guide/i18n#setting-up-locale) for more information.
+       * See the [i18n guide](guide/i18n-common-locale-id) for more information.
        *
        * @usageNotes
        * ### Example
@@ -61814,7 +61816,7 @@
        * CurrencyPipe when there is no currency code passed into it. This is only used by
        * CurrencyPipe and has no relation to locale currency. Defaults to USD if not configured.
        *
-       * See the [i18n guide](guide/i18n#setting-up-locale) for more information.
+       * See the [i18n guide](guide/i18n-common-locale-id) for more information.
        *
        * <div class="alert is-helpful">
        *
@@ -61853,7 +61855,7 @@
        * Use this token at bootstrap to provide the content of your translation file (`xtb`,
        * `xlf` or `xlf2`) when you want to translate your application in another language.
        *
-       * See the [i18n guide](guide/i18n#merge) for more information.
+       * See the [i18n guide](guide/i18n-common-merge) for more information.
        *
        * @usageNotes
        * ### Example
@@ -61880,7 +61882,7 @@
        * Provide this token at bootstrap to set the format of your {@link TRANSLATIONS}: `xtb`,
        * `xlf` or `xlf2`.
        *
-       * See the [i18n guide](guide/i18n#merge) for more information.
+       * See the [i18n guide](guide/i18n-common-merge) for more information.
        *
        * @usageNotes
        * ### Example
@@ -61907,7 +61909,7 @@
        * - Warning (default): show a warning in the console and/or shell.
        * - Ignore: do nothing.
        *
-       * See the [i18n guide](guide/i18n#missing-translation) for more information.
+       * See the [i18n guide](guide/i18n-common-merge#report-missing-translations) for more information.
        *
        * @usageNotes
        * ### Example
@@ -74354,7 +74356,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75739,7 +75741,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79046,7 +79048,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.7');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.8');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79800,7 +79802,7 @@
       /*! rxjs/operators */
       87091);
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -88362,7 +88364,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.7');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88580,7 +88582,7 @@
       /*! rxjs/operators */
       56913);
       /**
-       * @license Angular v12.2.7
+       * @license Angular v12.2.8
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
