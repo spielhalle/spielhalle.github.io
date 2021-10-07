@@ -91593,7 +91593,7 @@
           }
 
           var delegate = _animationFrameProvider.delegate;
-          return ((delegate === null || delegate === void 0 ? void 0 : delegate.requestAnimationFrame) || requestAnimationFrame).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(args), false));
+          return ((delegate === null || delegate === void 0 ? void 0 : delegate.requestAnimationFrame) || requestAnimationFrame).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(args)));
         }),
         cancelAnimationFrame: function (_cancelAnimationFrame) {
           function cancelAnimationFrame() {
@@ -91613,7 +91613,7 @@
           }
 
           var delegate = _animationFrameProvider.delegate;
-          return ((delegate === null || delegate === void 0 ? void 0 : delegate.cancelAnimationFrame) || cancelAnimationFrame).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(args), false));
+          return ((delegate === null || delegate === void 0 ? void 0 : delegate.cancelAnimationFrame) || cancelAnimationFrame).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(args)));
         }),
         delegate: undefined
       };
@@ -91719,7 +91719,7 @@
           }
 
           var delegate = _immediateProvider.delegate;
-          return ((delegate === null || delegate === void 0 ? void 0 : delegate.setImmediate) || setImmediate).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(args), false));
+          return ((delegate === null || delegate === void 0 ? void 0 : delegate.setImmediate) || setImmediate).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(args)));
         }),
         clearImmediate: function clearImmediate(handle) {
           var delegate = _immediateProvider.delegate;

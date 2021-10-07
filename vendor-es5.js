@@ -90100,7 +90100,7 @@
           }
 
           try {
-            handler.apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args), false));
+            handler.apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args)));
           } catch (err) {
             if (_config__WEBPACK_IMPORTED_MODULE_4__.config.useDeprecatedSynchronousErrorHandling) {
               (0, _util_errorContext__WEBPACK_IMPORTED_MODULE_6__.captureError)(err);
@@ -90256,7 +90256,7 @@
                     errors = errors !== null && errors !== void 0 ? errors : [];
 
                     if (err instanceof _util_UnsubscriptionError__WEBPACK_IMPORTED_MODULE_2__.UnsubscriptionError) {
-                      errors = (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)((0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(errors), false), (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(err.errors), false);
+                      errors = (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)((0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(errors)), (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(err.errors));
                     } else {
                       errors.push(err);
                     }
@@ -93229,7 +93229,7 @@
           return null;
         }
 
-        return on.apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__read)(args), false)).pipe((0, _operators_take__WEBPACK_IMPORTED_MODULE_5__.take)(1)).subscribe(function () {
+        return on.apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__read)(args))).pipe((0, _operators_take__WEBPACK_IMPORTED_MODULE_5__.take)(1)).subscribe(function () {
           return reset();
         });
       }
@@ -94591,7 +94591,7 @@
           }
 
           var delegate = _intervalProvider.delegate;
-          return ((delegate === null || delegate === void 0 ? void 0 : delegate.setInterval) || setInterval).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args), false));
+          return ((delegate === null || delegate === void 0 ? void 0 : delegate.setInterval) || setInterval).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args)));
         }),
         clearInterval: function (_clearInterval) {
           function clearInterval(_x) {
@@ -94655,7 +94655,7 @@
           }
 
           var delegate = _timeoutProvider.delegate;
-          return ((delegate === null || delegate === void 0 ? void 0 : delegate.setTimeout) || setTimeout).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args), false));
+          return ((delegate === null || delegate === void 0 ? void 0 : delegate.setTimeout) || setTimeout).apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args)));
         }),
         clearTimeout: function (_clearTimeout) {
           function clearTimeout(_x2) {
@@ -95633,7 +95633,7 @@
       var isArray = Array.isArray;
 
       function callOrApply(fn, args) {
-        return isArray(args) ? fn.apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args), false)) : fn(args);
+        return isArray(args) ? fn.apply(void 0, (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(args))) : fn(args);
       }
 
       function _mapOneOrManyArgs(fn) {
