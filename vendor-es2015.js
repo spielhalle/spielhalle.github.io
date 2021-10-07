@@ -9603,7 +9603,18 @@ function _getEventTarget(event) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const testGlobals = (typeof window !== 'undefined' ? window : {});
+let testGlobals;
+// We check the Node-specific `global` first, because tools tend to add a fake
+// `window` in Node environments which won't actually receive global variables.
+if (typeof global !== 'undefined') {
+    testGlobals = global;
+}
+else if (typeof window !== 'undefined') {
+    testGlobals = window;
+}
+else {
+    testGlobals = {};
+}
 /** Gets whether the code is currently running in a test environment. */
 function _isTestEnvironment() {
     return (typeof testGlobals.__karma__ !== 'undefined' && !!testGlobals.__karma__) ||
@@ -9651,7 +9662,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
 
 /**
  * @license
@@ -49933,7 +49944,7 @@ function MatOption_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("(", ctx_r1.group.label, ")");
 } }
 const _c2 = ["*"];
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
 
 /**
  * @license
@@ -49967,7 +49978,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;

@@ -15012,8 +15012,18 @@
        */
 
 
-      var testGlobals = typeof window !== 'undefined' ? window : {};
+      var testGlobals; // We check the Node-specific `global` first, because tools tend to add a fake
+      // `window` in Node environments which won't actually receive global variables.
+
+      if (typeof global !== 'undefined') {
+        testGlobals = global;
+      } else if (typeof window !== 'undefined') {
+        testGlobals = window;
+      } else {
+        testGlobals = {};
+      }
       /** Gets whether the code is currently running in a test environment. */
+
 
       function _isTestEnvironment2() {
         return typeof testGlobals.__karma__ !== 'undefined' && !!testGlobals.__karma__ || typeof testGlobals.jasmine !== 'undefined' && !!testGlobals.jasmine || typeof testGlobals.jest !== 'undefined' && !!testGlobals.jest || typeof testGlobals.Mocha !== 'undefined' && !!testGlobals.Mocha;
@@ -15068,7 +15078,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70628,7 +70638,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70668,7 +70678,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.8');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
