@@ -9,7 +9,13 @@
 
     var __webpack_modules__ = {
       /***/
-      9126: function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      9126:
+      /*!*********************************************************************************************!*\
+        !*** ./src/app/routes/sudoku/modules/sudoku-benchmark/component/sudoku-benchmark.worker.ts ***!
+        \*********************************************************************************************/
+
+      /***/
+      function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
         __webpack_require__.r(__webpack_exports__);
         /* harmony import */
 

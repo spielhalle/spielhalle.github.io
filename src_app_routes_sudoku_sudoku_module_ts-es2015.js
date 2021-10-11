@@ -25842,7 +25842,9 @@ function __rest(s, e) {
  */
 
 
-var Resource = function () {
+var Resource =
+/** @class */
+function () {
   /**
    * @param {number} [width=0] - Width of the resource
    * @param {number} [height=0] - Height of the resource
@@ -26085,7 +26087,9 @@ var Resource = function () {
  */
 
 
-var BufferResource = function (_super) {
+var BufferResource =
+/** @class */
+function (_super) {
   __extends(BufferResource, _super);
   /**
    * @param {Float32Array|Uint8Array|Uint32Array} source - Source buffer
@@ -26184,7 +26188,9 @@ var defaultBufferOptions = {
  * @typeParam RO - The options for constructing resource.
  */
 
-var BaseTexture = function (_super) {
+var BaseTexture =
+/** @class */
+function (_super) {
   __extends(BaseTexture, _super);
   /**
    * @param {PIXI.Resource|string|HTMLImageElement|HTMLCanvasElement|HTMLVideoElement} [resource=null] -
@@ -26746,7 +26752,9 @@ var BaseTexture = function (_super) {
  */
 
 
-var AbstractMultiResource = function (_super) {
+var AbstractMultiResource =
+/** @class */
+function (_super) {
   __extends(AbstractMultiResource, _super);
   /**
    * @param {number} length
@@ -26955,7 +26963,9 @@ var AbstractMultiResource = function (_super) {
  */
 
 
-var ArrayResource = function (_super) {
+var ArrayResource =
+/** @class */
+function (_super) {
   __extends(ArrayResource, _super);
   /**
    * @param {number|Array<*>} source - Number of items in array or the collection
@@ -27074,7 +27084,9 @@ var ArrayResource = function (_super) {
  */
 
 
-var BaseImageResource = function (_super) {
+var BaseImageResource =
+/** @class */
+function (_super) {
   __extends(BaseImageResource, _super);
   /**
    * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement|SVGElement} source
@@ -27191,7 +27203,9 @@ var BaseImageResource = function (_super) {
  */
 
 
-var CanvasResource = function (_super) {
+var CanvasResource =
+/** @class */
+function (_super) {
   __extends(CanvasResource, _super);
   /**
    * @param {HTMLCanvasElement} source - Canvas element to use
@@ -27232,7 +27246,9 @@ var CanvasResource = function (_super) {
  */
 
 
-var CubeResource = function (_super) {
+var CubeResource =
+/** @class */
+function (_super) {
   __extends(CubeResource, _super);
   /**
    * @param {Array<string|PIXI.Resource>} [source] - Collection of URLs or resources
@@ -27391,7 +27407,9 @@ var CubeResource = function (_super) {
  */
 
 
-var ImageResource = function (_super) {
+var ImageResource =
+/** @class */
+function (_super) {
   __extends(ImageResource, _super);
   /**
    * @param {HTMLImageElement|string} source - image source or URL
@@ -27686,7 +27704,9 @@ var ImageResource = function (_super) {
  */
 
 
-var SVGResource = function (_super) {
+var SVGResource =
+/** @class */
+function (_super) {
   __extends(SVGResource, _super);
   /**
    * @param {string} source - Base64 encoded SVG element or URL for SVG file.
@@ -27927,7 +27947,9 @@ var SVGResource = function (_super) {
  */
 
 
-var VideoResource = function (_super) {
+var VideoResource =
+/** @class */
+function (_super) {
   __extends(VideoResource, _super);
   /**
    * @param {HTMLVideoElement|object|string|Array<string|object>} source - Video element to use.
@@ -28299,7 +28321,9 @@ var VideoResource = function (_super) {
  */
 
 
-var ImageBitmapResource = function (_super) {
+var ImageBitmapResource =
+/** @class */
+function (_super) {
   __extends(ImageBitmapResource, _super);
   /**
    * @param {ImageBitmap} source - Image element to use
@@ -28350,7 +28374,9 @@ var _resources = {
  * @memberof PIXI
  */
 
-var DepthResource = function (_super) {
+var DepthResource =
+/** @class */
+function (_super) {
   __extends(DepthResource, _super);
 
   function DepthResource() {
@@ -28395,7 +28421,9 @@ var DepthResource = function (_super) {
  */
 
 
-var Framebuffer = function () {
+var Framebuffer =
+/** @class */
+function () {
   /**
    * @param {number} width - Width of the frame buffer
    * @param {number} height - Height of the frame buffer
@@ -28625,7 +28653,9 @@ var Framebuffer = function () {
  */
 
 
-var BaseRenderTexture = function (_super) {
+var BaseRenderTexture =
+/** @class */
+function (_super) {
   __extends(BaseRenderTexture, _super);
   /**
    * @param {object} [options]
@@ -28743,7 +28773,9 @@ var BaseRenderTexture = function (_super) {
  */
 
 
-var TextureUvs = function () {
+var TextureUvs =
+/** @class */
+function () {
   function TextureUvs() {
     /**
      * X-component of top-left corner `(x0,y0)`.
@@ -28898,7 +28930,9 @@ var DEFAULT_UVS = new TextureUvs();
  * @typeParam R - The BaseTexture's Resource type.
  */
 
-var Texture = function (_super) {
+var Texture =
+/** @class */
+function (_super) {
   __extends(Texture, _super);
   /**
    * @param {PIXI.BaseTexture} baseTexture - The base texture source to create the texture from
@@ -29567,7 +29601,9 @@ removeAllHandlers(Texture.WHITE.baseTexture);
  * @memberof PIXI
  */
 
-var RenderTexture = function (_super) {
+var RenderTexture =
+/** @class */
+function (_super) {
   __extends(RenderTexture, _super);
   /**
    * @param {PIXI.BaseRenderTexture} baseRenderTexture - The base texture object that this texture uses
@@ -29721,7 +29757,9 @@ var RenderTexture = function (_super) {
  */
 
 
-var RenderTexturePool = function () {
+var RenderTexturePool =
+/** @class */
+function () {
   /**
    * @param {object} [textureOptions] - options that will be passed to BaseRenderTexture constructor
    * @param {PIXI.SCALE_MODES} [textureOptions.scaleMode] - See {@link PIXI.SCALE_MODES} for possible values.
@@ -29938,7 +29976,9 @@ var RenderTexturePool = function () {
  */
 
 
-var Attribute = function () {
+var Attribute =
+/** @class */
+function () {
   /**
    * @param {string} buffer - the id of the buffer that this attribute will look for
    * @param {Number} [size=0] - the size of the attribute. If you have 2 floats per vertex (eg position x and y) this would be 2.
@@ -30005,7 +30045,9 @@ var UID = 0;
  * @memberof PIXI
  */
 
-var Buffer = function () {
+var Buffer =
+/** @class */
+function () {
   /**
    * @param {ArrayBuffer| SharedArrayBuffer|ArrayBufferView} data - the data to store in the buffer.
    * @param {boolean} [_static=true] - `true` for static buffer
@@ -30195,7 +30237,9 @@ var map$1 = {
  * @memberof PIXI
  */
 
-var Geometry = function () {
+var Geometry =
+/** @class */
+function () {
   /**
    * @param {PIXI.Buffer[]} [buffers] - an array of buffers. optional.
    * @param {object} [attributes] - of the geometry, optional structure of the attributes layout
@@ -30561,7 +30605,9 @@ var Geometry = function () {
  */
 
 
-var Quad = function (_super) {
+var Quad =
+/** @class */
+function (_super) {
   __extends(Quad, _super);
 
   function Quad() {
@@ -30583,7 +30629,9 @@ var Quad = function (_super) {
  */
 
 
-var QuadUv = function (_super) {
+var QuadUv =
+/** @class */
+function (_super) {
   __extends(QuadUv, _super);
 
   function QuadUv() {
@@ -30706,7 +30754,9 @@ var UID$2 = 0;
  * @memberof PIXI
  */
 
-var UniformGroup = function () {
+var UniformGroup =
+/** @class */
+function () {
   /**
    * @param {object | Buffer} [uniforms] - Custom uniforms to use to augment the built-in ones. Or a pixi buffer
    * @param {boolean} [isStatic] - Uniforms wont be changed after creation
@@ -30812,7 +30862,9 @@ var UniformGroup = function () {
  */
 
 
-var FilterState = function () {
+var FilterState =
+/** @class */
+function () {
   function FilterState() {
     this.renderTexture = null;
     /**
@@ -30936,7 +30988,9 @@ var tempMatrix = new _pixi_math__WEBPACK_IMPORTED_MODULE_5__.Matrix();
  * @extends PIXI.System
  */
 
-var FilterSystem = function () {
+var FilterSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -31431,7 +31485,9 @@ var FilterSystem = function () {
  */
 
 
-var ObjectRenderer = function () {
+var ObjectRenderer =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this manager works for.
    */
@@ -31501,7 +31557,9 @@ var ObjectRenderer = function () {
  */
 
 
-var BatchSystem = function () {
+var BatchSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -31638,7 +31696,9 @@ var CONTEXT_UID_COUNTER = 0;
  * @memberof PIXI
  */
 
-var ContextSystem = function () {
+var ContextSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -31900,7 +31960,9 @@ var ContextSystem = function () {
  */
 
 
-var GLFramebuffer = function () {
+var GLFramebuffer =
+/** @class */
+function () {
   function GLFramebuffer(framebuffer) {
     /**
      * The WebGL framebuffer
@@ -31972,7 +32034,9 @@ var tempRectangle = new _pixi_math__WEBPACK_IMPORTED_MODULE_5__.Rectangle();
  * @memberof PIXI
  */
 
-var FramebufferSystem = function () {
+var FramebufferSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -32584,7 +32648,9 @@ var byteSizeMap$1 = {
  * @memberof PIXI
  */
 
-var GeometrySystem = function () {
+var GeometrySystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -33091,7 +33157,9 @@ var GeometrySystem = function () {
  */
 
 
-var MaskData = function () {
+var MaskData =
+/** @class */
+function () {
   /**
    * Create MaskData
    *
@@ -33811,7 +33879,9 @@ var nameCache = {};
  * @memberof PIXI
  */
 
-var Program = function () {
+var Program =
+/** @class */
+function () {
   /**
    * @param {string} [vertexSrc] - The source of the vertex shader.
    * @param {string} [fragmentSrc] - The source of the fragment shader.
@@ -33922,7 +33992,9 @@ var Program = function () {
  */
 
 
-var Shader = function () {
+var Shader =
+/** @class */
+function () {
   /**
    * @param {PIXI.Program} [program] - The program the shader will use.
    * @param {object} [uniforms] - Custom uniforms to use to augment the built-in ones.
@@ -34026,7 +34098,9 @@ var DEPTH_MASK = 5;
  * @memberof PIXI
  */
 
-var State = function () {
+var State =
+/** @class */
+function () {
   function State() {
     this.data = 0;
     this.blendMode = _pixi_constants__WEBPACK_IMPORTED_MODULE_1__.BLEND_MODES.NORMAL;
@@ -34367,7 +34441,9 @@ var defaultFragment$1 = "varying vec2 vTextureCoord;\n\nuniform sampler2D uSampl
  * @extends PIXI.Shader
  */
 
-var Filter = function (_super) {
+var Filter =
+/** @class */
+function (_super) {
   __extends(Filter, _super);
   /**
    * @param {string} [vertexSrc] - The source of the vertex shader.
@@ -34523,7 +34599,9 @@ var tempMat = new _pixi_math__WEBPACK_IMPORTED_MODULE_5__.Matrix();
  * @memberof PIXI
  */
 
-var TextureMatrix = function () {
+var TextureMatrix =
+/** @class */
+function () {
   /**
    *
    * @param {PIXI.Texture} texture - observed texture
@@ -34694,7 +34772,9 @@ var TextureMatrix = function () {
  */
 
 
-var SpriteMaskFilter = function (_super) {
+var SpriteMaskFilter =
+/** @class */
+function (_super) {
   __extends(SpriteMaskFilter, _super);
   /**
    * @param {PIXI.Sprite} sprite - the target sprite
@@ -34785,7 +34865,9 @@ var SpriteMaskFilter = function (_super) {
  */
 
 
-var MaskSystem = function () {
+var MaskSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -35020,7 +35102,9 @@ var MaskSystem = function () {
  */
 
 
-var AbstractMaskSystem = function () {
+var AbstractMaskSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -35106,7 +35190,9 @@ var AbstractMaskSystem = function () {
  */
 
 
-var ScissorSystem = function (_super) {
+var ScissorSystem =
+/** @class */
+function (_super) {
   __extends(ScissorSystem, _super);
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
@@ -35222,7 +35308,9 @@ var ScissorSystem = function (_super) {
  */
 
 
-var StencilSystem = function (_super) {
+var StencilSystem =
+/** @class */
+function (_super) {
   __extends(StencilSystem, _super);
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
@@ -35329,7 +35417,9 @@ var StencilSystem = function (_super) {
  */
 
 
-var ProjectionSystem = function () {
+var ProjectionSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -35509,7 +35599,9 @@ var tempRect2 = new _pixi_math__WEBPACK_IMPORTED_MODULE_5__.Rectangle();
  * @memberof PIXI
  */
 
-var RenderTextureSystem = function () {
+var RenderTextureSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -35887,7 +35979,9 @@ function generateUniformBufferSync(group, uniformData) {
  */
 
 
-var IGLUniformData = function () {
+var IGLUniformData =
+/** @class */
+function () {
   function IGLUniformData() {}
 
   return IGLUniformData;
@@ -35900,7 +35994,9 @@ var IGLUniformData = function () {
  */
 
 
-var GLProgram = function () {
+var GLProgram =
+/** @class */
+function () {
   /**
    * Makes a new Pixi program
    *
@@ -36075,7 +36171,9 @@ var defaultSyncData = {
  * @extends PIXI.System
  */
 
-var ShaderSystem = function () {
+var ShaderSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -36403,7 +36501,9 @@ var DEPTH_MASK$1 = 5;
  * @memberof PIXI
  */
 
-var StateSystem = function () {
+var StateSystem =
+/** @class */
+function () {
   function StateSystem() {
     /**
      * GL context
@@ -36714,7 +36814,9 @@ var StateSystem = function () {
  */
 
 
-var TextureGCSystem = function () {
+var TextureGCSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -36874,7 +36976,9 @@ function mapTypeAndFormatToInternalFormat(gl) {
  */
 
 
-var GLTexture = function () {
+var GLTexture =
+/** @class */
+function () {
   function GLTexture(texture) {
     /**
      * The WebGL texture
@@ -36943,7 +37047,9 @@ var GLTexture = function () {
  */
 
 
-var TextureSystem = function () {
+var TextureSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -37366,7 +37472,9 @@ var tempMatrix$1 = new _pixi_math__WEBPACK_IMPORTED_MODULE_5__.Matrix();
  * @memberof PIXI
  */
 
-var AbstractRenderer = function (_super) {
+var AbstractRenderer =
+/** @class */
+function (_super) {
   __extends(AbstractRenderer, _super);
   /**
    * @param system - The name of the system this renderer is for.
@@ -37713,7 +37821,9 @@ var AbstractRenderer = function (_super) {
   return AbstractRenderer;
 }(_pixi_utils__WEBPACK_IMPORTED_MODULE_2__.EventEmitter);
 
-var GLBuffer = function () {
+var GLBuffer =
+/** @class */
+function () {
   function GLBuffer(buffer) {
     this.buffer = buffer || null;
     this.updateID = -1;
@@ -37744,7 +37854,9 @@ var GLBuffer = function () {
  */
 
 
-var BufferSystem = function () {
+var BufferSystem =
+/** @class */
+function () {
   /**
    * @param {PIXI.Renderer} renderer - The renderer this System works for.
    */
@@ -37953,7 +38065,9 @@ var BufferSystem = function () {
  */
 
 
-var Renderer = function (_super) {
+var Renderer =
+/** @class */
+function (_super) {
   __extends(Renderer, _super);
   /**
    * @param [options] - The optional renderer parameters.
@@ -38502,7 +38616,9 @@ var defaultFilterVertex = $defaultFilterVertex;
  * @memberof PIXI
  */
 
-var System = function () {
+var System =
+/** @class */
+function () {
   /**
    * @param renderer - Reference to Renderer
    */
@@ -38528,7 +38644,9 @@ var System = function () {
  */
 
 
-var BatchDrawCall = function () {
+var BatchDrawCall =
+/** @class */
+function () {
   function BatchDrawCall() {
     this.texArray = null;
     this.blend = 0;
@@ -38554,7 +38672,9 @@ var BatchDrawCall = function () {
  */
 
 
-var BatchTextureArray = function () {
+var BatchTextureArray =
+/** @class */
+function () {
   function BatchTextureArray() {
     /**
      * inside textures array
@@ -38593,7 +38713,9 @@ var BatchTextureArray = function () {
  */
 
 
-var ViewableBuffer = function () {
+var ViewableBuffer =
+/** @class */
+function () {
   function ViewableBuffer(sizeOrBuffer) {
     if (typeof sizeOrBuffer === 'number') {
       /**
@@ -38769,7 +38891,9 @@ var ViewableBuffer = function () {
  */
 
 
-var AbstractBatchRenderer = function (_super) {
+var AbstractBatchRenderer =
+/** @class */
+function (_super) {
   __extends(AbstractBatchRenderer, _super);
   /**
    * This will hook onto the renderer's `contextChange`
@@ -39460,7 +39584,9 @@ var AbstractBatchRenderer = function (_super) {
  */
 
 
-var BatchShaderGenerator = function () {
+var BatchShaderGenerator =
+/** @class */
+function () {
   /**
    * @param {string} vertexSrc - Vertex shader
    * @param {string} fragTemplate - Fragment shader template
@@ -39550,7 +39676,9 @@ var BatchShaderGenerator = function () {
  */
 
 
-var BatchGeometry = function (_super) {
+var BatchGeometry =
+/** @class */
+function (_super) {
   __extends(BatchGeometry, _super);
   /**
    * @param {boolean} [_static=false] - Optimization flag, where `false`
@@ -39598,7 +39726,9 @@ var defaultFragment$2 = "varying vec2 vTextureCoord;\nvarying vec4 vColor;\nvary
  * @hideconstructor
  */
 
-var BatchPluginFactory = function () {
+var BatchPluginFactory =
+/** @class */
+function () {
   function BatchPluginFactory() {}
   /**
    * Create a new BatchRenderer plugin for Renderer. this convenience can provide an easy way
@@ -39643,20 +39773,23 @@ var BatchPluginFactory = function () {
         vertexSize = _a.vertexSize,
         geometryClass = _a.geometryClass;
 
-    return function (_super) {
-      __extends(BatchPlugin, _super);
+    return (
+      /** @class */
+      function (_super) {
+        __extends(BatchPlugin, _super);
 
-      function BatchPlugin(renderer) {
-        var _this = _super.call(this, renderer) || this;
+        function BatchPlugin(renderer) {
+          var _this = _super.call(this, renderer) || this;
 
-        _this.shaderGenerator = new BatchShaderGenerator(vertex, fragment);
-        _this.geometryClass = geometryClass;
-        _this.vertexSize = vertexSize;
-        return _this;
-      }
+          _this.shaderGenerator = new BatchShaderGenerator(vertex, fragment);
+          _this.geometryClass = geometryClass;
+          _this.vertexSize = vertexSize;
+          return _this;
+        }
 
-      return BatchPlugin;
-    }(AbstractBatchRenderer);
+        return BatchPlugin;
+      }(AbstractBatchRenderer)
+    );
   };
 
   Object.defineProperty(BatchPluginFactory, "defaultVertexSrc", {
@@ -49282,7 +49415,9 @@ __webpack_require__.r(__webpack_exports__);
  * @memberof PIXI
  */
 
-var SignalBinding = function () {
+var SignalBinding =
+/** @class */
+function () {
   /**
    * SignalBinding constructor.
    * @constructs SignalBinding
@@ -49338,7 +49473,9 @@ function _addSignalBinding(self, node) {
  */
 
 
-var Signal = function () {
+var Signal =
+/** @class */
+function () {
   /**
    * MiniSignal constructor.
    * @example
@@ -49630,7 +49767,9 @@ function reqType(xhr) {
  */
 
 
-var LoaderResource = function () {
+var LoaderResource =
+/** @class */
+function () {
   /**
    * @param {string} name - The name of the resource to load.
    * @param {string|string[]} url - The url for this resource, for audio/video loads you can pass
@@ -50694,7 +50833,9 @@ function onlyOnce(fn) {
  */
 
 
-var AsyncQueueItem = function () {
+var AsyncQueueItem =
+/** @class */
+function () {
   /**
    * @private
    */
@@ -50711,7 +50852,9 @@ var AsyncQueueItem = function () {
  */
 
 
-var AsyncQueue = function () {
+var AsyncQueue =
+/** @class */
+function () {
   /**
    * @private
    */
@@ -50971,7 +51114,9 @@ var rgxExtractUrlHash = /(#[\w-]+)?$/;
  * @memberof PIXI
  */
 
-var Loader = function () {
+var Loader =
+/** @class */
+function () {
   /**
    * @param baseUrl - The base url for all resources loaded by this loader.
    * @param concurrency - The number of resources to load concurrently.
@@ -51467,7 +51612,9 @@ Loader.prototype.add = function add(name, url, options, callback) {
  */
 
 
-var AppLoaderPlugin = function () {
+var AppLoaderPlugin =
+/** @class */
+function () {
   function AppLoaderPlugin() {}
   /**
    * Called on application constructor
@@ -51512,7 +51659,9 @@ var AppLoaderPlugin = function () {
  */
 
 
-var TextureLoader = function () {
+var TextureLoader =
+/** @class */
+function () {
   function TextureLoader() {}
   /**
    * Handle SVG elements a text, render with SVGResource.
@@ -57190,7 +57339,9 @@ function __extends(d, b) {
  */
 
 
-var CountLimiter = function () {
+var CountLimiter =
+/** @class */
+function () {
   /**
    * @param {number} maxItemsPerFrame - The maximum number of items that can be prepared each frame.
    */
@@ -57421,7 +57572,9 @@ function findTextStyle(item, queue) {
  */
 
 
-var BasePrepare = function () {
+var BasePrepare =
+/** @class */
+function () {
   /**
    * @param {PIXI.AbstractRenderer} renderer - A reference to the current renderer
    */
@@ -57792,7 +57945,9 @@ function findGraphics(item, queue) {
  */
 
 
-var Prepare = function (_super) {
+var Prepare =
+/** @class */
+function (_super) {
   __extends(Prepare, _super);
   /**
    * @param {PIXI.Renderer} renderer - A reference to the current renderer
@@ -57824,7 +57979,9 @@ var Prepare = function (_super) {
  */
 
 
-var TimeLimiter = function () {
+var TimeLimiter =
+/** @class */
+function () {
   /**
    * @param {number} maxMilliseconds - The maximum milliseconds that can be spent preparing items each frame.
    */
@@ -60480,7 +60637,9 @@ __webpack_require__.r(__webpack_exports__);
  * @memberof PIXI
  */
 
-var Spritesheet = function () {
+var Spritesheet =
+/** @class */
+function () {
   /**
    * @param {PIXI.BaseTexture|PIXI.Texture} baseTexture - Reference to the source BaseTexture object.
    * @param {Object} data - Spritesheet image data.
@@ -60803,7 +60962,9 @@ var Spritesheet = function () {
  */
 
 
-var SpritesheetLoader = function () {
+var SpritesheetLoader =
+/** @class */
+function () {
   function SpritesheetLoader() {}
   /**
    * Called after a resource is loaded.
