@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1877,7 +1877,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16151,7 +16151,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23537,7 +23537,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27456,7 +27456,7 @@
       /*! rxjs/operators */
       31635);
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -32024,11 +32024,11 @@
        * parameterized type.
        *
        * `InjectionToken` is parameterized on `T` which is the type of object which will be returned by
-       * the `Injector`. This provides additional level of type safety.
+       * the `Injector`. This provides an additional level of type safety.
        *
        * ```
        * interface MyInterface {...}
-       * var myInterface = injector.get(new InjectionToken<MyInterface>('SomeToken'));
+       * const myInterface = injector.get(new InjectionToken<MyInterface>('SomeToken'));
        * // myInterface is inferred to be MyInterface.
        * ```
        *
@@ -32036,14 +32036,15 @@
        * (possibly by creating) a default value of the parameterized type `T`. This sets up the
        * `InjectionToken` using this factory as a provider as if it was defined explicitly in the
        * application's root injector. If the factory function, which takes zero arguments, needs to inject
-       * dependencies, it can do so using the `inject` function. See below for an example.
+       * dependencies, it can do so using the `inject` function.
+       * As you can see in the Tree-shakable InjectionToken example below.
        *
        * Additionally, if a `factory` is specified you can also specify the `providedIn` option, which
        * overrides the above behavior and marks the token as belonging to a particular `@NgModule`. As
        * mentioned above, `'root'` is the default value for `providedIn`.
        *
        * @usageNotes
-       * ### Basic Example
+       * ### Basic Examples
        *
        * ### Plain InjectionToken
        *
@@ -32059,6 +32060,12 @@
 
 
       var _InjectionToken = /*#__PURE__*/function () {
+        /**
+         * @param _desc   Description for the token,
+         *                used only for debugging purposes,
+         *                it should but does not need to be unique
+         * @param options Options for the token's usage, as described above
+         */
         function _InjectionToken(_desc, options) {
           _classCallCheck(this, _InjectionToken);
 
@@ -53188,7 +53195,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.9');
+      var _VERSION3 = new _Version('12.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74477,7 +74484,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75868,7 +75875,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79175,7 +79182,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.9');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79935,7 +79942,7 @@
       /*! rxjs/operators */
       87091);
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -88499,7 +88506,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88723,7 +88730,7 @@
       /*! rxjs/operators */
       56913);
       /**
-       * @license Angular v12.2.9
+       * @license Angular v12.2.10
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */

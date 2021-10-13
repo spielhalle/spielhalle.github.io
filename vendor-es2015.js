@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1267,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 97175);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9941,7 +9941,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15217,7 +15217,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
 
 /**
  * @license
@@ -15943,7 +15943,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 17159);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 31635);
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -19785,11 +19785,11 @@ const Attribute = CREATE_ATTRIBUTE_DECORATOR_IMPL();
  * parameterized type.
  *
  * `InjectionToken` is parameterized on `T` which is the type of object which will be returned by
- * the `Injector`. This provides additional level of type safety.
+ * the `Injector`. This provides an additional level of type safety.
  *
  * ```
  * interface MyInterface {...}
- * var myInterface = injector.get(new InjectionToken<MyInterface>('SomeToken'));
+ * const myInterface = injector.get(new InjectionToken<MyInterface>('SomeToken'));
  * // myInterface is inferred to be MyInterface.
  * ```
  *
@@ -19797,14 +19797,15 @@ const Attribute = CREATE_ATTRIBUTE_DECORATOR_IMPL();
  * (possibly by creating) a default value of the parameterized type `T`. This sets up the
  * `InjectionToken` using this factory as a provider as if it was defined explicitly in the
  * application's root injector. If the factory function, which takes zero arguments, needs to inject
- * dependencies, it can do so using the `inject` function. See below for an example.
+ * dependencies, it can do so using the `inject` function.
+ * As you can see in the Tree-shakable InjectionToken example below.
  *
  * Additionally, if a `factory` is specified you can also specify the `providedIn` option, which
  * overrides the above behavior and marks the token as belonging to a particular `@NgModule`. As
  * mentioned above, `'root'` is the default value for `providedIn`.
  *
  * @usageNotes
- * ### Basic Example
+ * ### Basic Examples
  *
  * ### Plain InjectionToken
  *
@@ -19818,6 +19819,12 @@ const Attribute = CREATE_ATTRIBUTE_DECORATOR_IMPL();
  * @publicApi
  */
 class InjectionToken {
+    /**
+     * @param _desc   Description for the token,
+     *                used only for debugging purposes,
+     *                it should but does not need to be unique
+     * @param options Options for the token's usage, as described above
+     */
     constructor(_desc, options) {
         this._desc = _desc;
         /** @internal */
@@ -37403,7 +37410,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.9');
+const VERSION = new Version('12.2.10');
 
 /**
  * @license
@@ -52062,7 +52069,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 32502);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 54364);
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52675,7 +52682,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 54364);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54820,7 +54827,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.9');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.10');
 
 /**
  * @license
@@ -54963,7 +54970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 67465);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 87091);
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -61191,7 +61198,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.9');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
 
 /**
  * @license
@@ -61271,7 +61278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 39349);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 56913);
 /**
- * @license Angular v12.2.9
+ * @license Angular v12.2.10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
