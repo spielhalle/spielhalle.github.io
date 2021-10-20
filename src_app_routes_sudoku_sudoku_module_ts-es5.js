@@ -2136,10 +2136,26 @@
           _this14 = _super4.call(this, document);
           _this14._platform = _platform;
           _this14._cursorStyleIsSet = false;
+          /** Store pointerdown event target to track origin of click. */
+
+          _this14._pointerDownListener = function (event) {
+            _this14._pointerDownEventTarget = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._getEventTarget)(event);
+          };
           /** Click event listener that will be attached to the body propagate phase. */
 
+
           _this14._clickListener = function (event) {
-            var target = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._getEventTarget)(event); // We copy the array because the original may be modified asynchronously if the
+            var target = (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._getEventTarget)(event); // In case of a click event, we want to check the origin of the click
+            // (e.g. in case where a user starts a click inside the overlay and
+            // releases the click outside of it).
+            // This is done by using the event target of the preceding pointerdown event.
+            // Every click event caused by a pointer device has a preceding pointerdown
+            // event, unless the click was programmatically triggered (e.g. in a unit test).
+
+            var origin = event.type === 'click' && _this14._pointerDownEventTarget ? _this14._pointerDownEventTarget : target; // Reset the stored pointerdown event target, to avoid having it interfere
+            // in subsequent events.
+
+            _this14._pointerDownEventTarget = null; // We copy the array because the original may be modified asynchronously if the
             // outsidePointerEvents listener decides to detach overlays resulting in index errors inside
             // the for loop.
 
@@ -2155,10 +2171,11 @@
               if (overlayRef._outsidePointerEvents.observers.length < 1 || !overlayRef.hasAttached()) {
                 continue;
               } // If it's a click inside the overlay, just break - we should do nothing
-              // If it's an outside click dispatch the mouse event, and proceed with the next overlay
+              // If it's an outside click (both origin and target of the click) dispatch the mouse event,
+              // and proceed with the next overlay
 
 
-              if (overlayRef.overlayElement.contains(target)) {
+              if (overlayRef.overlayElement.contains(target) || overlayRef.overlayElement.contains(origin)) {
                 break;
               }
 
@@ -2184,6 +2201,7 @@
 
             if (!this._isAttached) {
               var body = this._document.body;
+              body.addEventListener('pointerdown', this._pointerDownListener, true);
               body.addEventListener('click', this._clickListener, true);
               body.addEventListener('auxclick', this._clickListener, true);
               body.addEventListener('contextmenu', this._clickListener, true); // click event is not fired on iOS. To make element "clickable" we are
@@ -2205,6 +2223,7 @@
           value: function detach() {
             if (this._isAttached) {
               var body = this._document.body;
+              body.removeEventListener('pointerdown', this._pointerDownListener, true);
               body.removeEventListener('click', this._clickListener, true);
               body.removeEventListener('auxclick', this._clickListener, true);
               body.removeEventListener('contextmenu', this._clickListener, true);
