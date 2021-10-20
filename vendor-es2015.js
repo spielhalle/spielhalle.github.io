@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1267,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 97175);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9941,7 +9941,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -15217,7 +15217,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.11');
 
 /**
  * @license
@@ -15943,7 +15943,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 83396);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 62640);
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37410,7 +37410,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.10');
+const VERSION = new Version('12.2.11');
 
 /**
  * @license
@@ -52069,7 +52069,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 32502);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 54364);
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52682,7 +52682,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 54364);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54827,7 +54827,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.10');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.11');
 
 /**
  * @license
@@ -54970,7 +54970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 94850);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 52558);
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -59202,6 +59202,7 @@ class Router {
                     completed = true;
                 }
             }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_26__.finalize)(() => {
+                var _a;
                 /* When the navigation stream finishes either through error or success, we
                  * set the `completed` or `errored` flag. However, there are some situations
                  * where we could get here without either of those being set. For instance, a
@@ -59234,10 +59235,11 @@ class Router {
                         // id.
                     }
                 }
-                // currentNavigation should always be reset to null here. If navigation was
-                // successful, lastSuccessfulTransition will have already been set. Therefore
-                // we can safely set currentNavigation to null here.
-                this.currentNavigation = null;
+                // Only clear current navigation if it is still set to the one that
+                // finalized.
+                if (((_a = this.currentNavigation) === null || _a === void 0 ? void 0 : _a.id) === t.id) {
+                    this.currentNavigation = null;
+                }
             }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.catchError)((e) => {
                 // TODO(atscott): The NavigationTransition `t` used here does not accurately
                 // reflect the current state of the whole transition because some operations
@@ -61198,7 +61200,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.11');
 
 /**
  * @license
@@ -61278,7 +61280,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 7048);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 23531);
 /**
- * @license Angular v12.2.10
+ * @license Angular v12.2.11
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */

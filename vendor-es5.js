@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1877,7 +1877,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16151,7 +16151,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -23537,7 +23537,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27456,7 +27456,7 @@
       /*! rxjs/operators */
       62640);
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -53195,7 +53195,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.10');
+      var _VERSION3 = new _Version('12.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74484,7 +74484,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75875,7 +75875,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79182,7 +79182,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.10');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79942,7 +79942,7 @@
       /*! rxjs/operators */
       52558);
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -85618,6 +85618,7 @@
                   completed = true;
                 }
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_26__.finalize)(function () {
+                var _a;
                 /* When the navigation stream finishes either through error or success, we
                  * set the `completed` or `errored` flag. However, there are some situations
                  * where we could get here without either of those being set. For instance, a
@@ -85625,6 +85626,8 @@
                  * sure the NavigationCancel
                  * event is fired when a navigation gets cancelled but not caught by other
                  * means. */
+
+
                 if (!completed && !errored) {
                   var cancelationReason = "Navigation ID ".concat(t.id, " is not equal to the current navigation id ").concat(_this195.navigationId);
 
@@ -85650,12 +85653,13 @@
                     // id.
 
                   }
-                } // currentNavigation should always be reset to null here. If navigation was
-                // successful, lastSuccessfulTransition will have already been set. Therefore
-                // we can safely set currentNavigation to null here.
+                } // Only clear current navigation if it is still set to the one that
+                // finalized.
 
 
-                _this195.currentNavigation = null;
+                if (((_a = _this195.currentNavigation) === null || _a === void 0 ? void 0 : _a.id) === t.id) {
+                  _this195.currentNavigation = null;
+                }
               }), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_12__.catchError)(function (e) {
                 // TODO(atscott): The NavigationTransition `t` used here does not accurately
                 // reflect the current state of the whole transition because some operations
@@ -88506,7 +88510,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.10');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.11');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88730,7 +88734,7 @@
       /*! rxjs/operators */
       23531);
       /**
-       * @license Angular v12.2.10
+       * @license Angular v12.2.11
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
