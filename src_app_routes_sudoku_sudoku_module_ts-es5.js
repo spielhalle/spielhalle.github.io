@@ -90863,7 +90863,9 @@
       // other code modifying setTimeout (like sinon.useFakeTimers())
 
 
-      var setTimeoutFunc = setTimeout;
+      var setTimeoutFunc = setTimeout; // @ts-ignore
+
+      var setImmediateFunc = typeof setImmediate !== 'undefined' ? setImmediate : null;
 
       function isArray(x) {
         return Boolean(x && typeof x.length !== 'undefined');
@@ -91105,9 +91107,9 @@
 
 
       Promise._immediateFn = // @ts-ignore
-      typeof setImmediate === 'function' && function (fn) {
+      typeof setImmediateFunc === 'function' && function (fn) {
         // @ts-ignore
-        setImmediate(fn);
+        setImmediateFunc(fn);
       } || function (fn) {
         setTimeoutFunc(fn, 0);
       };
