@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵPRE_STYLE": function() { return /* binding */ ɵPRE_STYLE; }
 /* harmony export */ });
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1267,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ 97175);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9941,7 +9941,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -14112,7 +14112,8 @@ const _subscribableStrategy = new SubscribableStrategy();
  * The `async` pipe subscribes to an `Observable` or `Promise` and returns the latest value it has
  * emitted. When a new value is emitted, the `async` pipe marks the component to be checked for
  * changes. When the component gets destroyed, the `async` pipe unsubscribes automatically to avoid
- * potential memory leaks.
+ * potential memory leaks. When the reference of the expression changes, the `async` pipe
+ * automatically unsubscribes from the old `Observable` or `Promise` and subscribes to the new one.
  *
  * @usageNotes
  *
@@ -15217,7 +15218,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.12');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.13');
 
 /**
  * @license
@@ -15943,7 +15944,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 83396);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 62640);
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -16080,10 +16081,22 @@ function isForwardRef(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// Base URL for the error details page.
-// Keep this value in sync with a similar const in
-// `packages/compiler-cli/src/ngtsc/diagnostics/src/error_code.ts`.
+/**
+ * Base URL for the error details page.
+ *
+ * Keep the files below in sync:
+ *  - packages/compiler-cli/src/ngtsc/diagnostics/src/error_details_base_url.ts
+ *  - packages/core/src/render3/error_details_base_url.ts
+ */
 const ERROR_DETAILS_PAGE_BASE_URL = 'https://angular.io/errors';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class RuntimeError extends Error {
     constructor(code, message) {
         super(formatRuntimeError(code, message));
@@ -19569,8 +19582,8 @@ class NodeInjector {
         this._tNode = _tNode;
         this._lView = _lView;
     }
-    get(token, notFoundValue) {
-        return getOrCreateInjectable(this._tNode, this._lView, token, undefined, notFoundValue);
+    get(token, notFoundValue, flags) {
+        return getOrCreateInjectable(this._tNode, this._lView, token, flags, notFoundValue);
     }
 }
 /**
@@ -37410,7 +37423,7 @@ class Version {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.2.12');
+const VERSION = new Version('12.2.13');
 
 /**
  * @license
@@ -52069,7 +52082,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ 32502);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ 54364);
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -52682,7 +52695,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ 54364);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2316);
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54827,7 +54840,7 @@ function elementMatches(n, selector) {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.12');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.13');
 
 /**
  * @license
@@ -54970,7 +54983,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! rxjs/operators */ 94850);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! rxjs/operators */ 52558);
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -61200,7 +61213,7 @@ function provideRouterInitializer() {
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.12');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.13');
 
 /**
  * @license
@@ -61280,7 +61293,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/operators */ 7048);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! rxjs/operators */ 23531);
 /**
- * @license Angular v12.2.12
+ * @license Angular v12.2.13
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */

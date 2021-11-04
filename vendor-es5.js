@@ -226,7 +226,7 @@
 
       });
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -1877,7 +1877,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -16151,7 +16151,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -21958,7 +21958,8 @@
        * The `async` pipe subscribes to an `Observable` or `Promise` and returns the latest value it has
        * emitted. When a new value is emitted, the `async` pipe marks the component to be checked for
        * changes. When the component gets destroyed, the `async` pipe unsubscribes automatically to avoid
-       * potential memory leaks.
+       * potential memory leaks. When the reference of the expression changes, the `async` pipe
+       * automatically unsubscribes from the old `Observable` or `Promise` and subscribes to the new one.
        *
        * @usageNotes
        *
@@ -23537,7 +23538,7 @@
        */
 
 
-      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.12');
+      var _VERSION2 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.13');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -27456,7 +27457,7 @@
       /*! rxjs/operators */
       62640);
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -27612,12 +27613,24 @@
        * Use of this source code is governed by an MIT-style license that can be
        * found in the LICENSE file at https://angular.io/license
        */
-      // Base URL for the error details page.
-      // Keep this value in sync with a similar const in
-      // `packages/compiler-cli/src/ngtsc/diagnostics/src/error_code.ts`.
+
+      /**
+       * Base URL for the error details page.
+       *
+       * Keep the files below in sync:
+       *  - packages/compiler-cli/src/ngtsc/diagnostics/src/error_details_base_url.ts
+       *  - packages/core/src/render3/error_details_base_url.ts
+       */
 
 
       var ERROR_DETAILS_PAGE_BASE_URL = 'https://angular.io/errors';
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
 
       var RuntimeError = /*#__PURE__*/function (_Error) {
         _inherits(RuntimeError, _Error);
@@ -31747,8 +31760,8 @@
 
         _createClass2(NodeInjector, [{
           key: "get",
-          value: function get(token, notFoundValue) {
-            return getOrCreateInjectable(this._tNode, this._lView, token, undefined, notFoundValue);
+          value: function get(token, notFoundValue, flags) {
+            return getOrCreateInjectable(this._tNode, this._lView, token, flags, notFoundValue);
           }
         }]);
 
@@ -53195,7 +53208,7 @@
        */
 
 
-      var _VERSION3 = new _Version('12.2.12');
+      var _VERSION3 = new _Version('12.2.13');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -74484,7 +74497,7 @@
       /*! @angular/common */
       54364);
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -75875,7 +75888,7 @@
       /*! @angular/core */
       2316);
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -79182,7 +79195,7 @@
        */
 
 
-      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.12');
+      var _VERSION4 = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.Version('12.2.13');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -79942,7 +79955,7 @@
       /*! rxjs/operators */
       52558);
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -88510,7 +88523,7 @@
        */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.12');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.13');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -88734,7 +88747,7 @@
       /*! rxjs/operators */
       23531);
       /**
-       * @license Angular v12.2.12
+       * @license Angular v12.2.13
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
