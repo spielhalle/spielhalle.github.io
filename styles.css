@@ -54,9 +54,9 @@
 .mat-form-field-subscript-wrapper{font-size:75%;margin-top:.6666666667em;top:calc(100% - 1.7916666667em)}
 .mat-form-field-appearance-legacy .mat-form-field-wrapper{padding-bottom:1.25em}
 .mat-form-field-appearance-legacy .mat-form-field-infix{padding:.4375em 0}
-.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.001px);-ms-transform:translateY(-1.28125em) scale(0.75);width:133.3333333333%}
-.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.00101px);-ms-transform:translateY(-1.28124em) scale(0.75);width:133.3333433333%}
-.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server[label]:not(:label-shown)+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.00102px);-ms-transform:translateY(-1.28123em) scale(0.75);width:133.3333533333%}
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.001px);width:133.3333333333%}
+.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.00101px);width:133.3333433333%}
+.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server[label]:not(:label-shown)+.mat-form-field-label-wrapper .mat-form-field-label{transform:translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.00102px);width:133.3333533333%}
 .mat-form-field-appearance-legacy .mat-form-field-label{top:1.28125em}
 .mat-form-field-appearance-legacy .mat-form-field-underline{bottom:1.25em}
 .mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper{margin-top:.5416666667em;top:calc(100% - 1.6666666667em)}
@@ -319,7 +319,7 @@ textarea.cdk-textarea-autosize-measuring-firefox{padding:2px 0 !important;box-si
 mat-row,mat-header-row,mat-footer-row,th.mat-header-cell,td.mat-cell,td.mat-footer-cell{border-bottom-color:rgba(255,255,255,.12)}
 .mat-header-cell{color:rgba(255,255,255,.7)}
 .mat-cell,.mat-footer-cell{color:#fff}
-.mat-calendar-arrow{border-top-color:#fff}
+.mat-calendar-arrow{fill:#fff}
 .mat-datepicker-toggle,.mat-datepicker-content .mat-calendar-next-button,.mat-datepicker-content .mat-calendar-previous-button{color:#fff}
 .mat-calendar-table-header-divider::after{background:rgba(255,255,255,.12)}
 .mat-calendar-table-header,.mat-calendar-body-label{color:rgba(255,255,255,.7)}
