@@ -88941,7 +88941,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.0');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -91315,22 +91315,20 @@
        * found in the LICENSE file at https://angular.io/license
        */
 
-
-      var testGlobals; // We check the Node-specific `global` first, because tools tend to add a fake
-      // `window` in Node environments which won't actually receive global variables.
-
-      if (typeof global !== 'undefined') {
-        testGlobals = global;
-      } else if (typeof window !== 'undefined') {
-        testGlobals = window;
-      } else {
-        testGlobals = {};
-      }
       /** Gets whether the code is currently running in a test environment. */
 
 
       function _isTestEnvironment2() {
-        return typeof testGlobals.__karma__ !== 'undefined' && !!testGlobals.__karma__ || typeof testGlobals.jasmine !== 'undefined' && !!testGlobals.jasmine || typeof testGlobals.jest !== 'undefined' && !!testGlobals.jest || typeof testGlobals.Mocha !== 'undefined' && !!testGlobals.Mocha;
+        // We can't use `declare const` because it causes conflicts inside Google with the real typings
+        // for these symbols and we can't read them off the global object, because they don't appear to
+        // be attached there for some runners like Jest.
+        // (see: https://github.com/angular/components/issues/23365#issuecomment-938146643)
+        return (// @ts-ignore
+          typeof __karma__ !== 'undefined' && !!__karma__ || // @ts-ignore
+          typeof jasmine !== 'undefined' && !!jasmine || // @ts-ignore
+          typeof jest !== 'undefined' && !!jest || // @ts-ignore
+          typeof Mocha !== 'undefined' && !!Mocha
+        );
       }
       /**
        * @license
@@ -93098,7 +93096,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.0');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -93130,7 +93128,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.0');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.1');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
