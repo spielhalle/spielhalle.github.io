@@ -70709,8 +70709,7 @@ MatDialogModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_2_
       imports: [_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_10__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__.PortalModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_17__.MatCommonModule],
       exports: [MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, _angular_material_core__WEBPACK_IMPORTED_MODULE_17__.MatCommonModule],
       declarations: [MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogActions, MatDialogContent],
-      providers: [MatDialog, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER],
-      entryComponents: [MatDialogContainer]
+      providers: [MatDialog, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER]
     }]
   }], null, null);
 })();

@@ -87838,8 +87838,7 @@
             imports: [_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_10__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_1__.PortalModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_17__.MatCommonModule],
             exports: [_MatDialogContainer, _MatDialogClose, _MatDialogTitle, _MatDialogContent, _MatDialogActions, _angular_material_core__WEBPACK_IMPORTED_MODULE_17__.MatCommonModule],
             declarations: [_MatDialogContainer, _MatDialogClose, _MatDialogTitle, _MatDialogActions, _MatDialogContent],
-            providers: [_MatDialog, _MAT_DIALOG_SCROLL_STRATEGY_PROVIDER],
-            entryComponents: [_MatDialogContainer]
+            providers: [_MatDialog, _MAT_DIALOG_SCROLL_STRATEGY_PROVIDER]
           }]
         }], null, null);
       })();
