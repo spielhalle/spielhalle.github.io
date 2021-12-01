@@ -86479,12 +86479,14 @@
             // Contains the deprecated version of selector, for temporary backwards comparability.
             var markers = this._element.querySelectorAll("[cdk-focus-region-".concat(bound, "], ") + "[cdkFocusRegion".concat(bound, "], ") + "[cdk-focus-".concat(bound, "]"));
 
-            for (var i = 0; i < markers.length; i++) {
-              // @breaking-change 8.0.0
-              if (markers[i].hasAttribute("cdk-focus-".concat(bound))) {
-                console.warn("Found use of deprecated attribute 'cdk-focus-".concat(bound, "', ") + "use 'cdkFocusRegion".concat(bound, "' instead. The deprecated ") + "attribute will be removed in 8.0.0.", markers[i]);
-              } else if (markers[i].hasAttribute("cdk-focus-region-".concat(bound))) {
-                console.warn("Found use of deprecated attribute 'cdk-focus-region-".concat(bound, "', ") + "use 'cdkFocusRegion".concat(bound, "' instead. The deprecated attribute ") + "will be removed in 8.0.0.", markers[i]);
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+              for (var i = 0; i < markers.length; i++) {
+                // @breaking-change 8.0.0
+                if (markers[i].hasAttribute("cdk-focus-".concat(bound))) {
+                  console.warn("Found use of deprecated attribute 'cdk-focus-".concat(bound, "', ") + "use 'cdkFocusRegion".concat(bound, "' instead. The deprecated ") + "attribute will be removed in 8.0.0.", markers[i]);
+                } else if (markers[i].hasAttribute("cdk-focus-region-".concat(bound))) {
+                  console.warn("Found use of deprecated attribute 'cdk-focus-region-".concat(bound, "', ") + "use 'cdkFocusRegion".concat(bound, "' instead. The deprecated attribute ") + "will be removed in 8.0.0.", markers[i]);
+                }
               }
             }
 
@@ -86507,7 +86509,7 @@
 
             if (redirectToElement) {
               // @breaking-change 8.0.0
-              if (redirectToElement.hasAttribute("cdk-focus-initial")) {
+              if ((typeof ngDevMode === 'undefined' || ngDevMode) && redirectToElement.hasAttribute("cdk-focus-initial")) {
                 console.warn("Found use of deprecated attribute 'cdk-focus-initial', " + "use 'cdkFocusInitial' instead. The deprecated attribute " + "will be removed in 8.0.0", redirectToElement);
               } // Warn the consumer if the element they've pointed to
               // isn't focusable, when not in production mode.
@@ -88941,7 +88943,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.2');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -92988,19 +92990,19 @@
       /* harmony import */
 
 
-      var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/cdk/bidi */
       51588);
       /* harmony import */
 
 
-      var _angular_cdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _angular_cdk__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/cdk */
       62597);
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/common */
       54364);
       /* harmony import */
@@ -93012,7 +93014,7 @@
       /* harmony import */
 
 
-      var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/cdk/a11y */
       84128);
       /* harmony import */
@@ -93096,7 +93098,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.2');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.3');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -93128,7 +93130,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.2');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.3');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -93150,28 +93152,34 @@
 
 
       var _MatCommonModule = /*#__PURE__*/function () {
-        function _MatCommonModule(highContrastModeDetector, sanityChecks, document) {
+        function _MatCommonModule(highContrastModeDetector, _sanityChecks, _document) {
           _classCallCheck(this, _MatCommonModule);
 
+          this._sanityChecks = _sanityChecks;
+          this._document = _document;
           /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
-          this._hasDoneGlobalChecks = false;
-          this._document = document; // While A11yModule also does this, we repeat it here to avoid importing A11yModule
+
+          this._hasDoneGlobalChecks = false; // While A11yModule also does this, we repeat it here to avoid importing A11yModule
           // in MatCommonModule.
 
-          highContrastModeDetector._applyBodyHighContrastModeCssClasses(); // Note that `_sanityChecks` is typed to `any`, because AoT
-          // throws an error if we use the `SanityChecks` type directly.
-
-
-          this._sanityChecks = sanityChecks;
+          highContrastModeDetector._applyBodyHighContrastModeCssClasses();
 
           if (!this._hasDoneGlobalChecks) {
-            this._checkDoctypeIsDefined();
-
-            this._checkThemeIsPresent();
-
-            this._checkCdkVersionMatch();
-
             this._hasDoneGlobalChecks = true;
+
+            if (typeof ngDevMode === 'undefined' || ngDevMode) {
+              if (this._checkIsEnabled('doctype')) {
+                _checkDoctypeIsDefined(this._document);
+              }
+
+              if (this._checkIsEnabled('theme')) {
+                _checkThemeIsPresent(this._document);
+              }
+
+              if (this._checkIsEnabled('version')) {
+                _checkCdkVersionMatch();
+              }
+            }
           }
         }
         /** Gets whether a specific sanity check is enabled. */
@@ -93180,11 +93188,7 @@
         _createClass2(_MatCommonModule, [{
           key: "_checkIsEnabled",
           value: function _checkIsEnabled(name) {
-            // TODO(crisbeto): we can't use `ngDevMode` here yet, because ViewEngine apps might not support
-            // it. Since these checks can have performance implications and they aren't tree shakeable
-            // in their current form, we can leave the `isDevMode` check in for now.
-            // tslint:disable-next-line:ban
-            if (!(0, _angular_core__WEBPACK_IMPORTED_MODULE_0__.isDevMode)() || (0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._isTestEnvironment)()) {
+            if ((0, _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_1__._isTestEnvironment)()) {
               return false;
             }
 
@@ -93194,73 +93198,32 @@
 
             return !!this._sanityChecks[name];
           }
-        }, {
-          key: "_checkDoctypeIsDefined",
-          value: function _checkDoctypeIsDefined() {
-            if (this._checkIsEnabled('doctype') && !this._document.doctype) {
-              console.warn('Current document does not have a doctype. This may cause ' + 'some Angular Material components not to behave as expected.');
-            }
-          }
-        }, {
-          key: "_checkThemeIsPresent",
-          value: function _checkThemeIsPresent() {
-            // We need to assert that the `body` is defined, because these checks run very early
-            // and the `body` won't be defined if the consumer put their scripts in the `head`.
-            if (!this._checkIsEnabled('theme') || !this._document.body || typeof getComputedStyle !== 'function') {
-              return;
-            }
-
-            var testElement = this._document.createElement('div');
-
-            testElement.classList.add('mat-theme-loaded-marker');
-
-            this._document.body.appendChild(testElement);
-
-            var computedStyle = getComputedStyle(testElement); // In some situations the computed style of the test element can be null. For example in
-            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
-            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-
-            if (computedStyle && computedStyle.display !== 'none') {
-              console.warn('Could not find Angular Material core theme. Most Material ' + 'components may not work as expected. For more info refer ' + 'to the theming guide: https://material.angular.io/guide/theming');
-            }
-
-            testElement.remove();
-          }
-          /** Checks whether the material version matches the cdk version */
-
-        }, {
-          key: "_checkCdkVersionMatch",
-          value: function _checkCdkVersionMatch() {
-            if (this._checkIsEnabled('version') && VERSION.full !== _angular_cdk__WEBPACK_IMPORTED_MODULE_2__.VERSION.full) {
-              console.warn('The Angular Material version (' + VERSION.full + ') does not match ' + 'the Angular CDK version (' + _angular_cdk__WEBPACK_IMPORTED_MODULE_2__.VERSION.full + ').\n' + 'Please ensure the versions of these two packages exactly match.');
-            }
-          }
         }]);
 
         return _MatCommonModule;
       }();
 
       _MatCommonModule.ɵfac = function MatCommonModule_Factory(t) {
-        return new (t || _MatCommonModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.HighContrastModeDetector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_MATERIAL_SANITY_CHECKS, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_4__.DOCUMENT));
+        return new (t || _MatCommonModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.HighContrastModeDetector), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_MATERIAL_SANITY_CHECKS, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_3__.DOCUMENT));
       };
 
       _MatCommonModule.ɵmod = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
         type: _MatCommonModule
       });
       _MatCommonModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        imports: [[_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule]
+        imports: [[_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule], _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule]
       });
 
       (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](_MatCommonModule, [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
           args: [{
-            imports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule],
-            exports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_5__.BidiModule]
+            imports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule],
+            exports: [_angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_4__.BidiModule]
           }]
         }], function () {
           return [{
-            type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.HighContrastModeDetector
+            type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.HighContrastModeDetector
           }, {
             type: undefined,
             decorators: [{
@@ -93270,14 +93233,53 @@
               args: [_MATERIAL_SANITY_CHECKS]
             }]
           }, {
-            type: undefined,
+            type: Document,
             decorators: [{
               type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
-              args: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.DOCUMENT]
+              args: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.DOCUMENT]
             }]
           }];
         }, null);
       })();
+      /** Checks that the page has a doctype. */
+
+
+      function _checkDoctypeIsDefined(doc) {
+        if (!doc.doctype) {
+          console.warn('Current document does not have a doctype. This may cause ' + 'some Angular Material components not to behave as expected.');
+        }
+      }
+      /** Checks that a theme has been included. */
+
+
+      function _checkThemeIsPresent(doc) {
+        // We need to assert that the `body` is defined, because these checks run very early
+        // and the `body` won't be defined if the consumer put their scripts in the `head`.
+        if (!doc.body || typeof getComputedStyle !== 'function') {
+          return;
+        }
+
+        var testElement = doc.createElement('div');
+        testElement.classList.add('mat-theme-loaded-marker');
+        doc.body.appendChild(testElement);
+        var computedStyle = getComputedStyle(testElement); // In some situations the computed style of the test element can be null. For example in
+        // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+        // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+
+        if (computedStyle && computedStyle.display !== 'none') {
+          console.warn('Could not find Angular Material core theme. Most Material ' + 'components may not work as expected. For more info refer ' + 'to the theming guide: https://material.angular.io/guide/theming');
+        }
+
+        testElement.remove();
+      }
+      /** Checks whether the Material version matches the CDK version. */
+
+
+      function _checkCdkVersionMatch() {
+        if (VERSION.full !== _angular_cdk__WEBPACK_IMPORTED_MODULE_5__.VERSION.full) {
+          console.warn('The Angular Material version (' + VERSION.full + ') does not match ' + 'the Angular CDK version (' + _angular_cdk__WEBPACK_IMPORTED_MODULE_5__.VERSION.full + ').\n' + 'Please ensure the versions of these two packages exactly match.');
+        }
+      }
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -94663,7 +94665,7 @@
           value: function _onMousedown(event) {
             // Screen readers will fire fake mouse events for space/enter. Skip launching a
             // ripple in this case for consistency with the non-screen-reader experience.
-            var isFakeMousedown = (0, _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.isFakeMousedownFromScreenReader)(event);
+            var isFakeMousedown = (0, _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.isFakeMousedownFromScreenReader)(event);
             var isSyntheticEvent = this._lastTouchStartEvent && Date.now() < this._lastTouchStartEvent + ignoreMouseEventsTimeout;
 
             if (!this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
@@ -94676,7 +94678,7 @@
         }, {
           key: "_onTouchStart",
           value: function _onTouchStart(event) {
-            if (!this._target.rippleDisabled && !(0, _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_3__.isFakeTouchstartFromScreenReader)(event)) {
+            if (!this._target.rippleDisabled && !(0, _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__.isFakeTouchstartFromScreenReader)(event)) {
               // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
               // events will launch a second ripple if we don't ignore mouse events for a specific
               // time after a touchstart event.
@@ -95791,7 +95793,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("matRippleTrigger", ctx._getHostElement())("matRippleDisabled", ctx.disabled || ctx.disableRipple);
           }
         },
-        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__.NgIf, _MatRipple, _MatPseudoCheckbox],
+        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__.NgIf, _MatRipple, _MatPseudoCheckbox],
         styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.cdk-high-contrast-active .mat-option[aria-disabled=true]{opacity:.5}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"],
         encapsulation: 2,
         changeDetection: 0
@@ -95914,14 +95916,14 @@
         type: _MatOptionModule
       });
       _MatOptionModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        imports: [[_MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _MatCommonModule, _MatPseudoCheckboxModule]]
+        imports: [[_MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _MatCommonModule, _MatPseudoCheckboxModule]]
       });
 
       (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](_MatOptionModule, [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
           args: [{
-            imports: [_MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule, _MatCommonModule, _MatPseudoCheckboxModule],
+            imports: [_MatRippleModule, _angular_common__WEBPACK_IMPORTED_MODULE_3__.CommonModule, _MatCommonModule, _MatPseudoCheckboxModule],
             exports: [_MatOption, _MatOptgroup],
             declarations: [_MatOption, _MatOptgroup]
           }]
