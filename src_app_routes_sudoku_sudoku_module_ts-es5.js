@@ -354,7 +354,7 @@
       /*! rxjs/operators */
       53399);
       /**
-       * @license Angular v12.2.13
+       * @license Angular v12.2.14
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -4287,7 +4287,7 @@
       /*! rxjs/operators */
       53399);
       /**
-       * @license Angular v12.2.13
+       * @license Angular v12.2.14
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -14959,7 +14959,7 @@
        */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.13');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.14');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
