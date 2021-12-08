@@ -62499,7 +62499,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.3');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.4');
 
 /**
  * @license
@@ -64899,7 +64899,7 @@ function MatOption_span_3_Template(rf, ctx) {
 }
 
 const _c2 = ["*"];
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.3');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.4');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -64927,7 +64927,7 @@ AnimationDurations.EXITING = '195ms'; // Private version constant to circumvent 
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.3');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.4');
 /** @docs-private */
 
 function MATERIAL_SANITY_CHECKS_FACTORY() {
