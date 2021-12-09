@@ -88661,6 +88661,21 @@
        * found in the LICENSE file at https://angular.io/license
        */
 
+      /** Regex that matches locales with an RTL script. Taken from `goog.i18n.bidi.isRtlLanguage`. */
+
+
+      var RTL_LOCALE_PATTERN = /^(ar|ckb|dv|he|iw|fa|nqo|ps|sd|ug|ur|yi|.*[-_](Adlm|Arab|Hebr|Nkoo|Rohg|Thaa))(?!.*[-_](Latn|Cyrl)($|-|_))($|-|_)/i;
+      /** Resolves a string value to a specific direction. */
+
+      function _resolveDirectionality(rawValue) {
+        var value = (rawValue === null || rawValue === void 0 ? void 0 : rawValue.toLowerCase()) || '';
+
+        if (value === 'auto' && typeof navigator !== 'undefined' && (navigator === null || navigator === void 0 ? void 0 : navigator.language)) {
+          return RTL_LOCALE_PATTERN.test(navigator.language) ? 'rtl' : 'ltr';
+        }
+
+        return value === 'rtl' ? 'rtl' : 'ltr';
+      }
       /**
        * The directionality (LTR / RTL) context for the application (or a subtree of it).
        * Exposes the current direction and a stream of direction changes.
@@ -88678,14 +88693,9 @@
           this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.EventEmitter();
 
           if (_document) {
-            // TODO: handle 'auto' value -
-            // We still need to account for dir="auto".
-            // It looks like HTMLElemenet.dir is also "auto" when that's set to the attribute,
-            // but getComputedStyle return either "ltr" or "rtl". avoiding getComputedStyle for now
             var bodyDir = _document.body ? _document.body.dir : null;
             var htmlDir = _document.documentElement ? _document.documentElement.dir : null;
-            var value = bodyDir || htmlDir;
-            this.value = value === 'ltr' || value === 'rtl' ? value : 'ltr';
+            this.value = _resolveDirectionality(bodyDir || htmlDir || 'ltr');
           }
         }
 
@@ -88765,12 +88775,14 @@
             return this._dir;
           },
           set: function set(value) {
-            var old = this._dir;
-            var normalizedValue = value ? value.toLowerCase() : value;
-            this._rawDir = value;
-            this._dir = normalizedValue === 'ltr' || normalizedValue === 'rtl' ? normalizedValue : 'ltr';
+            var previousValue = this._dir; // Note: `_resolveDirectionality` resolves the language based on the browser's language,
+            // whereas the browser does it based on the content of the element. Since doing so based
+            // on the content can be expensive, for now we're doing the simpler matching.
 
-            if (old !== this._dir && this._isInitialized) {
+            this._dir = _resolveDirectionality(value);
+            this._rawDir = value;
+
+            if (previousValue !== this._dir && this._isInitialized) {
               this.change.emit(this._dir);
             }
           }
@@ -88943,7 +88955,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.4');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -93098,7 +93110,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.4');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -93130,7 +93142,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.0.4');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {

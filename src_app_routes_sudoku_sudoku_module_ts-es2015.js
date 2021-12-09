@@ -66758,6 +66758,7 @@ CdkRow.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵde
 class CdkNoDataRow {
   constructor(templateRef) {
     this.templateRef = templateRef;
+    this._contentClassName = 'cdk-no-data-row';
   }
 
 }
@@ -68490,15 +68491,32 @@ class CdkTable {
   _updateNoDataRow() {
     const noDataRow = this._customNoDataRow || this._noDataRow;
 
-    if (noDataRow) {
-      const shouldShow = this._rowOutlet.viewContainer.length === 0;
-
-      if (shouldShow !== this._isShowingNoDataRow) {
-        const container = this._noDataRowOutlet.viewContainer;
-        shouldShow ? container.createEmbeddedView(noDataRow.templateRef) : container.clear();
-        this._isShowingNoDataRow = shouldShow;
-      }
+    if (!noDataRow) {
+      return;
     }
+
+    const shouldShow = this._rowOutlet.viewContainer.length === 0;
+
+    if (shouldShow === this._isShowingNoDataRow) {
+      return;
+    }
+
+    const container = this._noDataRowOutlet.viewContainer;
+
+    if (shouldShow) {
+      const view = container.createEmbeddedView(noDataRow.templateRef);
+      const rootNode = view.rootNodes[0]; // Only add the attributes if we have a single root node since it's hard
+      // to figure out which one to add it to when there are multiple.
+
+      if (view.rootNodes.length === 1 && (rootNode === null || rootNode === void 0 ? void 0 : rootNode.nodeType) === this._document.ELEMENT_NODE) {
+        rootNode.setAttribute('role', 'row');
+        rootNode.classList.add(noDataRow._contentClassName);
+      }
+    } else {
+      container.clear();
+    }
+
+    this._isShowingNoDataRow = shouldShow;
   }
 
 }
@@ -74792,7 +74810,13 @@ MatRow.ɵcmp = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
 /** Row that can be used to display a message when no data is shown in the table. */
 
 
-class MatNoDataRow extends _angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__.CdkNoDataRow {}
+class MatNoDataRow extends _angular_cdk_table__WEBPACK_IMPORTED_MODULE_2__.CdkNoDataRow {
+  constructor() {
+    super(...arguments);
+    this._contentClassName = 'mat-no-data-row';
+  }
+
+}
 
 MatNoDataRow.ɵfac = /* @__PURE__ */function () {
   let ɵMatNoDataRow_BaseFactory;

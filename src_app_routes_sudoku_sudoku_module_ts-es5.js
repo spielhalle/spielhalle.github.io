@@ -83263,6 +83263,7 @@
         _classCallCheck(this, _CdkNoDataRow);
 
         this.templateRef = templateRef;
+        this._contentClassName = 'cdk-no-data-row';
       };
 
       _CdkNoDataRow.ɵfac = function CdkNoDataRow_Factory(t) {
@@ -85229,15 +85230,32 @@
           value: function _updateNoDataRow() {
             var noDataRow = this._customNoDataRow || this._noDataRow;
 
-            if (noDataRow) {
-              var shouldShow = this._rowOutlet.viewContainer.length === 0;
-
-              if (shouldShow !== this._isShowingNoDataRow) {
-                var container = this._noDataRowOutlet.viewContainer;
-                shouldShow ? container.createEmbeddedView(noDataRow.templateRef) : container.clear();
-                this._isShowingNoDataRow = shouldShow;
-              }
+            if (!noDataRow) {
+              return;
             }
+
+            var shouldShow = this._rowOutlet.viewContainer.length === 0;
+
+            if (shouldShow === this._isShowingNoDataRow) {
+              return;
+            }
+
+            var container = this._noDataRowOutlet.viewContainer;
+
+            if (shouldShow) {
+              var view = container.createEmbeddedView(noDataRow.templateRef);
+              var rootNode = view.rootNodes[0]; // Only add the attributes if we have a single root node since it's hard
+              // to figure out which one to add it to when there are multiple.
+
+              if (view.rootNodes.length === 1 && (rootNode === null || rootNode === void 0 ? void 0 : rootNode.nodeType) === this._document.ELEMENT_NODE) {
+                rootNode.setAttribute('role', 'row');
+                rootNode.classList.add(noDataRow._contentClassName);
+              }
+            } else {
+              container.clear();
+            }
+
+            this._isShowingNoDataRow = shouldShow;
           }
         }]);
 
@@ -92912,9 +92930,13 @@
         var _super83 = _createSuper(_MatNoDataRow);
 
         function _MatNoDataRow() {
+          var _this160;
+
           _classCallCheck(this, _MatNoDataRow);
 
-          return _super83.apply(this, arguments);
+          _this160 = _super83.apply(this, arguments);
+          _this160._contentClassName = 'mat-no-data-row';
+          return _this160;
         }
 
         return _MatNoDataRow;
@@ -93090,28 +93112,28 @@
         var _super85 = _createSuper(_MatTableDataSource3);
 
         function _MatTableDataSource3() {
-          var _this160;
+          var _this161;
 
           var initialData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
           _classCallCheck(this, _MatTableDataSource3);
 
-          _this160 = _super85.call(this);
+          _this161 = _super85.call(this);
           /** Stream emitting render data to the table (depends on ordered data changes). */
 
-          _this160._renderData = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject([]);
+          _this161._renderData = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject([]);
           /** Stream that emits when a new filter string is set on the data source. */
 
-          _this160._filter = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject('');
+          _this161._filter = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject('');
           /** Used to react to internal changes of the paginator that are made by the data source itself. */
 
-          _this160._internalPageChanges = new rxjs__WEBPACK_IMPORTED_MODULE_5__.Subject();
+          _this161._internalPageChanges = new rxjs__WEBPACK_IMPORTED_MODULE_5__.Subject();
           /**
            * Subscription to the changes that should trigger an update to the table's rendered rows, such
            * as filtering, sorting, pagination, or base data changes.
            */
 
-          _this160._renderChangesSubscription = null;
+          _this161._renderChangesSubscription = null;
           /**
            * Data accessor function that is used for accessing data properties for sorting through
            * the default sortData function.
@@ -93122,7 +93144,7 @@
            * @param sortHeaderId The name of the column that represents the data.
            */
 
-          _this160.sortingDataAccessor = function (data, sortHeaderId) {
+          _this161.sortingDataAccessor = function (data, sortHeaderId) {
             var value = data[sortHeaderId];
 
             if ((0, _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_6__._isNumberValue)(value)) {
@@ -93145,7 +93167,7 @@
            */
 
 
-          _this160.sortData = function (data, sort) {
+          _this161.sortData = function (data, sort) {
             var active = sort.active;
             var direction = sort.direction;
 
@@ -93154,9 +93176,9 @@
             }
 
             return data.sort(function (a, b) {
-              var valueA = _this160.sortingDataAccessor(a, active);
+              var valueA = _this161.sortingDataAccessor(a, active);
 
-              var valueB = _this160.sortingDataAccessor(b, active); // If there are data in the column that can be converted to a number,
+              var valueB = _this161.sortingDataAccessor(b, active); // If there are data in the column that can be converted to a number,
               // it must be ensured that the rest of the data
               // is of the same type so as not to order incorrectly.
 
@@ -93208,7 +93230,7 @@
            */
 
 
-          _this160.filterPredicate = function (data, filter) {
+          _this161.filterPredicate = function (data, filter) {
             // Transform the data into a lowercase string of all property values.
             var dataStr = Object.keys(data).reduce(function (currentTerm, key) {
               // Use an obscure Unicode character to delimit the words in the concatenated string.
@@ -93224,11 +93246,11 @@
             return dataStr.indexOf(transformedFilter) != -1;
           };
 
-          _this160._data = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(initialData);
+          _this161._data = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(initialData);
 
-          _this160._updateChangeSubscription();
+          _this161._updateChangeSubscription();
 
-          return _this160;
+          return _this161;
         }
         /** Array of data that should be rendered by the table, where each object represents one row. */
 
@@ -93311,7 +93333,7 @@
         }, {
           key: "_updateChangeSubscription",
           value: function _updateChangeSubscription() {
-            var _this161 = this;
+            var _this162 = this;
 
             var _a; // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
             // The events should emit whenever the component emits a change or initializes, or if no
@@ -93329,26 +93351,26 @@
               var _ref9 = _slicedToArray(_ref8, 1),
                   data = _ref9[0];
 
-              return _this161._filterData(data);
+              return _this162._filterData(data);
             })); // Watch for filtered data or sort changes to provide an ordered set of data.
 
             var orderedData = (0, rxjs__WEBPACK_IMPORTED_MODULE_9__.combineLatest)([filteredData, sortChange]).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.map)(function (_ref10) {
               var _ref11 = _slicedToArray(_ref10, 1),
                   data = _ref11[0];
 
-              return _this161._orderData(data);
+              return _this162._orderData(data);
             })); // Watch for ordered data or page changes to provide a paged set of data.
 
             var paginatedData = (0, rxjs__WEBPACK_IMPORTED_MODULE_9__.combineLatest)([orderedData, pageChange]).pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_10__.map)(function (_ref12) {
               var _ref13 = _slicedToArray(_ref12, 1),
                   data = _ref13[0];
 
-              return _this161._pageData(data);
+              return _this162._pageData(data);
             })); // Watched for paged data changes and send the result to the table to render.
 
             (_a = this._renderChangesSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
             this._renderChangesSubscription = paginatedData.subscribe(function (data) {
-              return _this161._renderData.next(data);
+              return _this162._renderData.next(data);
             });
           }
           /**
@@ -93360,13 +93382,13 @@
         }, {
           key: "_filterData",
           value: function _filterData(data) {
-            var _this162 = this;
+            var _this163 = this;
 
             // If there is a filter string, filter out data that does not contain it.
             // Each data object is converted to a string using the function defined by filterTermAccessor.
             // May be overridden for customization.
             this.filteredData = this.filter == null || this.filter === '' ? data : data.filter(function (obj) {
-              return _this162.filterPredicate(obj, _this162.filter);
+              return _this163.filterPredicate(obj, _this163.filter);
             });
 
             if (this.paginator) {
@@ -93415,10 +93437,10 @@
         }, {
           key: "_updatePaginator",
           value: function _updatePaginator(filteredDataLength) {
-            var _this163 = this;
+            var _this164 = this;
 
             Promise.resolve().then(function () {
-              var paginator = _this163.paginator;
+              var paginator = _this164.paginator;
 
               if (!paginator) {
                 return;
@@ -93434,7 +93456,7 @@
                   paginator.pageIndex = newPageIndex; // Since the paginator only emits after user-generated changes,
                   // we need our own stream so we know to should re-render the data.
 
-                  _this163._internalPageChanges.next();
+                  _this164._internalPageChanges.next();
                 }
               }
             });
