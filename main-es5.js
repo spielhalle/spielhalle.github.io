@@ -1,4 +1,8 @@
 (function () {
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   (self["webpackChunk_spielhalle_client"] = self["webpackChunk_spielhalle_client"] || []).push([["main"], {
@@ -88,7 +92,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() */
-          [__webpack_require__.e("default-node_modules_donmahallem_sudoku_dist_esm_index_js"), __webpack_require__.e("common"), __webpack_require__.e("src_app_routes_sudoku_sudoku_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          [__webpack_require__.e("default-node_modules_donmahallem_sudoku_dist_esm_index_js"), __webpack_require__.e("default-node_modules_pixi_app_dist_esm_app_js-node_modules_angular_material_fesm2015_icon_mjs"), __webpack_require__.e("common"), __webpack_require__.e("src_app_routes_sudoku_sudoku_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
           /*! ./routes/sudoku/sudoku.module */
           57262)).then(function (m) {
             return m.SudokuModule;
@@ -96,13 +100,25 @@
         },
         path: 'sudoku'
       }, {
+        // tslint:disable-next-line:typedef
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() */
+          [__webpack_require__.e("default-node_modules_pixi_app_dist_esm_app_js-node_modules_angular_material_fesm2015_icon_mjs"), __webpack_require__.e("src_app_routes_tank-call_tank-call_module_ts")]).then(__webpack_require__.bind(__webpack_require__,
+          /*! ./routes/tank-call/tank-call.module */
+          9481)).then(function (m) {
+            return m.TankCallModule;
+          });
+        },
+        path: 'tank-call'
+      }, {
         component: _modules_not_found__WEBPACK_IMPORTED_MODULE_1__.NotFoundComponent,
         path: '**'
       }];
 
-      var _AppRoutingModule = function _AppRoutingModule() {
+      var _AppRoutingModule = /*#__PURE__*/_createClass(function _AppRoutingModule() {
         _classCallCheck(this, _AppRoutingModule);
-      };
+      });
 
       _AppRoutingModule.ɵfac = function AppRoutingModule_Factory(t) {
         return new (t || _AppRoutingModule)();
@@ -176,11 +192,11 @@
         return ["/"];
       };
 
-      var _AppComponent = function _AppComponent() {
+      var _AppComponent = /*#__PURE__*/_createClass(function _AppComponent() {
         _classCallCheck(this, _AppComponent);
 
         this.title = 'spielhalle';
-      };
+      });
 
       _AppComponent.ɵfac = function AppComponent_Factory(t) {
         return new (t || _AppComponent)();
@@ -313,9 +329,9 @@
       /*! @angular/core */
       2316);
 
-      var _AppModule = function _AppModule() {
+      var _AppModule = /*#__PURE__*/_createClass(function _AppModule() {
         _classCallCheck(this, _AppModule);
-      };
+      });
 
       _AppModule.ɵfac = function AppModule_Factory(t) {
         return new (t || _AppModule)();
@@ -422,11 +438,11 @@
         }
       }
 
-      var _HomeComponent = function _HomeComponent() {
+      var _HomeComponent = /*#__PURE__*/_createClass(function _HomeComponent() {
         _classCallCheck(this, _HomeComponent);
 
         this.items = ['a', 'b', 'c'];
-      };
+      });
 
       _HomeComponent.ɵfac = function HomeComponent_Factory(t) {
         return new (t || _HomeComponent)();
@@ -576,9 +592,9 @@
        */
 
 
-      var _HomeModule = function _HomeModule() {
+      var _HomeModule = /*#__PURE__*/_createClass(function _HomeModule() {
         _classCallCheck(this, _HomeModule);
-      };
+      });
 
       _HomeModule.ɵfac = function HomeModule_Factory(t) {
         return new (t || _HomeModule)();
@@ -725,9 +741,9 @@
       /*! @angular/core */
       2316);
 
-      var _NotFoundComponent = function _NotFoundComponent() {
+      var _NotFoundComponent = /*#__PURE__*/_createClass(function _NotFoundComponent() {
         _classCallCheck(this, _NotFoundComponent);
-      };
+      });
 
       _NotFoundComponent.ɵfac = function NotFoundComponent_Factory(t) {
         return new (t || _NotFoundComponent)();
@@ -865,9 +881,9 @@
        */
 
 
-      var _NotFoundModule = function _NotFoundModule() {
+      var _NotFoundModule = /*#__PURE__*/_createClass(function _NotFoundModule() {
         _classCallCheck(this, _NotFoundModule);
-      };
+      });
 
       _NotFoundModule.ɵfac = function NotFoundModule_Factory(t) {
         return new (t || _NotFoundModule)();

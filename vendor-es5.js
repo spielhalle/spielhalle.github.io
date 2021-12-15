@@ -17,7 +17,7 @@
 
   function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
-  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } Object.defineProperty(subClass, "prototype", { value: Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }), writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
   function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
@@ -53,7 +53,7 @@
 
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  function _createClass2(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+  function _createClass2(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -279,9 +279,9 @@
        */
 
 
-      var _AnimationBuilder = function _AnimationBuilder() {
+      var _AnimationBuilder = /*#__PURE__*/_createClass2(function _AnimationBuilder() {
         _classCallCheck(this, _AnimationBuilder);
-      };
+      });
       /**
        * A factory object returned from the `AnimationBuilder`.`build()` method.
        *
@@ -289,9 +289,9 @@
        */
 
 
-      var _AnimationFactory = function _AnimationFactory() {
+      var _AnimationFactory = /*#__PURE__*/_createClass2(function _AnimationFactory() {
         _classCallCheck(this, _AnimationFactory);
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -2256,9 +2256,9 @@
        */
 
 
-      var _AnimationDriver = function _AnimationDriver() {
+      var _AnimationDriver = /*#__PURE__*/_createClass2(function _AnimationDriver() {
         _classCallCheck(this, _AnimationDriver);
-      };
+      });
 
       _AnimationDriver.NOOP = /* @__PURE__ */new NoopAnimationDriver();
       /**
@@ -3336,7 +3336,7 @@
         return obj ? copyObj(obj) : null;
       }
 
-      var AnimationAstBuilderContext = function AnimationAstBuilderContext(errors) {
+      var AnimationAstBuilderContext = /*#__PURE__*/_createClass2(function AnimationAstBuilderContext(errors) {
         _classCallCheck(this, AnimationAstBuilderContext);
 
         this.errors = errors;
@@ -3349,7 +3349,7 @@
         this.currentTime = 0;
         this.collectedStyles = {};
         this.options = null;
-      };
+      });
 
       function consumeOffset(styles) {
         if (typeof styles == 'string') return null;
@@ -4550,9 +4550,9 @@
        */
 
 
-      var AnimationStyleNormalizer = function AnimationStyleNormalizer() {
+      var AnimationStyleNormalizer = /*#__PURE__*/_createClass2(function AnimationStyleNormalizer() {
         _classCallCheck(this, AnimationStyleNormalizer);
-      };
+      });
       /**
        * @publicApi
        */
@@ -9176,9 +9176,9 @@
        */
 
 
-      var DomAdapter = function DomAdapter() {
+      var DomAdapter = /*#__PURE__*/_createClass2(function DomAdapter() {
         _classCallCheck(this, DomAdapter);
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -12616,9 +12616,9 @@
        */
 
 
-      var _NgLocalization = function _NgLocalization() {
+      var _NgLocalization = /*#__PURE__*/_createClass2(function _NgLocalization() {
         _classCallCheck(this, _NgLocalization);
-      };
+      });
       /**
        * Returns the plural category for a given value.
        * - "=value" when the case exists,
@@ -13602,12 +13602,12 @@
         });
       })();
 
-      var RecordViewTuple = function RecordViewTuple(record, view) {
+      var RecordViewTuple = /*#__PURE__*/_createClass2(function RecordViewTuple(record, view) {
         _classCallCheck(this, RecordViewTuple);
 
         this.record = record;
         this.view = view;
-      };
+      });
 
       function getTypeName(type) {
         return type['name'] || typeof type;
@@ -13916,12 +13916,12 @@
        */
 
 
-      var _NgIfContext = function _NgIfContext() {
+      var _NgIfContext = /*#__PURE__*/_createClass2(function _NgIfContext() {
         _classCallCheck(this, _NgIfContext);
 
         this.$implicit = null;
         this.ngIf = null;
-      };
+      });
 
       function assertTemplate(property, templateRef) {
         var isTemplateRefOrNull = !!(!templateRef || templateRef.createEmbeddedView);
@@ -14284,7 +14284,7 @@
        */
 
 
-      var _NgSwitchDefault = function _NgSwitchDefault(viewContainer, templateRef, ngSwitch) {
+      var _NgSwitchDefault = /*#__PURE__*/_createClass2(function _NgSwitchDefault(viewContainer, templateRef, ngSwitch) {
         _classCallCheck(this, _NgSwitchDefault);
 
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && !ngSwitch) {
@@ -14292,7 +14292,7 @@
         }
 
         ngSwitch._addDefault(new SwitchView(viewContainer, templateRef));
-      };
+      });
 
       _NgSwitchDefault.ɵfac = function NgSwitchDefault_Factory(t) {
         return new (t || _NgSwitchDefault)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.TemplateRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_NgSwitch, 9));
@@ -14497,13 +14497,13 @@
        */
 
 
-      var _NgPluralCase = function _NgPluralCase(value, template, viewContainer, ngPlural) {
+      var _NgPluralCase = /*#__PURE__*/_createClass2(function _NgPluralCase(value, template, viewContainer, ngPlural) {
         _classCallCheck(this, _NgPluralCase);
 
         this.value = value;
         var isANumber = !isNaN(Number(value));
         ngPlural.addCase(isANumber ? "=".concat(value) : value, new SwitchView(viewContainer, template));
-      };
+      });
 
       _NgPluralCase.ɵfac = function NgPluralCase_Factory(t) {
         return new (t || _NgPluralCase)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinjectAttribute"]('ngPluralCase'), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.TemplateRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_NgPlural, 1));
@@ -16425,9 +16425,9 @@
        * @publicApi
        */
 
-      var _CommonModule = function _CommonModule() {
+      var _CommonModule = /*#__PURE__*/_createClass2(function _CommonModule() {
         _classCallCheck(this, _CommonModule);
-      };
+      });
 
       _CommonModule.ɵfac = function CommonModule_Factory(t) {
         return new (t || _CommonModule)();
@@ -16540,9 +16540,9 @@
        */
 
 
-      var _ViewportScroller = function _ViewportScroller() {
+      var _ViewportScroller = /*#__PURE__*/_createClass2(function _ViewportScroller() {
         _classCallCheck(this, _ViewportScroller);
-      }; // De-sugared tree-shakable injection
+      }); // De-sugared tree-shakable injection
       // See #23917
 
       /** @nocollapse */
@@ -16833,9 +16833,9 @@
        */
 
 
-      var _XhrFactory = function _XhrFactory() {
+      var _XhrFactory = /*#__PURE__*/_createClass2(function _XhrFactory() {
         _classCallCheck(this, _XhrFactory);
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -20633,7 +20633,7 @@
           return _this65;
         }
 
-        return RuntimeError;
+        return _createClass2(RuntimeError);
       }( /*#__PURE__*/_wrapNativeSuper(Error)); // Contains a set of error messages that have details guides at angular.io.
       // Full list of available error guides can be found at https://angular.io/errors
 
@@ -23594,7 +23594,7 @@
        * - `viewProviders` factory: `componentProviders` is a number and `index` points to `providers`.
        */
 
-      var NodeInjectorFactory = function NodeInjectorFactory(
+      var NodeInjectorFactory = /*#__PURE__*/_createClass2(function NodeInjectorFactory(
       /**
        * Factory to invoke in order to create a new instance.
        */
@@ -23616,7 +23616,7 @@
         ngDevMode && assertEqual(typeof factory, 'function', 'Expected factory function.');
         this.canSeeViewProviders = isViewProvider;
         this.injectImpl = injectImplementation;
-      };
+      });
 
       function isFactory(obj) {
         return obj instanceof NodeInjectorFactory;
@@ -25160,9 +25160,9 @@
        * @publicApi
        */
 
-      var _Query = function _Query() {
+      var _Query = /*#__PURE__*/_createClass2(function _Query() {
         _classCallCheck(this, _Query);
-      };
+      });
 
       var ɵ0$1 = function ɵ0$1(selector) {
         var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -37805,21 +37805,21 @@
 
       var _EMPTY_LIST = [];
 
-      var ResolvedReflectiveProvider_ = function ResolvedReflectiveProvider_(key, resolvedFactories, multiProvider) {
+      var ResolvedReflectiveProvider_ = /*#__PURE__*/_createClass2(function ResolvedReflectiveProvider_(key, resolvedFactories, multiProvider) {
         _classCallCheck(this, ResolvedReflectiveProvider_);
 
         this.key = key;
         this.resolvedFactories = resolvedFactories;
         this.multiProvider = multiProvider;
         this.resolvedFactory = this.resolvedFactories[0];
-      };
+      });
       /**
        * An internal resolved representation of a factory function created by resolving `Provider`.
        * @publicApi
        */
 
 
-      var _ResolvedReflectiveFactory = function _ResolvedReflectiveFactory(
+      var _ResolvedReflectiveFactory = /*#__PURE__*/_createClass2(function _ResolvedReflectiveFactory(
       /**
        * Factory function which can return an instance of an object represented by a key.
        */
@@ -37832,7 +37832,7 @@
 
         this.factory = factory;
         this.dependencies = dependencies;
-      };
+      });
       /**
        * Resolve a single provider.
        */
@@ -45845,9 +45845,9 @@
        */
 
 
-      var _ComponentRef = function _ComponentRef() {
+      var _ComponentRef = /*#__PURE__*/_createClass2(function _ComponentRef() {
         _classCallCheck(this, _ComponentRef);
-      };
+      });
       /**
        * Base class for a factory that can create a component dynamically.
        * Instantiate a factory for a given type of component with `resolveComponentFactory()`.
@@ -45859,9 +45859,9 @@
        */
 
 
-      var _ComponentFactory = function _ComponentFactory() {
+      var _ComponentFactory = /*#__PURE__*/_createClass2(function _ComponentFactory() {
         _classCallCheck(this, _ComponentFactory);
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -45911,9 +45911,9 @@
        */
 
 
-      var _ComponentFactoryResolver = function _ComponentFactoryResolver() {
+      var _ComponentFactoryResolver = /*#__PURE__*/_createClass2(function _ComponentFactoryResolver() {
         _classCallCheck(this, _ComponentFactoryResolver);
-      };
+      });
 
       _ComponentFactoryResolver.NULL = /* @__PURE__ */new _NullComponentFactoryResolver();
 
@@ -46043,11 +46043,11 @@
       // i.e. users have to ask for what they need. With that, we can build better analysis tools
       // and could do better codegen in the future.
 
-      var _ElementRef = function _ElementRef(nativeElement) {
+      var _ElementRef = /*#__PURE__*/_createClass2(function _ElementRef(nativeElement) {
         _classCallCheck(this, _ElementRef);
 
         this.nativeElement = nativeElement;
-      };
+      });
       /**
        * @internal
        * @nocollapse
@@ -46081,9 +46081,9 @@
        * @publicApi
        */
 
-      var _RendererFactory = function _RendererFactory() {
+      var _RendererFactory = /*#__PURE__*/_createClass2(function _RendererFactory() {
         _classCallCheck(this, _RendererFactory);
-      };
+      });
       /**
        * Extend this base class to implement custom rendering. By default, Angular
        * renders a template into DOM. You can use custom rendering to intercept
@@ -46101,9 +46101,9 @@
        */
 
 
-      var _Renderer = function _Renderer() {
+      var _Renderer = /*#__PURE__*/_createClass2(function _Renderer() {
         _classCallCheck(this, _Renderer);
-      };
+      });
       /**
        * @internal
        * @nocollapse
@@ -46154,9 +46154,9 @@
        */
 
 
-      var _Sanitizer = function _Sanitizer() {
+      var _Sanitizer = /*#__PURE__*/_createClass2(function _Sanitizer() {
         _classCallCheck(this, _Sanitizer);
-      };
+      });
       /** @nocollapse */
 
 
@@ -46181,14 +46181,14 @@
        * @publicApi
        */
 
-      var _Version = function _Version(full) {
+      var _Version = /*#__PURE__*/_createClass2(function _Version(full) {
         _classCallCheck(this, _Version);
 
         this.full = full;
         this.major = full.split('.')[0];
         this.minor = full.split('.')[1];
         this.patch = full.split('.').slice(2).join('.');
-      };
+      });
       /**
        * @publicApi
        */
@@ -46831,7 +46831,7 @@
         return _DefaultIterableDiffer;
       }();
 
-      var IterableChangeRecord_ = function IterableChangeRecord_(item, trackById) {
+      var IterableChangeRecord_ = /*#__PURE__*/_createClass2(function IterableChangeRecord_(item, trackById) {
         _classCallCheck(this, IterableChangeRecord_);
 
         this.item = item;
@@ -46868,7 +46868,7 @@
         /** @internal */
 
         this._nextIdentityChange = null;
-      }; // A linked list of IterableChangeRecords with the same IterableChangeRecord_.item
+      }); // A linked list of IterableChangeRecords with the same IterableChangeRecord_.item
 
 
       var _DuplicateItemRecordList = /*#__PURE__*/function () {
@@ -47356,7 +47356,7 @@
         return DefaultKeyValueDiffer;
       }();
 
-      var KeyValueChangeRecord_ = function KeyValueChangeRecord_(key) {
+      var KeyValueChangeRecord_ = /*#__PURE__*/_createClass2(function KeyValueChangeRecord_(key) {
         _classCallCheck(this, KeyValueChangeRecord_);
 
         this.key = key;
@@ -47380,7 +47380,7 @@
         /** @internal */
 
         this._nextChanged = null;
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -48069,9 +48069,9 @@
        * @publicApi
        */
 
-      var _ChangeDetectorRef = function _ChangeDetectorRef() {
+      var _ChangeDetectorRef = /*#__PURE__*/_createClass2(function _ChangeDetectorRef() {
         _classCallCheck(this, _ChangeDetectorRef);
-      };
+      });
       /**
        * @internal
        * @nocollapse
@@ -48172,9 +48172,9 @@
        * @publicApi
        */
 
-      var _TemplateRef = function _TemplateRef() {
+      var _TemplateRef = /*#__PURE__*/_createClass2(function _TemplateRef() {
         _classCallCheck(this, _TemplateRef);
-      };
+      });
       /**
        * @internal
        * @nocollapse
@@ -48269,17 +48269,17 @@
        */
 
 
-      var _NgModuleRef = function _NgModuleRef() {
+      var _NgModuleRef = /*#__PURE__*/_createClass2(function _NgModuleRef() {
         _classCallCheck(this, _NgModuleRef);
-      };
+      });
       /**
        * @publicApi
        */
 
 
-      var _NgModuleFactory = function _NgModuleFactory() {
+      var _NgModuleFactory = /*#__PURE__*/_createClass2(function _NgModuleFactory() {
         _classCallCheck(this, _NgModuleFactory);
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -48308,9 +48308,9 @@
        * @publicApi
        */
 
-      var _ViewContainerRef = function _ViewContainerRef() {
+      var _ViewContainerRef = /*#__PURE__*/_createClass2(function _ViewContainerRef() {
         _classCallCheck(this, _ViewContainerRef);
-      };
+      });
       /**
        * @internal
        * @nocollapse
@@ -48707,9 +48707,9 @@
        */
 
 
-      var NodeData = function NodeData() {
+      var NodeData = /*#__PURE__*/_createClass2(function NodeData() {
         _classCallCheck(this, NodeData);
-      };
+      });
       /**
        * Accessor for view.nodes, enforcing that every usage site stays monomorphic.
        */
@@ -48751,9 +48751,9 @@
         return view.nodes[index];
       }
 
-      var DebugContext = function DebugContext() {
+      var DebugContext = /*#__PURE__*/_createClass2(function DebugContext() {
         _classCallCheck(this, DebugContext);
-      };
+      });
       /**
        * This object is used to prevent cycles in the source files and to have a place where
        * debug mode can hook it. It is lazily filled when `isDevMode` is known.
@@ -52563,7 +52563,7 @@
         return LQueries_;
       }();
 
-      var TQueryMetadata_ = function TQueryMetadata_(predicate, flags) {
+      var TQueryMetadata_ = /*#__PURE__*/_createClass2(function TQueryMetadata_(predicate, flags) {
         var read = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
         _classCallCheck(this, TQueryMetadata_);
@@ -52571,7 +52571,7 @@
         this.predicate = predicate;
         this.flags = flags;
         this.read = read;
-      };
+      });
 
       var TQueries_ = /*#__PURE__*/function () {
         function TQueries_() {
@@ -55057,12 +55057,12 @@
        * @publicApi
        */
 
-      var _ModuleWithComponentFactories = function _ModuleWithComponentFactories(ngModuleFactory, componentFactories) {
+      var _ModuleWithComponentFactories = /*#__PURE__*/_createClass2(function _ModuleWithComponentFactories(ngModuleFactory, componentFactories) {
         _classCallCheck(this, _ModuleWithComponentFactories);
 
         this.ngModuleFactory = ngModuleFactory;
         this.componentFactories = componentFactories;
-      };
+      });
 
       function _throwError() {
         throw new Error("Runtime compiler is not loaded");
@@ -55200,9 +55200,9 @@
        */
 
 
-      var _CompilerFactory = function _CompilerFactory() {
+      var _CompilerFactory = /*#__PURE__*/_createClass2(function _CompilerFactory() {
         _classCallCheck(this, _CompilerFactory);
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -56271,12 +56271,12 @@
        * @publicApi
        */
 
-      var _NgProbeToken = function _NgProbeToken(name, token) {
+      var _NgProbeToken = /*#__PURE__*/_createClass2(function _NgProbeToken(name, token) {
         _classCallCheck(this, _NgProbeToken);
 
         this.name = name;
         this.token = token;
-      };
+      });
       /**
        * Creates a platform.
        * Platforms must be created on launch using this function.
@@ -57165,9 +57165,9 @@
        */
 
 
-      var _NgModuleFactoryLoader = function _NgModuleFactoryLoader() {
+      var _NgModuleFactoryLoader = /*#__PURE__*/_createClass2(function _NgModuleFactoryLoader() {
         _classCallCheck(this, _NgModuleFactoryLoader);
-      };
+      });
 
       function getModuleFactory__PRE_R3__(id) {
         var factory = getRegisteredNgModuleType(id);
@@ -57213,9 +57213,9 @@
        * is part of its implementation. See `LoadChildren` for more details.
        */
 
-      var _SystemJsNgModuleLoaderConfig = function _SystemJsNgModuleLoaderConfig() {
+      var _SystemJsNgModuleLoaderConfig = /*#__PURE__*/_createClass2(function _SystemJsNgModuleLoaderConfig() {
         _classCallCheck(this, _SystemJsNgModuleLoaderConfig);
-      };
+      });
 
       var DEFAULT_CONFIG = {
         factoryPathPrefix: '',
@@ -57360,7 +57360,7 @@
           return _super28.apply(this, arguments);
         }
 
-        return ViewRef$1;
+        return _createClass2(ViewRef$1);
       }(_ChangeDetectorRef);
       /**
        * Represents an Angular [view](guide/glossary#view) in a view container.
@@ -57428,7 +57428,7 @@
           return _super29.apply(this, arguments);
         }
 
-        return _EmbeddedViewRef;
+        return _createClass2(_EmbeddedViewRef);
       }(ViewRef$1);
       /**
        * @license
@@ -57451,12 +57451,12 @@
        */
 
 
-      var _DebugEventListener = function _DebugEventListener(name, callback) {
+      var _DebugEventListener = /*#__PURE__*/_createClass2(function _DebugEventListener(name, callback) {
         _classCallCheck(this, _DebugEventListener);
 
         this.name = name;
         this.callback = callback;
-      };
+      });
 
       var DebugNode__PRE_R3__ = /*#__PURE__*/function () {
         function DebugNode__PRE_R3__(nativeNode, parent, _debugContext) {
@@ -58434,10 +58434,10 @@
        */
 
 
-      var _ApplicationModule = // Inject ApplicationRef to make it eager...
+      var _ApplicationModule = /*#__PURE__*/_createClass2( // Inject ApplicationRef to make it eager...
       function _ApplicationModule(appRef) {
         _classCallCheck(this, _ApplicationModule);
-      };
+      });
 
       _ApplicationModule.ɵfac = function ApplicationModule_Factory(t) {
         return new (t || _ApplicationModule)(_ɵɵinject(_ApplicationRef));
@@ -62893,9 +62893,9 @@
        */
 
 
-      var _NoopAnimationsModule = function _NoopAnimationsModule() {
+      var _NoopAnimationsModule = /*#__PURE__*/_createClass2(function _NoopAnimationsModule() {
         _classCallCheck(this, _NoopAnimationsModule);
-      };
+      });
 
       _NoopAnimationsModule.ɵfac = function NoopAnimationsModule_Factory(t) {
         return new (t || _NoopAnimationsModule)();
@@ -63486,7 +63486,7 @@
           return _this108;
         }
 
-        return GenericBrowserDomAdapter;
+        return _createClass2(GenericBrowserDomAdapter);
       }(_angular_common__WEBPACK_IMPORTED_MODULE_0__["ɵDomAdapter"]);
       /**
        * @license
@@ -65187,9 +65187,9 @@
        * @publicApi
        */
 
-      var _HammerModule = function _HammerModule() {
+      var _HammerModule = /*#__PURE__*/_createClass2(function _HammerModule() {
         _classCallCheck(this, _HammerModule);
-      };
+      });
 
       _HammerModule.ɵfac = function HammerModule_Factory(t) {
         return new (t || _HammerModule)();
@@ -65538,9 +65538,9 @@
        */
 
 
-      var _DomSanitizer = function _DomSanitizer() {
+      var _DomSanitizer = /*#__PURE__*/_createClass2(function _DomSanitizer() {
         _classCallCheck(this, _DomSanitizer);
-      };
+      });
 
       _DomSanitizer.ɵfac = function DomSanitizer_Factory(t) {
         return new (t || _DomSanitizer)();
@@ -66314,12 +66314,12 @@
        * found in the LICENSE file at https://angular.io/license
        */
 
-      var ChangeDetectionPerfRecord = function ChangeDetectionPerfRecord(msPerTick, numTicks) {
+      var ChangeDetectionPerfRecord = /*#__PURE__*/_createClass2(function ChangeDetectionPerfRecord(msPerTick, numTicks) {
         _classCallCheck(this, ChangeDetectionPerfRecord);
 
         this.msPerTick = msPerTick;
         this.numTicks = numTicks;
-      };
+      });
       /**
        * Entry point for all Angular profiling-related debug tools. This object
        * corresponds to the `ng.profiler` in the dev console.
@@ -66625,9 +66625,9 @@
        */
 
 
-      var _BrowserTransferStateModule = function _BrowserTransferStateModule() {
+      var _BrowserTransferStateModule = /*#__PURE__*/_createClass2(function _BrowserTransferStateModule() {
         _classCallCheck(this, _BrowserTransferStateModule);
-      };
+      });
 
       _BrowserTransferStateModule.ɵfac = function BrowserTransferStateModule_Factory(t) {
         return new (t || _BrowserTransferStateModule)();
@@ -67556,7 +67556,7 @@
        */
 
 
-      var _RouterEvent = function _RouterEvent(
+      var _RouterEvent = /*#__PURE__*/_createClass2(function _RouterEvent(
       /** A unique ID that the router assigns to every router navigation. */
       id,
       /** The URL that is the destination for this navigation. */
@@ -67565,7 +67565,7 @@
 
         this.id = id;
         this.url = url;
-      };
+      });
       /**
        * An event triggered when a navigation starts.
        *
@@ -68704,9 +68704,9 @@
        */
 
 
-      var _UrlSerializer = function _UrlSerializer() {
+      var _UrlSerializer = /*#__PURE__*/_createClass2(function _UrlSerializer() {
         _classCallCheck(this, _UrlSerializer);
-      };
+      });
       /**
        * @description
        *
@@ -70044,13 +70044,13 @@
         return new Navigation(isAbsolute, numberOfDoubleDots, res);
       }
 
-      var Position = function Position(segmentGroup, processChildren, index) {
+      var Position = /*#__PURE__*/_createClass2(function Position(segmentGroup, processChildren, index) {
         _classCallCheck(this, Position);
 
         this.segmentGroup = segmentGroup;
         this.processChildren = processChildren;
         this.index = index;
-      };
+      });
 
       function findStartingPosition(nav, tree, route) {
         if (nav.isAbsolute) {
@@ -70484,12 +70484,12 @@
        */
 
 
-      var LoadedRouterConfig = function LoadedRouterConfig(routes, module) {
+      var LoadedRouterConfig = /*#__PURE__*/_createClass2(function LoadedRouterConfig(routes, module) {
         _classCallCheck(this, LoadedRouterConfig);
 
         this.routes = routes;
         this.module = module;
-      };
+      });
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -70604,9 +70604,9 @@
        */
 
 
-      var _ɵEmptyOutletComponent = function _ɵEmptyOutletComponent() {
+      var _ɵEmptyOutletComponent = /*#__PURE__*/_createClass2(function _ɵEmptyOutletComponent() {
         _classCallCheck(this, _ɵEmptyOutletComponent);
-      };
+      });
 
       _ɵEmptyOutletComponent.ɵfac = function ɵEmptyOutletComponent_Factory(t) {
         return new (t || _ɵEmptyOutletComponent)();
@@ -70982,17 +70982,17 @@
        */
 
 
-      var NoMatch = function NoMatch(segmentGroup) {
+      var NoMatch = /*#__PURE__*/_createClass2(function NoMatch(segmentGroup) {
         _classCallCheck(this, NoMatch);
 
         this.segmentGroup = segmentGroup || null;
-      };
+      });
 
-      var AbsoluteRedirect = function AbsoluteRedirect(urlTree) {
+      var AbsoluteRedirect = /*#__PURE__*/_createClass2(function AbsoluteRedirect(urlTree) {
         _classCallCheck(this, AbsoluteRedirect);
 
         this.urlTree = urlTree;
-      };
+      });
 
       function noMatch$1(segmentGroup) {
         return new rxjs__WEBPACK_IMPORTED_MODULE_11__.Observable(function (obs) {
@@ -71533,19 +71533,19 @@
        */
 
 
-      var CanActivate = function CanActivate(path) {
+      var CanActivate = /*#__PURE__*/_createClass2(function CanActivate(path) {
         _classCallCheck(this, CanActivate);
 
         this.path = path;
         this.route = this.path[this.path.length - 1];
-      };
+      });
 
-      var CanDeactivate = function CanDeactivate(component, route) {
+      var CanDeactivate = /*#__PURE__*/_createClass2(function CanDeactivate(component, route) {
         _classCallCheck(this, CanDeactivate);
 
         this.component = component;
         this.route = route;
-      };
+      });
 
       function getAllRouteGuards(future, curr, parentContexts) {
         var futureRoot = future._root;
@@ -71851,9 +71851,9 @@
        */
 
 
-      var NoMatch$1 = function NoMatch$1() {
+      var NoMatch$1 = /*#__PURE__*/_createClass2(function NoMatch$1() {
         _classCallCheck(this, NoMatch$1);
-      };
+      });
 
       function newObservableError(e) {
         // TODO(atscott): This pattern is used throughout the router code and can be `throwError` instead.
@@ -72352,9 +72352,9 @@
        */
 
 
-      var _RouteReuseStrategy = function _RouteReuseStrategy() {
+      var _RouteReuseStrategy = /*#__PURE__*/_createClass2(function _RouteReuseStrategy() {
         _classCallCheck(this, _RouteReuseStrategy);
-      };
+      });
       /**
        * @description
        *
@@ -72437,7 +72437,7 @@
           return _super57.apply(this, arguments);
         }
 
-        return DefaultRouteReuseStrategy;
+        return _createClass2(DefaultRouteReuseStrategy);
       }(_BaseRouteReuseStrategy);
       /**
        * @license
@@ -72542,7 +72542,7 @@
        */
 
 
-      var _OutletContext = function _OutletContext() {
+      var _OutletContext = /*#__PURE__*/_createClass2(function _OutletContext() {
         _classCallCheck(this, _OutletContext);
 
         this.outlet = null;
@@ -72550,7 +72550,7 @@
         this.resolver = null;
         this.children = new _ChildrenOutletContexts();
         this.attachRef = null;
-      };
+      });
       /**
        * Store contextual information about the children (= nested) `RouterOutlet`
        *
@@ -72646,9 +72646,9 @@
        */
 
 
-      var _UrlHandlingStrategy = function _UrlHandlingStrategy() {
+      var _UrlHandlingStrategy = /*#__PURE__*/_createClass2(function _UrlHandlingStrategy() {
         _classCallCheck(this, _UrlHandlingStrategy);
-      };
+      });
       /**
        * @publicApi
        */
@@ -75238,9 +75238,9 @@
        */
 
 
-      var _PreloadingStrategy = function _PreloadingStrategy() {
+      var _PreloadingStrategy = /*#__PURE__*/_createClass2(function _PreloadingStrategy() {
         _classCallCheck(this, _PreloadingStrategy);
-      };
+      });
       /**
        * @description
        *
@@ -76783,9 +76783,9 @@
        */
 
 
-      var _SwRegistrationOptions = function _SwRegistrationOptions() {
+      var _SwRegistrationOptions = /*#__PURE__*/_createClass2(function _SwRegistrationOptions() {
         _classCallCheck(this, _SwRegistrationOptions);
-      };
+      });
 
       var SCRIPT = new _angular_core__WEBPACK_IMPORTED_MODULE_14__.InjectionToken('NGSW_REGISTER_SCRIPT');
 
@@ -77878,7 +77878,7 @@
           return _this178;
         }
 
-        return _SafeSubscriber;
+        return _createClass2(_SafeSubscriber);
       }(_Subscriber);
 
       function wrapForErrorHandling(handler, instance) {
@@ -86001,14 +86001,14 @@
        */
 
 
-      var _IsFocusableConfig = function _IsFocusableConfig() {
+      var _IsFocusableConfig = /*#__PURE__*/_createClass2(function _IsFocusableConfig() {
         _classCallCheck(this, _IsFocusableConfig);
 
         /**
          * Whether to count an element as focusable even if it is not currently visible.
          */
         this.ignoreVisibility = false;
-      }; // The InteractivityChecker leans heavily on the ally.js accessibility utilities.
+      }); // The InteractivityChecker leans heavily on the ally.js accessibility utilities.
       // Methods like `isTabbable` are only covering specific edge-cases for the browsers which are
       // supported.
 
@@ -88504,11 +88504,11 @@
        */
 
 
-      var _A11yModule = function _A11yModule(highContrastModeDetector) {
+      var _A11yModule = /*#__PURE__*/_createClass2(function _A11yModule(highContrastModeDetector) {
         _classCallCheck(this, _A11yModule);
 
         highContrastModeDetector._applyBodyHighContrastModeCssClasses();
-      };
+      });
 
       _A11yModule.ɵfac = function A11yModule_Factory(t) {
         return new (t || _A11yModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_HighContrastModeDetector));
@@ -88869,9 +88869,9 @@
        */
 
 
-      var _BidiModule = function _BidiModule() {
+      var _BidiModule = /*#__PURE__*/_createClass2(function _BidiModule() {
         _classCallCheck(this, _BidiModule);
-      };
+      });
 
       _BidiModule.ɵfac = function BidiModule_Factory(t) {
         return new (t || _BidiModule)();
@@ -90769,9 +90769,9 @@
         });
       })();
 
-      var _ObserversModule = function _ObserversModule() {
+      var _ObserversModule = /*#__PURE__*/_createClass2(function _ObserversModule() {
         _classCallCheck(this, _ObserversModule);
-      };
+      });
 
       _ObserversModule.ɵfac = function ObserversModule_Factory(t) {
         return new (t || _ObserversModule)();
@@ -90969,7 +90969,7 @@
        */
 
 
-      var _Platform = function _Platform(_platformId) {
+      var _Platform = /*#__PURE__*/_createClass2(function _Platform(_platformId) {
         _classCallCheck(this, _Platform);
 
         this._platformId = _platformId; // We want to use the Angular platform check because if the Document is shimmed
@@ -91014,7 +91014,7 @@
         /** Whether the current browser is Safari. */
 
         this.SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
-      };
+      });
 
       _Platform.ɵfac = function Platform_Factory(t) {
         return new (t || _Platform)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__.PLATFORM_ID));
@@ -91051,9 +91051,9 @@
        */
 
 
-      var _PlatformModule = function _PlatformModule() {
+      var _PlatformModule = /*#__PURE__*/_createClass2(function _PlatformModule() {
         _classCallCheck(this, _PlatformModule);
-      };
+      });
 
       _PlatformModule.ɵfac = function PlatformModule_Factory(t) {
         return new (t || _PlatformModule)();
@@ -91452,7 +91452,7 @@
           this._elementRef = _elementRef;
         }
 
-        return _class;
+        return _createClass2(_class);
       }())));
       /**
        * Material design button.
@@ -91817,9 +91817,9 @@
        */
 
 
-      var _MatButtonModule = function _MatButtonModule() {
+      var _MatButtonModule = /*#__PURE__*/_createClass2(function _MatButtonModule() {
         _classCallCheck(this, _MatButtonModule);
-      };
+      });
 
       _MatButtonModule.ɵfac = function MatButtonModule_Factory(t) {
         return new (t || _MatButtonModule)();
@@ -92040,9 +92040,9 @@
       var _c4 = [[["mat-card-title"], ["mat-card-subtitle"], ["", "mat-card-title", ""], ["", "mat-card-subtitle", ""], ["", "matCardTitle", ""], ["", "matCardSubtitle", ""]], [["img"]], "*"];
       var _c5 = ["mat-card-title, mat-card-subtitle,\n      [mat-card-title], [mat-card-subtitle],\n      [matCardTitle], [matCardSubtitle]", "img", "*"];
 
-      var _MatCardContent = function _MatCardContent() {
+      var _MatCardContent = /*#__PURE__*/_createClass2(function _MatCardContent() {
         _classCallCheck(this, _MatCardContent);
-      };
+      });
 
       _MatCardContent.ɵfac = function MatCardContent_Factory(t) {
         return new (t || _MatCardContent)();
@@ -92071,9 +92071,9 @@
        */
 
 
-      var _MatCardTitle = function _MatCardTitle() {
+      var _MatCardTitle = /*#__PURE__*/_createClass2(function _MatCardTitle() {
         _classCallCheck(this, _MatCardTitle);
-      };
+      });
 
       _MatCardTitle.ɵfac = function MatCardTitle_Factory(t) {
         return new (t || _MatCardTitle)();
@@ -92102,9 +92102,9 @@
        */
 
 
-      var _MatCardSubtitle = function _MatCardSubtitle() {
+      var _MatCardSubtitle = /*#__PURE__*/_createClass2(function _MatCardSubtitle() {
         _classCallCheck(this, _MatCardSubtitle);
-      };
+      });
 
       _MatCardSubtitle.ɵfac = function MatCardSubtitle_Factory(t) {
         return new (t || _MatCardSubtitle)();
@@ -92133,12 +92133,12 @@
        */
 
 
-      var _MatCardActions = function _MatCardActions() {
+      var _MatCardActions = /*#__PURE__*/_createClass2(function _MatCardActions() {
         _classCallCheck(this, _MatCardActions);
 
         /** Position of the actions inside the card. */
         this.align = 'start';
-      };
+      });
 
       _MatCardActions.ɵfac = function MatCardActions_Factory(t) {
         return new (t || _MatCardActions)();
@@ -92183,9 +92183,9 @@
        */
 
 
-      var _MatCardFooter = function _MatCardFooter() {
+      var _MatCardFooter = /*#__PURE__*/_createClass2(function _MatCardFooter() {
         _classCallCheck(this, _MatCardFooter);
-      };
+      });
 
       _MatCardFooter.ɵfac = function MatCardFooter_Factory(t) {
         return new (t || _MatCardFooter)();
@@ -92214,9 +92214,9 @@
        */
 
 
-      var _MatCardImage = function _MatCardImage() {
+      var _MatCardImage = /*#__PURE__*/_createClass2(function _MatCardImage() {
         _classCallCheck(this, _MatCardImage);
-      };
+      });
 
       _MatCardImage.ɵfac = function MatCardImage_Factory(t) {
         return new (t || _MatCardImage)();
@@ -92245,9 +92245,9 @@
        */
 
 
-      var _MatCardSmImage = function _MatCardSmImage() {
+      var _MatCardSmImage = /*#__PURE__*/_createClass2(function _MatCardSmImage() {
         _classCallCheck(this, _MatCardSmImage);
-      };
+      });
 
       _MatCardSmImage.ɵfac = function MatCardSmImage_Factory(t) {
         return new (t || _MatCardSmImage)();
@@ -92276,9 +92276,9 @@
        */
 
 
-      var _MatCardMdImage = function _MatCardMdImage() {
+      var _MatCardMdImage = /*#__PURE__*/_createClass2(function _MatCardMdImage() {
         _classCallCheck(this, _MatCardMdImage);
-      };
+      });
 
       _MatCardMdImage.ɵfac = function MatCardMdImage_Factory(t) {
         return new (t || _MatCardMdImage)();
@@ -92307,9 +92307,9 @@
        */
 
 
-      var _MatCardLgImage = function _MatCardLgImage() {
+      var _MatCardLgImage = /*#__PURE__*/_createClass2(function _MatCardLgImage() {
         _classCallCheck(this, _MatCardLgImage);
-      };
+      });
 
       _MatCardLgImage.ɵfac = function MatCardLgImage_Factory(t) {
         return new (t || _MatCardLgImage)();
@@ -92338,9 +92338,9 @@
        */
 
 
-      var _MatCardXlImage = function _MatCardXlImage() {
+      var _MatCardXlImage = /*#__PURE__*/_createClass2(function _MatCardXlImage() {
         _classCallCheck(this, _MatCardXlImage);
-      };
+      });
 
       _MatCardXlImage.ɵfac = function MatCardXlImage_Factory(t) {
         return new (t || _MatCardXlImage)();
@@ -92369,9 +92369,9 @@
        */
 
 
-      var _MatCardAvatar = function _MatCardAvatar() {
+      var _MatCardAvatar = /*#__PURE__*/_createClass2(function _MatCardAvatar() {
         _classCallCheck(this, _MatCardAvatar);
-      };
+      });
 
       _MatCardAvatar.ɵfac = function MatCardAvatar_Factory(t) {
         return new (t || _MatCardAvatar)();
@@ -92407,12 +92407,12 @@
        */
 
 
-      var _MatCard = // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
+      var _MatCard = /*#__PURE__*/_createClass2( // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
       function _MatCard(_animationMode) {
         _classCallCheck(this, _MatCard);
 
         this._animationMode = _animationMode;
-      };
+      });
 
       _MatCard.ɵfac = function MatCard_Factory(t) {
         return new (t || _MatCard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__.ANIMATION_MODULE_TYPE, 8));
@@ -92480,9 +92480,9 @@
        */
 
 
-      var _MatCardHeader = function _MatCardHeader() {
+      var _MatCardHeader = /*#__PURE__*/_createClass2(function _MatCardHeader() {
         _classCallCheck(this, _MatCardHeader);
-      };
+      });
 
       _MatCardHeader.ɵfac = function MatCardHeader_Factory(t) {
         return new (t || _MatCardHeader)();
@@ -92536,9 +92536,9 @@
        */
 
 
-      var _MatCardTitleGroup = function _MatCardTitleGroup() {
+      var _MatCardTitleGroup = /*#__PURE__*/_createClass2(function _MatCardTitleGroup() {
         _classCallCheck(this, _MatCardTitleGroup);
-      };
+      });
 
       _MatCardTitleGroup.ɵfac = function MatCardTitleGroup_Factory(t) {
         return new (t || _MatCardTitleGroup)();
@@ -92593,9 +92593,9 @@
        */
 
 
-      var _MatCardModule = function _MatCardModule() {
+      var _MatCardModule = /*#__PURE__*/_createClass2(function _MatCardModule() {
         _classCallCheck(this, _MatCardModule);
-      };
+      });
 
       _MatCardModule.ɵfac = function MatCardModule_Factory(t) {
         return new (t || _MatCardModule)();
@@ -93121,9 +93121,9 @@
 
       /** @docs-private */
 
-      var _AnimationCurves = function _AnimationCurves() {
+      var _AnimationCurves = /*#__PURE__*/_createClass2(function _AnimationCurves() {
         _classCallCheck(this, _AnimationCurves);
-      };
+      });
 
       _AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
       _AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
@@ -93131,9 +93131,9 @@
       _AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
       /** @docs-private */
 
-      var _AnimationDurations = function _AnimationDurations() {
+      var _AnimationDurations = /*#__PURE__*/_createClass2(function _AnimationDurations() {
         _classCallCheck(this, _AnimationDurations);
-      };
+      });
 
       _AnimationDurations.COMPLEX = '375ms';
       _AnimationDurations.ENTERING = '225ms';
@@ -94161,9 +94161,9 @@
        * found in the LICENSE file at https://angular.io/license
        */
 
-      var _NativeDateModule = function _NativeDateModule() {
+      var _NativeDateModule = /*#__PURE__*/_createClass2(function _NativeDateModule() {
         _classCallCheck(this, _NativeDateModule);
-      };
+      });
 
       _NativeDateModule.ɵfac = function NativeDateModule_Factory(t) {
         return new (t || _NativeDateModule)();
@@ -94193,9 +94193,9 @@
         }], null, null);
       })();
 
-      var _MatNativeDateModule = function _MatNativeDateModule() {
+      var _MatNativeDateModule = /*#__PURE__*/_createClass2(function _MatNativeDateModule() {
         _classCallCheck(this, _MatNativeDateModule);
-      };
+      });
 
       _MatNativeDateModule.ɵfac = function MatNativeDateModule_Factory(t) {
         return new (t || _MatNativeDateModule)();
@@ -94315,9 +94315,9 @@
        */
 
 
-      var _MatLine = function _MatLine() {
+      var _MatLine = /*#__PURE__*/_createClass2(function _MatLine() {
         _classCallCheck(this, _MatLine);
-      };
+      });
 
       _MatLine.ɵfac = function MatLine_Factory(t) {
         return new (t || _MatLine)();
@@ -94370,9 +94370,9 @@
         element.nativeElement.classList.toggle(className, isAdd);
       }
 
-      var _MatLineModule = function _MatLineModule() {
+      var _MatLineModule = /*#__PURE__*/_createClass2(function _MatLineModule() {
         _classCallCheck(this, _MatLineModule);
-      };
+      });
 
       _MatLineModule.ɵfac = function MatLineModule_Factory(t) {
         return new (t || _MatLineModule)();
@@ -95040,9 +95040,9 @@
        */
 
 
-      var _MatRippleModule = function _MatRippleModule() {
+      var _MatRippleModule = /*#__PURE__*/_createClass2(function _MatRippleModule() {
         _classCallCheck(this, _MatRippleModule);
-      };
+      });
 
       _MatRippleModule.ɵfac = function MatRippleModule_Factory(t) {
         return new (t || _MatRippleModule)();
@@ -95088,7 +95088,7 @@
        */
 
 
-      var _MatPseudoCheckbox = function _MatPseudoCheckbox(_animationMode) {
+      var _MatPseudoCheckbox = /*#__PURE__*/_createClass2(function _MatPseudoCheckbox(_animationMode) {
         _classCallCheck(this, _MatPseudoCheckbox);
 
         this._animationMode = _animationMode;
@@ -95098,7 +95098,7 @@
         /** Whether the checkbox is disabled. */
 
         this.disabled = false;
-      };
+      });
 
       _MatPseudoCheckbox.ɵfac = function MatPseudoCheckbox_Factory(t) {
         return new (t || _MatPseudoCheckbox)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_10__.ANIMATION_MODULE_TYPE, 8));
@@ -95171,9 +95171,9 @@
        */
 
 
-      var _MatPseudoCheckboxModule = function _MatPseudoCheckboxModule() {
+      var _MatPseudoCheckboxModule = /*#__PURE__*/_createClass2(function _MatPseudoCheckboxModule() {
         _classCallCheck(this, _MatPseudoCheckboxModule);
-      };
+      });
 
       _MatPseudoCheckboxModule.ɵfac = function MatPseudoCheckboxModule_Factory(t) {
         return new (t || _MatPseudoCheckboxModule)();
@@ -95238,7 +95238,7 @@
           _classCallCheck(this, _class8);
         }
 
-        return _class8;
+        return _createClass2(_class8);
       }()); // Counter for unique group ids.
 
 
@@ -95264,7 +95264,7 @@
           return _this222;
         }
 
-        return _MatOptgroupBase2;
+        return _createClass2(_MatOptgroupBase2);
       }(_MatOptgroupMixinBase);
 
       _MatOptgroupBase2.ɵfac = function _MatOptgroupBase_Factory(t) {
@@ -95322,7 +95322,7 @@
           return _super81.apply(this, arguments);
         }
 
-        return _MatOptgroup;
+        return _createClass2(_MatOptgroup);
       }(_MatOptgroupBase2);
 
       _MatOptgroup.ɵfac = /* @__PURE__ */function () {
@@ -95426,7 +95426,7 @@
       var _uniqueIdCounter = 0;
       /** Event object emitted by MatOption when selected or deselected. */
 
-      var _MatOptionSelectionChange = function _MatOptionSelectionChange(
+      var _MatOptionSelectionChange = /*#__PURE__*/_createClass2(function _MatOptionSelectionChange(
       /** Reference to the option that emitted the event. */
       source) {
         var isUserInput = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -95435,7 +95435,7 @@
 
         this.source = source;
         this.isUserInput = isUserInput;
-      };
+      });
 
       var _MatOptionBase2 = /*#__PURE__*/function () {
         function _MatOptionBase2(_element, _changeDetectorRef, _parent, group) {
@@ -95741,7 +95741,7 @@
           return _super82.call(this, element, changeDetectorRef, parent, group);
         }
 
-        return _MatOption;
+        return _createClass2(_MatOption);
       }(_MatOptionBase2);
 
       _MatOption.ɵfac = function MatOption_Factory(t) {
@@ -95916,9 +95916,9 @@
        */
 
 
-      var _MatOptionModule = function _MatOptionModule() {
+      var _MatOptionModule = /*#__PURE__*/_createClass2(function _MatOptionModule() {
         _classCallCheck(this, _MatOptionModule);
-      };
+      });
 
       _MatOptionModule.ɵfac = function MatOptionModule_Factory(t) {
         return new (t || _MatOptionModule)();
@@ -96050,12 +96050,12 @@
           this._elementRef = _elementRef;
         }
 
-        return _class9;
+        return _createClass2(_class9);
       }());
 
-      var _MatToolbarRow = function _MatToolbarRow() {
+      var _MatToolbarRow = /*#__PURE__*/_createClass2(function _MatToolbarRow() {
         _classCallCheck(this, _MatToolbarRow);
-      };
+      });
 
       _MatToolbarRow.ɵfac = function MatToolbarRow_Factory(t) {
         return new (t || _MatToolbarRow)();
@@ -96244,9 +96244,9 @@
        */
 
 
-      var _MatToolbarModule = function _MatToolbarModule() {
+      var _MatToolbarModule = /*#__PURE__*/_createClass2(function _MatToolbarModule() {
         _classCallCheck(this, _MatToolbarModule);
-      };
+      });
 
       _MatToolbarModule.ɵfac = function MatToolbarModule_Factory(t) {
         return new (t || _MatToolbarModule)();

@@ -49,8 +49,13 @@ const appRoutes = [
     },
     {
         // tslint:disable-next-line:typedef
-        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_donmahallem_sudoku_dist_esm_index_js"), __webpack_require__.e("common"), __webpack_require__.e("src_app_routes_sudoku_sudoku_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./routes/sudoku/sudoku.module */ 57262)).then((m) => m.SudokuModule),
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_donmahallem_sudoku_dist_esm_index_js"), __webpack_require__.e("default-node_modules_pixi_app_dist_esm_app_js-node_modules_angular_material_fesm2015_icon_mjs"), __webpack_require__.e("common"), __webpack_require__.e("src_app_routes_sudoku_sudoku_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./routes/sudoku/sudoku.module */ 57262)).then((m) => m.SudokuModule),
         path: 'sudoku',
+    },
+    {
+        // tslint:disable-next-line:typedef
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_pixi_app_dist_esm_app_js-node_modules_angular_material_fesm2015_icon_mjs"), __webpack_require__.e("src_app_routes_tank-call_tank-call_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./routes/tank-call/tank-call.module */ 9481)).then((m) => m.TankCallModule),
+        path: 'tank-call',
     },
     {
         component: _modules_not_found__WEBPACK_IMPORTED_MODULE_1__.NotFoundComponent,
