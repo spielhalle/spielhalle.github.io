@@ -11518,9 +11518,9 @@ var NoiseFilter = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ 72859:
-/*!**********************************************************!*\
-  !*** ./node_modules/@pixi/graphics/dist/esm/graphics.js ***!
-  \**********************************************************/
+/*!**********************!*\
+  !*** @pixi/graphics ***!
+  \**********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -24203,9 +24203,9 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ 35360:
-/*!******************************************************!*\
-  !*** ./node_modules/@pixi/sprite/dist/esm/sprite.js ***!
-  \******************************************************/
+/*!********************!*\
+  !*** @pixi/sprite ***!
+  \********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -26899,9 +26899,9 @@ var BitmapFontLoader = /** @class */ (function () {
 /***/ }),
 
 /***/ 44420:
-/*!**************************************************!*\
-  !*** ./node_modules/@pixi/text/dist/esm/text.js ***!
-  \**************************************************/
+/*!******************!*\
+  !*** @pixi/text ***!
+  \******************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
