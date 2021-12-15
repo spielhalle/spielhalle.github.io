@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 34122);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 53399);
 /**
- * @license Angular v12.2.14
+ * @license Angular v12.2.15
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7502,7 +7502,7 @@ FormBuilder.ɵprov = (0,_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 /**
  * @publicApi
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.14');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.15');
 
 /**
  * @license
@@ -11518,9 +11518,9 @@ var NoiseFilter = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ 72859:
-/*!**********************!*\
-  !*** @pixi/graphics ***!
-  \**********************/
+/*!**********************************************************!*\
+  !*** ./node_modules/@pixi/graphics/dist/esm/graphics.js ***!
+  \**********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -24203,9 +24203,9 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ 35360:
-/*!********************!*\
-  !*** @pixi/sprite ***!
-  \********************/
+/*!******************************************************!*\
+  !*** ./node_modules/@pixi/sprite/dist/esm/sprite.js ***!
+  \******************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -26899,9 +26899,9 @@ var BitmapFontLoader = /** @class */ (function () {
 /***/ }),
 
 /***/ 44420:
-/*!******************!*\
-  !*** @pixi/text ***!
-  \******************/
+/*!**************************************************!*\
+  !*** ./node_modules/@pixi/text/dist/esm/text.js ***!
+  \**************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);

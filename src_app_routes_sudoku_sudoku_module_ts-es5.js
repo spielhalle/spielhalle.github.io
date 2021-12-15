@@ -830,7 +830,7 @@
       /*! rxjs/operators */
       53399);
       /**
-       * @license Angular v12.2.14
+       * @license Angular v12.2.15
        * (c) 2010-2021 Google LLC. https://angular.io/
        * License: MIT
        */
@@ -11502,7 +11502,7 @@
        */
 
 
-      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.14');
+      var _VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('12.2.15');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -16346,9 +16346,9 @@
 
     /***/
     72859:
-    /*!**********************!*\
-      !*** @pixi/graphics ***!
-      \**********************/
+    /*!**********************************************************!*\
+      !*** ./node_modules/@pixi/graphics/dist/esm/graphics.js ***!
+      \**********************************************************/
 
     /***/
     function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -31235,9 +31235,9 @@
 
     /***/
     35360:
-    /*!********************!*\
-      !*** @pixi/sprite ***!
-      \********************/
+    /*!******************************************************!*\
+      !*** ./node_modules/@pixi/sprite/dist/esm/sprite.js ***!
+      \******************************************************/
 
     /***/
     function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -34423,9 +34423,9 @@
 
     /***/
     44420:
-    /*!******************!*\
-      !*** @pixi/text ***!
-      \******************/
+    /*!**************************************************!*\
+      !*** ./node_modules/@pixi/text/dist/esm/text.js ***!
+      \**************************************************/
 
     /***/
     function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
