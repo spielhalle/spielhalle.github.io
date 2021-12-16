@@ -11518,9 +11518,9 @@ var NoiseFilter = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ 72859:
-/*!**********************************************************!*\
-  !*** ./node_modules/@pixi/graphics/dist/esm/graphics.js ***!
-  \**********************************************************/
+/*!**********************!*\
+  !*** @pixi/graphics ***!
+  \**********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -24203,9 +24203,9 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ 35360:
-/*!******************************************************!*\
-  !*** ./node_modules/@pixi/sprite/dist/esm/sprite.js ***!
-  \******************************************************/
+/*!********************!*\
+  !*** @pixi/sprite ***!
+  \********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -26899,9 +26899,9 @@ var BitmapFontLoader = /** @class */ (function () {
 /***/ }),
 
 /***/ 44420:
-/*!**************************************************!*\
-  !*** ./node_modules/@pixi/text/dist/esm/text.js ***!
-  \**************************************************/
+/*!******************!*\
+  !*** @pixi/text ***!
+  \******************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -36478,7 +36478,7 @@ class CdkPortalOutlet extends BasePortalOutlet {
       super.attach(portal);
     }
 
-    this._attachedPortal = portal;
+    this._attachedPortal = portal || null;
   }
   /** Component or view reference that is attached to the portal. */
 
@@ -39413,6 +39413,14 @@ _CoalescedStyleScheduler.ɵprov = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED
     }];
   }, null);
 })();
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
 /**
  * The row template that can be used by the mat-table. Should not be used outside of the
  * material library.

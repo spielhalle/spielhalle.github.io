@@ -62511,7 +62511,7 @@ __webpack_require__.r(__webpack_exports__);
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of the Angular Component Development Kit. */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.1');
 
 /**
  * @license
@@ -64911,7 +64911,7 @@ function MatOption_span_3_Template(rf, ctx) {
 }
 
 const _c2 = ["*"];
-const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
+const VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.1');
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -64939,7 +64939,7 @@ AnimationDurations.EXITING = '195ms'; // Private version constant to circumvent 
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
 
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.1');
 /** @docs-private */
 
 function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -66754,7 +66754,15 @@ MatPseudoCheckboxModule.ɵinj = /* @__PURE__ */_angular_core__WEBPACK_IMPORTED_M
  */
 
 
-const MAT_OPTION_PARENT_COMPONENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectionToken('MAT_OPTION_PARENT_COMPONENT'); // Notes on the accessibility pattern used for `mat-optgroup`.
+const MAT_OPTION_PARENT_COMPONENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Notes on the accessibility pattern used for `mat-optgroup`.
 // The option group has two different "modes": regular and inert. The regular mode uses the
 // recommended a11y pattern which has `role="group"` on the group element with `aria-labelledby`
 // pointing to the label. This works for `mat-select`, but it seems to hit a bug for autocomplete
@@ -66992,7 +67000,7 @@ class _MatOptionBase {
 
 
   get disableRipple() {
-    return this._parent && this._parent.disableRipple;
+    return !!(this._parent && this._parent.disableRipple);
   }
   /**
    * Whether or not the option is currently active and ready to be selected.

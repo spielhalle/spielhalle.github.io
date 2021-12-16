@@ -16346,9 +16346,9 @@
 
     /***/
     72859:
-    /*!**********************************************************!*\
-      !*** ./node_modules/@pixi/graphics/dist/esm/graphics.js ***!
-      \**********************************************************/
+    /*!**********************!*\
+      !*** @pixi/graphics ***!
+      \**********************/
 
     /***/
     function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -31235,9 +31235,9 @@
 
     /***/
     35360:
-    /*!******************************************************!*\
-      !*** ./node_modules/@pixi/sprite/dist/esm/sprite.js ***!
-      \******************************************************/
+    /*!********************!*\
+      !*** @pixi/sprite ***!
+      \********************/
 
     /***/
     function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -34423,9 +34423,9 @@
 
     /***/
     44420:
-    /*!**************************************************!*\
-      !*** ./node_modules/@pixi/text/dist/esm/text.js ***!
-      \**************************************************/
+    /*!******************!*\
+      !*** @pixi/text ***!
+      \******************/
 
     /***/
     function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -48303,7 +48303,7 @@
               _get(_getPrototypeOf(_CdkPortalOutlet.prototype), "attach", this).call(this, portal);
             }
 
-            this._attachedPortal = portal;
+            this._attachedPortal = portal || null;
           }
           /** Component or view reference that is attached to the portal. */
 
@@ -52132,6 +52132,14 @@
           }];
         }, null);
       })();
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
+
       /**
        * The row template that can be used by the mat-table. Should not be used outside of the
        * material library.

@@ -88955,7 +88955,7 @@
       /** Current version of the Angular Component Development Kit. */
 
 
-      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
+      var _VERSION5 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -93110,7 +93110,7 @@
       }
 
       var _c2 = ["*"];
-      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
+      var VERSION$1 = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.1');
       /**
        * @license
        * Copyright Google LLC All Rights Reserved.
@@ -93142,7 +93142,7 @@
       // Can be removed once the Material primary entry-point no longer
       // re-exports all secondary entry-points
 
-      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.0');
+      var VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.Version('13.1.1');
       /** @docs-private */
 
       function MATERIAL_SANITY_CHECKS_FACTORY() {
@@ -95209,7 +95209,15 @@
        */
 
 
-      var _MAT_OPTION_PARENT_COMPONENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectionToken('MAT_OPTION_PARENT_COMPONENT'); // Notes on the accessibility pattern used for `mat-optgroup`.
+      var _MAT_OPTION_PARENT_COMPONENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
+      // Notes on the accessibility pattern used for `mat-optgroup`.
       // The option group has two different "modes": regular and inert. The regular mode uses the
       // recommended a11y pattern which has `role="group"` on the group element with `aria-labelledby`
       // pointing to the label. This works for `mat-select`, but it seems to hit a bug for autocomplete
@@ -95490,7 +95498,7 @@
         }, {
           key: "disableRipple",
           get: function get() {
-            return this._parent && this._parent.disableRipple;
+            return !!(this._parent && this._parent.disableRipple);
           }
           /**
            * Whether or not the option is currently active and ready to be selected.
